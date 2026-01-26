@@ -1,0 +1,198 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-01-26",
+  "municipalities": [
+    {
+      "id": "AVEIRO",
+      "name": "Aveiro",
+      "region": "Norte Litoral",
+      "instruments": [
+        {
+          "instrumentId": "AVEIRO_PDM",
+          "type": "PDM",
+          "title": "Plano Diretor Municipal (PDM) — Aveiro",
+          "status": "active",
+          "sources": [
+            {
+              "sourceId": "AVEIRO_PDM_PORTAL",
+              "docType": "PORTAL",
+              "topics": ["pdm", "zonamento", "condicionantes"],
+              "officialUrl": "https://www.cm-aveiro.pt/servicos/planeamento/planeamento-territorial/pmot/plano-diretor-municipal",
+              "drUrl": "",
+              "notes": "Página municipal agregadora"
+            },
+            {
+              "sourceId": "AVEIRO_PDM_REVISAO_PORTAL",
+              "docType": "PORTAL",
+              "topics": ["pdm", "regulamento", "plantas"],
+              "officialUrl": "https://www.cm-aveiro.pt/servicos/planeamento/planeamento-territorial/pmot/plano-diretor-municipal/1-revisao-do-plano-diretor-municipal-de-aveiro",
+              "drUrl": "",
+              "notes": "Página de revisão (links internos)"
+            },
+            {
+              "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF",
+              "docType": "REGULAMENTO",
+              "topics": ["pdm", "usos", "indices", "implantacao", "construcao", "afastamentos", "cedencias", "estacionamento", "muros"],
+              "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf",
+              "drUrl": "",
+              "notes": "PDF do regulamento do PDM (validar se é a version em vigor)"
+            }
+          ]
+        },
+        {
+          "instrumentId": "AVEIRO_RMUE",
+          "type": "RMUE",
+          "title": "Regulamento municipal de urbanização e edificação — Aveiro",
+          "status": "active",
+          "sources": [
+            {
+              "sourceId": "AVEIRO_RMUE_DR_975_2022",
+              "docType": "REGULAMENTO_DR",
+              "topics": ["urbanizacao", "edificacao", "muros", "procedimentos"],
+              "officialUrl": "https://diariodarepublica.pt/dr/detalhe/regulamento/975-2022-202281135",
+              "drUrl": "https://diariodarepublica.pt/dr/detalhe/regulamento/975-2022-202281135",
+              "notes": "Texto oficial em Diário da República"
+            }
+          ]
+        }
+      ],
+      "externalAuthorities": [
+        { "id": "DR", "title": "Diário da República", "officialUrl": "https://diariodarepublica.pt/dr/home" }
+      ]
+    },
+    {
+      "id": "ILHAVO",
+      "name": "Ílhavo",
+      "region": "Norte Litoral",
+      "instruments": [
+        {
+          "instrumentId": "ILHAVO_PDM",
+          "type": "PDM",
+          "title": "Plano Diretor Municipal (PDM) — Ílhavo",
+          "status": "active",
+          "sources": [
+            {
+              "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL",
+              "docType": "PORTAL",
+              "topics": ["pdm", "regulamento", "plantas", "condicionantes", "zonamento"],
+              "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor",
+              "drUrl": "",
+              "notes": "Página municipal com regulamento/plantas em vigor"
+            },
+            {
+              "sourceId": "ILHAVO_PDM_DR_AVISO_8347_2023",
+              "docType": "AVISO_DR",
+              "topics": ["pdm"],
+              "officialUrl": "https://diariodarepublica.pt/dr/detalhe/aviso/8347-2023-212202750",
+              "drUrl": "https://diariodarepublica.pt/dr/detalhe/aviso/8347-2023-212202750",
+              "notes": "Aviso DR com referência a regulamento e plantas"
+            }
+          ]
+        }
+      ],
+      "externalAuthorities": [
+        { "id": "DR", "title": "Diário da República", "officialUrl": "https://diariodarepublica.pt/dr/home" }
+      ]
+    },
+    {
+      "id": "VAGOS",
+      "name": "Vagos",
+      "region": "Norte Litoral",
+      "instruments": [
+        {
+          "instrumentId": "VAGOS_PDM",
+          "type": "PDM",
+          "title": "Plano Diretor Municipal (PDM) — Vagos",
+          "status": "active",
+          "sources": [
+            {
+              "sourceId": "VAGOS_PDM_PORTAL",
+              "docType": "PORTAL",
+              "topics": ["pdm", "regulamento", "plantas", "condicionantes"],
+              "officialUrl": "https://www.cm-vagos.pt/viver/planeamento-e-ordenamento-do-territorio/planos-municipais-de-vagos/plano-diretor-municipal",
+              "drUrl": "",
+              "notes": "Página municipal do PDM"
+            },
+            {
+              "sourceId": "VAGOS_PDM_REGULAMENTO_PDF",
+              "docType": "REGULAMENTO",
+              "topics": ["pdm", "usos", "indices", "implantacao", "construcao", "afastamentos", "cedencias", "estacionamento", "muros"],
+              "officialUrl": "https://www.cm-vagos.pt/cmvagos/uploads/document/file/5846/regulamento.pdf",
+              "drUrl": "",
+              "notes": "Regulamento PDF (validar versão indicada na página do PDM)"
+            },
+            {
+              "sourceId": "VAGOS_PDM_DR_AVISO_23602_2021",
+              "docType": "AVISO_DR",
+              "topics": ["pdm"],
+              "officialUrl": "https://diariodarepublica.pt/dr/detalhe/aviso/23602-2021-176348921",
+              "drUrl": "https://diariodarepublica.pt/dr/detalhe/aviso/23602-2021-176348921",
+              "notes": "Aviso DR com referência ao regulamento e anexos"
+            }
+          ]
+        }
+      ],
+      "externalAuthorities": [
+        { "id": "DR", "title": "Diário da República", "officialUrl": "https://diariodarepublica.pt/dr/home" }
+      ]
+    },
+    {
+      "id": "ALBERGARIA",
+      "name": "Albergaria-a-Velha",
+      "region": "Norte Litoral",
+      "instruments": [
+        {
+          "instrumentId": "ALBERGARIA_PDM",
+          "type": "PDM",
+          "title": "Plano Diretor Municipal (PDM) — Albergaria-a-Velha",
+          "status": "active",
+          "sources": [
+            {
+              "sourceId": "ALBERGARIA_PDM_PORTAL",
+              "docType": "PORTAL",
+              "topics": ["pdm", "regulamento", "plantas", "condicionantes"],
+              "officialUrl": "https://www.cm-albergaria.pt/viver/planeamento-gestao-urbanistica-e-requalificacao-urbana/planos-municipais-de-ordenamento-do-territorio-pmot-s/plano-diretor-municipal",
+              "drUrl": "",
+              "notes": "Página municipal do PDM"
+            },
+            {
+              "sourceId": "ALBERGARIA_PDM_REGULAMENTO_PORTAL",
+              "docType": "REGULAMENTO",
+              "topics": ["pdm", "usos", "indices", "implantacao", "construcao", "afastamentos", "cedencias", "estacionamento", "muros"],
+              "officialUrl": "https://www.cm-albergaria.pt/viver/planeamento-gestao-urbanistica-e-requalificacao-urbana/planos-municipais-de-ordenamento-do-territorio-pmot-s/plano-diretor-municipal/elementos-fundamentais/regulamento",
+              "drUrl": "",
+              "notes": "Página do regulamento (pode conter downloads)"
+            }
+          ]
+        },
+        {
+          "instrumentId": "ALBERGARIA_TAXAS_URBANIZACAO",
+          "type": "REGULAMENTO_MUNICIPAL",
+          "title": "Taxas de urbanização/edificação — Albergaria-a-Velha",
+          "status": "active",
+          "sources": [
+            {
+              "sourceId": "ALBERGARIA_TAXAS_DR_444_2024",
+              "docType": "REGULAMENTO_DR",
+              "topics": ["taxas", "procedimentos"],
+              "officialUrl": "https://diariodarepublica.pt/dr/detalhe/regulamento/444-2024-860753448",
+              "drUrl": "https://diariodarepublica.pt/dr/detalhe/regulamento/444-2024-860753448",
+              "notes": "Regulamento (taxas) — útil para consulta rápida"
+            },
+            {
+              "sourceId": "ALBERGARIA_REGULAMENTOS_ONLINE",
+              "docType": "PORTAL",
+              "topics": ["regulamentos"],
+              "officialUrl": "https://www.cm-albergaria.pt/municipio/camara-municipal/regulamentos-online",
+              "drUrl": "",
+              "notes": "Índice municipal de regulamentos"
+            }
+          ]
+        }
+      ],
+      "externalAuthorities": [
+        { "id": "DR", "title": "Diário da República", "officialUrl": "https://diariodarepublica.pt/dr/home" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "topics": [
+    { "id": "pdm", "labelPT": "PDM", "labelEN": "Master Plan" },
+    { "id": "afastamentos", "labelPT": "Afastamentos", "labelEN": "Setbacks" },
+    { "id": "implantacao", "labelPT": "Implantação", "labelEN": "Footprint" },
+    { "id": "construcao", "labelPT": "Construção", "labelEN": "Gross Area" },
+    { "id": "estacionamento", "labelPT": "Estacionamento", "labelEN": "Parking" },
+    { "id": "cedencias", "labelPT": "Cedências", "labelEN": "Dedications" },
+    { "id": "muros", "labelPT": "Muros", "labelEN": "Walls/Fences" }
+  ]
+}

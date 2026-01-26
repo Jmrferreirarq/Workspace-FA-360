@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-01-26",
+  "municipalities": [
+    {
+      "id": "AVEIRO",
+      "name": "Aveiro",
+      "sources": [
+        {
+          "sourceId": "AVEIRO_PDM_MAIN",
+          "title": "PDM Aveiro — Regulamento (Regulamento n.º 214/2021)",
+          "type": "PDM",
+          "topics": ["pdm", "indices", "implantacao", "construcao", "afastamentos", "estacionamento"],
+          "officialUrl": "https://www.cm-aveiro.pt/servicos/pdm/plano-diretor-municipal-de-aveiro",
+          "drUrl": "https://dre.pt/dre/detalhe/regulamento/214-2021-158302061",
+          "notes": "Regulamento em vigor publicado em Diário da República.",
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "id": "ILHAVO",
+      "name": "Ílhavo",
+      "sources": [
+        {
+          "sourceId": "ILHAVO_PDM",
+          "title": "PDM Ílhavo — Regulamento",
+          "type": "PDM",
+          "topics": ["pdm", "indices", "afastamentos"],
+          "officialUrl": "https://www.cm-ilhavo.pt/viver/planeamento-territorial/plano-diretor-municipal",
+          "drUrl": "",
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "id": "VAGOS",
+      "name": "Vagos",
+      "sources": [
+        {
+          "sourceId": "VAGOS_PDM",
+          "title": "PDM Vagos — Regulamento",
+          "type": "PDM",
+          "topics": ["pdm", "construcao"],
+          "officialUrl": "https://www.cm-vagos.pt/pdm",
+          "drUrl": "",
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "id": "ALBERGARIA",
+      "name": "Albergaria-a-Velha",
+      "sources": [
+        {
+          "sourceId": "ALBERGARIA_PDM",
+          "title": "PDM Albergaria — Regulamento",
+          "type": "PDM",
+          "topics": ["pdm", "implantacao"],
+          "officialUrl": "https://www.cm-albergaria.pt/pdm",
+          "drUrl": "",
+          "status": "active"
+        }
+      ]
+    }
+  ]
+}

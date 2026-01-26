@@ -1,0 +1,126 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-01-26",
+  "entries": [
+    {
+      "entryId": "AVEIRO__PDM__ZONAMENTO_E_USOS",
+      "municipality": "AVEIRO",
+      "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF",
+      "articleRef": "TODO",
+      "title": "Zonamento / usos permitidos",
+      "topics": ["pdm", "usos"],
+      "keywords": ["uso", "zonas", "solo", "qualificação"],
+      "excerpt": "Index para zonamento e usos (preencher artigo/tabela).",
+      "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf",
+      "confidenceDefault": "requires_confirmation"
+    },
+    {
+      "entryId": "AVEIRO__PDM__INDICES_IMPLANTACAO_CONSTRUCAO",
+      "municipality": "AVEIRO",
+      "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF",
+      "articleRef": "TODO",
+      "title": "Índices: implantação / construção",
+      "topics": ["indices", "implantacao", "construcao"],
+      "keywords": ["índice", "área", "implantação", "construção"],
+      "excerpt": "Index para índices e máximos (preencher artigo/tabela).",
+      "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf",
+      "confidenceDefault": "requires_confirmation"
+    },
+    {
+      "entryId": "AVEIRO__RMUE__EDIFICACAO_URBANIZACAO",
+      "municipality": "AVEIRO",
+      "sourceId": "AVEIRO_RMUE_DR_975_2022",
+      "articleRef": "Artigos vários (index)",
+      "title": "Regras complementares de edificação/urbanização (RMUE)",
+      "topics": ["urbanizacao", "edificacao", "muros"],
+      "keywords": ["muros", "vedações", "urbanização", "edificação"],
+      "excerpt": "Regulamento municipal (texto DR).",
+      "officialUrl": "https://diariodarepublica.pt/dr/detalhe/regulamento/975-2022-202281135",
+      "confidenceDefault": "high"
+    },
+    {
+      "entryId": "ILHAVO__PDM__REGULAMENTO_PLANTAS",
+      "municipality": "ILHAVO",
+      "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL",
+      "articleRef": "Index",
+      "title": "PDM: regulamento + plantas em vigor",
+      "topics": ["pdm"],
+      "keywords": ["regulamento", "planta", "condicionantes"],
+      "excerpt": "Página oficial com documentos do PDM em vigor.",
+      "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor",
+      "confidenceDefault": "high"
+    },
+    {
+      "entryId": "ILHAVO__PDM__AVISO_DR",
+      "municipality": "ILHAVO",
+      "sourceId": "ILHAVO_PDM_DR_AVISO_8347_2023",
+      "articleRef": "Aviso",
+      "title": "Aviso DR do PDM (referência a regulamento/plantas)",
+      "topics": ["pdm"],
+      "keywords": ["aviso", "diário da república"],
+      "excerpt": "Ato DR com referência a partes integrantes do PDM.",
+      "officialUrl": "https://diariodarepublica.pt/dr/detalhe/aviso/8347-2023-212202750",
+      "confidenceDefault": "high"
+    },
+    {
+      "entryId": "VAGOS__PDM__PORTAL",
+      "municipality": "VAGOS",
+      "sourceId": "VAGOS_PDM_PORTAL",
+      "articleRef": "Index",
+      "title": "PDM Vagos — portal municipal",
+      "topics": ["pdm"],
+      "keywords": ["pdm", "alterações", "plantas"],
+      "excerpt": "Página oficial do PDM.",
+      "officialUrl": "https://www.cm-vagos.pt/viver/planeamento-e-ordenamento-do-territorio/planos-municipais-de-vagos/plano-diretor-municipal",
+      "confidenceDefault": "high"
+    },
+    {
+      "entryId": "VAGOS__PDM__REGULAMENTO_PDF",
+      "municipality": "VAGOS",
+      "sourceId": "VAGOS_PDM_REGULAMENTO_PDF",
+      "articleRef": "TODO",
+      "title": "PDM Vagos — regulamento (PDF)",
+      "topics": ["pdm", "indices", "implantacao", "construcao", "estacionamento"],
+      "keywords": ["regulamento", "índice", "estacionamento"],
+      "excerpt": "Base normativa (validar artigo/tabela).",
+      "officialUrl": "https://www.cm-vagos.pt/cmvagos/uploads/document/file/5846/regulamento.pdf",
+      "confidenceDefault": "requires_confirmation"
+    },
+    {
+      "entryId": "VAGOS__PDM__AVISO_DR",
+      "municipality": "VAGOS",
+      "sourceId": "VAGOS_PDM_DR_AVISO_23602_2021",
+      "articleRef": "Aviso",
+      "title": "Aviso DR do PDM Vagos (anexos e regulamento)",
+      "topics": ["pdm"],
+      "keywords": ["aviso", "regulamento", "anexos"],
+      "excerpt": "Ato DR com referência a anexos (regulamento/plantas).",
+      "officialUrl": "https://diariodarepublica.pt/dr/detalhe/aviso/23602-2021-176348921",
+      "confidenceDefault": "high"
+    },
+    {
+      "entryId": "ALBERGARIA__PDM__PORTAL",
+      "municipality": "ALBERGARIA",
+      "sourceId": "ALBERGARIA_PDM_PORTAL",
+      "articleRef": "Index",
+      "title": "PDM Albergaria-a-Velha — portal municipal",
+      "topics": ["pdm"],
+      "keywords": ["pdm", "planeamento", "pmot"],
+      "excerpt": "Página oficial do PDM.",
+      "officialUrl": "https://www.cm-albergaria.pt/viver/planeamento-gestao-urbanistica-e-requalificacao-urbana/planos-municipais-de-ordenamento-do-territorio-pmot-s/plano-diretor-municipal",
+      "confidenceDefault": "high"
+    },
+    {
+      "entryId": "ALBERGARIA__PDM__REGULAMENTO",
+      "municipality": "ALBERGARIA",
+      "sourceId": "ALBERGARIA_PDM_REGULAMENTO_PORTAL",
+      "articleRef": "TODO",
+      "title": "PDM Albergaria — regulamento",
+      "topics": ["pdm", "indices", "implantacao", "construcao", "estacionamento", "afastamentos"],
+      "keywords": ["regulamento", "implantação", "construção", "estacionamento"],
+      "excerpt": "Base normativa (validar artigo/tabela).",
+      "officialUrl": "https://www.cm-albergaria.pt/viver/planeamento-gestao-urbanistica-e-requalificacao-urbana/planos-municipais-de-ordenamento-do-territorio-pmot-s/plano-diretor-municipal/elementos-fundamentais/regulamento",
+      "confidenceDefault": "requires_confirmation"
+    }
+  ]
+}

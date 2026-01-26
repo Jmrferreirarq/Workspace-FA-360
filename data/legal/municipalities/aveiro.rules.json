@@ -1,0 +1,42 @@
+{
+  "municipality": "AVEIRO",
+  "version": "1.0.0",
+  "updatedAt": "2026-01-26",
+  "rules": [
+    {
+      "ruleId": "AVEIRO_PARKING_RESIDENTIAL_BASE",
+      "topic": "estacionamento",
+      "title": "Estacionamento — Habitação (Gerador)",
+      "inputsNeeded": ["useType", "numDwellings", "areaGross"],
+      "when": { "useType": ["residential"] },
+      "compute": {
+        "type": "formula",
+        "resultParam": "parking_required",
+        "label": "Lugares de Estacionamento Obrigatórios",
+        "unit": "lugares",
+        "expression": "max(numDwellings, ceil(areaGross/120))"
+      },
+      "sourceRef": {
+        "sourceId": "AVEIRO_PDM_MAIN",
+        "articleRef": "Art. 138º / Tabela de Estacionamento",
+        "officialUrl": ""
+      },
+      "confidence": "official_reference"
+    },
+    {
+        "ruleId": "AVEIRO_HEIGHT_LIMIT_URBAN",
+        "topic": "construcao",
+        "title": "Cércea Máxima — Malha Urbana Consolidade",
+        "inputsNeeded": ["urbanZone"],
+        "when": { "urbanZone": ["central", "historical"] },
+        "compute": {
+          "type": "fixed",
+          "value": 15,
+          "unit": "m",
+          "label": "Cércea Máxima Estimada"
+        },
+        "notes": "Sujeito a conformidade com a média da envolvente (Art. 120º).",
+        "confidence": "requires_confirmation"
+    }
+  ]
+}

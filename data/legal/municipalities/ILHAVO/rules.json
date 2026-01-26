@@ -1,0 +1,35 @@
+{
+  "municipality": "ILHAVO",
+  "version": "1.0.0",
+  "updatedAt": "2026-01-26",
+  "rules": [
+    {
+      "ruleId": "ILHAVO__PDM__MAX_IMPLANTACAO",
+      "topic": "implantacao",
+      "title": "Área máxima de implantação (por zona)",
+      "inputsNeeded": ["zoneCode", "plotArea"],
+      "when": { "zoneCodeAny": ["TODO"] },
+      "compute": { "type": "table", "resultParam": "max_footprint", "unit": "m2", "table": [] },
+      "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" },
+      "confidence": "requires_confirmation"
+    },
+    {
+      "ruleId": "ILHAVO__PDM__MAX_CONSTRUCAO",
+      "topic": "construcao",
+      "title": "Área máxima de construção (por zona / índice)",
+      "inputsNeeded": ["zoneCode", "plotArea"],
+      "when": { "zoneCodeAny": ["TODO"] },
+      "compute": { "type": "formula", "resultParam": "max_gfa", "unit": "m2", "expression": "plotArea * idx_gfa" },
+      "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" },
+      "confidence": "requires_confirmation"
+    },
+    { "ruleId": "ILHAVO__PDM__AFASTAMENTOS_BASE", "topic": "afastamentos", "title": "Afastamentos mínimos", "inputsNeeded": ["zoneCode"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "setbacks_min", "unit": "m", "table": [] }, "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" }, "confidence": "requires_confirmation" },
+    { "ruleId": "ILHAVO__PDM__ESTACIONAMENTO_RES", "topic": "estacionamento", "title": "Estacionamento — Habitação", "inputsNeeded": ["numDwellings", "areaGross"], "when": { "useType": ["residential"] }, "compute": { "type": "formula", "resultParam": "parking_required", "unit": "places", "expression": "max(numDwellings, ceil(areaGross/120))" }, "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" }, "confidence": "requires_confirmation" },
+    { "ruleId": "ILHAVO__PDM__CEDENCIAS", "topic": "cedencias", "title": "Cedências (trigger)", "inputsNeeded": ["operationType"], "when": { "operationTypeAny": ["LOT", "SUBDIVISION"] }, "compute": { "type": "flag", "resultParam": "cedencias_check", "unit": "boolean", "value": true }, "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" }, "confidence": "requires_confirmation" },
+    { "ruleId": "ILHAVO__PDM__CERCAS_ALTURAS", "topic": "muros", "title": "Alturas máximas", "inputsNeeded": ["zoneCode"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "max_height", "unit": "m", "table": [] }, "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" }, "confidence": "requires_confirmation" },
+    { "ruleId": "ILHAVO__PDM__NUM_PISOS", "topic": "edificacao", "title": "Número máximo de pisos", "inputsNeeded": ["zoneCode"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "max_floors", "unit": "floors", "table": [] }, "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" }, "confidence": "requires_confirmation" },
+    { "ruleId": "ILHAVO__PDM__USOS_PERMITIDOS", "topic": "usos", "title": "Usos permitidos por zona", "inputsNeeded": ["zoneCode"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "allowed_uses", "unit": "list", "table": [] }, "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" }, "confidence": "requires_confirmation" },
+    { "ruleId": "ILHAVO__PDM__IMPERMEABILIZACAO", "topic": "condicionantes", "title": "Impermeabilização", "inputsNeeded": ["zoneCode", "plotArea"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "max_impervious", "unit": "%", "table": [] }, "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" }, "confidence": "requires_confirmation" },
+    { "ruleId": "ILHAVO__PDM__MUROS", "topic": "muros", "title": "Muros e Vedações", "inputsNeeded": ["zoneCode"], "when": { "always": true }, "compute": { "type": "reference", "resultParam": "walls_rules", "unit": "text", "value": "Consultar PDM Ílhavo" }, "sourceRef": { "sourceId": "ILHAVO_PDM_EM_VIGOR_PORTAL", "articleRef": "TODO", "officialUrl": "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/planeamento-ordenamento-e-mobilidade/planos/planos-municipais/pdm-plano-diretor-municipal/pdm-em-vigor" }, "confidence": "requires_confirmation" }
+  ]
+}

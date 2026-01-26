@@ -1,0 +1,33 @@
+
+{
+  "studio_ai_version": "1.0.0-NEURAL",
+  "owner": "Ferreira Arquitetos",
+  "agents": [
+    {
+      "id": "concierge",
+      "name": "Digital Concierge",
+      "role": "Lead Conversion & Public Relations",
+      "model": "gemini-3-flash-preview",
+      "temperature": 0.7,
+      "memory_depth": "Session-Based"
+    },
+    {
+      "id": "pilot",
+      "name": "Financial Pilot",
+      "role": "Profitability Analysis & Fiscal Strategy",
+      "model": "gemini-3-pro-preview",
+      "temperature": 0.2,
+      "memory_depth": "Historical-Ledger"
+    },
+    {
+      "id": "director",
+      "name": "Creative Director",
+      "role": "Visual Curation & Brand Voice",
+      "model": "gemini-3-pro-preview",
+      "temperature": 0.9,
+      "memory_depth": "Project-Contextual"
+    }
+  ],
+  "system_instructions_path": "/neural/prompts/",
+  "neural_link_status": "Active"
+}

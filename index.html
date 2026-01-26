@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>FERREIRA Arquitetos | FA-360</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'luxury-black': '#0A0A0A',
+            'luxury-white': '#F5F5F7',
+            'luxury-gold': '#D4AF37',
+            'luxury-charcoal': '#1C1C1E',
+            'luxury-silver': '#B0B0B0',
+            'success': '#10B981',
+            'warning': '#F59E0B',
+            'error': '#EF4444',
+            'info': '#6366F1',
+          },
+          fontFamily: {
+            sans: ['"Montserrat"', 'sans-serif'],
+            serif: ['"Montserrat"', 'sans-serif'],
+          },
+          borderRadius: {
+            'card-sm': '1rem',
+            'card-md': '2rem',
+            'card-lg': '3rem',
+            'card-xl': '4rem',
+          },
+          animation: {
+            'fade-in': 'fadeIn 1s ease-out forwards',
+            'slide-up': 'slideUp 0.5s ease-out forwards',
+            'shimmer': 'shimmer 1.5s infinite',
+            'pulse-gold': 'pulseGold 2s infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+            pulseGold: {
+              '0%, 100%': { boxShadow: '0 0 0 0 rgba(212, 175, 55, 0.4)' },
+              '50%': { boxShadow: '0 0 0 8px rgba(212, 175, 55, 0)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg-app: #F5F5F7;
+      --text-primary: #1C1C1E;
+      --bg-card: rgba(255, 255, 255, 0.75);
+      --glass-border: rgba(0, 0, 0, 0.08);
+      --primary-color: #D4AF37;
+    }
+
+    .dark {
+      --bg-app: #0A0A0A;
+      --text-primary: #F5F5F7;
+      --bg-card: rgba(28, 28, 30, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.08);
+    }
+
+    body {
+      background-color: var(--bg-app);
+      color: var(--text-primary);
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+      width: 100vw;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .glass {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .pb-safe-navbar {
+      padding-bottom: calc(100px + env(safe-area-inset-bottom));
+    }
+
+    button,
+    a {
+      touch-action: manipulation;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 10px;
+    }
+
+    h1, h2, h3, h4, .font-black {
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    /* ========== SISTEMA DE LABELS ========== */
+    .label-primary {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .label-secondary {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .label-meta {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .label-gold {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #D4AF37;
+    }
+
+    /* ========== CARD STATES ========== */
+    .card-state-active {
+      border-left: 4px solid #10B981;
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .card-state-warning {
+      border-left: 4px solid #F59E0B;
+      background: rgba(245, 158, 11, 0.05);
+    }
+
+    .card-state-critical {
+      border-left: 4px solid #EF4444;
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    .card-state-completed {
+      opacity: 0.6;
+      filter: grayscale(0.3);
+    }
+
+    /* ========== CARD HOVER ========== */
+    .card-interactive {
+      transition: all 0.5s ease-out;
+    }
+
+    .card-interactive:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212, 175, 55, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ========== SKELETON LOADER ========== */
+    .skeleton {
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 75%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    /* ========== PULSE INDICATORS ========== */
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .status-dot-active {
+      background: #10B981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+    }
+
+    .status-dot-warning {
+      background: #F59E0B;
+      animation: pulse 2s infinite;
+    }
+
+    .status-dot-critical {
+      background: #EF4444;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "framer-motion": "https://esm.sh/framer-motion@^11.0.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "motion/": "https://esm.sh/motion@^12.28.1/"
+  }
+}
+</script>
+</head>
+
+<body class="pb-safe-navbar">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>

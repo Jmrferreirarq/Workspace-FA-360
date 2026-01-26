@@ -1,0 +1,9 @@
+{
+  "name": "FA-360 Architecture Studio",
+  "description": "A comprehensive, luxury-branded management system for Ferreira Arquitetos, featuring a client portal, project management, and a proposal generator.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

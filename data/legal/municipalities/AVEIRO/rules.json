@@ -1,0 +1,71 @@
+{
+  "municipality": "AVEIRO",
+  "version": "1.0.0",
+  "updatedAt": "2026-01-26",
+  "rules": [
+    {
+      "ruleId": "AVEIRO__PDM__MAX_IMPLANTACAO",
+      "topic": "implantacao",
+      "title": "Área máxima de implantação (por zona)",
+      "inputsNeeded": ["zoneCode", "plotArea"],
+      "when": { "zoneCodeAny": ["TODO"] },
+      "compute": { "type": "table", "resultParam": "max_footprint", "unit": "m2", "table": [] },
+      "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" },
+      "confidence": "requires_confirmation"
+    },
+    {
+      "ruleId": "AVEIRO__PDM__MAX_CONSTRUCAO",
+      "topic": "construcao",
+      "title": "Área máxima de construção (por zona / índice)",
+      "inputsNeeded": ["zoneCode", "plotArea"],
+      "when": { "zoneCodeAny": ["TODO"] },
+      "compute": { "type": "formula", "resultParam": "max_gfa", "unit": "m2", "expression": "plotArea * idx_gfa" },
+      "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" },
+      "confidence": "requires_confirmation"
+    },
+    {
+      "ruleId": "AVEIRO__PDM__AFASTAMENTOS_BASE",
+      "topic": "afastamentos",
+      "title": "Afastamentos mínimos (laterais/frontal/tardoz) — base",
+      "inputsNeeded": ["zoneCode", "buildingUse", "numFloors"],
+      "when": { "zoneCodeAny": ["TODO"] },
+      "compute": { "type": "table", "resultParam": "setbacks_min", "unit": "m", "table": [] },
+      "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" },
+      "confidence": "requires_confirmation"
+    },
+    {
+      "ruleId": "AVEIRO__PDM__ESTACIONAMENTO_RES",
+      "topic": "estacionamento",
+      "title": "Estacionamento — Habitação (estimativa)",
+      "inputsNeeded": ["numDwellings", "areaGross"],
+      "when": { "useType": ["residential"] },
+      "compute": { "type": "formula", "resultParam": "parking_required", "unit": "places", "expression": "max(numDwellings, ceil(areaGross/120))" },
+      "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" },
+      "confidence": "requires_confirmation"
+    },
+    {
+      "ruleId": "AVEIRO__PDM__CEDENCIAS",
+      "topic": "cedencias",
+      "title": "Cedências — quando aplicável (trigger)",
+      "inputsNeeded": ["operationType"],
+      "when": { "operationTypeAny": ["LOT", "SUBDIVISION"] },
+      "compute": { "type": "flag", "resultParam": "cedencias_check", "unit": "boolean", "value": true },
+      "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" },
+      "confidence": "requires_confirmation"
+    },
+    {
+      "ruleId": "AVEIRO__RMUE__MUROS",
+      "topic": "muros",
+      "title": "Muros/vedações — regras complementares (RMUE)",
+      "inputsNeeded": ["frontageType"],
+      "when": { "always": true },
+      "compute": { "type": "reference", "resultParam": "walls_rules", "unit": "text", "value": "Consultar RMUE (artigos aplicáveis)" },
+      "sourceRef": { "sourceId": "AVEIRO_RMUE_DR_975_2022", "articleRef": "Index", "officialUrl": "https://diariodarepublica.pt/dr/detalhe/regulamento/975-2022-202281135" },
+      "confidence": "high"
+    },
+    { "ruleId": "AVEIRO__PDM__CERCAS_ALTURAS", "topic": "muros", "title": "Alturas máximas (quando tabeladas)", "inputsNeeded": ["zoneCode"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "max_height", "unit": "m", "table": [] }, "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" }, "confidence": "requires_confirmation" },
+    { "ruleId": "AVEIRO__PDM__NUM_PISOS", "topic": "edificacao", "title": "Número máximo de pisos (quando aplicável)", "inputsNeeded": ["zoneCode"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "max_floors", "unit": "floors", "table": [] }, "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" }, "confidence": "requires_confirmation" },
+    { "ruleId": "AVEIRO__PDM__USOS_PERMITIDOS", "topic": "usos", "title": "Usos permitidos por zona", "inputsNeeded": ["zoneCode"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "allowed_uses", "unit": "list", "table": [] }, "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" }, "confidence": "requires_confirmation" },
+    { "ruleId": "AVEIRO__PDM__IMPERMEABILIZACAO", "topic": "condicionantes", "title": "Impermeabilização / área permeável (se houver regra)", "inputsNeeded": ["zoneCode", "plotArea"], "when": { "zoneCodeAny": ["TODO"] }, "compute": { "type": "table", "resultParam": "max_impervious", "unit": "%", "table": [] }, "sourceRef": { "sourceId": "AVEIRO_PDM_REGULAMENTO_PDF", "articleRef": "TODO", "officialUrl": "https://www.cm-aveiro.pt/cmaveiro/uploads/document/file/10601/regulamento_201911.pdf" }, "confidence": "requires_confirmation" }
+  ]
+}
