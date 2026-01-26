@@ -38,16 +38,66 @@ export interface UnitPricingConfig {
   extraUnitMultiplier?: number;
 }
 
+export type ClientProfile = 'private' | 'promoter' | 'institutional';
+export type ProcessType = 'pip' | 'lic' | 'exec';
+export type LocationTier = 'interior_base' | 'interior' | 'litoral_base' | 'litoral' | 'porto';
+
 export interface CalculationParams {
   templateId: string;
   area: number;
   complexity: Complexity;
   selectedSpecs: string[];
   scenario: Scenario;
+
+  // Patch V1
+  vatRate?: 0.06 | 0.23;
+  processType?: ProcessType;
+  clientProfile?: ClientProfile;
+  locationTier?: LocationTier;
+
   units?: UnitsInput;
   discount?: {
     type: 'replication' | 'scale' | 'partnership' | 'none';
     value: number; // Percentagem
+  };
+}
+
+export interface FeeResultV1 {
+  totals: {
+    archNet: number;
+    specNet: number;
+    net: number;
+    vat: number;
+    gross: number;
+  };
+  phases: Array<{
+    id: string;
+    label: string;
+    value: number;
+    vat: number;
+    gross: number;
+  }>;
+  payments: Array<{
+    name: string;
+    pct: number;
+    dueDays: number;
+    value: number;
+    vat: number;
+    gross: number;
+  }>;
+  tasks: {
+    archIds: string[];
+    specIds: string[];
+  };
+  risk: {
+    score: number;
+    level: string;
+    alerts: string[];
+    recs: string[];
+  };
+  meta: {
+    version: string;
+    configSnapshot?: Record<string, any>;
   };
 }
 

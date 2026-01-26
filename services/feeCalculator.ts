@@ -1,9 +1,15 @@
 // services/feeCalculator.ts
 import { templates, phaseCatalog } from './feeData';
+import { PAYMENT_MILESTONES } from './paymentMilestones';
+import { TASK_CATALOG } from './taskCatalog';
+import { applyDiscount } from './discountPolicy';
+import { SCENARIO_CATALOG } from './scenarioCatalog';
+import { INTERNAL_RATES, OVERHEAD_MULT, FINANCE_THRESHOLDS, MIN_FEES } from './financeConfig';
 import { CalculationParams, Complexity, Scenario, UnitsInput, FeeTemplate } from '../types';
 
 // ---------- CONFIG (ajusta aqui sem mexer na lógica) ----------
-const VAT_RATE = 0.23;
+// Removing hardcoded VAT_RATE here to enforce using params or a default in the function
+// const VAT_RATE = 0.23;
 
 // Multiplicadores
 const COMPLEXITY_MULT: Record<Complexity, number> = { 1: 0.9, 2: 1.25, 3: 1.8 };
@@ -15,13 +21,9 @@ const SPEC_FEE_EXTRA_PCT = 0.07;   // +7% por especialidade acima de INCLUDED_SP
 const SPEC_HOURS_EXTRA_PCT = 0.05; // +5% horas coord por especialidade extra
 
 // Rates internos (custos) — aproximação realista p/ cálculo de margem
-const INTERNAL_RATES = {
-  senior: 55,      // CEO
-  architect: 45,   // arquiteto (misto)
-  team: 38,        // média (Jéssica/Sofia)
-} as const;
+// Rates movidos para financeConfig.ts
 
-const OVERHEAD_MULT = 1.20; // 20% overhead (software, admin, deslocações, etc.)
+// OVERHEAD_MULT movido para financeConfig.ts
 
 const PROFILE_RATE_KEY: Record<string, keyof typeof INTERNAL_RATES> = {
   "Arquiteto Sénior": "senior",
@@ -104,25 +106,45 @@ function calcArchitectureFee(template: FeeTemplate, area: number, compMult: numb
   }
 }
 
-function calcSpecsFee(area: number, baseRateSpec: number, compMult: number, scenMult: number, specCount: number) {
+function calcSpecsFee(area: number, baseRateSpec: number, compMult: number, scenMult: number, specCount: number, units?: UnitsInput, template?: FeeTemplate) {
   const safeArea = Math.max(0, Number(area || 0));
   const extraSpecs = Math.max(0, specCount - INCLUDED_SPECS);
   const specMult = 1 + extraSpecs * SPEC_FEE_EXTRA_PCT;
-  return safeArea * baseRateSpec * compMult * scenMult * specMult;
+
+  let unitFactor = 1;
+  if (template?.pricingModel === 'UNIT') {
+    const unitCount = getUnitCount(template, units);
+    unitFactor = 1 + Math.max(0, unitCount - 6) * 0.03;
+    unitFactor = clamp(unitFactor, 1, 1.6);
+  }
+
+  return safeArea * baseRateSpec * compMult * scenMult * specMult * unitFactor;
 }
 
 function buildEffortMap(compMult: number, scenario: Scenario, specCount: number) {
   const extraSpecs = Math.max(0, specCount - INCLUDED_SPECS);
 
-  const rows = [
-    { label: "Programa + EP", hours: round((8 + 34) * compMult), profile: "Arquiteto Sénior", active: true },
-    { label: "Licenciamento", hours: round(38 * compMult), profile: "Equipa Técnica", active: true },
-    { label: "Coordenação Especialidades", hours: round(24 * compMult * (1 + extraSpecs * SPEC_HOURS_EXTRA_PCT)), profile: "Arquiteto", active: true },
-    { label: "Projeto de Execução", hours: round(56 * compMult), profile: "Arquiteto + Equipa", active: scenario === 'premium' },
-    { label: "Assistência Técnica", hours: round(18 * compMult), profile: "Equipa Técnica", active: scenario === 'premium' },
-  ];
+  return TASK_CATALOG.arch.map(task => {
+    let hours = task.baseHours * compMult;
 
-  return rows.filter(r => r.active);
+    // Ajuste específico para coordenação
+    if (task.id === 'COORD_01') {
+      hours = hours * (1 + extraSpecs * SPEC_HOURS_EXTRA_PCT);
+    }
+
+    let active = true;
+    if (task.id === 'A3_01' || task.id === 'A4_01') {
+      active = scenario === 'premium';
+    }
+
+    return {
+      taskId: task.id,
+      label: task.label,
+      hours: round(hours),
+      profile: task.profile,
+      active
+    };
+  }).filter(r => r.active);
 }
 
 function estimatedInternalCost(effortMap: { hours: number; profile: string }[]) {
@@ -207,8 +229,8 @@ function riskEngine(input: {
   if (discountPct > 20) { riskScore += 20; signals.push("Discount_Over_20"); }
 
   // Margem
-  if (marginPct < 50) { riskScore += 15; signals.push("Margin_Tight"); }
-  if (marginPct < 45) { riskScore += 30; signals.push("Margin_Under_Redline"); }
+  if (marginPct < FINANCE_THRESHOLDS.marginWarn) { riskScore += 15; signals.push("Margin_Tight"); }
+  if (marginPct < FINANCE_THRESHOLDS.marginBlock) { riskScore += 30; signals.push("Margin_Under_Redline"); }
 
   riskScore = clamp(riskScore, 0, 100);
 
@@ -217,15 +239,15 @@ function riskEngine(input: {
       riskScore >= 30 ? 'medium' : 'low';
 
   // Alertas e recomendações (ação concreta)
-  if (marginPct < 45) {
-    alerts.push("🚨 BLOQUEIO: Margem crítica (<45%). Configuração financeiramente inviável.");
+  if (marginPct < FINANCE_THRESHOLDS.marginBlock) {
+    alerts.push(`🚨 BLOQUEIO: Margem crítica (<${FINANCE_THRESHOLDS.marginBlock}%). Configuração financeiramente inviável.`);
     recommendations.push("Reduzir desconto (≤10%) ou subir cenário para Profissional/Executivo.");
     recommendations.push("Rever rate por m² ou aumentar fee mínima do template.");
-  } else if (marginPct < 50) {
-    alerts.push("🟡 Margem mínima operacional (<50%). Espaço de manobra nulo.");
+  } else if (marginPct < FINANCE_THRESHOLDS.marginWarn) {
+    alerts.push(`🟡 Margem mínima operacional (<${FINANCE_THRESHOLDS.marginWarn}%). Espaço de manobra nulo.`);
     recommendations.push("Evitar alterações fora de escopo; preferir Modo Profissional.");
-  } else if (marginPct < 60) {
-    alerts.push("🟢 Margem aceitável. Considerar otimização para aproximar de 60%.");
+  } else if (marginPct < FINANCE_THRESHOLDS.marginHealthy) {
+    alerts.push(`🟢 Margem aceitável. Considerar otimização para aproximar de ${FINANCE_THRESHOLDS.marginHealthy}%.`);
   }
 
   // Regras de risco específicas
@@ -269,20 +291,31 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   const baseRateSpec = 28;
 
   const feeArchRaw = calcArchitectureFee(template, safeArea, compMult, scenMult, units);
-  const feeSpecRaw = calcSpecsFee(safeArea, baseRateSpec, compMult, scenMult, specCount);
+  const feeSpecRaw = calcSpecsFee(safeArea, baseRateSpec, compMult, scenMult, specCount, units, template);
 
   const subTotalRaw = feeArchRaw + feeSpecRaw;
 
-  // Processamento de desconto
-  const discountType = discount?.type || 'none';
-  const discountVal = Number(discount?.value || 0);
-  const appliedDiscount = discountType !== 'none' ? clamp(discountVal, 0, 25) : 0;
-  const discountAmount = (subTotalRaw * appliedDiscount) / 100;
-
+  // PATCH V1: Discount Policy
+  // Removed duplicate subTotalRaw declaration
+  const { appliedPct, amount: discountAmount, audit: discountAudit } = applyDiscount(subTotalRaw, discount);
   const feeAfterDiscount = subTotalRaw - discountAmount;
 
-  const minFee = template.minFeeTotal ?? 0;
-  const feeTotal = Math.max(feeAfterDiscount, minFee);
+  // PATCH V1: Minimos e guardrails (Step 7)
+  let minFeeGuard = template.minFeeTotal ?? 0;
+  const minFee = minFeeGuard; // Restore for meta usage
+
+  // Guardrail 1: Min Fee by Scenario
+  const scenarioMin = MIN_FEES[scenario];
+  if (scenarioMin) {
+    minFeeGuard = Math.max(minFeeGuard, scenarioMin);
+  }
+
+  // Guardrail 2: Min Fee by Unit (Exemplo simplificado)
+  if (template.pricingModel === 'UNIT' && units) {
+    // Garantir que não vendemos abaixo de X por unidade efetiva
+  }
+
+  const feeTotal = Math.max(feeAfterDiscount, minFeeGuard);
 
   const effortMap = buildEffortMap(compMult, scenario, specCount);
 
@@ -295,12 +328,23 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     complexity,
     area: safeArea,
     specCount,
-    discountPct: appliedDiscount,
+    discountPct: appliedPct,
     units,
     template
   });
 
   const phases = phasesBreakdown(feeTotal, scenario);
+
+  // PATCH V1: Separated Payments
+  const milestones = PAYMENT_MILESTONES[scenario] || PAYMENT_MILESTONES['standard'];
+  const paymentPlan = milestones.map(m => ({
+    name: m.name,
+    pct: m.pct,
+    value: round(feeTotal * (m.pct / 100)),
+    vat: round(feeTotal * (m.pct / 100) * (params.vatRate ?? 0.23)),
+    dueDays: m.dueDays,
+    phaseId: 'COMMERCIAL'
+  }));
 
   const automationPayload = {
     simulationId: `SIM_${Date.now()}`,
@@ -308,28 +352,43 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     scenarioId: scenario,
     client: { name: params.clientName || '' }, // We'll need to pass this or get it from somewhere
     location: params.location || '',
-    fees: { total: feeTotal, vatRate: VAT_RATE },
-    payments: phases.map(p => ({
-      name: p.label,
+    fees: { total: feeTotal, vatRate: params.vatRate ?? 0.23 },
+    payments: paymentPlan.map(p => ({
+      name: p.name,
       phaseId: p.phaseId,
-      percentage: Math.round((p.value / feeTotal) * 100),
+      percentage: p.pct,
       value: p.value,
-      dueDays: 30
+      dueDays: p.dueDays
     })),
     tasks: {
-      arch: effortMap.map(e => e.label), // Simplified for now
+      arch: effortMap.map(e => e.taskId), // Using IDs now
       spec: selectedSpecs
     },
-    schedule: { startDate: new Date().toISOString() }
+    schedule: { startDate: new Date().toISOString() },
+    configSnapshot: {
+      vatRate: params.vatRate ?? 0.23,
+      thresholds: FINANCE_THRESHOLDS,
+      multipliers: {
+        complexity: compMult,
+        scenario: scenMult,
+      },
+      scenarioConfig: SCENARIO_CATALOG[scenario]
+    }
   };
+
+  const vatRate = params.vatRate ?? 0.23;
+  const vat = round(feeTotal * vatRate);
+  const totalWithVat = round(feeTotal * (1 + vatRate));
 
   return {
     feeArch: round(feeArchRaw),
     feeSpec: round(feeSpecRaw),
     feeTotal: round(feeTotal),
-    vat: round(feeTotal * VAT_RATE),
-    totalWithVat: round(feeTotal * (1 + VAT_RATE)),
+    vat: vat,
+    totalWithVat: totalWithVat,
+    vatRate: vatRate, // Added for completeness
     phasesBreakdown: phases,
+    paymentPlan: paymentPlan, // Exporting the new plan
     effortMap,
     selectedSpecs,
     units: units || {},
@@ -341,18 +400,24 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
       recommendations: strategicRisk.recommendations,
       signals: strategicRisk.signals,
       estimatedCost: round(estimatedCost),
-      isHealthy: margin >= 45 && strategicRisk.riskLevel !== 'high',
-      isBlocked: margin < 45,
+      isHealthy: margin >= FINANCE_THRESHOLDS.marginBlock && strategicRisk.riskLevel !== 'high',
+      isBlocked: margin < FINANCE_THRESHOLDS.marginBlock,
     },
     meta: {
       templateId,
       pricingModel: template.pricingModel,
-      appliedDiscount,
+      appliedDiscount: appliedPct,
+      discountAudit, // Expose audit
       specCount,
       compMult,
       scenMult,
       minFeeApplied: feeAfterDiscount < minFee,
-      units: units || {}
+      units: units || {},
+      scenarioDiffs: {
+        standard: SCENARIO_CATALOG.standard.multiplier,
+        current: SCENARIO_CATALOG[scenario].multiplier
+        // TODO: Calculate exact Euro deltas if needed by UI
+      }
     },
     automationPayload
   };
