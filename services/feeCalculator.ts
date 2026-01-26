@@ -8,8 +8,8 @@ import { INTERNAL_RATES, OVERHEAD_MULT, FINANCE_THRESHOLDS, MIN_FEES } from './f
 import { CalculationParams, Complexity, Scenario, UnitsInput, FeeTemplate } from '../types';
 
 // ---------- CONFIG (ajusta aqui sem mexer na lógica) ----------
-// Removing hardcoded VAT_RATE here to enforce using params or a default in the function
-// const VAT_RATE = 0.23;
+// mantém no topo
+const VAT_RATE = 0.23;
 
 // Multiplicadores
 const COMPLEXITY_MULT: Record<Complexity, number> = { 1: 0.9, 2: 1.25, 3: 1.8 };
@@ -175,6 +175,19 @@ function phasesBreakdown(feeTotal: number, scenario: Scenario) {
   });
 }
 
+function buildPaymentPlan(feeTotal: number, scenario: Scenario) {
+  const milestones = PAYMENT_MILESTONES[scenario] || PAYMENT_MILESTONES.standard;
+  return milestones.map((m, idx) => ({
+    id: `PAY_${idx + 1}`,
+    name: m.name,
+    percentage: m.pct,
+    value: round(feeTotal * (m.pct / 100)),
+    vat: round(feeTotal * (m.pct / 100) * VAT_RATE), // Will be overridden in main, but good default
+    dueDays: m.dueDays,
+    phaseId: 'COMMERCIAL'
+  }));
+}
+
 function riskEngine(input: {
   marginPct: number;
   scenario: Scenario;
@@ -282,6 +295,8 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   const template = templates.find(t => t.templateId === templateId);
   if (!template) return null;
 
+  const vatRate = (params as any).vatRate ?? VAT_RATE;
+
   const specCount = selectedSpecs.length;
 
   const safeArea = Math.max(0, Number(area || 0));
@@ -334,17 +349,14 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   });
 
   const phases = phasesBreakdown(feeTotal, scenario);
-
-  // PATCH V1: Separated Payments
-  const milestones = PAYMENT_MILESTONES[scenario] || PAYMENT_MILESTONES['standard'];
-  const paymentPlan = milestones.map(m => ({
-    name: m.name,
-    pct: m.pct,
-    value: round(feeTotal * (m.pct / 100)),
-    vat: round(feeTotal * (m.pct / 100) * (params.vatRate ?? 0.23)),
-    dueDays: m.dueDays,
-    phaseId: 'COMMERCIAL'
+  const paymentPlan = buildPaymentPlan(feeTotal, scenario).map(p => ({
+    ...p,
+    vat: round(p.value * vatRate) // Override with correct rate
   }));
+
+  // ✅ VAT correto (por projeto)
+  const vat = round(feeTotal * vatRate);
+  const totalWithVat = round(feeTotal * (1 + vatRate));
 
   const automationPayload = {
     simulationId: `SIM_${Date.now()}`,
@@ -352,33 +364,34 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     scenarioId: scenario,
     client: { name: params.clientName || '' }, // We'll need to pass this or get it from somewhere
     location: params.location || '',
-    fees: { total: feeTotal, vatRate: params.vatRate ?? 0.23 },
+    fees: { total: feeTotal, vatRate },
     payments: paymentPlan.map(p => ({
       name: p.name,
       phaseId: p.phaseId,
-      percentage: p.pct,
+      percentage: p.percentage,
       value: p.value,
       dueDays: p.dueDays
     })),
     tasks: {
-      arch: effortMap.map(e => e.taskId), // Using IDs now
+      arch: effortMap.map(e => e.label),
       spec: selectedSpecs
     },
-    schedule: { startDate: new Date().toISOString() },
     configSnapshot: {
-      vatRate: params.vatRate ?? 0.23,
+      vatRate,
       thresholds: FINANCE_THRESHOLDS,
       multipliers: {
         complexity: compMult,
         scenario: scenMult,
       },
       scenarioConfig: SCENARIO_CATALOG[scenario]
-    }
+    },
+    schedule: { startDate: new Date().toISOString() }
   };
 
-  const vatRate = params.vatRate ?? 0.23;
-  const vat = round(feeTotal * vatRate);
-  const totalWithVat = round(feeTotal * (1 + vatRate));
+  // Removed duplicate vat/vatRate declarations here
+  // const vatRate = params.vatRate ?? 0.23;
+  // const vat = round(feeTotal * vatRate);
+  // const totalWithVat = round(feeTotal * (1 + vatRate));
 
   return {
     feeArch: round(feeArchRaw),
@@ -413,6 +426,7 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
       scenMult,
       minFeeApplied: feeAfterDiscount < minFee,
       units: units || {},
+      vatRate, // new
       scenarioDiffs: {
         standard: SCENARIO_CATALOG.standard.multiplier,
         current: SCENARIO_CATALOG[scenario].multiplier
