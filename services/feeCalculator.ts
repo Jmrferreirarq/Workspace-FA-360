@@ -13,7 +13,6 @@ const VAT_RATE = 0.23;
 
 // Multiplicadores
 const COMPLEXITY_MULT: Record<Complexity, number> = { 1: 0.9, 2: 1.25, 3: 1.8 };
-const SCENARIO_MULT: Record<Scenario, number> = { essential: 0.85, standard: 1.0, premium: 1.5 };
 
 // Especialidades: base incluida + incremento
 const INCLUDED_SPECS = 4;
@@ -157,12 +156,24 @@ function estimatedInternalCost(effortMap: { hours: number; profile: string }[]) 
   return base * OVERHEAD_MULT;
 }
 
-function phasesBreakdown(feeTotal: number, scenario: Scenario, area: number, complexity: Complexity) {
-  const active = scenario === 'premium'
+function phasesBreakdown(feeTotal: number, scenario: Scenario, area: number, complexity: Complexity, template?: FeeTemplate) {
+  // 1. Determine base active phases by Scenario
+  let activePhases = scenario === 'premium'
     ? ALL_PHASE_WEIGHTS
     : ALL_PHASE_WEIGHTS.filter(w => ['A0', 'A1', 'A2'].includes(w.id));
 
-  const normalized = normalizeWeights(active as { id: string; weight: number }[]);
+  // 2. Filter by Template Process Type (Typology)
+  if (template) {
+    if (template.processType === 'lic') {
+      // Licensing only: Force remove Execution (A3) and usually Assistance (A4) if purely licensing, 
+      // but lets keep A4 if scenario is premium? No, Licensing shouldn't have construction phases.
+      activePhases = activePhases.filter(w => ['A0', 'A1', 'A2'].includes(w.id));
+    }
+    // If 'exec', we assume it CAN go up to execution, so we respect the Scenario (Premium vs Standard).
+    // If 'hybrid' (e.g. Rehab), allows all.
+  }
+
+  const normalized = normalizeWeights(activePhases as { id: string; weight: number }[]);
 
   // Base weeks per phase (Standard complexity, ~200m2)
   const baseWeeks: Record<string, number> = {
@@ -190,9 +201,12 @@ function phasesBreakdown(feeTotal: number, scenario: Scenario, area: number, com
     return {
       phaseId: pw.id,
       label: info?.labelPT || pw.id,
+      labelEN: info?.labelEN || info?.labelPT || pw.id,
       description: info?.shortPT || "",
+      descriptionEN: info?.shortEN || info?.shortPT || "",
       value: round(feeTotal * pw.weight),
       percentage: round(pw.weight * 100),
+      weeks: weeks, // Raw value for UI translation
       duration: `${weeks} ${weeks === 1 ? 'Semana' : 'Semanas'}`
     };
   });
@@ -330,7 +344,13 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
 
   const safeArea = Math.max(0, Number(area || 0));
   const compMult = COMPLEXITY_MULT[complexity] || 1.0;
-  const scenMult = SCENARIO_MULT[scenario] || 1.0;
+  /* REMOVED SCENARIO_MULT usage, use SCENARIO_CATALOG */
+  const scenarioPack = SCENARIO_CATALOG[scenario] || SCENARIO_CATALOG.standard; // Fallback
+  if (!scenarioPack) {
+      console.error("Critical: Scenario Pack not found for", scenario);
+      return null;
+  }
+  const scenMult = scenarioPack.multiplier ?? 1.0;
 
   const baseRateSpec = 28;
 
@@ -354,8 +374,7 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     // Logica futura de unit min
   }
 
-  // 2. Estabelecer Valor Base Efetivo (antes de descontos)
-  // Se o calculado for menor que o minimo, assumimos o minimo como base de partida.
+  // 2. Estabelecer Valor Base Efetivo (antes de descontos e guardrails)
   const effectiveBaseFee = Math.max(subTotalRaw, minFeeGuard);
   const minFeeApplied = subTotalRaw < minFeeGuard;
 
@@ -371,7 +390,14 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   const discountAmount = discountEval.discountAmount;
   const discountAudit = discountEval.audit;
 
-  // 4. Calcular Total Final (permitindo que o desconto fure o chao, mas gerando risco)
+  // 4. Calcular Total Final
+  // O feeTotal final AQUI já inclui o desconto.
+  // IMPORTANTE: Se o minFeeGuard for ativado, o desconto incide sobre ele?
+  // Na logica atual: sim, `applyDiscountPolicy` recebe `effectiveBaseFee` (que é >= minFeeGuard).
+  // Se o desconto fizer baixar do minimo ADMISSIVEL após desconto, isso deveria ser gerido policy ou clamp?
+  // O "Min Fee Hit" é verificado no UI através de meta.minFeeApplied ou logica similar.
+  // Assumimos que o desconto é aplicado sobre o valor de tabela/ajustado.
+
   const feeTotal = effectiveBaseFee - discountAmount;
 
   // Distribute total back to components
@@ -380,13 +406,56 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
 
   if (subTotalRaw > 0) {
     const ratio = feeTotal / subTotalRaw;
+    // Se houve minFee, o ratio aumenta. Se houve desconto, diminui.
+    // Ajustamos os componentes proportionally.
     feeArch = feeArchRaw * ratio;
     feeSpec = feeSpecRaw * ratio;
   } else if (feeTotal > 0) {
-    // Edge case: raw is 0 but min fee applies (e.g. fixed package)
     feeArch = feeTotal;
     feeSpec = 0;
   }
+
+  // --- PASSO 9.3: DELTA VS STANDARD ---
+  // Recalcular Standard Baseline
+  const stdMult = SCENARIO_CATALOG.standard.multiplier;
+  
+  // Fee Base "Standard" (antes de mins/descontos, só multiplicador trocado)
+  // Nota: calcArchitectureFee usa multiplicadores diretos.
+  // O "Standard" tem scenMult = 1.0 (ou o valor em catalogo).
+  const feeArchStd = calcArchitectureFee(template, safeArea, compMult, stdMult, units);
+  const feeSpecStd = calcSpecsFee(safeArea, baseRateSpec, compMult, stdMult, specCount, units, template);
+  
+  const subTotalStd = feeArchStd + feeSpecStd;
+
+  // Aplicar MESMO desconto % (para comparacao justa de valor comercial)
+  const stdDiscountAmount = (subTotalStd * appliedDiscount) / 100;
+  const stdAfterDiscount = subTotalStd - stdDiscountAmount;
+
+  // Min Fee Guardrail para Standard?
+  // Sim, idealmente aplicamos a mesma logica de guardrail do standard (que pode ter min diferente, ex: MIN_FEES.standard)
+  // Mas para "delta vs standard" rápido, vamos assumir o valor comercial direto.
+  // Se quisermos ser rigorosos, aplicamos MIN_FEES.standard.
+  const stdMinGuard = Math.max(template.minFeeTotal ?? 0, MIN_FEES.standard);
+  const stdEffective = Math.max(stdAfterDiscount, stdMinGuard);
+  
+  // Mas se stdEffective aplicar guardrail, perdemos a nocoa de "delta puro de multiplicador".
+  // Vamos usar a logica requisitada: "stdNet = stdGuardrail.finalNet" (implicando logica completa).
+  // Simplificacao: usaremos stdAfterDiscount (com desconto) como comparativo direto, ou stdEffective.
+  // Vamos usar stdEffective para ser coerente com "quanto custaria Standard".
+  
+  const stdNet = Math.round(stdEffective);
+  const stdVat = round(stdNet * vatRate);
+  const stdGross = round(stdNet * (1 + vatRate));
+
+  const thisNet = round(feeTotal);
+  const thisVat = round(feeTotal * vatRate);
+  const thisGross = round(feeTotal * (1 + vatRate));
+
+  const deltaVsStandard = {
+    net: thisNet - stdNet,
+    vat: thisVat - stdVat,
+    gross: thisGross - stdGross,
+  };
 
   const effortMap = buildEffortMap(compMult, scenario, specCount);
 
@@ -405,34 +474,50 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     template
   });
 
-  const phases = phasesBreakdown(feeTotal, scenario, safeArea, complexity);
+  const phases = phasesBreakdown(feeTotal, scenario, safeArea, complexity, template);
   const paymentPlan = buildPaymentPlan(feeTotal, scenario).map(p => ({
     ...p,
-    vat: round(p.value * vatRate) // Override with correct rate
+    vat: round(p.value * vatRate)
   }));
 
-  // ✅ VAT correto (por projeto)
   const vat = round(feeTotal * vatRate);
   const totalWithVat = round(feeTotal * (1 + vatRate));
 
+  // --- PASSO 10.1: Payload Ajustado ---
+  const net = round(feeTotal);
+  // vat declared above already
+  const gross = round(net * (1 + vatRate));
+  
   const automationPayload = {
     simulationId: `SIM_${Date.now()}`,
     templateId,
     scenarioId: scenario,
-    client: { name: params.clientName || '' }, // We'll need to pass this or get it from somewhere
+    client: { name: params.clientName || '' },
     location: params.location || '',
-    fees: { total: feeTotal, vatRate },
-    payments: paymentPlan.map(p => ({
+    fees: { net, vatRate, gross },
+    payments: paymentPlan.map((p, idx) => ({
+      id: `PAY_${idx + 1}`,
       name: p.name,
       phaseId: p.phaseId,
       percentage: p.percentage,
-      value: p.value,
+      valueNet: p.value,
       dueDays: p.dueDays
     })),
     tasks: {
-      arch: effortMap.map(e => e.label),
-      spec: selectedSpecs
+      archIds: effortMap.map(e => e.taskId),
+      specIds: selectedSpecs
     },
+    // Updated Payload Structure
+    scenario: {
+      id: scenarioPack.id,
+      labelPT: scenarioPack.labelPT,
+      revisionsIncluded: scenarioPack.revisionsIncluded,
+      deliverablesPT: scenarioPack.deliverablesPT,
+      deliverablesEN: scenarioPack.deliverablesEN,
+      exclusionsPT: scenarioPack.exclusionsPT,
+      exclusionsEN: scenarioPack.exclusionsEN,
+    },
+    deltaVsStandard,
     configSnapshot: {
       vatRate,
       thresholds: FINANCE_THRESHOLDS,
@@ -442,13 +527,17 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
       },
       scenarioConfig: SCENARIO_CATALOG[scenario]
     },
+    meta: {
+      createdAt: new Date().toISOString(),
+      configSnapshot: {
+        compMult,
+        scenMult,
+        appliedDiscount,
+        guardrail: discountAudit.status // Using available audit status
+      }
+    },
     schedule: { startDate: new Date().toISOString() }
   };
-
-  // Removed duplicate vat/vatRate declarations here
-  // const vatRate = params.vatRate ?? 0.23;
-  // const vat = round(feeTotal * vatRate);
-  // const totalWithVat = round(feeTotal * (1 + vatRate));
 
   return {
     feeArch: round(feeArch),
@@ -456,9 +545,9 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     feeTotal: round(feeTotal),
     vat: vat,
     totalWithVat: totalWithVat,
-    vatRate: vatRate, // Added for completeness
+    vatRate: vatRate,
     phasesBreakdown: phases,
-    paymentPlan: paymentPlan, // Exporting the new plan
+    paymentPlan: paymentPlan,
     effortMap,
     selectedSpecs,
     units: units || {},
@@ -473,21 +562,33 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
       isHealthy: margin >= FINANCE_THRESHOLDS.marginBlock && strategicRisk.riskLevel !== 'high',
       isBlocked: margin < FINANCE_THRESHOLDS.marginBlock,
     },
+    scenarioPack: {
+      id: scenarioPack.id,
+      labelPT: scenarioPack.labelPT,
+      multiplier: scenarioPack.multiplier,
+      revisionsIncluded: scenarioPack.revisionsIncluded,
+      deliverablesPT: scenarioPack.deliverablesPT,
+      deliverablesEN: scenarioPack.deliverablesEN,
+      exclusionsPT: scenarioPack.exclusionsPT,
+      exclusionsEN: scenarioPack.exclusionsEN,
+      notesPT: scenarioPack.notesPT,
+      notesEN: scenarioPack.notesEN
+    },
+    deltaVsStandard,
     meta: {
       templateId,
       pricingModel: template.pricingModel,
       appliedDiscount,
-      discountAudit, // Expose audit
+      discountAudit,
       specCount,
       compMult,
       scenMult,
       minFeeApplied,
       units: units || {},
-      vatRate, // new
+      vatRate,
       scenarioDiffs: {
         standard: SCENARIO_CATALOG.standard.multiplier,
         current: SCENARIO_CATALOG[scenario].multiplier
-        // TODO: Calculate exact Euro deltas if needed by UI
       }
     },
     automationPayload

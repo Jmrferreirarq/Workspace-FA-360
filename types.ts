@@ -69,12 +69,18 @@ export interface CalculationParams {
   userRole?: UserRole;
 }
 
+// Redefined to match ScenarioPack from catalog
 export interface ScenarioConfig {
-  label: string;
+  id: Scenario;
+  labelPT: string;
   multiplier: number;
-  revisions: string;
-  deliverables: string[];
-  exclusions: string[];
+  revisionsIncluded: number;
+  deliverablesPT: string[];
+  deliverablesEN: string[];
+  exclusionsPT: string[];
+  exclusionsEN: string[];
+  notesPT?: string;
+  notesEN?: string;
 }
 
 export interface DiscountAudit {
@@ -305,18 +311,42 @@ export interface AutomationPayload {
   scenarioId: Scenario;
   client: { name: string; email?: string };
   location: string;
-  fees: { total: number; vatRate: number };
+  fees: { net: number; vatRate: number; gross: number };
   payments: Array<{
+    id: string;
     name: string;
     phaseId: string;
     percentage: number;
-    value: number;
-    dueDays?: number;
-    appliesTo?: string;
+    valueNet: number;
+    dueDays: number;
   }>;
   tasks: {
-    arch: string[];
-    spec: string[];
+    archIds: string[];
+    specIds: string[];
+  };
+  scenario: {
+    id: Scenario;
+    labelPT: string;
+    revisionsIncluded: number;
+    deliverablesPT: string[];
+    deliverablesEN: string[];
+    exclusionsPT: string[];
+    exclusionsEN: string[];
+  };
+  deltaVsStandard: {
+    net: number;
+    vat: number;
+    gross: number;
+  };
+  configSnapshot: ConfigSnapshot;
+  meta: {
+    createdAt: string;
+    configSnapshot: {
+       compMult: number;
+       scenMult: number;
+       appliedDiscount: number;
+       guardrail: string;
+    }
   };
   schedule: { startDate: string };
 }

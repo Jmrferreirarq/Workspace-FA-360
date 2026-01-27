@@ -20,6 +20,7 @@ import SkeletonCard from '../components/common/SkeletonCard';
 import { DashboardMetrics } from '../types';
 
 export default function Dashboard() {
+  console.log("MOUNT: DashboardPage");
   const navigate = useNavigate();
   const { t } = useLanguage();
   const [loading, setLoading] = useState(true);

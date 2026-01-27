@@ -18,9 +18,9 @@ class AutomationBridgeService {
       location: payload.location,
       templateId: payload.templateId,
       scenario: payload.scenarioId,
-      budget: payload.fees.total,         // NET (sem IVA)
+      budget: payload.fees.net,         // NET (sem IVA)
       vatRate: payload.fees.vatRate,
-      gross: payload.fees.total * (1 + payload.fees.vatRate),
+      gross: payload.fees.net * (1 + payload.fees.vatRate),
       status: 'planning',
       progress: 0,
       createdAt: now.toISOString(),
@@ -44,7 +44,7 @@ class AutomationBridgeService {
     for (const pm of payments) await fa360.create('Payments', pm);
 
     // 3) Create Tasks
-    const allTaskIds = [...(payload.tasks.arch || []), ...(payload.tasks.spec || [])];
+    const allTaskIds = [...(payload.tasks.archIds || []), ...(payload.tasks.specIds || [])];
 
     for (const tId of allTaskIds) {
       const meta = this.resolveTaskMeta(tId);

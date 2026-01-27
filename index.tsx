@@ -1,9 +1,10 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
 import fa360 from './services/fa360';
+
+console.log("BOOT: index.tsx loaded");
 
 // Inicializar o motor core e auto-pilot
 fa360.log("ECOSYSTEM: Inicializando Ferreira-360...");
