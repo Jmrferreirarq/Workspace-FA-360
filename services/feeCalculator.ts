@@ -347,8 +347,8 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   /* REMOVED SCENARIO_MULT usage, use SCENARIO_CATALOG */
   const scenarioPack = SCENARIO_CATALOG[scenario] || SCENARIO_CATALOG.standard; // Fallback
   if (!scenarioPack) {
-      console.error("Critical: Scenario Pack not found for", scenario);
-      return null;
+    console.error("Critical: Scenario Pack not found for", scenario);
+    return null;
   }
   const scenMult = scenarioPack.multiplier ?? 1.0;
 
@@ -361,9 +361,11 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
 
   // PATCH V1: Ordem de Operacoes (Corrigido)
   // 1. Determinar Taxa Minima (Guardrails)
-  let minFeeGuard = template.minFeeTotal ?? 0;
+  // FIX: Apply Scenario Multiplier to Min Fee to ensure Essential < Standard
+  let minFeeGuard = (template.minFeeTotal ?? 0) * scenMult;
 
-  // Guardrail 1: Min Fee by Scenario
+  // Guardrail 1: Min Fee by Scenario (also scaled or absolute?)
+  // If MIN_FEES[scenario] is absolute floor, keep it.
   const scenarioMin = MIN_FEES[scenario];
   if (scenarioMin) {
     minFeeGuard = Math.max(minFeeGuard, scenarioMin);
@@ -418,13 +420,13 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   // --- PASSO 9.3: DELTA VS STANDARD ---
   // Recalcular Standard Baseline
   const stdMult = SCENARIO_CATALOG.standard.multiplier;
-  
+
   // Fee Base "Standard" (antes de mins/descontos, só multiplicador trocado)
   // Nota: calcArchitectureFee usa multiplicadores diretos.
   // O "Standard" tem scenMult = 1.0 (ou o valor em catalogo).
   const feeArchStd = calcArchitectureFee(template, safeArea, compMult, stdMult, units);
   const feeSpecStd = calcSpecsFee(safeArea, baseRateSpec, compMult, stdMult, specCount, units, template);
-  
+
   const subTotalStd = feeArchStd + feeSpecStd;
 
   // Aplicar MESMO desconto % (para comparacao justa de valor comercial)
@@ -437,12 +439,12 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   // Se quisermos ser rigorosos, aplicamos MIN_FEES.standard.
   const stdMinGuard = Math.max(template.minFeeTotal ?? 0, MIN_FEES.standard);
   const stdEffective = Math.max(stdAfterDiscount, stdMinGuard);
-  
+
   // Mas se stdEffective aplicar guardrail, perdemos a nocoa de "delta puro de multiplicador".
   // Vamos usar a logica requisitada: "stdNet = stdGuardrail.finalNet" (implicando logica completa).
   // Simplificacao: usaremos stdAfterDiscount (com desconto) como comparativo direto, ou stdEffective.
   // Vamos usar stdEffective para ser coerente com "quanto custaria Standard".
-  
+
   const stdNet = Math.round(stdEffective);
   const stdVat = round(stdNet * vatRate);
   const stdGross = round(stdNet * (1 + vatRate));
@@ -487,7 +489,7 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   const net = round(feeTotal);
   // vat declared above already
   const gross = round(net * (1 + vatRate));
-  
+
   const automationPayload = {
     simulationId: `SIM_${Date.now()}`,
     templateId,

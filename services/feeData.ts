@@ -1,5 +1,5 @@
 
-import { FeeTemplate, Phase, Discipline, TemplatePhaseWeight, TemplateSpecialty } from '../types';
+import { FeeTemplate, Phase, Discipline, TemplateSpecialty } from '../types';
 
 export const templates: FeeTemplate[] = [
   { templateId: "MORADIA_LICENSE", namePT: "Moradia — Licenciamento", nameEN: "House — Permitting", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 1, rateArchPerM2: 65, minFeeTotal: 4500 },
@@ -43,6 +43,13 @@ export const templates: FeeTemplate[] = [
     }
   },
   { templateId: "PIP", namePT: "PIP (Pedido de Informacao Previa)", nameEN: "PIP (Pre-Application)", processType: "lic", pricingModel: "PACKAGE", legalProfile: "PT", sortOrder: 8, baseFeeArch: 2500, minFeeTotal: 1500 },
+  { templateId: "BEACH_SUPPORT", namePT: "Apoio de Praia / Bar", nameEN: "Beach Support / Bar", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 9, rateArchPerM2: 85, minFeeTotal: 4000 },
+  { templateId: "INTERIOR_DESIGN", namePT: "Interiores & Remodelação", nameEN: "Interior Design", processType: "exec", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 10, rateArchPerM2: 90, minFeeTotal: 3000 },
+  { templateId: "RETAIL_SHOP", namePT: "Comércio — Loja / Retalho", nameEN: "Retail / Shop", processType: "hybrid", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 11, rateArchPerM2: 85, minFeeTotal: 3500 },
+  { templateId: "OFFICE_HQ", namePT: "Escritórios / Corporate", nameEN: "Offices / HQ", processType: "hybrid", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 12, rateArchPerM2: 75, minFeeTotal: 5000 },
+  { templateId: "TOURISM_RURAL", namePT: "Turismo Rural / Hotelaria", nameEN: "Rural Tourism / Hotel", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 13, rateArchPerM2: 80, minFeeTotal: 10000 },
+  { templateId: "INDUSTRIAL", namePT: "Industrial / Armazém", nameEN: "Industrial / Warehouse", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 14, rateArchPerM2: 45, minFeeTotal: 6000 },
+  { templateId: "LEGAL_GENERAL", namePT: "Legalização / Regularização (Geral)", nameEN: "Legalization (General)", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 15, rateArchPerM2: 60, minFeeTotal: 3000 },
 ];
 
 export const phaseCatalog: Phase[] = [
@@ -169,4 +176,15 @@ export const templateSpecialties: TemplateSpecialty[] = [
   { templateId: "MORADIA_LICENSE", disciplineId: "THERM", required: true, defaultOn: true },
   { templateId: "RESTAURANT", disciplineId: "SCIE", required: true, defaultOn: true },
   { templateId: "RESTAURANT", disciplineId: "HVAC", required: true, defaultOn: true },
+  { templateId: "BEACH_SUPPORT", disciplineId: "WATER", required: true, defaultOn: true },
+  { templateId: "BEACH_SUPPORT", disciplineId: "SCIE", required: true, defaultOn: true },
+  { templateId: "OFFICE_HQ", disciplineId: "ELEC", required: true, defaultOn: true },
+  { templateId: "OFFICE_HQ", disciplineId: "ITED", required: true, defaultOn: true },
+  { templateId: "OFFICE_HQ", disciplineId: "HVAC", required: true, defaultOn: true },
+  { templateId: "TOURISM_RURAL", disciplineId: "SCIE", required: true, defaultOn: true },
+  { templateId: "TOURISM_RURAL", disciplineId: "THERM", required: true, defaultOn: true },
+  { templateId: "TOURISM_RURAL", disciplineId: "ACOUST", required: true, defaultOn: true },
+  { templateId: "INDUSTRIAL", disciplineId: "SCIE", required: true, defaultOn: true },
+  { templateId: "INDUSTRIAL", disciplineId: "STRUCT", required: true, defaultOn: true },
+  { templateId: "LEGAL_GENERAL", disciplineId: "STRUCT", required: true, defaultOn: true },
 ];
