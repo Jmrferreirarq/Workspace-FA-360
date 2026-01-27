@@ -502,23 +502,25 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             <div className="p-3 bg-black/5 dark:bg-white/5 text-luxury-gold rounded-2xl"><Box size={20} /></div>
             <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">A‚mbito de Prestacao por Fase</h3>
           </header>
-          <div className="space-y-6">
-            {currentResult?.phasesBreakdown.map((p: { label: string; value: number; description: string; duration?: string; percentage?: number }, i: number) => (
-              <div key={i} className="p-6 bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 rounded-3xl group hover:border-luxury-gold/20 transition-all">
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="text-xs font-black uppercase tracking-widest text-luxury-gold">{p.label}</h4>
-                  <div className="text-right">
-                    <span className="text-xs font-mono text-luxury-charcoal/60 dark:text-white/60 block">€{p.value.toLocaleString()}</span>
-                    <div className="flex items-center justify-end gap-1 text-[9px] font-light text-luxury-charcoal/40 dark:text-white/40">
-                      {p.percentage && <span>{p.percentage}%</span>}
-                      {p.duration && <span>• {p.duration}</span>}
+          {selectedTemplate && currentResult?.phasesBreakdown && (
+            <div className="space-y-6">
+              {currentResult.phasesBreakdown.map((p: { label: string; value: number; description: string; duration?: string; percentage?: number }, i: number) => (
+                <div key={i} className="p-6 bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 rounded-3xl group hover:border-luxury-gold/20 transition-all">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-xs font-black uppercase tracking-widest text-luxury-gold">{p.label}</h4>
+                    <div className="text-right">
+                      <span className="text-xs font-mono text-luxury-charcoal/60 dark:text-white/60 block">€{p.value.toLocaleString()}</span>
+                      <div className="flex items-center justify-end gap-1 text-[9px] font-light text-luxury-charcoal/40 dark:text-white/40">
+                        {p.percentage && <span>{p.percentage}%</span>}
+                        {p.duration && <span>• {p.duration}</span>}
+                      </div>
                     </div>
                   </div>
+                  <p className="text-xs font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed">{p.description}</p>
                 </div>
-                <p className="text-xs font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed">{p.description}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
 
@@ -758,7 +760,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                               <span className="text-xs font-black uppercase tracking-widest">Esforco Tecnico Real</span>
                             </div>
                             <p className="text-xs font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed">
-                              Esta proposta corresponde a uma estimativa rigorosa de a‰ˆ<span className="text-luxury-gold opacity-100">{Math.round(currentResult?.feeTotal / 85)} horas</span> de trabalho tecnico qualificado dedicadas exclusivamente A  excelencia do seu projeto.
+                              Esta proposta corresponde a uma estimativa rigorosa de a‰ˆ<span className="text-luxury-gold opacity-100">{Math.round((currentResult?.feeTotal || 0) / 85)} horas</span> de trabalho tecnico qualificado dedicadas exclusivamente A  excelencia do seu projeto.
                             </p>
                           </div>
                         </div>
