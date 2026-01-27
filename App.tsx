@@ -21,12 +21,7 @@ import ProposalsManagementPage from './pages/ProposalsManagementPage';
 import MediaHubPage from './pages/MediaHubPage';
 import MaterialLibraryPage from './pages/MaterialLibraryPage';
 import StudioInboxPage from './pages/StudioInboxPage';
-import PublicHomePage from './pages/PublicHomePage';
-import PublicStudioPage from './pages/PublicStudioPage';
-import PublicServicesPage from './pages/PublicServicesPage';
-import PublicContactPage from './pages/PublicContactPage';
-import PublicProjectDetailsPage from './pages/PublicProjectDetailsPage';
-import ClientPortalPage from './pages/ClientPortalPage';
+
 import BrandIdentityPage from './pages/BrandIdentityPage';
 import CalculatorPage from './pages/CalculatorPage';
 import AntigravityPage from './pages/AntigravityPage';
@@ -39,8 +34,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const isPublic = location.pathname.startsWith('/public');
   const isPortal = location.pathname.startsWith('/portal');
-  const isAntigravity = location.pathname === '/antigravity';
-  const isNeural = location.pathname === '/neural';
+
 
   if (isPublic || isPortal) {
     return (
