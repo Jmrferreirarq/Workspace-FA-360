@@ -88,7 +88,7 @@ const App: React.FC = () => {
               <Route path="/media" element={<MediaHubPage />} />
               <Route path="/dna" element={<MaterialLibraryPage />} />
               <Route path="/inbox" element={<StudioInboxPage />} />
-              <Route path="/calculator" element={<CalculatorPage />} />
+              <Route path="/calculator" element={<RescueNode nodeName="Simulador PavA­vel"><CalculatorPage /></RescueNode>} />
               <Route path="/marketing" element={<MarketingPage />} />
               <Route path="/brand" element={<BrandIdentityPage />} />
               <Route path="*" element={<DashboardPage />} />

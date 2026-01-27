@@ -101,10 +101,10 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         <p className="text-[11px] font-black uppercase tracking-widest">A‚mbito do Servico</p>
                      </div>
                      <ul className="space-y-3 px-2">
-                        {data.phases.map((p, i) => (
+                        {(data.phases || []).map((p, i) => (
                            <li key={i} className="flex items-center gap-3 text-xs font-medium italic opacity-70">
                               <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
-                              {p.label}
+                              {p?.label || 'Fase'}
                            </li>
                         ))}
                      </ul>
@@ -168,14 +168,14 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <section className="space-y-8">
                         <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-8">1. Detalhe do A‚mbito por Fase</h3>
                         <div className="grid grid-cols-1 gap-8">
-                           {data.phases.map((p, i) => (
+                           {(data.phases || []).map((p, i) => (
                               <div key={i} className="flex gap-10">
                                  <div className="w-12 h-12 rounded-full border border-luxury-black/10 flex items-center justify-center shrink-0">
                                     <span className="font-serif italic text-lg text-luxury-gold">{i + 1}</span>
                                  </div>
                                  <div className="space-y-1">
-                                    <h4 className="text-xs font-black uppercase tracking-widest">{p.label}</h4>
-                                    <p className="text-xs font-light italic opacity-60 leading-relaxed">{p.description}</p>
+                                    <h4 className="text-xs font-black uppercase tracking-widest">{p?.label || 'Fase'}</h4>
+                                    <p className="text-xs font-light italic opacity-60 leading-relaxed">{p?.description || ''}</p>
                                  </div>
                               </div>
                            ))}
@@ -186,7 +186,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <section className="space-y-6">
                         <h3 className="text-[11px] font-black uppercase tracking-[0.2em] border-b border-luxury-black/5 pb-3">2. Disciplinas Tecnicas Coordenadas</h3>
                         <div className="grid grid-cols-3 gap-4 text-[11px] font-light italic opacity-60">
-                           {data.activeSpecs.map((s, i) => (
+                           {(data.activeSpecs || []).map((s, i) => (
                               <div key={i} className="flex gap-2 items-center">
                                  <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
                                  <span>{s}</span>
@@ -211,11 +211,11 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  </tr>
                               </thead>
                               <tbody className="divide-y divide-luxury-black/5">
-                                 {data.effortMap.map((eff, i) => (
+                                 {(data.effortMap || []).map((eff, i) => (
                                     <tr key={i} className="font-light italic">
-                                       <td className="px-6 py-3 opacity-70">{eff.label}</td>
-                                       <td className="px-6 py-3 font-mono">a‰ˆ{eff.hours} h</td>
-                                       <td className="px-6 py-3 opacity-40 text-[10px]">{eff.profile}</td>
+                                       <td className="px-6 py-3 opacity-70">{eff?.label || ''}</td>
+                                       <td className="px-6 py-3 font-mono">a‰ˆ{eff?.hours || 0} h</td>
+                                       <td className="px-6 py-3 opacity-40 text-[10px]">{eff?.profile || ''}</td>
                                     </tr>
                                  ))}
                               </tbody>
