@@ -412,7 +412,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             {/* Unidades Dinamicas (Passo 9) */}
             {currentTemplate?.pricingModel === 'UNIT' && (
               <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-black/5 dark:border-white/5">
-                {currentTemplate.unitPricing?.unitKind === 'APARTMENT' && (
+                {currentTemplate?.unitPricing?.unitKind === 'APARTMENT' && (
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Nu de Fracoes / Apartamentos</label>
                     <input
@@ -423,7 +423,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     />
                   </div>
                 )}
-                {currentTemplate.unitPricing?.unitKind === 'LOT' && (
+                {currentTemplate?.unitPricing?.unitKind === 'LOT' && (
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Nu de Lotes / Moradias</label>
                     <input
@@ -434,7 +434,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     />
                   </div>
                 )}
-                {currentTemplate.unitPricing?.unitKind === 'ROOM' && (
+                {currentTemplate?.unitPricing?.unitKind === 'ROOM' && (
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Nu de Quartos / Unidades</label>
                     <input
@@ -1099,10 +1099,15 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           area,
           complexity: complexity === 1 ? 'Essencial' : complexity === 2 ? 'Medio' : 'Rigor+',
           scenario: selectedScenario,
-          ...currentResult,
+          feeArch: currentResult?.feeArch || 0,
+          feeSpec: currentResult?.feeSpec || 0,
+          feeTotal: currentResult?.feeTotal || 0,
+          vat: currentResult?.vat || 0,
+          totalWithVat: currentResult?.totalWithVat || 0,
           activeSpecs: activeSpecs.map(id => disciplines.find(d => d.disciplineId === id)?.labelPT || id),
-          phases: currentResult?.phasesBreakdown,
-          effortMap: currentResult?.effortMap
+          phases: currentResult?.phasesBreakdown || [],
+          effortMap: currentResult?.effortMap || [],
+          units: currentResult?.units || 'm2'
         }} includeAnnex={includeAnnex} />
       </div>
     </div >
