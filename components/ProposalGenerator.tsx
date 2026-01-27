@@ -164,8 +164,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
     });
 
     if (!clientName) issues.push("Identificacao do Cliente pendente.");
-    if (currentResult.meta.appliedDiscount > 12) issues.push("Desconto exige aprovacao da gerencia.");
-    if (currentResult.strategic.isBlocked) issues.push("BLOQUEIO: Margem insuficiente para emissao.");
+    if (currentResult?.meta?.appliedDiscount > 12) issues.push("Desconto exige aprovacao da gerencia.");
+    if (currentResult?.strategic?.isBlocked) issues.push("BLOQUEIO: Margem insuficiente para emissao.");
 
     return issues;
   }, [selectedTemplate, activeSpecs, clientName, currentResult]);
@@ -219,7 +219,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         htmlContent = exportEngineService.exportHTMLString('proposal-capture-zone', clientName) || '';
       }
 
-      const run = await automationBridgeService.execute(currentResult.automationPayload, level, 'CEO', htmlContent);
+      const run = await automationBridgeService.execute(currentResult?.automationPayload, level, 'CEO', htmlContent);
 
       fa360.log(`AUTO: Execucao NA­vel ${level} concluA­da com sucesso. Projeto: ${run.createdIds.projectId}`);
 
@@ -504,7 +504,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           </header>
           {selectedTemplate && currentResult?.phasesBreakdown && (
             <div className="space-y-6">
-              {currentResult.phasesBreakdown.map((p: { label: string; value: number; description: string; duration?: string; percentage?: number }, i: number) => (
+              {currentResult?.phasesBreakdown?.map((p: { label: string; value: number; description: string; duration?: string; percentage?: number }, i: number) => (
                 <div key={i} className="p-6 bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 rounded-3xl group hover:border-luxury-gold/20 transition-all">
                   <div className="flex justify-between items-start mb-2">
                     <h4 className="text-xs font-black uppercase tracking-widest text-luxury-gold">{p.label}</h4>
@@ -674,18 +674,18 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     )}
 
                     {/* Audit Feedback */}
-                    {currentResult?.meta?.discountAudit && currentResult.meta.discountAudit.status !== 'applied' && discountType !== 'none' && (
-                      <div className={`p-4 rounded-xl border flex gap-3 ${currentResult.meta.discountAudit.status === 'rejected'
+                    {currentResult?.meta?.discountAudit && currentResult?.meta?.discountAudit?.status !== 'applied' && discountType !== 'none' && (
+                      <div className={`p-4 rounded-xl border flex gap-3 ${currentResult?.meta?.discountAudit?.status === 'rejected'
                         ? 'bg-red-500/10 border-red-500/20 text-red-400'
                         : 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400'
                         }`}>
-                        {currentResult.meta.discountAudit.status === 'rejected' ? <ShieldAlert size={16} /> : <AlertTriangle size={16} />}
+                        {currentResult?.meta?.discountAudit?.status === 'rejected' ? <ShieldAlert size={16} /> : <AlertTriangle size={16} />}
                         <div className="space-y-1">
                           <p className="text-xs font-black uppercase tracking-widest">
-                            {currentResult.meta.discountAudit.status === 'rejected' ? 'Desconto Rejeitado' : `Ajustado para ${currentResult.meta.discountAudit.applied.pct}%`}
+                            {currentResult?.meta?.discountAudit?.status === 'rejected' ? 'Desconto Rejeitado' : `Ajustado para ${currentResult?.meta?.discountAudit?.applied?.pct}%`}
                           </p>
                           <ul className="list-disc pl-3 text-[11px] opacity-80 italic">
-                            {currentResult.meta.discountAudit.reasons.map((r: string, i: number) => (
+                            {currentResult?.meta?.discountAudit?.reasons?.map((r: string, i: number) => (
                               <li key={i}>{r}</li>
                             ))}
                           </ul>
@@ -782,15 +782,15 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     <p className="text-[11px] font-light italic text-luxury-charcoal/40 dark:text-white/40">Governanca & Digital Twin</p>
                   </div>
                   <div className="flex gap-2">
-                    <div className={`px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all ${currentResult.strategic.riskLevel === 'high' ? 'bg-red-500/10 border-red-500/20 text-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]' :
-                      currentResult.strategic.riskLevel === 'medium' ? 'bg-yellow-500/10 border-yellow-500/20 text-yellow-500' :
+                    <div className={`px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all ${currentResult?.strategic?.riskLevel === 'high' ? 'bg-red-500/10 border-red-500/20 text-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]' :
+                      currentResult?.strategic?.riskLevel === 'medium' ? 'bg-yellow-500/10 border-yellow-500/20 text-yellow-500' :
                         'bg-green-500/10 border-green-500/20 text-green-500'
                       }`}>
-                      {currentResult.strategic.riskLevel === 'high' ? 'Risco Elevado' : currentResult.strategic.riskLevel === 'medium' ? 'Risco Medio' : 'Risco Baixo'} ({currentResult.strategic.riskScore}/100)
+                      {currentResult?.strategic?.riskLevel === 'high' ? 'Risco Elevado' : currentResult?.strategic?.riskLevel === 'medium' ? 'Risco Medio' : 'Risco Baixo'} ({currentResult?.strategic?.riskScore}/100)
                     </div>
-                    <div className={`px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${currentResult.strategic.isHealthy ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' : 'bg-red-500/10 border-red-500/20 text-red-400'
+                    <div className={`px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${currentResult?.strategic?.isHealthy ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' : 'bg-red-500/10 border-red-500/20 text-red-400'
                       }`}>
-                      {currentResult.strategic.isHealthy ? 'Saudavel' : 'Fragil'}
+                      {currentResult?.strategic?.isHealthy ? 'Saudavel' : 'Fragil'}
                     </div>
                   </div>
                 </div>
@@ -799,20 +799,20 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   <div className="space-y-4">
                     <p className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Margem (Digital Twin)</p>
                     <div className="flex items-baseline gap-2">
-                      <span className={`text-4xl font-serif italic ${currentResult.strategic.margin < 45 ? 'text-red-500' :
-                        currentResult.strategic.margin < 50 ? 'text-yellow-500' :
+                      <span className={`text-4xl font-serif italic ${currentResult?.strategic?.margin < 45 ? 'text-red-500' :
+                        currentResult?.strategic?.margin < 50 ? 'text-yellow-500' :
                           'text-luxury-charcoal dark:text-white'
                         }`}>
-                        {currentResult.strategic.margin}%
+                        {currentResult?.strategic?.margin}%
                       </span>
                       <span className="text-xs opacity-30">ROI REAL</span>
                     </div>
                     <div className="w-full h-1 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
-                        animate={{ width: `${Math.min(100, (currentResult.strategic.margin / 70) * 100)}%` }}
-                        className={`h-full ${currentResult.strategic.margin < 45 ? 'bg-red-500' :
-                          currentResult.strategic.margin < 50 ? 'bg-yellow-500' :
+                        animate={{ width: `${Math.min(100, ((currentResult?.strategic?.margin || 0) / 70) * 100)}%` }}
+                        className={`h-full ${currentResult?.strategic?.margin < 45 ? 'bg-red-500' :
+                          currentResult?.strategic?.margin < 50 ? 'bg-yellow-500' :
                             'bg-luxury-gold'
                           }`}
                       />
@@ -822,23 +822,23 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   <div className="space-y-4">
                     <p className="text-[11px] font-black uppercase tracking-widest opacity-40">Gatilho de Decisao</p>
                     <div className="flex items-center gap-3">
-                      <div className={`w-3 h-3 rounded-full animate-pulse ${!currentResult.strategic.isBlocked ? 'bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.5)]' : 'bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]'}`}></div>
+                      <div className={`w-3 h-3 rounded-full animate-pulse ${!currentResult?.strategic?.isBlocked ? 'bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.5)]' : 'bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]'}`}></div>
                       <span className="text-xs font-black uppercase tracking-widest">
-                        {!currentResult.strategic.isBlocked ? 'Emissao Autorizada' : 'Bloqueio de SaA­da'}
+                        {!currentResult?.strategic?.isBlocked ? 'Emissao Autorizada' : 'Bloqueio de SaA­da'}
                       </span>
                     </div>
                     <p className="text-[11px] font-light italic opacity-40 leading-tight">
-                      {currentResult.strategic.isBlocked ? 'Recomendacao: Subir para Modo Profissional ou ajustar especialidades.' :
-                        currentResult.strategic.riskLevel === 'high' ? 'Configuracoes fragil: Reforcar exclusoes tecnicas.' :
+                      {currentResult?.strategic?.isBlocked ? 'Recomendacao: Subir para Modo Profissional ou ajustar especialidades.' :
+                        currentResult?.strategic?.riskLevel === 'high' ? 'Configuracoes fragil: Reforcar exclusoes tecnicas.' :
                           'Operacao em zona de alta seguranca financeira.'}
                     </p>
                   </div>
                 </div>
 
                 {/* Alertas & Recomendacoes CrA­ticas */}
-                {(currentResult.strategic.alerts.length > 0 || currentResult.strategic.recommendations.length > 0) && (
+                {((currentResult?.strategic?.alerts?.length || 0) > 0 || (currentResult?.strategic?.recommendations?.length || 0) > 0) && (
                   <div className="pt-4 border-t border-white/5 space-y-4 relative z-10">
-                    {currentResult.strategic.alerts.map((alert, i) => (
+                    {currentResult?.strategic?.alerts?.map((alert, i) => (
                       <div key={`alert-${i}`} className="flex gap-3 items-start group/alert">
                         <div className={`mt-1 w-1.5 h-1.5 rounded-full shrink-0 ${alert.includes('BLOQUEIO') ? 'bg-red-500' :
                           alert.includes('ðŸš©') ? 'bg-purple-500' :
@@ -853,10 +853,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       </div>
                     ))}
 
-                    {currentResult.strategic.recommendations.length > 0 && (
+                    {(currentResult?.strategic?.recommendations?.length || 0) > 0 && (
                       <div className="bg-white/5 rounded-2xl p-4 space-y-2">
                         <p className="text-[9px] font-black uppercase tracking-widest text-luxury-gold opacity-60">Recomendacoes de Governanca</p>
-                        {currentResult.strategic.recommendations.map((rec, i) => (
+                        {currentResult?.strategic?.recommendations?.map((rec, i) => (
                           <div key={`rec-${i}`} className="flex gap-2 items-center">
                             <CheckCircle2 size={10} className="text-luxury-gold opacity-40" />
                             <p className="text-[11px] italic opacity-70 text-white">{rec}</p>
@@ -899,7 +899,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                         <tr className="bg-luxury-gold/5 font-black">
                           <td className="px-6 py-4 text-luxury-gold uppercase tracking-tighter">Total Estimado</td>
                           <td className="px-6 py-4 text-luxury-gold font-mono">
-                            ~{currentResult?.effortMap.reduce((acc: number, curr: { hours: number }) => acc + curr.hours, 0)} h
+                            ~{currentResult?.effortMap?.reduce((acc: number, curr: { hours: number }) => acc + curr.hours, 0) || 0} h
                           </td>
                           <td className="px-6 py-4 text-luxury-gold/40">a€”</td>
                         </tr>
@@ -964,12 +964,12 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
                   <button
                     onClick={() => window.print()}
-                    disabled={currentResult.strategic.margin < 45}
+                    disabled={currentResult?.strategic?.margin < 45}
                     className="py-5 bg-white/5 border border-white/10 text-white rounded-[2rem] text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 disabled:opacity-20 disabled:cursor-not-allowed group relative"
                   >
-                    {currentResult.strategic.margin < 45 ? <Lock size={16} className="text-red-500" /> : <Clock size={16} className="text-luxury-gold" />}
+                    {currentResult?.strategic?.margin < 45 ? <Lock size={16} className="text-red-500" /> : <Clock size={16} className="text-luxury-gold" />}
                     Imprimir / PDF
-                    {currentResult.strategic.margin < 45 && (
+                    {currentResult?.strategic?.margin < 45 && (
                       <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-red-600 text-white px-3 py-1 rounded text-[9px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Margem insuficiente para emissao</span>
                     )}
                   </button>
@@ -1009,10 +1009,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                         win.document.close();
                       }
                     }}
-                    disabled={currentResult.strategic.margin < 45}
+                    disabled={currentResult?.strategic?.margin < 45}
                     className="py-5 bg-white/5 border border-white/10 text-white rounded-[2rem] text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 disabled:opacity-20 disabled:cursor-not-allowed group relative"
                   >
-                    {currentResult.strategic.margin < 45 ? <Lock size={16} className="text-red-500" /> : <Layout size={16} className="text-luxury-gold" />}
+                    {currentResult?.strategic?.margin < 45 ? <Lock size={16} className="text-red-500" /> : <Layout size={16} className="text-luxury-gold" />}
                     Web-Proposal (HTML)
                   </button>
 
@@ -1050,7 +1050,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   {isPropagating ? <Loader2 className="animate-spin" size={18} /> : <Brain size={18} />} Propagar para Antigravity
                 </button>
 
-                {currentResult && !currentResult.strategic.isBlocked && clientName && (
+                {currentResult && !currentResult?.strategic?.isBlocked && clientName && (
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       onClick={() => handleAutomation(1)}
@@ -1148,8 +1148,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           scenario: selectedScenario,
           ...currentResult,
           activeSpecs: activeSpecs.map(id => disciplines.find(d => d.disciplineId === id)?.labelPT || id),
-          phases: currentResult.phasesBreakdown,
-          effortMap: currentResult.effortMap
+          phases: currentResult?.phasesBreakdown,
+          effortMap: currentResult?.effortMap
         }} includeAnnex={includeAnnex} />
       </div>
     </div >
