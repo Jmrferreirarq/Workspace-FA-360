@@ -42,6 +42,15 @@ export type ClientProfile = 'private' | 'promoter' | 'institutional';
 export type ProcessType = 'pip' | 'lic' | 'exec';
 export type LocationTier = 'interior_base' | 'interior' | 'litoral_base' | 'litoral' | 'porto';
 
+export type DiscountType = 'none' | 'clienteRecorrente' | 'packCompleto' | 'antecipacaoPagamento' | 'volume' | 'earlyBird' | 'promocaoSazonal' | 'custom';
+export type UserRole = 'auto' | 'arquiteto' | 'financeiro' | 'marketing' | 'diretor';
+
+export interface DiscountInput {
+  type: DiscountType;
+  value: number;
+  justification?: string;
+}
+
 export interface CalculationParams {
   templateId: string;
   area: number;
@@ -56,10 +65,38 @@ export interface CalculationParams {
   locationTier?: LocationTier;
 
   units?: UnitsInput;
-  discount?: {
-    type: 'replication' | 'scale' | 'partnership' | 'none';
-    value: number; // Percentagem
+  discount?: DiscountInput;
+  userRole?: UserRole;
+}
+
+export interface ScenarioConfig {
+  label: string;
+  multiplier: number;
+  revisions: string;
+  deliverables: string[];
+  exclusions: string[];
+}
+
+export interface DiscountAudit {
+  requested: { type: DiscountType; pct: number; justification?: string };
+  applied: { pct: number; amount: number };
+  status: 'applied' | 'rejected' | 'clamped';
+  reasons: string[];
+  policy: { maxPct: number; requiresRole: UserRole; description: string };
+}
+
+export interface ConfigSnapshot {
+  vatRate: number;
+  thresholds: {
+    marginBlock: number;
+    marginWarn: number;
+    marginHealthy: number;
   };
+  multipliers: {
+    complexity: number;
+    scenario: number;
+  };
+  scenarioConfig: ScenarioConfig;
 }
 
 export interface FeeResultV1 {
@@ -97,7 +134,21 @@ export interface FeeResultV1 {
   };
   meta: {
     version: string;
-    configSnapshot?: Record<string, any>;
+    configSnapshot?: ConfigSnapshot;
+    templateId: string;
+    pricingModel: string;
+    appliedDiscount: number;
+    discountAudit: DiscountAudit;
+    specCount: number;
+    compMult: number;
+    scenMult: number;
+    minFeeApplied: boolean;
+    units: UnitsInput;
+    vatRate: number;
+    scenarioDiffs: {
+      standard: number;
+      current: number;
+    };
   };
 }
 

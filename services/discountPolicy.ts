@@ -1,29 +1,192 @@
-export const DISCOUNT_POLICY = {
-    replication: { max: 25, requiresApproval: false },
-    scale: { max: 15, requiresApproval: false },
-    partnership: { max: 10, requiresApproval: true },
-    none: { max: 0, requiresApproval: false },
-} as const;
+import { Scenario, DiscountAudit } from '../types';
 
-export function applyDiscount(
-    subTotal: number,
-    discount: { type: string; value: number } | undefined
-) {
-    const type = (discount?.type || 'none') as keyof typeof DISCOUNT_POLICY;
-    const policy = DISCOUNT_POLICY[type] || DISCOUNT_POLICY.none;
+// Se não tiveres feeCalculatorUtils, usa este clamp aqui:
+const _clamp = (n: number, min: number, max: number) => Math.max(min, Math.min(max, n));
 
-    const requestedVal = Number(discount?.value || 0);
-    const appliedPct = Math.min(Math.max(0, requestedVal), policy.max);
+export type DiscountType =
+    | 'none'
+    | 'clienteRecorrente'
+    | 'packCompleto'
+    | 'antecipacaoPagamento'
+    | 'volume'
+    | 'earlyBird'
+    | 'promocaoSazonal'
+    | 'custom';
 
-    const amount = (subTotal * appliedPct) / 100;
+export type UserRole = 'auto' | 'arquiteto' | 'financeiro' | 'marketing' | 'diretor';
 
-    const audit = {
-        requested: requestedVal,
-        applied: appliedPct,
-        capped: requestedVal > policy.max,
-        policyMax: policy.max,
-        requiresApproval: policy.requiresApproval && appliedPct > 0
+export interface DiscountInput {
+    type: DiscountType;
+    value: number; // percentagem pedida
+    justification?: string;
+}
+
+export interface DiscountContext {
+    userRole: UserRole;
+    scenario: Scenario;
+    specCount: number;
+    hasAllPhases?: boolean; // se quiseres ligar a “pack completo”
+}
+
+export interface DiscountPolicyRule {
+    maxPct: number;
+    requiresRole: UserRole;
+    requiresJustificationAbove?: number; // ex: >10%
+    description: string;
+    // regra opcional de aplicabilidade
+    isAllowed?: (ctx: DiscountContext) => boolean;
+}
+
+const ROLE_LEVEL: Record<UserRole, number> = {
+    auto: 0,
+    arquiteto: 1,
+    financeiro: 2,
+    marketing: 2,
+    diretor: 3,
+};
+
+export const DISCOUNT_POLICY: Record<DiscountType, DiscountPolicyRule> = {
+    none: { maxPct: 0, requiresRole: 'auto', description: 'Sem desconto' },
+
+    clienteRecorrente: {
+        maxPct: 10,
+        requiresRole: 'diretor',
+        requiresJustificationAbove: 10,
+        description: 'Cliente com recorrência comprovada'
+    },
+
+    packCompleto: {
+        maxPct: 12,
+        requiresRole: 'auto',
+        requiresJustificationAbove: 10,
+        description: 'Pack completo (fases + coordenação)',
+        isAllowed: (ctx) => ctx.scenario !== 'essential' // não permitir em modo essencial (risco)
+    },
+
+    antecipacaoPagamento: {
+        maxPct: 7,
+        requiresRole: 'financeiro',
+        description: 'Pagamento antecipado (100% ou marco reforçado)'
+    },
+
+    volume: {
+        maxPct: 20,
+        requiresRole: 'diretor',
+        requiresJustificationAbove: 10,
+        description: 'Volume (ex.: múltiplas unidades)'
+    },
+
+    earlyBird: {
+        maxPct: 5,
+        requiresRole: 'auto',
+        description: 'Fecho rápido (≤15 dias)'
+    },
+
+    promocaoSazonal: {
+        maxPct: 10,
+        requiresRole: 'marketing',
+        requiresJustificationAbove: 10,
+        description: 'Campanha sazonal'
+    },
+
+    custom: {
+        maxPct: 25, // teto máximo absoluto (podes subir, mas eu não recomendo)
+        requiresRole: 'diretor',
+        requiresJustificationAbove: 5,
+        description: 'Exceção / desconto personalizado'
+    },
+};
+
+
+
+export function applyDiscountPolicy(
+    subtotal: number,
+    discount: DiscountInput | undefined,
+    ctx: DiscountContext
+): { appliedPct: number; discountAmount: number; audit: DiscountAudit; alerts: string[] } {
+    const d = discount?.type ? discount : { type: 'none' as DiscountType, value: 0 };
+    const pctReq = Number(d.value || 0);
+    const rule = DISCOUNT_POLICY[d.type] || DISCOUNT_POLICY.none;
+
+    const reasons: string[] = [];
+    const alerts: string[] = [];
+
+    // 1) Role check
+    const userLevel = ROLE_LEVEL[ctx.userRole] ?? 0;
+    const requiredLevel = ROLE_LEVEL[rule.requiresRole] ?? 0;
+    if (userLevel < requiredLevel) {
+        reasons.push(`Permissão insuficiente: requer ${rule.requiresRole}`);
+        alerts.push(`🚫 Desconto rejeitado — requer aprovação (${rule.requiresRole}).`);
+        return {
+            appliedPct: 0,
+            discountAmount: 0,
+            alerts,
+            audit: {
+                requested: { type: d.type, pct: pctReq, justification: d.justification },
+                applied: { pct: 0, amount: 0 },
+                status: 'rejected',
+                reasons,
+                policy: { maxPct: rule.maxPct, requiresRole: rule.requiresRole, description: rule.description }
+            }
+        };
+    }
+
+    // 2) Applicability check (optional)
+    if (rule.isAllowed && !rule.isAllowed(ctx)) {
+        reasons.push(`Tipo de desconto não permitido neste contexto`);
+        alerts.push(`🚫 Desconto rejeitado — não permitido para este cenário/configuração.`);
+        return {
+            appliedPct: 0,
+            discountAmount: 0,
+            alerts,
+            audit: {
+                requested: { type: d.type, pct: pctReq, justification: d.justification },
+                applied: { pct: 0, amount: 0 },
+                status: 'rejected',
+                reasons,
+                policy: { maxPct: rule.maxPct, requiresRole: rule.requiresRole, description: rule.description }
+            }
+        };
+    }
+
+    // 3) Clamp to policy max
+    const pctClamped = _clamp(pctReq, 0, rule.maxPct);
+    const clamped = pctClamped !== pctReq;
+    if (clamped) reasons.push(`Desconto ajustado ao teto: ${rule.maxPct}%`);
+
+    // 4) Justification if needed
+    const threshold = rule.requiresJustificationAbove;
+    if (threshold != null && pctClamped > threshold) {
+        if (!d.justification || !d.justification.trim()) {
+            reasons.push(`Justificação obrigatória acima de ${threshold}%`);
+            alerts.push(`🚫 Desconto rejeitado — justificação obrigatória (> ${threshold}%).`);
+            return {
+                appliedPct: 0,
+                discountAmount: 0,
+                alerts,
+                audit: {
+                    requested: { type: d.type, pct: pctReq, justification: d.justification },
+                    applied: { pct: 0, amount: 0 },
+                    status: 'rejected',
+                    reasons,
+                    policy: { maxPct: rule.maxPct, requiresRole: rule.requiresRole, description: rule.description }
+                }
+            };
+        }
+    }
+
+    const discountAmount = (subtotal * pctClamped) / 100;
+
+    return {
+        appliedPct: pctClamped,
+        discountAmount,
+        alerts,
+        audit: {
+            requested: { type: d.type, pct: pctReq, justification: d.justification },
+            applied: { pct: pctClamped, amount: discountAmount },
+            status: clamped ? 'clamped' : 'applied',
+            reasons,
+            policy: { maxPct: rule.maxPct, requiresRole: rule.requiresRole, description: rule.description }
+        }
     };
-
-    return { appliedPct, amount, audit };
 }

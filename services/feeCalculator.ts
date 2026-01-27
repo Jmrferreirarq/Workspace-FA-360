@@ -2,7 +2,7 @@
 import { templates, phaseCatalog } from './feeData';
 import { PAYMENT_MILESTONES } from './paymentMilestones';
 import { TASK_CATALOG } from './taskCatalog';
-import { applyDiscount } from './discountPolicy';
+import { applyDiscountPolicy } from './discountPolicy';
 import { SCENARIO_CATALOG } from './scenarioCatalog';
 import { INTERNAL_RATES, OVERHEAD_MULT, FINANCE_THRESHOLDS, MIN_FEES } from './financeConfig';
 import { CalculationParams, Complexity, Scenario, UnitsInput, FeeTemplate } from '../types';
@@ -162,7 +162,7 @@ function phasesBreakdown(feeTotal: number, scenario: Scenario) {
     ? ALL_PHASE_WEIGHTS
     : ALL_PHASE_WEIGHTS.filter(w => ['A0', 'A1', 'A2'].includes(w.id));
 
-  const normalized = normalizeWeights(active as any);
+  const normalized = normalizeWeights(active as { id: string; weight: number }[]);
 
   return normalized.map(pw => {
     const info = phaseCatalog.find(p => p.phaseId === pw.id);
@@ -195,10 +195,11 @@ function riskEngine(input: {
   area: number;
   specCount: number;
   discountPct: number;
+  discountStatus?: 'applied' | 'rejected' | 'clamped';
   units?: UnitsInput;
   template?: FeeTemplate;
 }) {
-  const { marginPct, scenario, complexity, area, specCount, discountPct, units, template } = input;
+  const { marginPct, scenario, complexity, area, specCount, discountPct, discountStatus, units, template } = input;
   const extraSpecs = Math.max(0, specCount - INCLUDED_SPECS);
 
   let riskScore = 0;
@@ -237,7 +238,11 @@ function riskEngine(input: {
   riskScore += Math.min(20, extraSpecs * 4);
   if (extraSpecs > 0) signals.push("Specs_Extra");
 
-  // Descontos agressivos
+  // Descontos agressivos e política
+  if (discountStatus === 'rejected') {
+    signals.push("Discount_Rejected");
+    alerts.push("⚠️ Desconto rejeitado por política. Rever condições.");
+  }
   if (discountPct > 15) { riskScore += 10; signals.push("Discount_Over_15"); }
   if (discountPct > 20) { riskScore += 20; signals.push("Discount_Over_20"); }
 
@@ -295,7 +300,8 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   const template = templates.find(t => t.templateId === templateId);
   if (!template) return null;
 
-  const vatRate = (params as any).vatRate ?? VAT_RATE;
+  // No need for 'as any' since vatRate is now in CalculationParams
+  const vatRate = params.vatRate ?? VAT_RATE;
 
   const specCount = selectedSpecs.length;
 
@@ -311,8 +317,19 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   const subTotalRaw = feeArchRaw + feeSpecRaw;
 
   // PATCH V1: Discount Policy
-  // Removed duplicate subTotalRaw declaration
-  const { appliedPct, amount: discountAmount, audit: discountAudit } = applyDiscount(subTotalRaw, discount);
+  // ✅ Desconto com política + auditoria
+  // ✅ Desconto com política + auditoria
+  const userRole = params.userRole || 'arquiteto';
+  const discountEval = applyDiscountPolicy(subTotalRaw, discount, {
+    userRole,
+    scenario,
+    specCount
+  });
+
+  const appliedDiscount = discountEval.appliedPct;
+  const discountAmount = discountEval.discountAmount;
+  const discountAudit = discountEval.audit;
+
   const feeAfterDiscount = subTotalRaw - discountAmount;
 
   // PATCH V1: Minimos e guardrails (Step 7)
@@ -343,7 +360,8 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     complexity,
     area: safeArea,
     specCount,
-    discountPct: appliedPct,
+    discountPct: appliedDiscount,
+    discountStatus: discountAudit.status,
     units,
     template
   });
@@ -409,7 +427,7 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
       margin: round(margin),
       riskLevel: strategicRisk.riskLevel,
       riskScore: strategicRisk.riskScore,
-      alerts: strategicRisk.alerts,
+      alerts: [...(discountEval.alerts || []), ...strategicRisk.alerts],
       recommendations: strategicRisk.recommendations,
       signals: strategicRisk.signals,
       estimatedCost: round(estimatedCost),
@@ -419,7 +437,7 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     meta: {
       templateId,
       pricingModel: template.pricingModel,
-      appliedDiscount: appliedPct,
+      appliedDiscount,
       discountAudit, // Expose audit
       specCount,
       compMult,
