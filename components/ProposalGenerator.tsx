@@ -505,38 +505,67 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
         {/* Bloco 3: Memoria das Fases (Interface Live) */}
         <div className="glass p-10 md:p-14 rounded-[2rem] space-y-10 shadow-2xl">
-          <header className="flex items-center gap-4">
-            <div className="p-3 bg-black/5 dark:bg-white/5 text-luxury-gold rounded-2xl"><Box size={20} /></div>
-            <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">{t('calc_scope_phase')}</h3>
+          <header className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-black/5 dark:bg-white/5 text-luxury-gold rounded-2xl"><Box size={20} /></div>
+              <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">{t('calc_scope_phase')}</h3>
+            </div>
           </header>
-          {(!selectedTemplate || !currentResult?.phasesBreakdown) ? (
+
+          {(!currentResult?.phasesBreakdown) ? (
             <div className="flex flex-col items-center justify-center py-12 opacity-40 space-y-4">
               <Box size={40} strokeWidth={1} />
               <p className="text-xs font-light italic">{t('calc_waiting_data')}</p>
             </div>
           ) : (
-            <div className="space-y-6">
-              {currentResult?.phasesBreakdown?.map((p: { label: string; labelEN?: string; description: string; descriptionEN?: string; duration?: string; weeks?: number; value: number; percentage?: number }, i: number) => {
-                const label = locale === 'en' ? (p.labelEN || p.label) : p.label;
-                const description = locale === 'en' ? (p.descriptionEN || p.description) : p.description;
-                const duration = locale === 'en' && p.weeks ? `${p.weeks} ${p.weeks === 1 ? 'Week' : 'Weeks'}` : p.duration;
+            <div className="overflow-hidden rounded-3xl border border-black/5 dark:border-white/5">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="bg-black/5 dark:bg-white/5 text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">
+                    <th className="px-6 py-5 border-b border-black/5 dark:border-white/5">Fase</th>
+                    <th className="px-6 py-5 border-b border-black/5 dark:border-white/5">Descritivo</th>
+                    <th className="px-6 py-5 border-b border-black/5 dark:border-white/5 text-center">Esforço</th>
+                    <th className="px-6 py-5 border-b border-black/5 dark:border-white/5 text-center">%</th>
+                    <th className="px-6 py-5 border-b border-black/5 dark:border-white/5 text-right">Valor</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-black/5 dark:divide-white/5">
+                  {currentResult.phasesBreakdown.map((p: any, i: number) => {
+                    const label = locale === 'en' ? (p.labelEN || p.label) : p.label;
+                    const description = locale === 'en' ? (p.descriptionEN || p.description) : p.description;
+                    const duration = locale === 'en' && p.weeks ? `${p.weeks} ${p.weeks === 1 ? 'Week' : 'Weeks'}` : p.duration;
 
-                return (
-                  <div key={i} className="p-6 bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 rounded-3xl group hover:border-luxury-gold/20 transition-all">
-                    <div className="flex justify-between items-start mb-2">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-luxury-gold">{label}</h4>
-                      <div className="text-right">
-                        <span className="text-xs font-mono text-luxury-charcoal/60 dark:text-white/60 block">€{p.value.toLocaleString()}</span>
-                        <div className="flex items-center justify-end gap-1 text-[9px] font-light text-luxury-charcoal/40 dark:text-white/40">
-                          {p.percentage && <span>{p.percentage}%</span>}
-                          {duration && <span>• {duration}</span>}
-                        </div>
-                      </div>
-                    </div>
-                    <p className="text-xs font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed">{description}</p>
-                  </div>
-                );
-              })}
+                    return (
+                      <tr key={i} className="group hover:bg-luxury-gold/[0.02] transition-colors">
+                        <td className="px-6 py-5 align-top">
+                          <span className="text-xs font-black uppercase tracking-widest text-luxury-gold block mb-1">{p.phaseId}</span>
+                          <span className="text-[10px] font-bold text-luxury-charcoal/80 dark:text-white/80 uppercase tracking-tighter block">{label}</span>
+                        </td>
+                        <td className="px-6 py-5 align-top">
+                          <p className="text-[11px] font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed max-w-sm">
+                            {description}
+                          </p>
+                        </td>
+                        <td className="px-6 py-5 align-top text-center">
+                          <span className="text-[10px] font-mono text-luxury-charcoal/40 dark:text-white/40 uppercase whitespace-nowrap">
+                            {duration}
+                          </span>
+                        </td>
+                        <td className="px-6 py-5 align-top text-center">
+                          <span className="text-[11px] font-mono text-luxury-gold font-bold">
+                            {p.percentage}%
+                          </span>
+                        </td>
+                        <td className="px-6 py-5 align-top text-right">
+                          <span className="text-xs font-mono font-bold text-luxury-charcoal dark:text-white">
+                            €{p.value.toLocaleString()}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           )}
         </div>
