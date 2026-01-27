@@ -591,15 +591,15 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   <span className="text-[10px] font-black uppercase tracking-widest text-luxury-gold">Investimento Estimado</span>
                 </div>
                 <div className="text-6xl font-thin tracking-tighter text-luxury-charcoal dark:text-white mb-2">
-                  €{currentResult?.feeTotal.toLocaleString()}
+                  €{currentResult?.feeTotal?.toLocaleString() || '0'}
                 </div>
                 <p className="text-[11px] font-mono text-luxury-charcoal/60 dark:text-white/60 flex items-center gap-2">
-                  <Zap size={14} /> + IVA a taxa legal (€{currentResult?.vat.toLocaleString()})
+                  <Zap size={14} /> + IVA a taxa legal (€{currentResult?.vat?.toLocaleString() || '0'})
                 </p>
 
                 <div className="mt-8 space-y-2">
-                  <ResultRow label="Arquitetura (Design & Tech)" value={`€${currentResult?.feeArch.toLocaleString()}`} />
-                  <ResultRow label="Engenharias Integradas" value={`€${currentResult?.feeSpec.toLocaleString()}`} />
+                  <ResultRow label="Arquitetura (Design & Tech)" value={`€${currentResult?.feeArch?.toLocaleString() || '0'}`} />
+                  <ResultRow label="Engenharias Integradas" value={`€${currentResult?.feeSpec?.toLocaleString() || '0'}`} />
                 </div>
                 {/* Descontos & PolA­tica Comercial */}
                 <div className="pt-8 border-t border-black/5 dark:border-white/5 space-y-6">
