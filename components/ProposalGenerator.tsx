@@ -93,8 +93,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
   }, [clientName, location]);
 
   // Configuracoes Tecnicas
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(templates[0].templateId);
-  const [area, setArea] = useState(150);
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+  const [area, setArea] = useState(0);
   const [complexity, setComplexity] = useState<Complexity>(1);
   const [activeSpecs, setActiveSpecs] = useState<string[]>([]);
 
