@@ -865,7 +865,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-black/5 dark:divide-white/5">
-                      {currentResult?.effortMap.map((eff: { label: string; hours: number; profile: string }, i: number) => (
+                      {currentResult?.effortMap?.map((eff: { label: string; hours: number; profile: string }, i: number) => (
                         <tr key={i} className="group hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
                           <td className="px-6 py-4 text-luxury-charcoal dark:text-white font-medium italic">{eff.label}</td>
                           <td className="px-6 py-4 text-luxury-gold font-mono">~{eff.hours} h</td>
