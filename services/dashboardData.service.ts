@@ -2,6 +2,7 @@ type Task = { id: string; title: string; deadline: string; completed: boolean; p
 type Payment = { id: string; title: string; amountNet: number; vatRate: number; date: string; status: 'paid' | 'pending' | 'overdue'; projectId?: string };
 type Project = { id: string; title: string; client?: string; status: string; nextActionDate?: string; riskFlag?: string; nextMilestone?: string; projectId?: string; name?: string; progress?: number };
 type TimeEntry = { date: string; owner: string; hours: number; projectId?: string };
+type Meeting = { id: string; title: string; location: string; startTime: string; endTime: string; projectId?: string };
 
 const toDate = (s: string) => new Date(s);
 const today = () => new Date();
@@ -17,7 +18,7 @@ const getStartOfWeek = (d: Date) => {
 };
 
 export class DashboardDataService {
-  async build(input: { tasks: Task[]; payments: Payment[]; projects: Project[]; proposals: any[]; timeEntries?: TimeEntry[]; syncLog?: any }) {
+  async build(input: { tasks: Task[]; payments: Payment[]; projects: Project[]; proposals: any[]; timeEntries?: TimeEntry[]; syncLog?: any; meetings?: Meeting[] }) {
     const now = today();
     // Reset time part for accurate date comparison
     now.setHours(0,0,0,0);
@@ -59,8 +60,9 @@ export class DashboardDataService {
 
     const dailyHighlights = {
       urgentTasks: input.tasks.filter(t => !t.completed && (toDate(t.deadline) <= now)).slice(0, 3),
-      urgentPayments: next7Payments.slice(0, 2),
-      idleProjects: idleProjects.slice(0, 2)
+      urgentPayments: input.payments.filter(p => p.status !== 'paid' && toDate(p.date) < addDays(now, -30)).slice(0, 2), // Older than 30 days
+      idleProjects: idleProjects.slice(0, 2),
+      todayMeetings: (input.meetings || []).filter(m => toDate(m.startTime).toDateString() === now.toDateString()).slice(0, 3)
     };
 
     // 2. Critical Alerts View Model

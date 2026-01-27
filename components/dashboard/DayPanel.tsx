@@ -24,11 +24,28 @@ interface DashboardProject {
   nextActionDate?: string;
 }
 
+interface DashboardMeeting {
+  id: string;
+  title: string;
+  location: string;
+  startTime: string;
+  endTime: string;
+}
+
+interface DashboardMeeting {
+  id: string;
+  title: string;
+  location: string;
+  startTime: string;
+  endTime: string;
+}
+
 interface DayPanelProps {
   data: {
     urgentTasks: DashboardTask[];
     urgentPayments: DashboardPayment[];
     idleProjects: DashboardProject[];
+    todayMeetings: DashboardMeeting[];
   };
 }
 
@@ -38,7 +55,7 @@ export default function DayPanel({ data }: DayPanelProps) {
   // eslint-disable-next-line
   const now = Date.now(); // Fix purity warning
 
-  const hasHighlights = data.urgentTasks.length > 0 || data.urgentPayments.length > 0 || data.idleProjects.length > 0;
+  const hasHighlights = data.urgentTasks.length > 0 || data.urgentPayments.length > 0 || data.idleProjects.length > 0 || data.todayMeetings.length > 0;
 
   if (!hasHighlights) {
     return (
@@ -64,7 +81,7 @@ export default function DayPanel({ data }: DayPanelProps) {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-black/5 dark:divide-white/5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-black/5 dark:divide-white/5">
 
         {/* SECTION: URGENTE */}
         <div className="p-8 space-y-6">
@@ -91,8 +108,35 @@ export default function DayPanel({ data }: DayPanelProps) {
           </div>
         </div>
 
-        {/* SECTION: FINANCEIRO */}
+        {/* SECTION: AGENDA */}
         <div className="p-8 space-y-6 bg-black/[0.01] dark:bg-white/[0.01]">
+          <div className="flex items-center gap-3 mb-2">
+            <Clock size={16} className="text-blue-500" />
+            <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-blue-500">{t('day_panel_today_meetings')}</h4>
+          </div>
+          <div className="space-y-4">
+            {data.todayMeetings && data.todayMeetings.length > 0 ? data.todayMeetings.map((meet) => (
+              <div
+                key={meet.id}
+                onClick={() => navigate('/calendar')}
+                className="group cursor-pointer"
+              >
+                <div className="flex justify-between items-start mb-1">
+                  <span className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1">{meet.title}</span>
+                  <span className="text-[10px] font-black text-blue-500 uppercase tracking-tighter whitespace-nowrap ml-2">
+                    {new Date(meet.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                </div>
+                <p className="text-[10px] font-bold text-luxury-charcoal/40 dark:text-white/40 uppercase tracking-widest">{meet.location}</p>
+              </div>
+            )) : (
+              <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
+            )}
+          </div>
+        </div>
+
+        {/* SECTION: FINANCEIRO */}
+        <div className="p-8 space-y-6">
           <div className="flex items-center gap-3 mb-2">
             <CreditCard size={16} className="text-luxury-gold" />
             <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-luxury-gold">{t('day_panel_financial')}</h4>
@@ -109,7 +153,9 @@ export default function DayPanel({ data }: DayPanelProps) {
                   <span className="text-[11px] font-serif italic text-luxury-gold">{Math.round(pay.amountNet).toLocaleString()}a‚¬</span>
                 </div>
                 <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-tighter text-luxury-charcoal/40 dark:text-white/40">
-                  <span>{pay.status}</span>
+                  <span className={(new Date(pay.date).getTime()) < (now - 30 * 86400000) ? "text-rose-500 font-black animate-pulse" : ""}>
+                    {(new Date(pay.date).getTime()) < (now - 30 * 86400000) ? t('day_panel_overdue_alert') : pay.status}
+                  </span>
                   <span>{new Date(pay.date).toLocaleDateString()}</span>
                 </div>
               </div>

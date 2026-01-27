@@ -1116,7 +1116,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex justify-center overflow-y-auto p-4 md:p-20"
           >
             <div className="relative w-full max-w-[900px]">
-              <div className="fixed top-10 left-10 flex items-center gap-4">
+              <div className="fixed top-10 left-[340px] flex items-center gap-4">
                 <button
                   onClick={() => setShowPreview(false)}
                   className="flex items-center gap-3 px-6 py-4 bg-luxury-gold text-black rounded-full font-black uppercase tracking-widest hover:scale-105 transition-all shadow-[0_10px_30px_rgba(212,175,55,0.4)]"

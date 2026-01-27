@@ -250,7 +250,10 @@ const fa360 = {
     const projects = await fa360.listProjects();
     const proposals = await fa360.listProposals();
     const expenses = await fa360.listExpenses();
+    const payments = await fa360.listPayments();
     const now = new Date();
+
+    const overduePayments = payments.filter((p: any) => p.status !== 'paid' && new Date(p.date) < now);
 
     // 1. Today Ops
     const todayTasks = tasks.filter(t => {
@@ -345,8 +348,8 @@ const fa360 = {
 
     return {
       tasks: todayTasks,
-      meetings: [],
-      pendingInvoices: 0,
+      meetings: await fa360.listEvents(),
+      pendingInvoices: overduePayments.length,
       stalledProjects: stalled.length,
       metrics
     };
@@ -381,8 +384,28 @@ const fa360 = {
   },
 
   listEvents: async () => {
-    // Current date for default context
-    return [];
+    const today = new Date();
+    const isoDate = today.toISOString().split('T')[0];
+    
+    // Mocking 2-3 meetings for today
+    return [
+      {
+        id: 'evt-001',
+        title: 'Reunião de Acompanhamento - Moradia Cascais',
+        location: 'Atelier / Zoom',
+        startTime: `${isoDate}T10:00:00Z`,
+        endTime: `${isoDate}T11:00:00Z`,
+        projectId: 'P001'
+      },
+      {
+        id: 'evt-002',
+        title: 'Consultoria Estrutural - Loteamento Estoril',
+        location: 'Obra',
+        startTime: `${isoDate}T15:30:00Z`,
+        endTime: `${isoDate}T17:00:00Z`,
+        projectId: 'P002'
+      }
+    ];
   },
 
   getAIRecommendations: async (category: 'FINANCIAL' | 'CALENDAR') => {

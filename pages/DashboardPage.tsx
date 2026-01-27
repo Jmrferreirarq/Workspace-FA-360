@@ -31,13 +31,14 @@ export default function Dashboard() {
   const loadData = async () => {
     try {
       // 1. Fetch Raw Data
-      const [tasks, payments, projects, proposals, timeLogs, dailyBriefing] = await Promise.all([
+      const [tasks, payments, projects, proposals, timeLogs, dailyBriefing, meetings] = await Promise.all([
          fa360.listTasks(),
          fa360.listPayments ? fa360.listPayments() : Promise.resolve([]), 
          fa360.listProjects(),
          fa360.listProposals(),
          fa360.listTimeLogs ? fa360.listTimeLogs() : Promise.resolve([]),
-         fa360.getDailyBriefing()
+         fa360.getDailyBriefing(),
+         fa360.listEvents ? fa360.listEvents() : Promise.resolve([])
       ]);
 
       // 2. Build View Model via Service
@@ -52,7 +53,8 @@ export default function Dashboard() {
             hours: (l.duration || 0) / 60,
             projectId: l.projectId
           })),
-          syncLog: dailyBriefing?.metrics?.neuralStatus 
+          syncLog: dailyBriefing?.metrics?.neuralStatus,
+          meetings: meetings || []
       });
       
       setVm(built);
