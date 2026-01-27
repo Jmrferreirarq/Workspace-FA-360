@@ -47,17 +47,21 @@ export default function NeuralStudioPage() {
     { id: 'director', name: 'Creative Director', icon: <Eye />, color: '#a855f7', status: 'Ready' }
   ];
 
-  useEffect(() => {
-    loadProtocol();
-    const checkStatus = () => setIsBrainOnline(localStorage.getItem('fa-brain-status') === 'ONLINE');
-    window.addEventListener('neural-link-active', checkStatus);
-    return () => window.removeEventListener('neural-link-active', checkStatus);
-  }, [activeAgent]);
-
   const loadProtocol = async () => {
     const text = await fa360.getNeuralProtocol(activeAgent);
     setPrompt(text);
   };
+
+  useEffect(() => {
+    const init = async () => {
+      await loadProtocol();
+    };
+    init();
+
+    const checkStatus = () => setIsBrainOnline(localStorage.getItem('fa-brain-status') === 'ONLINE');
+    window.addEventListener('neural-link-active', checkStatus);
+    return () => window.removeEventListener('neural-link-active', checkStatus);
+  }, [activeAgent]);
 
   const handleSyncNeural = () => {
     if (!isBrainOnline) {
@@ -83,7 +87,7 @@ export default function NeuralStudioPage() {
 
   return (
     <div className="min-h-screen text-luxury-charcoal dark:text-white p-6 md:p-8 space-y-12 pb-32 max-w-[1800px] mx-auto animate-in fade-in duration-1000">
-      <PageHeader 
+      <PageHeader
         kicker={`FA-360 Neural Studio ${isBrainOnline ? '• Live' : '• Offline'}`}
         title={<>Studio <span className="text-indigo-500 drop-shadow-[0_0_50px_rgba(99,102,241,0.3)]">AI.</span></>}
         statusIndicator={isBrainOnline}

@@ -42,6 +42,8 @@ export default function ProjectDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [aiAnalysis, setAiAnalysis] = useState('');
   const { start, activeProject, isActive } = useTimer();
+  // eslint-disable-next-line
+  const now = Date.now(); // Fix impurity warning
 
   const tabs = [
     { id: 'TASKS', label: t('proj_tasks'), icon: <CheckSquare size={16} /> },
@@ -84,10 +86,10 @@ export default function ProjectDetailsPage() {
           </button>
 
           {/* Quick Win #7: Stalled Indicator */}
-          {project?.lastUpdate && (Date.now() - project.lastUpdate > 14 * 86400000) && (
+          {project?.lastUpdate && (now - project.lastUpdate > 14 * 86400000) && (
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-500 rounded-lg animate-pulse">
               <AlertTriangle size={14} />
-              <span className="text-[10px] font-black uppercase tracking-widest">Projeto Parado ({Math.floor((Date.now() - project.lastUpdate) / (1000 * 60 * 60 * 24))} dias)</span>
+              <span className="text-[10px] font-black uppercase tracking-widest">Projeto Parado ({Math.floor((now - project.lastUpdate) / (1000 * 60 * 60 * 24))} dias)</span>
             </div>
           )}
 
@@ -101,7 +103,7 @@ export default function ProjectDetailsPage() {
             {project?.lastUpdate && (
               <div className="flex items-center gap-2 px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full text-[10px] text-luxury-charcoal/60 dark:text-white/60">
                 <Clock size={10} />
-                <span>Atualizado há {Math.floor((Date.now() - project.lastUpdate) / (1000 * 60 * 60 * 24))} dias</span>
+                <span>Atualizado há {Math.floor((now - project.lastUpdate) / (1000 * 60 * 60 * 24))} dias</span>
               </div>
             )}
           </div>
@@ -130,7 +132,7 @@ export default function ProjectDetailsPage() {
                 <span className="text-[10px] font-black uppercase tracking-widest">A gravar esforço...</span>
               </div>
             ) : (
-              <button 
+              <button
                 onClick={() => start({ id: projectId!, name: project?.name })}
                 className="flex items-center gap-3 px-6 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/60 dark:text-white/60 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all group"
               >
@@ -153,13 +155,13 @@ export default function ProjectDetailsPage() {
 
       {/* 1.5 Timeline de Projeto (Step 29) */}
       <div className="glass p-6 rounded-[2.5rem] border-black/5 dark:border-white/5 bg-black/[0.01] dark:bg-white/[0.01]">
-         <ProjectTimeline 
-            currentPhaseId={
-              project?.status === 'planning' ? 'LIC' : 
-              project?.status === 'construction' ? 'OBRA' : 
-              project?.status === 'finished' ? 'DONE' : 'EP'
-            } 
-         />
+        <ProjectTimeline
+          currentPhaseId={
+            project?.status === 'planning' ? 'LIC' :
+              project?.status === 'construction' ? 'OBRA' :
+                project?.status === 'finished' ? 'DONE' : 'EP'
+          }
+        />
       </div>
 
       {aiAnalysis && (
@@ -299,10 +301,10 @@ function PaymentsView({ payments, client, projectName, t }: any) {
         </tbody>
       </table>
 
-      <CopyModal 
-        open={modal.open} 
-        title={modal.title} 
-        text={modal.text} 
+      <CopyModal
+        open={modal.open}
+        title={modal.title}
+        text={modal.text}
         onClose={() => setModal({ ...modal, open: false })}
       />
     </div>

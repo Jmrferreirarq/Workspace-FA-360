@@ -303,8 +303,8 @@ const fa360 = {
 
     // 5. Health Index Algorithmic Calculation
     let scoreDeadlines = 100 - (overdueTasks.length * 10);
-    let scoreCash = 100; // Assume perfect for now until invoices exist
-    let scoreProduction = 100; // No plan data yet
+    const scoreCash = 100; // Assume perfect for now until invoices exist
+    const scoreProduction = 100; // No plan data yet
     let scoreRisk = 100 - (stalled.length * 15);
 
     // Clamping

@@ -19,13 +19,13 @@ export default function ClientsPage() {
   const { t } = useLanguage();
   const Motion = motion as any;
 
-  useEffect(() => {
-    loadClients();
-  }, []);
-
   const loadClients = () => {
     fa360.listClients().then(setClients).finally(() => setLoading(false));
   };
+
+  useEffect(() => {
+    loadClients();
+  }, []);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ export default function ClientsPage() {
 
   return (
     <div className="animate-in fade-in duration-1000 space-y-12 pb-20">
-      <PageHeader 
+      <PageHeader
         kicker={t('clients_kicker')}
         title={<>{t('clients_title_prefix')} <span className="text-luxury-gold">{t('clients_title_suffix')}</span></>}
         actionLabel={t('clients_new_btn')}
@@ -106,13 +106,13 @@ export default function ClientsPage() {
                   <div className="w-16 h-16 rounded-2xl bg-luxury-gold/10 flex items-center justify-center text-luxury-gold border border-luxury-gold/10">
                     <User size={32} />
                   </div>
-                   <div>
+                  <div>
                     <h3 className="text-2xl font-serif text-luxury-charcoal dark:text-white italic">{client.name}</h3>
                     <p className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mt-1">{client.segment || 'Investidor VIP'}</p>
                   </div>
                 </div>
 
-                 <div className="space-y-4 mb-10 opacity-50 group-hover:opacity-100 transition-opacity">
+                <div className="space-y-4 mb-10 opacity-50 group-hover:opacity-100 transition-opacity">
                   <div className="flex items-center gap-3 text-sm">
                     <Mail size={14} className="text-luxury-gold/50" /> <span className="font-light text-luxury-charcoal dark:text-white">{client.email}</span>
                   </div>
@@ -121,7 +121,7 @@ export default function ClientsPage() {
                   </div>
                 </div>
 
-                 <div className="pt-8 border-t border-black/5 dark:border-white/5 flex justify-between items-center">
+                <div className="pt-8 border-t border-black/5 dark:border-white/5 flex justify-between items-center">
                   <div className="text-[10px] font-bold uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 flex items-center gap-2">
                     <div className="w-1 h-1 rounded-full bg-emerald-500"></div>
                     Sincronizado via Brain Link
@@ -132,7 +132,7 @@ export default function ClientsPage() {
           </AnimatePresence>
         </div>
       ) : (
-         <div className="py-40 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">
+        <div className="py-40 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">
           <div className="p-10 bg-black/5 dark:bg-white/5 rounded-full border border-black/5 dark:border-white/5 text-luxury-charcoal dark:text-white">
             <User size={48} className="opacity-20" />
           </div>
@@ -168,7 +168,7 @@ export default function ClientsPage() {
               </div>
 
               <form onSubmit={handleSave} className="space-y-8">
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-3">
                     <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">{t('clients_form_name')}</label>
                     <input

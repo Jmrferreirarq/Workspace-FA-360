@@ -57,10 +57,6 @@ export default function FinancialPage() {
     date: new Date().toISOString().split('T')[0]
   });
 
-  useEffect(() => {
-    loadFinanceData();
-  }, []);
-
   const loadFinanceData = async () => {
     setLoading(true);
     const [p, stats, proj, ai] = await Promise.all([
@@ -75,6 +71,13 @@ export default function FinancialPage() {
     setAiMessage(ai);
     setLoading(false);
   };
+
+  useEffect(() => {
+    const init = async () => {
+      await loadFinanceData();
+    };
+    init();
+  }, []);
 
   const handleAddExpense = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,7 +95,7 @@ export default function FinancialPage() {
 
   return (
     <div className="space-y-16 animate-in fade-in duration-1000 pb-32">
-      <PageHeader 
+      <PageHeader
         kicker={t('fin_title')}
         title={<>Capital <span className="text-luxury-gold">Management.</span></>}
         actionLabel={t('fin_add_expense')}
@@ -249,7 +252,7 @@ export default function FinancialPage() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                    <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Descrição / Fornecedor</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Descrição / Fornecedor</label>
                   <input
                     required
                     value={expenseForm.description}

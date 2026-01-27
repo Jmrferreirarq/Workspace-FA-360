@@ -21,14 +21,19 @@ export default function ProjectsPage() {
     { id: 'PE', label_key: 'status_construction' as const }
   ];
 
-  useEffect(() => { loadProjects(); }, []);
-
   const loadProjects = async () => {
     setLoading(true);
     const data = await fa360.listProjects();
     setProjects(data);
     setLoading(false);
   };
+
+  useEffect(() => {
+    const init = async () => {
+      await loadProjects();
+    };
+    init();
+  }, []);
 
   const handleDeleteProject = async (id: string) => {
     await fa360.deleteProject(id);
@@ -45,7 +50,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-12 pb-20 animate-in fade-in">
-      <PageHeader 
+      <PageHeader
         kicker={t('proj_kicker')}
         title={<>{t('proj_title_prefix')} <span className="text-luxury-gold">{t('proj_title_suffix')}</span></>}
         actionLabel={t('calculator')}

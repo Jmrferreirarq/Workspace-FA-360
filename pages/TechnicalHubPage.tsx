@@ -44,12 +44,6 @@ export default function TechnicalHubPage() {
 
   const [transmittals, setTransmittals] = useState<any[]>([]);
 
-  useEffect(() => {
-    loadFiles();
-    loadTransmittals();
-    runScan();
-  }, []);
-
   const loadFiles = async () => {
     const data = await fa360.listTechnicalFiles();
     setFiles(data);
@@ -67,6 +61,15 @@ export default function TechnicalHubPage() {
     setIsScanning(false);
   };
 
+  useEffect(() => {
+    const init = async () => {
+      await loadFiles();
+      await loadTransmittals();
+      await runScan();
+    };
+    init();
+  }, []);
+
   const handleDeleteFile = async (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     if (confirm('Deseja eliminar este ficheiro permanentemente?')) {
@@ -79,11 +82,11 @@ export default function TechnicalHubPage() {
 
   return (
     <div className="space-y-16 animate-in fade-in duration-1000 pb-32">
-      <PageHeader 
+      <PageHeader
         kicker={t('tech_kicker')}
         title={<>{t('tech_title_prefix')} <span className="text-luxury-gold">{t('tech_title_suffix')}</span></>}
         actionLabel={t('tech_new_upload')}
-        onAction={() => {}}
+        onAction={() => { }}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

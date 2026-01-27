@@ -9,9 +9,6 @@ import {
   Box,
   Mail,
   Bell,
-  Globe,
-  Sun,
-  Moon,
   Search,
   FileText,
   TrendingUp,
@@ -20,7 +17,6 @@ import {
   ImageIcon,
   Calculator,
   Shield,
-  Activity,
   Zap,
   Brain,
   Scale
@@ -31,10 +27,39 @@ import NotificationPulse from './NotificationPulse';
 import BrandLogo from './BrandLogo';
 import { Tooltip } from '../ui/Tooltip';
 
+interface NavItemProps {
+  to: string;
+  icon: any;
+  label: string;
+  specialColor?: string;
+  statusDot?: boolean;
+  neuralOnline?: boolean;
+}
+
+const NavItem = ({ to, icon: Icon, label, specialColor, statusDot, neuralOnline }: NavItemProps) => {
+  const location = useLocation();
+  const isActive = location.pathname === to
+    ? "bg-luxury-gold text-black shadow-[0_0_25px_rgba(212,175,55,0.5)] scale-110 z-10"
+    : "hover:bg-black/5 dark:hover:bg-white/10 opacity-50 hover:opacity-100";
+
+  return (
+    <Tooltip content={label} position="top">
+      <Link
+        to={to}
+        className={`relative p-3 md:p-3.5 rounded-xl transition-all duration-500 group shrink-0 flex items-center justify-center ${specialColor && location.pathname === to ? specialColor : isActive}`}
+      >
+        <Icon size={20} className="md:w-[22px] md:h-[22px] text-luxury-charcoal dark:text-white" />
+        {statusDot && (
+          <div className={`absolute top-1 right-1 w-1.5 h-1.5 rounded-full ${neuralOnline ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-red-500 shadow-[0_0_8px_#ef4444]'}`} />
+        )}
+      </Link>
+    </Tooltip>
+  );
+};
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { locale, toggleLanguage, t } = useLanguage();
-  const location = useLocation();
   const [pulseOpen, setPulseOpen] = useState(false);
   const [neuralOnline, setNeuralOnline] = useState(localStorage.getItem('fa-brain-status') === 'ONLINE');
 
@@ -65,31 +90,12 @@ export default function Navbar() {
     checkNotifications();
     window.addEventListener('storage', checkNotifications);
     window.addEventListener('fa-notifications-updated', checkNotifications);
-    
+
     return () => {
       window.removeEventListener('storage', checkNotifications);
       window.removeEventListener('fa-notifications-updated', checkNotifications);
     };
   }, []);
-
-  const isActive = (path: string) =>
-    location.pathname === path
-      ? "bg-luxury-gold text-black shadow-[0_0_25px_rgba(212,175,55,0.5)] scale-110 z-10"
-      : "hover:bg-black/5 dark:hover:bg-white/10 opacity-50 hover:opacity-100";
-
-  const NavItem = ({ to, icon: Icon, label, specialColor, statusDot }: { to: string, icon: any, label: string, specialColor?: string, statusDot?: boolean }) => (
-    <Tooltip content={label} position="top">
-      <Link
-        to={to}
-        className={`relative p-3 md:p-3.5 rounded-xl transition-all duration-500 group shrink-0 flex items-center justify-center ${specialColor && location.pathname === to ? specialColor : isActive(to)}`}
-      >
-        <Icon size={20} className="md:w-[22px] md:h-[22px] text-luxury-charcoal dark:text-white" />
-        {statusDot && (
-          <div className={`absolute top-1 right-1 w-1.5 h-1.5 rounded-full ${neuralOnline ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-red-500 shadow-[0_0_8px_#ef4444]'}`} />
-        )}
-      </Link>
-    </Tooltip>
-  );
 
   return (
     <>
@@ -139,7 +145,7 @@ export default function Navbar() {
           <div className="flex items-center pl-2 gap-1.5 shrink-0 pr-3 snap-start">
             <NavItem to="/calculator" icon={Calculator} label={t('calculator')} />
             <NavItem to="/brand" icon={Shield} label={t('brand')} />
-            <NavItem to="/neural" icon={Brain} label="Neural Studio" specialColor="bg-indigo-500 text-white shadow-[0_0_25px_#6366f1]" statusDot />
+            <NavItem to="/neural" icon={Brain} label="Neural Studio" specialColor="bg-indigo-500 text-white shadow-[0_0_25px_#6366f1]" statusDot neuralOnline={neuralOnline} />
             <NavItem to="/antigravity" icon={Zap} label={t('sys_antigravity')} />
 
             <div className="w-[1px] h-8 bg-black/10 dark:bg-white/10 mx-2"></div>
@@ -158,8 +164,8 @@ export default function Navbar() {
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @media (min-width: 768px) {
-          .md\:no-scrollbar-off { -ms-overflow-style: auto; scrollbar-width: auto; }
-          .md\:no-scrollbar-off::-webkit-scrollbar { display: block; width: 0; height: 0; }
+          .md\\:no-scrollbar-off { -ms-overflow-style: auto; scrollbar-width: auto; }
+          .md\\:no-scrollbar-off::-webkit-scrollbar { display: block; width: 0; height: 0; }
         }
       `}</style>
     </>
