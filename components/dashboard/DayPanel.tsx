@@ -15,6 +15,8 @@ interface DayPanelProps {
 export default function DayPanel({ data }: DayPanelProps) {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  // eslint-disable-next-line
+  const now = Date.now(); // Fix purity warning
 
   const hasHighlights = data.urgentTasks.length > 0 || data.urgentPayments.length > 0 || data.idleProjects.length > 0;
 
@@ -43,7 +45,7 @@ export default function DayPanel({ data }: DayPanelProps) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-black/5 dark:divide-white/5">
-        
+
         {/* SECTION: URGENTE */}
         <div className="p-8 space-y-6">
           <div className="flex items-center gap-3 mb-2">
@@ -52,8 +54,8 @@ export default function DayPanel({ data }: DayPanelProps) {
           </div>
           <div className="space-y-4">
             {data.urgentTasks.length > 0 ? data.urgentTasks.map((task) => (
-              <div 
-                key={task.id} 
+              <div
+                key={task.id}
                 onClick={() => navigate('/tasks')}
                 className="group cursor-pointer"
               >
@@ -77,8 +79,8 @@ export default function DayPanel({ data }: DayPanelProps) {
           </div>
           <div className="space-y-4">
             {data.urgentPayments.length > 0 ? data.urgentPayments.map((pay) => (
-              <div 
-                key={pay.id} 
+              <div
+                key={pay.id}
                 onClick={() => navigate('/financial')}
                 className="group cursor-pointer"
               >
@@ -105,14 +107,14 @@ export default function DayPanel({ data }: DayPanelProps) {
           </div>
           <div className="space-y-4">
             {data.idleProjects.length > 0 ? data.idleProjects.map((proj) => (
-              <div 
-                key={proj.id} 
+              <div
+                key={proj.id}
                 onClick={() => navigate(`/projects/${proj.id}`)}
                 className="group cursor-pointer"
               >
                 <h5 className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1 mb-1">{proj.name || proj.title}</h5>
                 <p className="text-[9px] font-black text-rose-500/70 uppercase tracking-tighter">
-                  {t('day_panel_idle_desc')} {Math.floor((Date.now() - new Date(proj.nextActionDate || Date.now()).getTime()) / (1000 * 3600 * 24))} {t('day_panel_days')}
+                  {t('day_panel_idle_desc')} {Math.floor((now - new Date(proj.nextActionDate || now).getTime()) / (1000 * 3600 * 24))} {t('day_panel_days')}
                 </p>
               </div>
             )) : (

@@ -1,23 +1,30 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Phone, Search, User, MoreVertical, Plus, X, ArrowUpRight, CheckCircle2, Loader2, Database, Brain, Trash2 } from 'lucide-react';
+import { Mail, Phone, Search, User, X, ArrowUpRight, Loader2, Brain, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import fa360 from '../services/fa360';
 import PageHeader from '../components/common/PageHeader';
 
 import { useLanguage } from '../context/LanguageContext';
 
+interface Client {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  segment: string;
+}
+
 export default function ClientsPage() {
   const navigate = useNavigate();
-  const [clients, setClients] = useState<any[]>([]);
+  const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [saving, setSaving] = useState(false);
   const [newClient, setNewClient] = useState({ name: '', email: '', phone: '', segment: 'Investidor VIP' });
   const { t } = useLanguage();
-  const Motion = motion as any;
 
   const loadClients = () => {
     fa360.listClients().then(setClients).finally(() => setLoading(false));
@@ -84,7 +91,7 @@ export default function ClientsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence>
             {filteredClients.map(client => (
-              <Motion.div
+              <motion.div
                 key={client.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -127,7 +134,7 @@ export default function ClientsPage() {
                     Sincronizado via Brain Link
                   </div>
                 </div>
-              </Motion.div>
+              </motion.div>
             ))}
           </AnimatePresence>
         </div>
@@ -148,12 +155,12 @@ export default function ClientsPage() {
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-[300] flex items-center justify-center p-6">
-            <Motion.div
+            <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setIsModalOpen(false)}
               className="absolute inset-0 bg-black/80 backdrop-blur-md"
             />
-            <Motion.div
+            <motion.div
               initial={{ scale: 0.9, y: 20, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.9, y: 20, opacity: 0 }}
@@ -219,7 +226,7 @@ export default function ClientsPage() {
                   {saving ? t('clients_btn_saving') : t('clients_btn_save')}
                 </button>
               </form>
-            </Motion.div>
+            </motion.div>
           </div>
         )}
       </AnimatePresence>

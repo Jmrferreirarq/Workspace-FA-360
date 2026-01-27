@@ -14,29 +14,32 @@ const TimeContext = createContext<TimeContextType | undefined>(undefined);
 const STORAGE_KEY = 'fa-active-timer';
 
 export const TimeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isActive, setIsActive] = useState(false);
-  const [activeProject, setActiveProject] = useState<{ id: string, name: string } | null>(null);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Load state from localStorage on mount
-  useEffect(() => {
+  // Initialize state lazily to avoid useEffect setState (no-use-in-effect)
+  const [isActive, setIsActive] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      const { activeProject, startTime, isRunning, savedElapsed } = JSON.parse(saved);
-      setActiveProject(activeProject);
-      
-      if (isRunning) {
-        const now = Date.now();
-        const passedSinceStart = Math.floor((now - startTime) / 1000);
-        setElapsedTime(savedElapsed + passedSinceStart);
-        setIsActive(true);
-      } else {
-        setElapsedTime(savedElapsed);
-        setIsActive(false);
-      }
+    if (!saved) return false;
+    return JSON.parse(saved).isRunning;
+  });
+
+  const [activeProject, setActiveProject] = useState<{ id: string, name: string } | null>(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+    return JSON.parse(saved).activeProject;
+  });
+
+  const [elapsedTime, setElapsedTime] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return 0;
+    const { startTime, isRunning, savedElapsed } = JSON.parse(saved);
+    if (isRunning) {
+      const now = Date.now();
+      const passedSinceStart = Math.floor((now - startTime) / 1000);
+      return savedElapsed + passedSinceStart;
     }
-  }, []);
+    return savedElapsed;
+  });
+
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Save state to localStorage whenever it changes
   useEffect(() => {

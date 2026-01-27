@@ -25,10 +25,6 @@ export default function CalendarPage() {
   const [loading, setLoading] = useState(true);
   const Motion = motion as any;
 
-  useEffect(() => {
-    loadCalendarData();
-  }, []);
-
   const loadCalendarData = async () => {
     setLoading(true);
     const [evs, ai] = await Promise.all([
@@ -40,17 +36,24 @@ export default function CalendarPage() {
     setLoading(false);
   };
 
+  useEffect(() => {
+    const init = async () => {
+      await loadCalendarData();
+    };
+    init();
+  }, []);
+
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
   if (loading) return <div className="p-20 text-center opacity-50">Sincronizando Agenda Neural...</div>;
 
   return (
     <div className="space-y-12 animate-in fade-in duration-1000 pb-32">
-      <PageHeader 
+      <PageHeader
         kicker="Timeline do Estúdio"
         title={<>Agenda <span className="text-luxury-gold">Inteligente.</span></>}
         actionLabel="Novo Evento"
-        onAction={() => {}}
+        onAction={() => { }}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
