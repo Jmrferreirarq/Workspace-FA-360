@@ -1,24 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
-  CheckCircle2,
   Circle,
   Clock,
   Paperclip,
-  MessageSquare,
   Plus,
   MoreVertical,
   Image as ImageIcon,
   DollarSign,
   Calendar,
-  Layers,
   FileText,
   CheckSquare,
   Sparkles,
   Sun,
-  Cloud,
   Download,
   ArrowLeft,
   AlertTriangle,
@@ -33,11 +28,41 @@ import { ProjectTimeline } from '../components/project/ProjectTimeline';
 import { CopyModal } from '../components/dashboard/CopyModal';
 import { Tooltip } from '../components/ui/Tooltip';
 
+
+interface ProjectPayment {
+  id: string;
+  phase_key: string;
+  value: number;
+  status: string;
+}
+
+interface ProjectDiaryItem {
+  id: string;
+  date: string;
+  title: string;
+  author: string;
+}
+
+interface ProjectData {
+  id: string;
+  name: string;
+  client: string;
+  status: string;
+  status_key: string;
+  type_key: string;
+  lastUpdate?: number;
+  nextAction?: string;
+  nextActionDate?: string;
+  progress: number;
+  payments: ProjectPayment[];
+  diary: ProjectDiaryItem[];
+}
+
 export default function ProjectDetailsPage() {
   const { id: projectId } = useParams();
   const navigate = useNavigate();
   const { t, locale } = useLanguage();
-  const [project, setProject] = useState<any>(null);
+  const [project, setProject] = useState<ProjectData | null>(null);
   const [activeTab, setActiveTab] = useState('TASKS');
   const [loading, setLoading] = useState(true);
   const [aiAnalysis, setAiAnalysis] = useState('');
@@ -95,6 +120,7 @@ export default function ProjectDetailsPage() {
 
           <div className="flex flex-wrap items-center gap-3">
             <span className="px-3 py-1 bg-luxury-gold/10 text-luxury-gold text-[10px] font-black uppercase tracking-widest rounded-full">
+              {/* @ts-expect-error - i18n keys are dynamically loaded */}
               {t(project?.status_key)}
             </span>
             <span className="text-[10px] font-mono tracking-widest uppercase text-luxury-charcoal/50 dark:text-white/50">ID: #FA-2024-{projectId}</span>
@@ -110,6 +136,7 @@ export default function ProjectDetailsPage() {
 
           <h1 className="text-5xl md:text-7xl font-serif tracking-tighter leading-none text-luxury-charcoal dark:text-white">{project?.name}</h1>
           <p className="text-xl font-light text-luxury-charcoal/50 dark:text-white/50 tracking-tight">
+            {/* @ts-expect-error - i18n keys are dynamically loaded */}
             {t(project?.type_key)} • {project?.client}
           </p>
 
@@ -197,7 +224,7 @@ export default function ProjectDetailsPage() {
   );
 }
 
-function TasksView({ project, t }: any) {
+function TasksView({ t }: { project: ProjectData | null, t: (key: string) => string }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div className="lg:col-span-2 space-y-6">
@@ -238,10 +265,10 @@ function TasksView({ project, t }: any) {
   );
 }
 
-function PaymentsView({ payments, client, projectName, t }: any) {
+function PaymentsView({ payments, client, projectName, t }: { payments: ProjectPayment[], client: string, projectName: string, t: (key: string) => string }) {
   const [modal, setModal] = useState({ open: false, title: '', text: '' });
 
-  const openReminder = (p: any) => {
+  const openReminder = (p: ProjectPayment) => {
     const textPT = buildPaymentReminderPT({
       client: client || 'Cliente',
       project: projectName || 'Projeto',
@@ -279,7 +306,7 @@ function PaymentsView({ payments, client, projectName, t }: any) {
           </tr>
         </thead>
         <tbody className="divide-y divide-black/5 dark:divide-white/5 text-luxury-charcoal dark:text-white">
-          {payments?.map((p: any) => (
+          {payments?.map((p) => (
             <tr key={p.id}>
               <td className="px-10 py-6 font-serif italic">{t(p.phase_key)}</td>
               <td className="px-10 py-6 text-right font-mono text-luxury-gold">€{p.value.toLocaleString()}</td>
@@ -311,10 +338,10 @@ function PaymentsView({ payments, client, projectName, t }: any) {
   );
 }
 
-function DiaryView({ diary, t }: any) {
+function DiaryView({ diary, t }: { diary: ProjectDiaryItem[], t: (key: string) => string }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {diary?.map((item: any) => (
+      {diary?.map((item) => (
         <div key={item.id} className="glass p-8 rounded-[3rem] border-black/5 dark:border-white/5 space-y-6 group hover:border-luxury-gold/30 transition-all">
           <div className="flex justify-between items-start">
             <div>
@@ -343,11 +370,19 @@ function DiaryView({ diary, t }: any) {
 }
 
 
+interface TimeLog {
+  id: string;
+  date: string;
+  description: string;
+  phase: string;
+  duration: number;
+}
+
 function TimeLogsView({ projectId }: { projectId: string }) {
-  const [logs, setLogs] = React.useState<any[]>([]);
+  const [logs, setLogs] = React.useState<TimeLog[]>([]);
 
   React.useEffect(() => {
-    fa360.getProjectTimeLogs(projectId).then(setLogs);
+    fa360.getProjectTimeLogs(projectId).then((data) => setLogs(data as TimeLog[]));
   }, [projectId]);
 
   return (
@@ -365,7 +400,7 @@ function TimeLogsView({ projectId }: { projectId: string }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-black/5 dark:divide-white/5 text-luxury-charcoal dark:text-white">
-            {logs.map((log: any) => (
+            {logs.map((log) => (
               <tr key={log.id}>
                 <td className="px-10 py-6 font-mono opacity-60 text-xs">{new Date(log.date).toLocaleDateString()}</td>
                 <td className="px-10 py-6 font-serif italic text-lg">{log.description || '-'}</td>

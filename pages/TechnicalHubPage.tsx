@@ -1,20 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  Layers,
   Search,
-  Plus,
   FileCode,
   FileText,
   Download,
   History,
   Share2,
   Filter,
-  CheckCircle2,
   AlertCircle,
   FolderOpen,
-  ArrowUpRight,
-  MoreVertical,
   Maximize2,
   Trash2
 } from 'lucide-react';
@@ -25,13 +20,31 @@ import { useLanguage } from '../context/LanguageContext';
 
 import PageHeader from '../components/common/PageHeader';
 
+
+interface TechnicalFile {
+  id: string;
+  name: string;
+  category: string;
+  type: string;
+  rev: string;
+  size: string;
+  status: string;
+}
+
+interface TransmittalLog {
+  timestamp: string;
+  recipient: string;
+  content: string;
+  via: string;
+}
+
 export default function TechnicalHubPage() {
   const { t, locale } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('tech_cat_all');
-  const [files, setFiles] = useState<any[]>([]);
+  const [files, setFiles] = useState<TechnicalFile[]>([]);
   const [aiMessage, setAiMessage] = useState('Analisando integridade documental...');
   const [isScanning, setIsScanning] = useState(false);
-  const Motion = motion as any;
+
 
   const CATEGORIES = [
     { id: 'tech_cat_all', label: t('tech_cat_all') },
@@ -42,7 +55,7 @@ export default function TechnicalHubPage() {
     { id: 'BIM', label: t('tech_cat_bim') }
   ];
 
-  const [transmittals, setTransmittals] = useState<any[]>([]);
+  const [transmittals, setTransmittals] = useState<TransmittalLog[]>([]);
 
   const loadFiles = async () => {
     const data = await fa360.listTechnicalFiles();
@@ -137,7 +150,7 @@ export default function TechnicalHubPage() {
             <AnimatePresence mode="popLayout">
               {filteredFiles.length > 0 ? (
                 filteredFiles.map((file, i) => (
-                  <Motion.div
+                  <motion.div
                     key={file.id}
                     layout
                     initial={{ opacity: 0, y: 20 }}
@@ -180,7 +193,7 @@ export default function TechnicalHubPage() {
                         <button className="text-luxury-charcoal/20 dark:text-white/20 hover:text-luxury-gold transition-colors"><Share2 size={18} /></button>
                       </div>
                     </div>
-                  </Motion.div>
+                  </motion.div>
                 ))
               ) : (
                 <div className="col-span-full py-40 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">

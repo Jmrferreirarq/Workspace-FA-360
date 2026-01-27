@@ -1,17 +1,29 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Search, Layers } from 'lucide-react';
+import { Layers } from 'lucide-react';
 import fa360 from '../services/fa360';
 import { useLanguage } from '../context/LanguageContext';
 import ProjectCard from '../components/common/ProjectCard';
 import SkeletonCard from '../components/common/SkeletonCard';
 import PageHeader from '../components/common/PageHeader';
 
+
+interface Project {
+  id: string;
+  name: string;
+  type_key: string;
+  client: string;
+  progress: number;
+  status_key: string;
+  daysWithoutUpdate?: number;
+  daysToDeadline?: number;
+}
+
 export default function ProjectsPage() {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
   const PHASES = [
@@ -40,7 +52,7 @@ export default function ProjectsPage() {
     setProjects(prev => prev.filter(p => p.id !== id));
   };
 
-  const getProjectStatus = (project: any): 'active' | 'warning' | 'critical' | 'completed' => {
+  const getProjectStatus = (project: Project): 'active' | 'warning' | 'critical' | 'completed' => {
     if (project.progress >= 100) return 'completed';
     // Simplified status logic for demo
     if (project.daysWithoutUpdate > 14) return 'warning';

@@ -1,21 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  TrendingUp,
   DollarSign,
   ArrowUpRight,
   ArrowDownRight,
-  Download,
   Zap,
   Target,
-  ShieldCheck,
   BarChart3,
-  ChevronRight,
   Sparkles,
-  ArrowRight,
-  Plus,
   Briefcase,
-  AlertTriangle,
   Loader2,
   X,
   CreditCard,
@@ -35,17 +28,49 @@ import fa360 from '../services/fa360';
 import { useLanguage } from '../context/LanguageContext';
 import PageHeader from '../components/common/PageHeader';
 
-const PROJECTION_DATA: any[] = [];
+interface Project {
+  id: string;
+  name: string;
+  client: string;
+  fee_adjudicated: number;
+  costs_recorded: number;
+}
+
+interface FinanceStats {
+  liquidity: number;
+  pendingFees: number;
+  burnRate: number | string;
+  margin: number;
+}
+
+interface ProjectionData {
+  name: string;
+  projected: number;
+  expenses: number;
+}
+
+interface FinanceStatProps {
+  label: string;
+  value: string;
+  trend: string;
+  up: boolean;
+  icon: React.ReactNode;
+  isGold?: boolean;
+}
+
+interface ProjectProfitCardProps {
+  project: Project;
+}
 
 export default function FinancialPage() {
   const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('PROSPECTION');
+  // Unused activeTab removed
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [financeStats, setFinanceStats] = useState<any>(null);
-  const [projections, setProjections] = useState<any[]>([]);
+  const [financeStats, setFinanceStats] = useState<FinanceStats | null>(null);
+  const [projections, setProjections] = useState<ProjectionData[]>([]);
   const [aiMessage, setAiMessage] = useState('');
 
   // Form de Despesa
@@ -277,7 +302,7 @@ export default function FinancialPage() {
   );
 }
 
-function ProjectProfitCard({ project }: any) {
+function ProjectProfitCard({ project }: ProjectProfitCardProps) {
   const margin = Math.round(((project.fee_adjudicated - project.costs_recorded) / project.fee_adjudicated) * 100);
   return (
     <div className="glass p-10 rounded-[3rem] border-black/5 dark:border-white/5 flex flex-col md:flex-row items-center gap-8 group hover:border-luxury-gold/30 transition-all shadow-xl">
@@ -319,19 +344,9 @@ function ProjectProfitCard({ project }: any) {
   );
 }
 
-function LedgerItem({ label, value, project, date }: any) {
-  return (
-    <div className="flex justify-between items-center group">
-      <div className="space-y-1">
-        <p className="text-[10px] font-black text-white/90">{label}</p>
-        <p className="text-[11px] font-black uppercase tracking-widest opacity-50 text-white">{project} • {date}</p>
-      </div>
-      <span className="text-sm font-mono text-red-400/80 font-bold">{value}</span>
-    </div>
-  );
-}
 
-function FinanceStat({ label, value, trend, up, icon, isGold }: any) {
+
+function FinanceStat({ label, value, trend, up, icon, isGold }: FinanceStatProps) {
   return (
     <div className={`glass p-10 rounded-[3rem] border-black/5 dark:border-white/5 space-y-6 group transition-all duration-700 hover:border-luxury-gold/20 shadow-xl ${isGold ? 'bg-luxury-gold/[0.02]' : ''}`}>
       <div className="flex justify-between items-start">

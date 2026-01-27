@@ -1,14 +1,34 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { AlertCircle, CreditCard, Clock, ArrowRight } from 'lucide-react';
+import { AlertCircle, CreditCard, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 
+interface DashboardTask {
+  id: string;
+  title: string;
+  projectKey?: string;
+}
+
+interface DashboardPayment {
+  id: string;
+  title: string;
+  amountNet: number;
+  status: string;
+  date: string;
+}
+
+interface DashboardProject {
+  id: string;
+  name?: string;
+  title?: string;
+  nextActionDate?: string;
+}
+
 interface DayPanelProps {
   data: {
-    urgentTasks: any[];
-    urgentPayments: any[];
-    idleProjects: any[];
+    urgentTasks: DashboardTask[];
+    urgentPayments: DashboardPayment[];
+    idleProjects: DashboardProject[];
   };
 }
 

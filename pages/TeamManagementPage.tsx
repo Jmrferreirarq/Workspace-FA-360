@@ -5,32 +5,30 @@ import PageHeader from '../components/common/PageHeader';
 import {
   Users,
   Clock,
-  TrendingUp,
-  Plus,
-  Calendar,
   Zap,
-  ChevronRight,
-  MoreVertical,
   Activity,
-  Coffee,
-  AlertCircle
+  Coffee
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-const TEAM: any[] = [];
-const RECENT_LOGS: any[] = [];
+interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  avatar: string;
+  load: number;
+  activeProjects: number;
+}
 
 export default function TeamManagementPage() {
   const [activeTab, setActiveTab] = useState('WORKLOAD');
-  const [team, setTeam] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [team, setTeam] = useState<TeamMember[]>([]);
 
-  const Motion = motion as any;
+
 
   const loadTeam = async () => {
     const data = await fa360.listTeamMembers();
     setTeam(data);
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -69,7 +67,7 @@ export default function TeamManagementPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {team.length > 0 ? (
                 team.map((member, i) => (
-                  <Motion.div
+                  <motion.div
                     key={member.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -101,7 +99,7 @@ export default function TeamManagementPage() {
                       </div>
                       <button className="text-[11px] font-black uppercase tracking-widest text-luxury-gold hover:text-black dark:hover:text-white transition-colors">Detalhes de Carga</button>
                     </div>
-                  </Motion.div>
+                  </motion.div>
                 ))
               ) : (
                 <div className="col-span-full py-40 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">

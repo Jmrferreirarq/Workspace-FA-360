@@ -5,15 +5,12 @@ import {
   Brain,
   Sparkles,
   Terminal,
-  Sliders,
   MessageSquare,
   TrendingUp,
   Eye,
   RefreshCw,
   Settings,
   Database,
-  Unplug,
-  ArrowLeft,
   ArrowRight,
   Link2,
   AlertTriangle,
@@ -25,7 +22,6 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import fa360 from '../services/fa360';
-import { geminiService } from '../services/geminiService';
 import { useLanguage } from '../context/LanguageContext';
 import PageHeader from '../components/common/PageHeader';
 
@@ -47,10 +43,10 @@ export default function NeuralStudioPage() {
     { id: 'director', name: 'Creative Director', icon: <Eye />, color: '#a855f7', status: 'Ready' }
   ];
 
-  const loadProtocol = async () => {
+  const loadProtocol = React.useCallback(async () => {
     const text = await fa360.getNeuralProtocol(activeAgent);
     setPrompt(text);
-  };
+  }, [activeAgent]);
 
   useEffect(() => {
     const init = async () => {
@@ -61,7 +57,7 @@ export default function NeuralStudioPage() {
     const checkStatus = () => setIsBrainOnline(localStorage.getItem('fa-brain-status') === 'ONLINE');
     window.addEventListener('neural-link-active', checkStatus);
     return () => window.removeEventListener('neural-link-active', checkStatus);
-  }, [activeAgent]);
+  }, [loadProtocol]);
 
   const handleSyncNeural = () => {
     if (!isBrainOnline) {
@@ -306,7 +302,14 @@ export default function NeuralStudioPage() {
   );
 }
 
-function ThoughtBubble({ text, time, active, isAlert }: any) {
+interface ThoughtBubbleProps {
+  text: string;
+  time: string;
+  active: boolean;
+  isAlert?: boolean;
+}
+
+function ThoughtBubble({ text, time, active, isAlert }: ThoughtBubbleProps) {
   return (
     <div className={`flex gap-5 group ${!active ? 'opacity-50' : ''}`}>
       <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 ${isAlert ? 'bg-red-500 shadow-[0_0_10px_#ef4444]' : (active ? 'bg-indigo-500 shadow-[0_0_10px_#6366f1]' : 'bg-black/20 dark:bg-white/10')}`}></div>
