@@ -154,6 +154,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
     });
   }, [selectedTemplate, area, complexity, activeSpecs, selectedScenario, units, discountType, discountValue, justification, userRole, clientName, location]);
 
+
   // Compliance (Passo 8)
   const compliance = useMemo(() => {
     const issues: string[] = [];
@@ -507,12 +508,12 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         <div className="glass p-10 md:p-14 rounded-[2rem] space-y-10 shadow-2xl">
           <header className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-black/5 dark:bg-white/5 text-luxury-gold rounded-2xl"><Box size={20} /></div>
+              <div className="p-3 bg-luxury-gold/20 text-luxury-gold rounded-2xl"><Box size={20} /></div>
               <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">{t('calc_scope_phase')}</h3>
             </div>
           </header>
 
-          {(!currentResult?.phasesBreakdown) ? (
+          {(!currentResult || !currentResult.phasesBreakdown || currentResult.phasesBreakdown.length === 0) ? (
             <div className="flex flex-col items-center justify-center py-12 opacity-40 space-y-4">
               <Box size={40} strokeWidth={1} />
               <p className="text-xs font-light italic">{t('calc_waiting_data')}</p>
