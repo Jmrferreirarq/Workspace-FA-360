@@ -1,0 +1,369 @@
+
+> fa-360-architecture-studio@0.1.0 lint
+> eslint "**/*.{ts,tsx,js,jsx}"
+
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\api\docs.ts
+   3:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   3:54  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\api\oneclick\create.ts
+  28:19  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\DayPanel.tsx
+   3:10  warning  'motion' is defined but never used      @typescript-eslint/no-unused-vars
+  13:13  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\ProposalGenerator.tsx
+   38:10  warning  'oneClickCreate' is defined but never used                                                                      @typescript-eslint/no-unused-vars
+   97:6   warning  React Hook useEffect has a missing dependency: 'internalRef'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  534:58  warning  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\TimeTracker.tsx
+  15:13  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\common\CommandBar.tsx
+  3:18   warning  'Command' is defined but never used   @typescript-eslint/no-unused-vars
+  3:61   warning  'FileText' is defined but never used  @typescript-eslint/no-unused-vars
+  3:101  warning  'Send' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\common\GlobalUtilities.tsx
+  6:10  warning  'motion' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\common\Navbar.tsx
+  32:9   warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  61:11  warning  'theme' is assigned a value but never used           @typescript-eslint/no-unused-vars
+  61:18  warning  'toggleTheme' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  62:11  warning  'locale' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  62:19  warning  'toggleLanguage' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\common\NotificationPulse.tsx
+   4:54  warning  'CheckCircle2' is defined but never used  @typescript-eslint/no-unused-vars
+  30:46  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\common\PageHeader.tsx
+  2:10  warning  'ArrowRight' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\common\RescueNode.tsx
+   2:17  warning  'Component' is defined but never used  @typescript-eslint/no-unused-vars
+  23:44  warning  '_' is defined but never used          @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\dashboard\ActiveProjectsCard.tsx
+  22:13  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\dashboard\CriticalAlertsWidget.tsx
+  11:11  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\dashboard\HealthIndexWidget.tsx
+   2:20  warning  'HelpCircle' is defined but never used         @typescript-eslint/no-unused-vars
+  18:9   warning  'navigate' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  29:9   warning  'bgColor' is assigned a value but never used   @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\dashboard\HoursWeekCard.tsx
+   4:54  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  49:46  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\dashboard\NeuralSyncWidget.tsx
+  2:20  warning  'Wifi' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\dashboard\PipelineFunnelWidget.tsx
+  2:10  warning  'Wallet' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\dashboard\ProductionWidget.tsx
+  2:17  warning  'Clock' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\landing\SiteLayout.tsx
+   5:50  warning  'Globe' is defined but never used         @typescript-eslint/no-unused-vars
+  16:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\legal\InteractiveLawReader.tsx
+  3:44  warning  'ArrowLeft' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\legal\LegalWizard.tsx
+    3:59  warning  'FileText' is defined but never used      @typescript-eslint/no-unused-vars
+    9:11  warning  't' is assigned a value but never used    @typescript-eslint/no-unused-vars
+   90:79  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  104:82  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\legal\LegislationLibrary.tsx
+    4:31  warning  'Legislation' is defined but never used   @typescript-eslint/no-unused-vars
+    7:8   warning  'topicsData' is defined but never used    @typescript-eslint/no-unused-vars
+  185:69  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  191:77  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  238:67  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\project\ProjectTimeline.tsx
+   3:30  warning  'AlertCircle' is defined but never used  @typescript-eslint/no-unused-vars
+  20:11  warning  't' is assigned a value but never used   @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\components\ui\TimeTracker.tsx
+  3:10  warning  'Play' is defined but never used           @typescript-eslint/no-unused-vars
+  3:16  warning  'Pause' is defined but never used          @typescript-eslint/no-unused-vars
+  3:31  warning  'Clock' is defined but never used          @typescript-eslint/no-unused-vars
+  3:38  warning  'Save' is defined but never used           @typescript-eslint/no-unused-vars
+  3:44  warning  'X' is defined but never used              @typescript-eslint/no-unused-vars
+  9:49  warning  'stop' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\index.tsx
+  13:12  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  21:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\AntigravityPage.tsx
+   3:10  warning  'motion' is defined but never used             @typescript-eslint/no-unused-vars
+   3:18  warning  'AnimatePresence' is defined but never used    @typescript-eslint/no-unused-vars
+  17:3   warning  'CloudSync' is defined but never used          @typescript-eslint/no-unused-vars
+  32:10  warning  'lastSync' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  69:14  warning  'e' is defined but never used                  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\BrandIdentityPage.tsx
+    2:10  warning  'Palette' is defined but never used       @typescript-eslint/no-unused-vars
+    2:25  warning  'Shield' is defined but never used        @typescript-eslint/no-unused-vars
+  129:43  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  144:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\CalendarPage.tsx
+   7:15  warning  'CalendarIcon' is defined but never used              @typescript-eslint/no-unused-vars
+  10:3   warning  'Users' is defined but never used                     @typescript-eslint/no-unused-vars
+  12:3   warning  'Plus' is defined but never used                      @typescript-eslint/no-unused-vars
+  14:3   warning  'Video' is defined but never used                     @typescript-eslint/no-unused-vars
+  21:24  warning  'setCurrentMonth' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  23:40  warning  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  26:28  warning  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\ClientDetailsPage.tsx
+   10:3   warning  'DollarSign' is defined but never used     @typescript-eslint/no-unused-vars
+   11:3   warning  'Clock' is defined but never used          @typescript-eslint/no-unused-vars
+   17:3   warning  'CheckCircle2' is defined but never used   @typescript-eslint/no-unused-vars
+   19:3   warning  'MessageCircle' is defined but never used  @typescript-eslint/no-unused-vars
+   20:3   warning  'FileText' is defined but never used       @typescript-eslint/no-unused-vars
+   28:40  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+   30:28  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  176:45  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  188:52  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  208:50  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\ClientPortalPage.tsx
+    7:3   warning  'Play' is defined but never used                       @typescript-eslint/no-unused-vars
+   11:3   warning  'Sparkles' is defined but never used                   @typescript-eslint/no-unused-vars
+   14:3   warning  'Clock' is defined but never used                      @typescript-eslint/no-unused-vars
+   18:3   warning  'Eye' is defined but never used                        @typescript-eslint/no-unused-vars
+   20:3   warning  'Sun' is defined but never used                        @typescript-eslint/no-unused-vars
+   22:3   warning  'Compass' is defined but never used                    @typescript-eslint/no-unused-vars
+   23:3   warning  'Search' is defined but never used                     @typescript-eslint/no-unused-vars
+   24:3   warning  'ChevronRight' is defined but never used               @typescript-eslint/no-unused-vars
+   28:3   warning  'Star' is defined but never used                       @typescript-eslint/no-unused-vars
+   29:3   warning  'Leaf' is defined but never used                       @typescript-eslint/no-unused-vars
+   34:28  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+   36:42  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+   38:25  warning  'setNotifications' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  157:51  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  174:40  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  287:45  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  299:43  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  353:20  warning  'project' is defined but never used                    @typescript-eslint/no-unused-vars
+  353:31  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\DashboardPage.tsx
+    3:10  warning  'ShieldAlert' is defined but never used       @typescript-eslint/no-unused-vars
+    3:35  warning  'LayoutGrid' is defined but never used        @typescript-eslint/no-unused-vars
+    3:47  warning  'Clock' is defined but never used             @typescript-eslint/no-unused-vars
+   15:8   warning  'ProductionWidget' is defined but never used  @typescript-eslint/no-unused-vars
+   20:10  warning  'DashboardMetrics' is defined but never used  @typescript-eslint/no-unused-vars
+   29:32  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   50:41  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  157:45  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\LegalReportPage.tsx
+   3:10  warning  'FileText' is defined but never used                          @typescript-eslint/no-unused-vars
+   3:20  warning  'Download' is defined but never used                          @typescript-eslint/no-unused-vars
+   3:30  warning  'Printer' is defined but never used                           @typescript-eslint/no-unused-vars
+   3:39  warning  'AlertCircle' is defined but never used                       @typescript-eslint/no-unused-vars
+  14:12  warning  'selectedMunicipality' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  14:34  warning  'setSelectedMunicipality' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  15:12  warning  'selectedOperation' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  15:31  warning  'setSelectedOperation' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  16:12  warning  'projectData' is assigned a value but never used              @typescript-eslint/no-unused-vars
+  16:25  warning  'setProjectData' is assigned a value but never used           @typescript-eslint/no-unused-vars
+  28:11  warning  'openInternalLaw' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  34:11  warning  'reportRef' is assigned a value but never used                @typescript-eslint/no-unused-vars
+  41:11  warning  'handlePrint' is assigned a value but never used              @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\MarketingPage.tsx
+    5:3   warning  'Send' is defined but never used          @typescript-eslint/no-unused-vars
+    7:3   warning  'Layout' is defined but never used        @typescript-eslint/no-unused-vars
+  166:10  warning  'PostCard' is defined but never used      @typescript-eslint/no-unused-vars
+  166:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\MaterialLibraryPage.tsx
+    4:3    warning  'Layers' is defined but never used        @typescript-eslint/no-unused-vars
+    6:3    warning  'Plus' is defined but never used          @typescript-eslint/no-unused-vars
+    9:3    warning  'DollarSign' is defined but never used    @typescript-eslint/no-unused-vars
+   10:3    warning  'Info' is defined but never used          @typescript-eslint/no-unused-vars
+   14:3    warning  'Palette' is defined but never used       @typescript-eslint/no-unused-vars
+   17:3    warning  'Tag' is defined but never used           @typescript-eslint/no-unused-vars
+   23:3    warning  'FileText' is defined but never used      @typescript-eslint/no-unused-vars
+   34:46   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   36:60   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   40:28   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   55:43   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  103:51   warning  'i' is defined but never used             @typescript-eslint/no-unused-vars
+  133:127  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  227:76   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\MediaHubPage.tsx
+   5:3   warning  'Video' is defined but never used                 @typescript-eslint/no-unused-vars
+   7:3   warning  'Plus' is defined but never used                  @typescript-eslint/no-unused-vars
+   8:3   warning  'Filter' is defined but never used                @typescript-eslint/no-unused-vars
+  33:28  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  35:40  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  36:10  warning  'loading' is assigned a value but never used      @typescript-eslint/no-unused-vars
+  38:10  warning  'isAnalyzing' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\ProposalsManagementPage.tsx
+   9:3    warning  'Plus' is defined but never used                     @typescript-eslint/no-unused-vars
+  10:3    warning  'Filter' is defined but never used                   @typescript-eslint/no-unused-vars
+  13:3    warning  'Send' is defined but never used                     @typescript-eslint/no-unused-vars
+  15:3    warning  'CheckCircle2' is defined but never used             @typescript-eslint/no-unused-vars
+  16:3    warning  'Clock' is defined but never used                    @typescript-eslint/no-unused-vars
+  17:3    warning  'AlertCircle' is defined but never used              @typescript-eslint/no-unused-vars
+  25:7    warning  'MOCK_PROPOSALS' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  25:23   warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  29:46   warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  30:10   warning  'loading' is assigned a value but never used         @typescript-eslint/no-unused-vars
+  32:28   warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  70:92   warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  71:186  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  74:30   warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\PublicContactPage.tsx
+   10:28  warning  Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+   11:10  warning  'formState' is assigned a value but never used     @typescript-eslint/no-unused-vars
+   11:21  warning  'setFormState' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  109:46  warning  Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+  121:30  warning  Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\PublicHomePage.tsx
+   3:10  warning  'ArrowRight' is defined but never used    @typescript-eslint/no-unused-vars
+   3:75  warning  'Activity' is defined but never used      @typescript-eslint/no-unused-vars
+  13:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  14:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\PublicProjectDetailsPage.tsx
+    5:29  warning  'Maximize2' is defined but never used         @typescript-eslint/no-unused-vars
+    5:58  warning  'ArrowRight' is defined but never used        @typescript-eslint/no-unused-vars
+   11:42  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   14:28  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   18:9   warning  'opacity' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  160:40  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  169:49  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\PublicServicesPage.tsx
+  10:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\PublicStudioPage.tsx
+   9:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  70:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  79:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\StudioInboxPage.tsx
+   4:40  warning  'Filter' is defined but never used         @typescript-eslint/no-unused-vars
+   4:85  warning  'ChevronRight' is defined but never used   @typescript-eslint/no-unused-vars
+   5:10  warning  'geminiService' is defined but never used  @typescript-eslint/no-unused-vars
+   8:22  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  11:50  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  14:28  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\pages\TasksPage.tsx
+    6:3   warning  'Search' is defined but never used            @typescript-eslint/no-unused-vars
+   33:38  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   34:44  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   35:10  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   37:64  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   38:50  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   41:28  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   85:60  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   90:62  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   97:34  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  116:37  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  155:60  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\services\automationBridge.service.ts
+  31:55  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  84:16  warning  'err' is defined but never used           @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\services\dashboardData.service.ts
+   21:92   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   21:136  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   90:26   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  135:14   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\services\fa360.ts
+    2:10  warning  'TranslationKeys' is defined but never used    @typescript-eslint/no-unused-vars
+   40:35  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+   51:69  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+   55:69  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  124:32  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  134:41  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  144:30  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  154:40  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  164:34  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  182:32  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  193:11  warning  'projects' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  222:32  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  252:11  warning  'expenses' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  256:49  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  265:19  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  323:20  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  437:28  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  460:14  warning  'e' is defined but never used                  @typescript-eslint/no-unused-vars
+  471:47  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  486:14  warning  'err' is defined but never used                @typescript-eslint/no-unused-vars
+  491:46  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  526:60  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  529:35  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  539:38  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  560:39  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  591:72  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  664:43  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  694:42  warning  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\services\feeData.ts
+  2:42  warning  'TemplatePhaseWeight' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\services\geminiService.ts
+    5:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   15:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   37:45  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   39:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   56:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+   62:49  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   63:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   90:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+   98:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  108:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  126:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  133:46  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  134:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  150:14  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  155:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  156:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  170:14  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  175:52  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  176:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  187:14  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  192:45  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  193:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  208:14  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\services\legalEngine.ts
+  17:10  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  51:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  58:26  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\José\.gemini\antigravity\scratch\FERREIRARQUITETOS\services\oneClickCreate.client.ts
+  3:47  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 262 problems (0 errors, 262 warnings)
+
