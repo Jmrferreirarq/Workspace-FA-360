@@ -48,7 +48,7 @@ export default function ProposalsManagementPage() {
   const totalNegotiation = proposals.reduce((acc, p) => acc + (parseFloat(p.total) || 0), 0);
   const adjudicadaCount = proposals.filter(p => p.status === 'Adjudicada').length; // Keeping status keys internal for now
   const conversaoRate = proposals.length > 0 ? Math.round((adjudicadaCount / proposals.length) * 100) : 0;
-  const pendenteCount = proposals.filter(p => p.status === 'Enviada' || p.status === 'Negociação').length;
+  const pendenteCount = proposals.filter(p => p.status === 'Enviada' || p.status === 'Negociacao').length;
 
   return (
     <div className="space-y-16 animate-in fade-in duration-1000 pb-32">
@@ -116,7 +116,7 @@ export default function ProposalsManagementPage() {
                       <div className="text-right">
                         <div className={`text-[11px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-2 ${prop.status === 'Adjudicada' ? 'bg-emerald-500/10 text-emerald-500' :
                           prop.status === 'Enviada' ? 'bg-blue-500/10 text-blue-500' :
-                            prop.status === 'Negociação' ? 'bg-luxury-gold/10 text-luxury-gold' : 'bg-black/5 dark:bg-white/5 text-luxury-charcoal/60 dark:text-white/60'
+                            prop.status === 'Negociacao' ? 'bg-luxury-gold/10 text-luxury-gold' : 'bg-black/5 dark:bg-white/5 text-luxury-charcoal/60 dark:text-white/60'
                           }`}>
                           {prop.status}
                         </div>
@@ -168,7 +168,7 @@ export default function ProposalsManagementPage() {
                 {proposals.length > 0 ? (
                   <>
                     <p className="text-xs font-light italic opacity-60 leading-relaxed text-luxury-charcoal dark:text-white">
-                      "A proposta mais vista é de {proposals[0].client}. Probabilidade de conversão otimizada."
+                      "A proposta mais vista e de {proposals[0].client}. Probabilidade de conversao otimizada."
                     </p>
                     <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-luxury-gold mt-4">
                       {t('prop_analyze')} <ArrowUpRight size={10} />

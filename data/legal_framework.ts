@@ -6,7 +6,7 @@ export enum UrbanOperationType {
     Demolition = 'demolition',
     UseChange = 'use_change',
     Allotment = 'allotment',
-    Simple = 'simple' // Obras de escassa relevância
+    Simple = 'simple' // Obras de escassa relevancia
 }
 
 export interface LegalFramework {
@@ -26,90 +26,90 @@ export interface LegalFramework {
 export const legalFrameworks: Record<UrbanOperationType, LegalFramework> = {
     [UrbanOperationType.Construction]: {
         id: UrbanOperationType.Construction,
-        label: 'Construção Nova',
-        description: 'Edificação de obra nova em terreno livre ou em substituição de existente.',
+        label: 'Construcao Nova',
+        description: 'Edificacao de obra nova em terreno livre ou em substituicao de existente.',
         applicable_legislation: [
-            { name: 'DL 555/99 (RJUE)', legislation_id: 'rjue', description: 'Regime Jurídico da Urbanização e Edificação (Atualizado pelo Simplex).' },
-            { name: 'DL 10/2024 (Simplex)', legislation_id: 'simplex-2024', description: 'Simplificação dos licenciamentos urbanísticos.' },
-            { name: 'RGEU', legislation_id: 'rgeu', description: 'Regulamento Geral das Edificações Urbanas.' },
+            { name: 'DL 555/99 (RJUE)', legislation_id: 'rjue', description: 'Regime Juridico da Urbanizacao e Edificacao (Atualizado pelo Simplex).' },
+            { name: 'DL 10/2024 (Simplex)', legislation_id: 'simplex-2024', description: 'Simplificacao dos licenciamentos urbanisticos.' },
+            { name: 'RGEU', legislation_id: 'rgeu', description: 'Regulamento Geral das Edificacoes Urbanas.' },
             { name: 'DL 163/2006', legislation_id: 'acessibilidades', description: 'Acessibilidades e Mobilidade Condicionada.' }
         ],
         required_elements: [
-            'Levantamento Topográfico',
+            'Levantamento Topografico',
             'Projeto de Arquitetura',
             'Projetos de Especialidades',
             'Termo de Responsabilidade',
-            'Calendarização da Obra'
+            'Calendarizacao da Obra'
         ],
         pdm_focus_areas: [
-            'Índices de Ocupação e Utilização',
-            'Cérceas e Afastamentos',
+            'Indices de Ocupacao e Utilizacao',
+            'Cerceas e Afastamentos',
             'Estacionamento',
-            'Cedências para Domínio Público'
+            'Cedencias para Dominio Publico'
         ]
     },
     [UrbanOperationType.Rehabilitation]: {
         id: UrbanOperationType.Rehabilitation,
-        label: 'Reabilitação / Alteração',
-        description: 'Obras de alteração, conservação ou reconstrução em edifícios existentes.',
+        label: 'Reabilitacao / Alteracao',
+        description: 'Obras de alteracao, conservacao ou reconstrucao em edificios existentes.',
         applicable_legislation: [
-            { name: 'DL 555/99 (RJUE)', legislation_id: 'rjue', description: 'Artigos referentes a obras de alteração.' },
-            { name: 'DL 95/2019 (RERU)', legislation_id: 'reru', description: 'Regime Aplicável à Reabilitação de Edifícios ou Frações Autónomas.' }
+            { name: 'DL 555/99 (RJUE)', legislation_id: 'rjue', description: 'Artigos referentes a obras de alteracao.' },
+            { name: 'DL 95/2019 (RERU)', legislation_id: 'reru', description: 'Regime Aplicavel a Reabilitacao de Edificios ou Fracoes Autonomas.' }
         ],
         required_elements: [
             'Levantamento do Existente',
-            'Projeto de Alterações (Amarelos e Vermelhos)',
+            'Projeto de Alteracoes (Amarelos e Vermelhos)',
             'Termo de Responsabilidade',
-            'Relatório de Diagnóstico (se aplicável)'
+            'Relatorio de Diagnostico (se aplicavel)'
         ],
         pdm_focus_areas: [
-            'Manutenção de Fachadas',
-            'Usos Compatíveis',
-            'Isenções de Estacionamento (em áreas históricas)'
+            'Manutencao de Fachadas',
+            'Usos Compativeis',
+            'Isencoes de Estacionamento (em areas historicas)'
         ]
     },
     [UrbanOperationType.Expansion]: {
         id: UrbanOperationType.Expansion,
-        label: 'Ampliação',
-        description: 'Aumento da área de pavimentos ou de implantação, ou do volume de uma edificação.',
+        label: 'Ampliacao',
+        description: 'Aumento da area de pavimentos ou de implantacao, ou do volume de uma edificacao.',
         applicable_legislation: [
-            { name: 'RJUE', legislation_id: 'rjue', description: 'Regras sobre ampliações.' }
+            { name: 'RJUE', legislation_id: 'rjue', description: 'Regras sobre ampliacoes.' }
         ],
         required_elements: [
-            'Projeto de Ampliação',
-            'Cálculo de Áreas'
+            'Projeto de Ampliacao',
+            'Calculo de Areas'
         ],
         pdm_focus_areas: [
-            'Índice de Utilização (incremento)',
+            'Indice de Utilizacao (incremento)',
             'Afastamentos aos limites'
         ]
     },
     [UrbanOperationType.Demolition]: {
         id: UrbanOperationType.Demolition,
-        label: 'Demolição',
-        description: 'Destruição total ou parcial de uma edificação.',
+        label: 'Demolicao',
+        description: 'Destruicao total ou parcial de uma edificacao.',
         applicable_legislation: [
-            { name: 'RJUE', legislation_id: 'rjue', description: 'Licenciamento ou Comunicação Prévia para demolição.' }
+            { name: 'RJUE', legislation_id: 'rjue', description: 'Licenciamento ou Comunicacao Previa para demolicao.' }
         ],
         required_elements: [
-            'Plano de Demolição',
-            'Gestão de Resíduos (RCD)'
+            'Plano de Demolicao',
+            'Gestao de Residuos (RCD)'
         ],
         pdm_focus_areas: [
-            'Proteção de Património Classificado',
-            'Regras de substituição'
+            'Protecao de Patrimonio Classificado',
+            'Regras de substituicao'
         ]
     },
     [UrbanOperationType.UseChange]: {
         id: UrbanOperationType.UseChange,
-        label: 'Alteração de Uso',
-        description: 'Modificação do uso final da edificação (ex: Habitação para Comércio).',
+        label: 'Alteracao de Uso',
+        description: 'Modificacao do uso final da edificacao (ex: Habitacao para Comercio).',
         applicable_legislation: [
-            { name: 'RJUE', legislation_id: 'rjue', description: 'Autorização de Utilização.' }
+            { name: 'RJUE', legislation_id: 'rjue', description: 'Autorizacao de Utilizacao.' }
         ],
         required_elements: [
             'Projeto de Arquitetura (se houver obras)',
-            'Autorização do Condomínio (se aplicável)'
+            'Autorizacao do Condominio (se aplicavel)'
         ],
         pdm_focus_areas: [
             'Compatibilidade de Usos',
@@ -119,29 +119,29 @@ export const legalFrameworks: Record<UrbanOperationType, LegalFramework> = {
     [UrbanOperationType.Allotment]: {
         id: UrbanOperationType.Allotment,
         label: 'Loteamento',
-        description: 'Operação de divisão de um ou vários prédios em lotes.',
+        description: 'Operacao de divisao de um ou varios predios em lotes.',
         applicable_legislation: [
-            { name: 'RJUE', legislation_id: 'rjue', description: 'Operações de Loteamento.' }
+            { name: 'RJUE', legislation_id: 'rjue', description: 'Operacoes de Loteamento.' }
         ],
         required_elements: [
-            'Planta de Síntese',
+            'Planta de Sintese',
             'Regulamento do Loteamento'
         ],
         pdm_focus_areas: [
-            'Índices Urbanísticos Globais',
-            'Áreas de Cedência',
+            'Indices Urbanisticos Globais',
+            'Areas de Cedencia',
             'Infraestruturas'
         ]
     },
     [UrbanOperationType.Simple]: {
         id: UrbanOperationType.Simple,
-        label: 'Obras de Escassa Relevância',
-        description: 'Pequenas obras isentas de controlo prévio (ex: muros baixos, estufas).',
+        label: 'Obras de Escassa Relevancia',
+        description: 'Pequenas obras isentas de controlo previo (ex: muros baixos, estufas).',
         applicable_legislation: [
-            { name: 'RJUE - Art. 6º A', legislation_id: 'rjue', description: 'Obras isentas de controlo prévio.' }
+            { name: 'RJUE - Art. 6º A', legislation_id: 'rjue', description: 'Obras isentas de controlo previo.' }
         ],
         required_elements: [
-            'Comunicação (apenas para efeitos de fiscalização, se aplicável)'
+            'Comunicacao (apenas para efeitos de fiscalizacao, se aplicavel)'
         ],
         pdm_focus_areas: [
             'Conformidade com PDM (mesmo isentas, devem cumprir)'

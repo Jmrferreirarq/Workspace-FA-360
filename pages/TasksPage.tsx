@@ -212,14 +212,14 @@ export default function TasksPage() {
 
                       <div className="w-full md:w-auto flex flex-row md:flex-col justify-between items-center md:items-end gap-6 border-t md:border-t-0 md:border-l border-black/5 dark:border-white/5 pt-8 md:pt-0 md:pl-12 min-w-[180px]">
                         <div className="text-right">
-                          <p className="text-[10px] font-black uppercase tracking-widest opacity-30 mb-1">Duração Est.</p>
+                          <p className="text-[10px] font-black uppercase tracking-widest opacity-30 mb-1">Duracao Est.</p>
                           <p className="text-2xl font-serif text-luxury-charcoal dark:text-white">{task.estimatedHours}h</p>
                         </div>
                         <div className="text-right">
-                          <p className="text-[10px] font-black uppercase tracking-widest opacity-30 mb-1">Responsável</p>
+                          <p className="text-[10px] font-black uppercase tracking-widest opacity-30 mb-1">Responsavel</p>
                           <p className="text-[11px] font-bold uppercase tracking-widest text-luxury-gold">{task.responsible}</p>
                         </div>
-                        <Tooltip content={t('add_to_my_list') || "Adicionar à Minha Lista"} position="left">
+                        <Tooltip content={t('add_to_my_list') || "Adicionar a Minha Lista"} position="left">
                           <button
                             onClick={() => {
                               setPendingTask(task);
@@ -473,7 +473,7 @@ export default function TasksPage() {
                           </div>
                           <div className="p-6 bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 rounded-2xl space-y-2">
                             <p className="text-[9px] font-bold uppercase tracking-widest text-luxury-charcoal/30 dark:text-white/30">Status</p>
-                            <p className="text-sm font-serif italic text-luxury-charcoal dark:text-white">{selectedTaskDetail.completed ? 'Concluída' : 'Em Curso'}</p>
+                            <p className="text-sm font-serif italic text-luxury-charcoal dark:text-white">{selectedTaskDetail.completed ? 'Concluida' : 'Em Curso'}</p>
                           </div>
                         </div>
                       </div>
@@ -529,7 +529,7 @@ export default function TasksPage() {
             <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold text-center">Status Operacional</h3>
             <div className="space-y-12">
               <div className="text-center group cursor-default">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40 mb-3 group-hover:text-luxury-gold transition-colors">Concluídas</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40 mb-3 group-hover:text-luxury-gold transition-colors">Concluidas</p>
                 <p className="text-5xl font-serif text-luxury-charcoal dark:text-white">{tasks.filter(t => t.completed).length}</p>
               </div>
               <div className="text-center group cursor-default">
@@ -561,7 +561,7 @@ export default function TasksPage() {
               <span className="text-[10px] font-black uppercase tracking-[0.2em]">Fluxo Sugerido</span>
             </div>
             <p className="text-xs italic font-light text-luxury-charcoal/60 dark:text-white/60 leading-relaxed">
-              Sugerimos importar a fase de **"Estudo Prévio"** para o Projeto Douro. O catálogo contém 14 tarefas críticas de conformidade.
+              Sugerimos importar a fase de **"Estudo Previo"** para o Projeto Douro. O catalogo contem 14 tarefas criticas de conformidade.
             </p>
             <button className="w-full py-4 border border-luxury-gold/30 text-luxury-gold rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-luxury-gold hover:text-black transition-all">
               Optimizar Workflow

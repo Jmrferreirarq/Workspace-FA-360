@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
 interface PageHeaderProps {
@@ -24,7 +24,7 @@ export default function PageHeader({
          {kicker && (
            <div className="flex items-center gap-3 mb-2">
               {statusIndicator && <div className="w-2 h-2 rounded-full bg-luxury-gold animate-pulse"></div>}
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-charcoal/40 dark:text-white/40">{kicker}</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.3em] text-luxury-charcoal/40 dark:text-white/40">{kicker}</p>
            </div>
          )}
          <h1 className="text-4xl md:text-5xl font-serif italic text-luxury-charcoal dark:text-white leading-none">
@@ -38,7 +38,7 @@ export default function PageHeader({
         {actionLabel && onAction && (
             <button 
               onClick={onAction} 
-              className="px-8 py-4 bg-luxury-gold text-black rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-[0_0_20px_#D4AF3730] flex items-center gap-2"
+              className="px-8 py-4 bg-luxury-gold text-black rounded-xl font-black text-[11px] uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-[0_0_20px_#D4AF3730] flex items-center gap-2"
             >
                 {actionLabel}
             </button>

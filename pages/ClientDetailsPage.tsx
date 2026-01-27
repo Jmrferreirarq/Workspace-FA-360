@@ -46,7 +46,7 @@ export default function ClientDetailsPage() {
             onClick={() => navigate('/clients')}
             className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest opacity-50 hover:opacity-100 hover:text-luxury-gold transition-all"
           >
-            <ArrowLeft size={14} /> Voltar à Listagem
+            <ArrowLeft size={14} /> Voltar a Listagem
           </button>
           <div className="flex items-center gap-8">
             <div className="w-24 h-24 bg-luxury-gold/10 rounded-[2rem] flex items-center justify-center text-luxury-gold border border-luxury-gold/20 relative group">
@@ -61,7 +61,7 @@ export default function ClientDetailsPage() {
                 <span className="text-[11px] font-mono opacity-20 uppercase tracking-widest">ID: #C-{client.id}</span>
               </div>
               <h1 className="text-5xl md:text-7xl font-serif italic tracking-tighter leading-none">{client.name}</h1>
-              <p className="text-xl font-light opacity-60 mt-2">Investidor Imobiliário • Residencial de Luxo</p>
+              <p className="text-xl font-light opacity-60 mt-2">Investidor Imobiliario • Residencial de Luxo</p>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function ClientDetailsPage() {
             <div className="space-y-6">
                <ContactRow icon={<Mail size={16}/>} label="Email" value={client.email} />
                <ContactRow icon={<Phone size={16}/>} label="Telefone" value={client.phone} />
-               <ContactRow icon={<MapPin size={16}/>} label="Localização" value="Lisboa, Portugal" />
+               <ContactRow icon={<MapPin size={16}/>} label="Localizacao" value="Lisboa, Portugal" />
             </div>
           </div>
 
@@ -97,7 +97,7 @@ export default function ClientDetailsPage() {
             </div>
             <div className="space-y-6">
               <p className="text-sm font-light italic opacity-60 leading-relaxed">
-                "O cliente demonstra preferência por estética mediterrânica contemporânea. Valoriza o rigor técnico e é sensível a atrasos logísticos. Recomendado: Manter comunicação proativa semanal."
+                "O cliente demonstra preferencia por estetica mediterranica contemporanea. Valoriza o rigor tecnico e e sensivel a atrasos logisticos. Recomendado: Manter comunicacao proativa semanal."
               </p>
               <div className="flex flex-wrap gap-2">
                  {['Minimalista', 'Naturais', 'Rigoroso', 'VIP'].map(tag => (
@@ -111,7 +111,7 @@ export default function ClientDetailsPage() {
         {/* Tabs Content */}
         <main className="lg:col-span-8 space-y-10">
           <div className="flex gap-8 border-b border-white/5 pb-2 overflow-x-auto scrollbar-hide">
-            {['PROJETOS', 'FINANCEIRO', 'COMUNICAÇÕES', 'NOTAS'].map(tab => (
+            {['PROJETOS', 'FINANCEIRO', 'COMUNICACOES', 'NOTAS'].map(tab => (
               <button 
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -158,11 +158,11 @@ export default function ClientDetailsPage() {
                 </div>
               )}
 
-              {activeTab === 'COMUNICAÇÕES' && (
+              {activeTab === 'COMUNICACOES' && (
                  <div className="space-y-6">
-                    <CommItem type="Reunião" date="14 Out" title="Apresentação de Renderings 3D" author="Miguel F." />
+                    <CommItem type="Reuniao" date="14 Out" title="Apresentacao de Renderings 3D" author="Miguel F." />
                     <CommItem type="Email" date="12 Out" title="Envio de Caderno de Encargos" author="Sofia C." />
-                    <CommItem type="Portal" date="10 Out" title="Cliente aprovou orçamento de cozinha" author="Sistema" />
+                    <CommItem type="Portal" date="10 Out" title="Cliente aprovou orcamento de cozinha" author="Sistema" />
                  </div>
               )}
             </Motion.div>

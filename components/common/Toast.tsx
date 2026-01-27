@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { CheckCircle2, AlertTriangle, XCircle, X, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -80,14 +80,14 @@ export default function Toast({
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-white">{title}</p>
                         {message && (
-                            <p className="text-[11px] text-white/50 mt-0.5">{message}</p>
+                            <p className="text-xs text-white/50 mt-0.5">{message}</p>
                         )}
                     </div>
 
                     {action && (
                         <button
                             onClick={action.onClick}
-                            className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-luxury-gold border border-luxury-gold/30 rounded-full hover:bg-luxury-gold/10 transition-all"
+                            className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-widest text-luxury-gold border border-luxury-gold/30 rounded-full hover:bg-luxury-gold/10 transition-all"
                         >
                             {action.label}
                         </button>

@@ -35,7 +35,7 @@ export default function MaterialLibraryPage() {
   const [loading, setLoading] = useState(true);
   const [selectedMaterial, setSelectedMaterial] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [aiAdvice, setAiAdvice] = useState<string>("Selecione um material para análise técnica avançada.");
+  const [aiAdvice, setAiAdvice] = useState<string>("Selecione um material para analise tecnica avancada.");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const Motion = motion as any;
 
@@ -153,7 +153,7 @@ export default function MaterialLibraryPage() {
             </div>
             <div className="space-y-6">
               <p className="text-sm font-light italic opacity-60 leading-relaxed text-white">
-                {isAnalyzing ? "A processar conceitos físicos..." : `"${aiAdvice}"`}
+                {isAnalyzing ? "A processar conceitos fisicos..." : `"${aiAdvice}"`}
               </p>
               {selectedMaterial && (
                 <button
@@ -161,13 +161,13 @@ export default function MaterialLibraryPage() {
                   disabled={isAnalyzing}
                   className="w-full py-4 bg-luxury-gold text-black rounded-2xl text-[11px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg disabled:opacity-50"
                 >
-                  {isAnalyzing ? "Analisando..." : "Análise de Performance"}
+                  {isAnalyzing ? "Analisando..." : "Analise de Performance"}
                 </button>
               )}
             </div>
           </div>
 
-          {/* Inventário Tracker */}
+          {/* Inventario Tracker */}
           <div className="glass p-10 rounded-[3rem] border-white/5 space-y-8">
             <h4 className="text-[10px] font-black uppercase tracking-widest opacity-50 text-white">Rastreio de Amostras</h4>
             <div className="space-y-4">
@@ -190,7 +190,7 @@ export default function MaterialLibraryPage() {
         </aside>
       </div>
 
-      {/* Detail Modal: Ficha Técnica Expandida */}
+      {/* Detail Modal: Ficha Tecnica Expandida */}
       <AnimatePresence>
         {selectedMaterial && (
           <div className="fixed inset-0 z-[300] flex items-center justify-center p-6">
@@ -236,7 +236,7 @@ export default function MaterialLibraryPage() {
                 <div className="space-y-6">
                   <h3 className="text-[10px] font-black uppercase tracking-widest opacity-50 text-white">{t('mat_tech_specs')}</h3>
                   <p className="text-sm font-light italic opacity-70 leading-relaxed text-white">
-                    {selectedMaterial.technical || "Ficha técnica completa em processamento pela equipa de curadoria."}
+                    {selectedMaterial.technical || "Ficha tecnica completa em processamento pela equipa de curadoria."}
                   </p>
                 </div>
 
@@ -252,9 +252,9 @@ export default function MaterialLibraryPage() {
                 <div className="p-8 bg-luxury-gold/[0.03] rounded-3xl border border-luxury-gold/10 space-y-4">
                   <div className="flex items-center gap-3 text-luxury-gold">
                     <Zap size={16} />
-                    <h4 className="text-[11px] font-black uppercase tracking-widest">Aplicações Recomendadas</h4>
+                    <h4 className="text-[11px] font-black uppercase tracking-widest">Aplicacoes Recomendadas</h4>
                   </div>
-                  <p className="text-xs italic opacity-50 text-white">Ideal para áreas de alto tráfego, cozinhas e áreas sociais devido à sua baixa porosidade e alta resistência mecânica.</p>
+                  <p className="text-xs italic opacity-50 text-white">Ideal para areas de alto trafego, cozinhas e areas sociais devido a sua baixa porosidade e alta resistencia mecanica.</p>
                 </div>
               </div>
             </Motion.div>

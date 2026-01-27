@@ -197,7 +197,7 @@ const fa360 = {
       .reduce((acc, p) => acc + (parseFloat(p.total) || 0), 0);
 
     const pendingFees = proposals
-      .filter(p => p.status === 'Enviada' || p.status === 'Negociação')
+      .filter(p => p.status === 'Enviada' || p.status === 'Negociacao')
       .reduce((acc, p) => acc + (parseFloat(p.total) || 0), 0);
 
     const totalCosts = expenses.reduce((acc, e) => acc + (parseFloat(e.amount) || 0), 0);
@@ -279,7 +279,7 @@ const fa360 = {
       alerts.push({
         id: 'alert-projects',
         type: 'PROJECT_BLOCKED',
-        message: `${stalled.length} projetos sem ação definida`,
+        message: `${stalled.length} projetos sem acao definida`,
         actionUrl: '/projects'
       });
     }
@@ -297,7 +297,7 @@ const fa360 = {
       leads: proposals.filter(p => p.status === 'Rascunho').length,
       activeProposals: proposals.filter(p => p.status === 'Enviada').length,
       activeValue: proposals.filter(p => p.status === 'Enviada').reduce((acc, p) => acc + (parseFloat(p.total) || 0), 0),
-      negotiation: proposals.filter(p => p.status === 'Negociação').length,
+      negotiation: proposals.filter(p => p.status === 'Negociacao').length,
       conversionRate: 0 // Need historical data
     };
 
@@ -313,7 +313,7 @@ const fa360 = {
 
     const totalHealth = Math.round((scoreDeadlines + scoreCash + scoreProduction + scoreRisk) / 4);
     
-    let reason = "Operação estável.";
+    let reason = "Operacao estavel.";
     if (overdueTasks.length > 0) reason = `${overdueTasks.length} tarefas em atraso detetadas.`;
     if (stalled.length > 0) reason += ` ${stalled.length} projetos estagnados.`;
 
@@ -339,7 +339,7 @@ const fa360 = {
       neuralStatus: {
         status: fa360.getNeuralStatus() ? 'ONLINE' : 'OFFLINE',
         lastSync: await NeuralStorage.load(STORAGE_KEYS.LAST_SYNC),
-        message: fa360.getNeuralStatus() ? 'Sincronizado' : 'Conexão Sheets pendente'
+        message: fa360.getNeuralStatus() ? 'Sincronizado' : 'Conexao Sheets pendente'
       }
     };
 
@@ -387,9 +387,9 @@ const fa360 = {
 
   getAIRecommendations: async (category: 'FINANCIAL' | 'CALENDAR') => {
     if (category === 'FINANCIAL') {
-      return "Nenhum dado financeiro suficiente para análise neural.";
+      return "Nenhum dado financeiro suficiente para analise neural.";
     }
-    return "Agenda livre. Ótimo momento para planeamento estratégico.";
+    return "Agenda livre. Otimo momento para planeamento estrategico.";
   },
 
   getNeuralStatus: () => {
@@ -440,7 +440,7 @@ const fa360 = {
   },
 
   syncAllLocalData: async () => {
-    fa360.log("SYNC: Sincronização em massa iniciada...");
+    fa360.log("SYNC: Sincronizacao em massa iniciada...");
     await fa360.forceSync();
     return { success: true };
   },
@@ -482,7 +482,7 @@ const fa360 = {
     const ONE_HOUR = 60 * 60 * 1000;
 
     if (cachedAudit && (Date.now() - cachedAudit.timestamp < ONE_HOUR)) {
-      fa360.log("AI_CACHE: Recuperando auditoria estratégica da Neural Cache.");
+      fa360.log("AI_CACHE: Recuperando auditoria estrategica da Neural Cache.");
       return cachedAudit.result;
     }
 
@@ -507,7 +507,7 @@ const fa360 = {
     const files = await fa360.listTechnicalFiles();
     const updated = [file, ...files];
     await NeuralStorage.save(STORAGE_KEYS.FILES, updated);
-    fa360.log(`FILE: Novo ficheiro técnico ${file.name} registado.`);
+    fa360.log(`FILE: Novo ficheiro tecnico ${file.name} registado.`);
     return { success: true };
   },
 
@@ -515,7 +515,7 @@ const fa360 = {
     const files = await fa360.listTechnicalFiles();
     const updated = files.filter((f: any) => f.id !== id);
     await NeuralStorage.save(STORAGE_KEYS.FILES, updated);
-    fa360.log(`FILE: Ficheiro técnico ${id} removido.`);
+    fa360.log(`FILE: Ficheiro tecnico ${id} removido.`);
     return { success: true };
   },
 
@@ -559,7 +559,7 @@ const fa360 = {
   },
 
   forceSync: async () => {
-    fa360.log("SYNC: Iniciando Força Bruta de sincronização.");
+    fa360.log("SYNC: Iniciando Forca Bruta de sincronizacao.");
     localStorage.setItem(STORAGE_KEYS.LAST_SYNC, new Date().toISOString());
     window.dispatchEvent(new CustomEvent("fa-sync-complete"));
   },
@@ -570,7 +570,7 @@ const fa360 = {
     const defaults = [
       {
         id: 'M001',
-        name: 'Mármore Estremoz',
+        name: 'Marmore Estremoz',
         category: 'Stone',
         finish: 'Polido',
         price: 'High',
@@ -578,7 +578,7 @@ const fa360 = {
         image: '/marble_estremoz.png?v=2',
         location: 'mat_in_studio',
         supplier: 'Margres',
-        technical: 'Mármore de origem portuguesa com baixa porosidade e alta resistência ao desgaste. Ideal para pavimentos interiores e revestimentos de luxo.'
+        technical: 'Marmore de origem portuguesa com baixa porosidade e alta resistencia ao desgaste. Ideal para pavimentos interiores e revestimentos de luxo.'
       },
       {
         id: 'M002',
@@ -590,11 +590,11 @@ const fa360 = {
         image: '/american_oak.png?v=2',
         location: 'mat_in_studio',
         supplier: 'Sonae Arauco',
-        technical: 'Madeira de média densidade com grão aberto. Excelente estabilidade dimensional e resistência ao impacto.'
+        technical: 'Madeira de media densidade com grao aberto. Excelente estabilidade dimensional e resistencia ao impacto.'
       },
       {
         id: 'M003',
-        name: 'Betão Arquitetônico',
+        name: 'Betao Arquitetonico',
         category: 'Cladding',
         finish: 'Visto',
         price: 'Low',
@@ -602,7 +602,7 @@ const fa360 = {
         image: '/concrete_arch.png?v=2',
         location: 'mat_on_site',
         supplier: 'Secil',
-        technical: 'Betão de alta performance com acabamento liso. Alta inércia térmica e resistência estrutural.'
+        technical: 'Betao de alta performance com acabamento liso. Alta inercia termica e resistencia estrutural.'
       }
     ];
 
@@ -631,15 +631,15 @@ const fa360 = {
 
   getNeuralProtocol: async (agentId: string) => {
     const protocols: Record<string, string> = {
-      'concierge': "AGENTE: DIGITAL CONCIERGE\nMODO: REATIVO\n\nInstrução Primária:\nAtuar como primeiro ponto de contacto para leads e clientes.\n\nDiretrizes:\n1. Responder sempre com tom 'Inspirational'.\n2. Priorizar agendamento de reuniões.\n3. Encaminhar questões técnicas para o Piloto Financeiro.",
-      'pilot': "AGENTE: FINANCIAL PILOT\nMODO: ANALÍTICO\n\nInstrução Primária:\nMonitorizar rentabilidade e cashflow do estúdio.\n\nDiretrizes:\n1. Alerta crítico se margem < 20%.\n2. Validar viabilidade de todas as propostas > 50k.\n3. Otimizar fluxo de caixa a 30 dias.",
-      'director': "AGENTE: CREATIVE DIRECTOR\nMODO: VISIONÁRIO\n\nInstrução Primária:\nGarantir coerência estética de todas as saídas.\n\nDiretrizes:\n1. Validar materiais com base na sustentabilidade.\n2. Manter linguagem minimalista e premium.\n3. Rejeitar renderizações de baixa resolução."
+      'concierge': "AGENTE: DIGITAL CONCIERGE\nMODO: REATIVO\n\nInstrucao Primaria:\nAtuar como primeiro ponto de contacto para leads e clientes.\n\nDiretrizes:\n1. Responder sempre com tom 'Inspirational'.\n2. Priorizar agendamento de reunioes.\n3. Encaminhar questoes tecnicas para o Piloto Financeiro.",
+      'pilot': "AGENTE: FINANCIAL PILOT\nMODO: ANALITICO\n\nInstrucao Primaria:\nMonitorizar rentabilidade e cashflow do estudio.\n\nDiretrizes:\n1. Alerta critico se margem < 20%.\n2. Validar viabilidade de todas as propostas > 50k.\n3. Otimizar fluxo de caixa a 30 dias.",
+      'director': "AGENTE: CREATIVE DIRECTOR\nMODO: VISIONARIO\n\nInstrucao Primaria:\nGarantir coerencia estetica de todas as saidas.\n\nDiretrizes:\n1. Validar materiais com base na sustentabilidade.\n2. Manter linguagem minimalista e premium.\n3. Rejeitar renderizacoes de baixa resolucao."
     };
-    return protocols[agentId] || "Protocolo não definido.";
+    return protocols[agentId] || "Protocolo nao definido.";
   },
 
   runMaterialAIAnalysis: async (material: any) => {
-    fa360.log(`AI_MATERIAL: Analisando performance técnica de ${material.name}...`);
+    fa360.log(`AI_MATERIAL: Analisando performance tecnica de ${material.name}...`);
     return await geminiService.getMaterialPerformanceAnalysis(material);
   },
 

@@ -22,7 +22,7 @@ class ExportEngineService {
       <html lang="pt">
       <head>
         <meta charset="UTF-8">
-        <title>Proposta de Honorários - ${clientName}</title>
+        <title>Proposta de Honorarios - ${clientName}</title>
         <style>${styles}</style>
         <style>
           body { background: #f4f4f5; display:flex; justify-content:center; padding:40px 0; font-family:sans-serif; }

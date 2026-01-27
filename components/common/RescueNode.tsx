@@ -1,4 +1,4 @@
-
+﻿
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { ShieldAlert, RefreshCw, Home } from 'lucide-react';
 
@@ -41,24 +41,24 @@ export class RescueNode extends React.Component<Props, State> {
                         <ShieldAlert size={48} />
                     </div>
                     <div className="space-y-4">
-                        <h2 className="text-3xl font-serif italic text-white">Sistema em Recuperação</h2>
+                        <h2 className="text-3xl font-serif italic text-white">Sistema em Recuperacao</h2>
                         <p className="text-sm font-light opacity-50 max-w-md mx-auto italic">
-                            Ocorreu uma falha inesperada no nó <b>{this.props.nodeName || 'Global'}</b>.
-                            A inteligência Antigravity está a isolar o erro para manter a estabilidade do resto do atelier.
+                            Ocorreu uma falha inesperada no no <b>{this.props.nodeName || 'Global'}</b>.
+                            A inteligencia Antigravity esta a isolar o erro para manter a estabilidade do resto do atelier.
                         </p>
                     </div>
                     <div className="flex gap-4">
                         <button
                             onClick={this.handleReset}
-                            className="px-8 py-4 bg-red-500 text-white rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-all shadow-xl shadow-red-500/20"
+                            className="px-8 py-4 bg-red-500 text-white rounded-full text-[11px] font-black uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-all shadow-xl shadow-red-500/20"
                         >
                             <RefreshCw size={14} /> Reiniciar Node
                         </button>
                         <button
                             onClick={() => window.location.hash = '#/'}
-                            className="px-8 py-4 bg-white/5 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-white/10 transition-all text-white"
+                            className="px-8 py-4 bg-white/5 border border-white/10 rounded-full text-[11px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-white/10 transition-all text-white"
                         >
-                            <Home size={14} /> Voltar ao Início
+                            <Home size={14} /> Voltar ao InA­cio
                         </button>
                     </div>
                 </div>

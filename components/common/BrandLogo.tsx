@@ -1,4 +1,4 @@
-
+﻿
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -17,8 +17,8 @@ export default function BrandLogo({
 }: BrandLogoProps) {
   const textColor = light ? "text-white" : "text-luxury-charcoal dark:text-white";
   
-  // Constantes para o alinhamento perfeito do bloco tipográfico
-  // O tracking de 0.78em permite que 'ARQUITETOS' ocupe o mesmo espaço que 'FERREIRA'
+  // Constantes para o alinhamento perfeito do bloco tipografico
+  // O tracking de 0.78em permite que 'ARQUITETOS' ocupe o mesmo espaco que 'FERREIRA'
   const subTitleTracking = "0.78em";
   
   return (
@@ -32,7 +32,7 @@ export default function BrandLogo({
           xmlns="http://www.w3.org/2000/svg"
           className="overflow-visible"
         >
-          {/* Ícone Geométrico Minimalista - Baseado em ângulos retos de arquitetura */}
+          {/* Acone Geometrico Minimalista - Baseado em angulos retos de arquitetura */}
           <motion.path
             d="M20 80V20H50"
             stroke={light ? "#FFF" : "#D4AF37"}
@@ -53,7 +53,7 @@ export default function BrandLogo({
       )}
       
       <div className="flex flex-col items-center">
-        {/* Bloco Superior: FERREIRA ® */}
+        {/* Bloco Superior: FERREIRA A® */}
         <div className="relative flex items-start">
           <motion.span 
             initial={animated ? { opacity: 0, y: 5 } : { opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ export default function BrandLogo({
             initial={animated ? { opacity: 0 } : { opacity: 0.6 }}
             animate={{ opacity: 0.6 }}
             transition={{ delay: 1 }}
-            className={`text-[11px] md:text-[10px] absolute -right-3.5 md:-right-4 top-1 font-sans font-black ${textColor}`}
+            className={`text-xs md:text-[11px] absolute -right-3.5 md:-right-4 top-1 font-sans font-black ${textColor}`}
           >
             &reg;
           </motion.span>
@@ -79,10 +79,10 @@ export default function BrandLogo({
           initial={animated ? { opacity: 0, scaleX: 0.8 } : { opacity: 0.5, scaleX: 1 }}
           animate={{ opacity: 0.5, scaleX: 1 }}
           transition={{ delay: 0.5, duration: 1.2 }}
-          className={`text-[11px] md:text-[11px] font-sans font-[300] uppercase pt-3 text-center w-full ${textColor}`}
+          className={`text-xs md:text-xs font-sans font-[300] uppercase pt-3 text-center w-full ${textColor}`}
           style={{ 
             letterSpacing: subTitleTracking,
-            marginRight: `-${subTitleTracking}` // Ajuste para centralização ótica perfeita
+            marginRight: `-${subTitleTracking}` // Ajuste para centralizacao otica perfeita
           }} 
         >
           ARQUITETOS

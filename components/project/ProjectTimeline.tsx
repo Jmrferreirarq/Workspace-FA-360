@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, Clock, Play, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -20,9 +20,9 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ currentPhaseId
   const { t, locale } = useLanguage();
 
   const defaultPhases: Phase[] = [
-    { id: 'EP', labelPT: 'Estudo Prévio', labelEN: 'Preliminary Study', status: 'upcoming' },
+    { id: 'EP', labelPT: 'Estudo Previo', labelEN: 'Preliminary Study', status: 'upcoming' },
     { id: 'LIC', labelPT: 'Licenciamento', labelEN: 'Licensing', status: 'upcoming' },
-    { id: 'EXEC', labelPT: 'Execução', labelEN: 'Execution', status: 'upcoming' },
+    { id: 'EXEC', labelPT: 'Execucao', labelEN: 'Execution', status: 'upcoming' },
     { id: 'OBRA', labelPT: 'Obra', labelEN: 'Construction', status: 'upcoming' }
   ];
 
@@ -71,25 +71,25 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ currentPhaseId
 
             {/* Content */}
             <div className="space-y-1">
-              <p className={`text-[10px] font-black uppercase tracking-[0.3em] transition-colors ${
+              <p className={`text-[11px] font-black uppercase tracking-[0.3em] transition-colors ${
                 phase.status === 'current' ? 'text-luxury-gold' : 'text-luxury-charcoal/40 dark:text-white/30'
               }`}>
                 {locale === 'pt' ? phase.labelPT : phase.labelEN}
               </p>
               
               {phase.status === 'current' && (
-                <div className="flex items-center justify-center gap-1.5 text-[9px] font-bold text-luxury-gold uppercase tracking-tighter">
+                <div className="flex items-center justify-center gap-1.5 text-[10px] font-bold text-luxury-gold uppercase tracking-tighter">
                    <Clock size={10} />
                    <span>Em Curso</span>
                 </div>
               )}
 
               {phase.status === 'completed' && (
-                <span className="text-[9px] font-bold text-emerald-500 uppercase tracking-tighter">Concluído</span>
+                <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-tighter">ConcluA­do</span>
               )}
 
               {phase.status === 'upcoming' && (
-                <span className="text-[9px] font-bold text-luxury-charcoal/20 dark:text-white/10 uppercase tracking-tighter">Agendado</span>
+                <span className="text-[10px] font-bold text-luxury-charcoal/20 dark:text-white/10 uppercase tracking-tighter">Agendado</span>
               )}
             </div>
 

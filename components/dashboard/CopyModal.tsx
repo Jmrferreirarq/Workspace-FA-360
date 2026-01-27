@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, Check, X } from 'lucide-react';
 
@@ -36,7 +36,7 @@ export const CopyModal: React.FC<{
           className="relative w-full max-w-2xl glass p-8 md:p-12 rounded-[2rem] border-white/10 shadow-2xl overflow-hidden bg-black/60"
         >
           <div className="flex items-center justify-between mb-8">
-            <div className="text-[10px] font-black uppercase tracking-[0.35em] text-luxury-gold">
+            <div className="text-[11px] font-black uppercase tracking-[0.35em] text-luxury-gold">
               {title}
             </div>
             <button
@@ -56,7 +56,7 @@ export const CopyModal: React.FC<{
           <div className="mt-8 flex justify-end">
             <button
               onClick={copy}
-              className="flex items-center gap-3 px-10 py-5 rounded-2xl bg-luxury-gold text-black text-[10px] font-black uppercase tracking-[0.25em] hover:scale-105 transition-all shadow-xl shadow-luxury-gold/20"
+              className="flex items-center gap-3 px-10 py-5 rounded-2xl bg-luxury-gold text-black text-[11px] font-black uppercase tracking-[0.25em] hover:scale-105 transition-all shadow-xl shadow-luxury-gold/20"
             >
               {copied ? (
                 <>

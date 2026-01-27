@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import fa360 from '../../services/fa360';
@@ -60,12 +60,12 @@ export default function CriticalAlertsWidget({ alerts }: CriticalAlertsProps) {
   return (
     <div className="md:col-span-1 glass p-8 rounded-[0.5rem] bg-luxury-white/50 dark:bg-white/[0.02] border-black/5 dark:border-white/5 flex flex-col h-full group hover:border-red-500/20 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-none">
       <div className="flex items-center justify-between mb-6">
-        <div className="text-[9px] font-black uppercase tracking-[0.45em] text-luxury-charcoal/20 dark:text-white/20">{t('critical_alerts')}</div>
+        <div className="text-[10px] font-black uppercase tracking-[0.45em] text-luxury-charcoal/20 dark:text-white/20">{t('critical_alerts')}</div>
         <button
           onClick={() => navigate('/tasks')} // Generalize to 'Resolve' center later
-          className="text-[10px] font-black uppercase tracking-[0.25em] text-luxury-charcoal/50 dark:text-white/50 hover:text-luxury-charcoal dark:hover:text-white transition-all"
+          className="text-[11px] font-black uppercase tracking-[0.25em] text-luxury-charcoal/50 dark:text-white/50 hover:text-luxury-charcoal dark:hover:text-white transition-all"
         >
-          {t('resolve')} →
+          {t('resolve')} a†’
         </button>
       </div>
 
@@ -80,7 +80,7 @@ export default function CriticalAlertsWidget({ alerts }: CriticalAlertsProps) {
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1 min-w-0 pr-4">
                     <p className="truncate font-medium">{a.message}</p>
-                    {a.daysLate && <p className="text-[9px] font-mono text-rose-500 mt-1">+{a.daysLate}d atraso</p>}
+                    {a.daysLate && <p className="text-[10px] font-mono text-rose-500 mt-1">+{a.daysLate}d atraso</p>}
                   </div>
                 </div>
                 
@@ -97,7 +97,7 @@ export default function CriticalAlertsWidget({ alerts }: CriticalAlertsProps) {
                        </Tooltip>
                        <button 
                         onClick={() => onComplete(a.id)}
-                        className="px-4 py-2 bg-luxury-gold text-black rounded-lg text-[9px] font-black uppercase tracking-widest hover:brightness-110 transition-all flex items-center gap-2"
+                        className="px-4 py-2 bg-luxury-gold text-black rounded-lg text-[10px] font-black uppercase tracking-widest hover:brightness-110 transition-all flex items-center gap-2"
                        >
                           <Check size={12} /> {t('complete') || 'Concluir'}
                        </button>
@@ -106,7 +106,7 @@ export default function CriticalAlertsWidget({ alerts }: CriticalAlertsProps) {
                    {a.type === 'PAYMENT_OVERDUE' && (
                      <button 
                       onClick={() => openReminder(a)}
-                      className="px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg text-[9px] font-black uppercase tracking-widest text-luxury-charcoal/60 dark:text-white/60 hover:text-luxury-gold hover:border-luxury-gold/30 transition-all flex items-center gap-2"
+                      className="px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/60 dark:text-white/60 hover:text-luxury-gold hover:border-luxury-gold/30 transition-all flex items-center gap-2"
                      >
                         <Bell size={12} /> {t('remind') || 'Lembrar'}
                      </button>
@@ -114,7 +114,7 @@ export default function CriticalAlertsWidget({ alerts }: CriticalAlertsProps) {
                    {(a.type !== 'TASK_OVERDUE' && a.type !== 'PAYMENT_OVERDUE') && (
                       <button 
                         onClick={() => a.actionUrl && navigate(a.actionUrl)}
-                        className="px-4 py-2 bg-black/5 dark:bg-white/5 rounded-lg text-[9px] font-black uppercase tracking-widest"
+                        className="px-4 py-2 bg-black/5 dark:bg-white/5 rounded-lg text-[10px] font-black uppercase tracking-widest"
                       >
                          {t('view') || 'Ver'}
                       </button>

@@ -100,8 +100,8 @@ export class DashboardDataService {
     const funnel = {
       leads: input.proposals.filter(p => p.status === 'Rascunho').length,
       activeProposals: input.proposals.filter(p => p.status === 'Enviada').length,
-      activeValue: input.proposals.filter(p => p.status === 'Enviada' || p.status === 'Negociação').reduce((acc, p) => acc + (parseFloat(p.total) || 0), 0),
-      negotiation: input.proposals.filter(p => p.status === 'Negociação').length,
+      activeValue: input.proposals.filter(p => p.status === 'Enviada' || p.status === 'Negociacao').reduce((acc, p) => acc + (parseFloat(p.total) || 0), 0),
+      negotiation: input.proposals.filter(p => p.status === 'Negociacao').length,
       closed: input.proposals.filter(p => p.status === 'Adjudicada').length,
       conversionRate: input.proposals.length > 0 ? Math.round((input.proposals.filter(p => p.status === 'Adjudicada').length / input.proposals.length) * 100) : 0
     };

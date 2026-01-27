@@ -11,7 +11,7 @@ export default function CalculatorPage() {
     <div className="animate-in fade-in duration-500 space-y-12">
       <PageHeader 
         kicker="Engenharia Financeira"
-        title={<>Simulador de <span className="text-luxury-gold">Honorários.</span></>}
+        title={<>Simulador de <span className="text-luxury-gold">Honorarios.</span></>}
       />
 
       <div className="w-full h-full">

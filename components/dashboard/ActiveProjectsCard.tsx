@@ -1,4 +1,4 @@
-import SpotlightCard from '../ui/SpotlightCard';
+﻿import SpotlightCard from '../ui/SpotlightCard';
 import { Play, MoreVertical, Plus, DollarSign, Activity, Clock } from 'lucide-react';
 import { useTimer } from '../../context/TimeContext';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ const Badge = ({ text, tone }: { text: string; tone: 'ok'|'warn'|'risk' }) => {
       : 'bg-rose-500/10 border-rose-500/20 text-rose-400';
 
   return (
-    <span className={`px-3 py-1 rounded-full border text-[9px] font-black uppercase tracking-[0.25em] ${cls}`}>
+    <span className={`px-3 py-1 rounded-full border text-[10px] font-black uppercase tracking-[0.25em] ${cls}`}>
       {text}
     </span>
   );
@@ -28,14 +28,14 @@ export const ActiveProjectsCard: React.FC<{
   return (
     <SpotlightCard className="p-8 rounded-[0.5rem] bg-white/[0.02] border-white/5 h-full">
       <div className="flex items-center justify-between mb-6">
-        <div className="text-[9px] font-black uppercase tracking-[0.45em] text-white/20">
+        <div className="text-[10px] font-black uppercase tracking-[0.45em] text-white/20">
           PROJETOS ATIVOS
         </div>
         <button
           onClick={onOpenAll}
-          className="text-[10px] font-black uppercase tracking-[0.25em] text-luxury-gold hover:brightness-110 transition-all"
+          className="text-[11px] font-black uppercase tracking-[0.25em] text-luxury-gold hover:brightness-110 transition-all"
         >
-          Ver todos →
+          Ver todos a†’
         </button>
       </div>
 
@@ -68,10 +68,10 @@ export const ActiveProjectsCard: React.FC<{
                             style={{ width: `${p.progress}%` }} 
                           />
                         </div>
-                        <span className="text-[8px] font-black text-luxury-gold/60">{p.progress}%</span>
+                        <span className="text-[9px] font-black text-luxury-gold/60">{p.progress}%</span>
                       </div>
-                      <div className="text-[10px] text-white/35 truncate mt-1">
-                        {p.client ? `Cliente: ${p.client}` : 'Cliente: —'}
+                      <div className="text-[11px] text-white/35 truncate mt-1">
+                        {p.client ? `Cliente: ${p.client}` : 'Cliente: a€”'}
                       </div>
                     </div>
 
@@ -105,13 +105,13 @@ export const ActiveProjectsCard: React.FC<{
 
                             {openMenu === p.projectId && (
                                 <div className="absolute right-0 top-10 w-48 glass rounded-2xl border border-white/10 shadow-2xl z-50 py-2 animate-in fade-in slide-in-from-top-2">
-                                    <button className="w-full px-4 py-2 text-left text-[10px] font-black uppercase tracking-widest text-white/60 hover:text-luxury-gold hover:bg-white/5 flex items-center gap-3">
+                                    <button className="w-full px-4 py-2 text-left text-[11px] font-black uppercase tracking-widest text-white/60 hover:text-luxury-gold hover:bg-white/5 flex items-center gap-3">
                                         <Plus size={12} /> Adicionar Tarefa
                                     </button>
-                                    <button className="w-full px-4 py-2 text-left text-[10px] font-black uppercase tracking-widest text-white/60 hover:text-luxury-gold hover:bg-white/5 flex items-center gap-3">
+                                    <button className="w-full px-4 py-2 text-left text-[11px] font-black uppercase tracking-widest text-white/60 hover:text-luxury-gold hover:bg-white/5 flex items-center gap-3">
                                         <DollarSign size={12} /> Registar Gasto
                                     </button>
-                                    <button className="w-full px-4 py-2 text-left text-[10px] font-black uppercase tracking-widest text-white/60 hover:text-luxury-gold hover:bg-white/5 flex items-center gap-3">
+                                    <button className="w-full px-4 py-2 text-left text-[11px] font-black uppercase tracking-widest text-white/60 hover:text-luxury-gold hover:bg-white/5 flex items-center gap-3">
                                         <Activity size={12} /> Ver Timeline
                                     </button>
                                 </div>
@@ -124,17 +124,17 @@ export const ActiveProjectsCard: React.FC<{
                 <div className="mt-4 flex items-center justify-between pt-4 border-t border-white/5">
                   <div className="flex items-center gap-1.5 min-w-0">
                     <Clock size={10} className="text-white/20 shrink-0" />
-                    <span className="text-[10px] text-white/40 truncate">
+                    <span className="text-[11px] text-white/40 truncate">
                       {p.nextMilestone}
                     </span>
                   </div>
-                  <div className="px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-[9px] font-bold text-luxury-gold flex items-center gap-1.5">
+                  <div className="px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-[10px] font-bold text-luxury-gold flex items-center gap-1.5">
                     <Activity size={8} /> {p.totalHours}h
                   </div>
                 </div>
 
                 {hasRisk && (
-                  <div className="mt-3 p-3 bg-rose-500/5 rounded-lg text-[10px] text-rose-300/80 italic border border-rose-500/10">
+                  <div className="mt-3 p-3 bg-rose-500/5 rounded-lg text-[11px] text-rose-300/80 italic border border-rose-500/10">
                     {p.riskFlag}
                   </div>
                 )}

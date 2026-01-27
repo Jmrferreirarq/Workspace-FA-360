@@ -1,7 +1,7 @@
 export const INTERNAL_RATES = {
     senior: 55,      // CEO
     architect: 45,   // arquiteto (misto)
-    team: 38,        // média (Jéssica/Sofia)
+    team: 38,        // media (Jessica/Sofia)
 } as const;
 
 export const OVERHEAD_MULT = 1.20; // 20% overhead

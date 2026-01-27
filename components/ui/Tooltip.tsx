@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface TooltipProps {
@@ -52,7 +52,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             className={`absolute ${getPosClass()} z-[10000] pointer-events-none hidden lg:block`}
           >
             <div className="bg-luxury-white/95 dark:bg-black/95 backdrop-blur-2xl px-3 py-1.5 rounded-lg border border-black/10 dark:border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-charcoal dark:text-white whitespace-nowrap">
+              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-luxury-charcoal dark:text-white whitespace-nowrap">
                 {content}
               </span>
               

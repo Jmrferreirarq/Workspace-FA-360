@@ -74,11 +74,11 @@ export default function NeuralStudioPage() {
 
   const runGlobalAudit = async () => {
     setIsAuditing(true);
-    fa360.log("MASTER_AUDIT: Iniciando análise transversal do ecossistema...");
+    fa360.log("MASTER_AUDIT: Iniciando analise transversal do ecossistema...");
     const result = await fa360.getGlobalEcosystemAudit(locale);
     setAuditResult(result);
     setIsAuditing(false);
-    fa360.log("SUCCESS: Auditoria estratégica finalizada.");
+    fa360.log("SUCCESS: Auditoria estrategica finalizada.");
   };
 
   return (
@@ -96,7 +96,7 @@ export default function NeuralStudioPage() {
               <div className="p-2 bg-red-500/20 text-red-500 rounded-xl group-hover:text-luxury-gold transition-colors"><Link2 size={18} /></div>
               <div className="text-left">
                 <p className="text-[9px] font-black uppercase tracking-widest text-red-500">Master Link Required</p>
-                <p className="text-sm font-serif italic text-white">Conectar Cérebro</p>
+                <p className="text-sm font-serif italic text-white">Conectar Cerebro</p>
               </div>
               <ArrowRight size={16} className="text-red-500 group-hover:translate-x-2 transition-transform" />
             </button>
@@ -195,7 +195,7 @@ export default function NeuralStudioPage() {
                       {auditResult}
                     </div>
                   ) : (
-                    <p className="opacity-50">Aguardando comando de diagnóstico global para analisar a saúde do atelier através da ponte neural...</p>
+                    <p className="opacity-50">Aguardando comando de diagnostico global para analisar a saude do atelier atraves da ponte neural...</p>
                   )}
                 </div>
               </motion.section>
@@ -271,7 +271,7 @@ export default function NeuralStudioPage() {
             </div>
             <div className="space-y-8">
               <ThoughtBubble
-                text={isBrainOnline ? "Protocolo Sincronizado: Gemini 3.0 Pro habilitado para análise de portefólio." : "System awaiting Master Hook..."}
+                text={isBrainOnline ? "Protocolo Sincronizado: Gemini 3.0 Pro habilitado para analise de portefolio." : "System awaiting Master Hook..."}
                 time="Now"
                 active={isBrainOnline}
               />

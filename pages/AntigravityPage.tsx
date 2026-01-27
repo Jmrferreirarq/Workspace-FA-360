@@ -67,13 +67,13 @@ export default function AntigravityPage() {
         fa360.log("SUCCESS: Ponte Neural gravada permanentemente.");
       }
     } catch (e) {
-      fa360.log("ERROR: Falha na gravação do link.");
+      fa360.log("ERROR: Falha na gravacao do link.");
     }
     setIsLinkingBrain(false);
   };
 
   const disconnectBrain = () => {
-    if (confirm("Isto irá desligar a ponte neural. As configurações de link serão apagadas. Continuar?")) {
+    if (confirm("Isto ira desligar a ponte neural. As configuracoes de link serao apagadas. Continuar?")) {
       localStorage.removeItem('fa-brain-status');
       localStorage.removeItem('fa-brain-hook');
       setIsBrainOnline(false);
@@ -126,8 +126,8 @@ export default function AntigravityPage() {
                    </div>
                    <p className="text-lg font-light italic text-luxury-charcoal/60 dark:text-white/60 max-w-xl leading-relaxed">
                       {isBrainOnline 
-                        ? 'O link neural está selado. Todos os seus dados e simulações estão agora a ser persistidos na sua infraestrutura privada do Google.'
-                        : 'A plataforma está a correr em modo local. Ligue o seu Master Hook para ativar a inteligência global e persistência de dados.'}
+                        ? 'O link neural esta selado. Todos os seus dados e simulacoes estao agora a ser persistidos na sua infraestrutura privada do Google.'
+                        : 'A plataforma esta a correr em modo local. Ligue o seu Master Hook para ativar a inteligencia global e persistencia de dados.'}
                    </p>
                 </div>
                 {isBrainOnline && (
@@ -189,7 +189,7 @@ export default function AntigravityPage() {
                 <Database className="text-luxury-gold mb-4" size={40} />
                 <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">Memory Core</h3>
                 <p className="text-[10px] font-light text-luxury-charcoal/60 dark:text-white/60 uppercase tracking-widest leading-loose">
-                   A base de dados local sincroniza automaticamente com o cérebro central a cada alteração.
+                   A base de dados local sincroniza automaticamente com o cerebro central a cada alteracao.
                 </p>
                 <div className="pt-6 w-full">
                   <button onClick={() => fa360.syncAllLocalData()} className="w-full py-5 bg-luxury-charcoal dark:bg-white text-white dark:text-black rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-luxury-gold transition-all">

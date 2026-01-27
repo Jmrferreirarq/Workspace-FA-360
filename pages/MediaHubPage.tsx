@@ -34,7 +34,7 @@ export default function MediaHubPage() {
 
   const [assets, setAssets] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [creativeAdvice, setCreativeAdvice] = useState<string>("A analisar tendências de luxo e narrativa visual...");
+  const [creativeAdvice, setCreativeAdvice] = useState<string>("A analisar tendencias de luxo e narrativa visual...");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   useEffect(() => {
@@ -182,7 +182,7 @@ export default function MediaHubPage() {
                     ) : (
                       <div className="flex items-center justify-between pt-4 border-t border-white/5">
                         <span className="text-[11px] font-black uppercase tracking-[0.3em] opacity-20">v1.2</span>
-                        <button className="text-[11px] font-black uppercase tracking-widest text-luxury-gold hover:text-white transition-colors">Detalhes Técnicos</button>
+                        <button className="text-[11px] font-black uppercase tracking-widest text-luxury-gold hover:text-white transition-colors">Detalhes Tecnicos</button>
                       </div>
                     )}
                   </div>
@@ -230,7 +230,7 @@ export default function MediaHubPage() {
                   Social Reel
                 </div>
                 <p className="text-xs font-light italic opacity-60 leading-relaxed">
-                  "Tens 4 vídeos de drone do projeto Douro. Queres que gere um Reel de 15s com transições cinematográficas?"
+                  "Tens 4 videos de drone do projeto Douro. Queres que gere um Reel de 15s com transicoes cinematograficas?"
                 </p>
                 <button className="w-full py-4 border border-white/10 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">
                   Gerar Reel com IA
@@ -258,7 +258,7 @@ export default function MediaHubPage() {
                   <p className="text-2xl font-serif">0</p>
                 </div>
                 <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                  <p className="text-[10px] opacity-50 uppercase font-black mb-1">Vídeos</p>
+                  <p className="text-[10px] opacity-50 uppercase font-black mb-1">Videos</p>
                   <p className="text-2xl font-serif text-luxury-gold">0</p>
                 </div>
               </div>

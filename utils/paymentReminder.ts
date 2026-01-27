@@ -12,14 +12,14 @@ export function buildPaymentReminderPT(args: {
   const due = args.dueDate ? new Date(args.dueDate).toLocaleDateString('pt-PT') : '—';
 
   return [
-    `Olá ${args.client},`,
+    `Ola ${args.client},`,
     ``,
-    `Só para confirmar: o pagamento referente a "${args.milestone}" do projeto "${args.project}" encontra-se pendente.`,
+    `So para confirmar: o pagamento referente a "${args.milestone}" do projeto "${args.project}" encontra-se pendente.`,
     `Valor: ${formatEur(args.amountNet)} (NET) + IVA (${vatLabel}).`,
     `Data prevista: ${due}.`,
     ``,
-    `Assim que estiver regularizado, seguimos para o próximo marco.`,
-    `Arq. José Ferreira | FERREIRARQUITETOS`,
+    `Assim que estiver regularizado, seguimos para o proximo marco.`,
+    `Arq. Jose Ferreira | FERREIRARQUITETOS`,
   ].join('\n');
 }
 
@@ -42,6 +42,6 @@ export function buildPaymentReminderEN(args: {
     `Due date: ${due}.`,
     ``,
     `Once settled, we’ll move to the next milestone.`,
-    `Arq. José Ferreira | FERREIRARQUITETOS`,
+    `Arq. Jose Ferreira | FERREIRARQUITETOS`,
   ].join('\n');
 }

@@ -1,7 +1,7 @@
 {
-  "name": "fa-360",
+  "name": "fa-360-architecture-studio",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -34,5 +34,8 @@
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.54.0",
     "vite": "^6.2.0"
+  },
+  "vercel": {
+    "forceDeploy": "2026-01-27T12:00:00Z"
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 interface MetricCardProps {
@@ -52,7 +52,7 @@ export default function MetricCard({
             </div>
 
             {/* Label */}
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60 mb-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 mb-2">
                 {label}
             </p>
 

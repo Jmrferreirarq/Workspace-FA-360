@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, Check, AlertTriangle, FileText, ExternalLink, Calculator } from 'lucide-react';
 import { legalEngine, LegalInput, LegalResult } from '../../services/legalEngine';
@@ -50,7 +50,7 @@ export const LegalWizard: React.FC = () => {
             >
               <div>
                 <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Escopo Territorial</h3>
-                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Selecione o Município para carregar o motor de regras PDM.</p>
+                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Selecione o MunicA­pio para carregar o motor de regras PDM.</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {municipalities.map(m => (
@@ -63,7 +63,7 @@ export const LegalWizard: React.FC = () => {
                       <span className="text-lg font-bold">{m.name}</span>
                       {inputs.municipalityId === m.id && <Check size={18} />}
                     </div>
-                    <p className={`text-[10px] mt-1 font-black uppercase tracking-widest ${inputs.municipalityId === m.id ? 'text-black/60' : 'text-luxury-charcoal/40 dark:text-white/40'}`}>PDM Ativo</p>
+                    <p className={`text-[11px] mt-1 font-black uppercase tracking-widest ${inputs.municipalityId === m.id ? 'text-black/60' : 'text-luxury-charcoal/40 dark:text-white/40'}`}>PDM Ativo</p>
                   </button>
                 ))}
               </div>
@@ -77,12 +77,12 @@ export const LegalWizard: React.FC = () => {
               className="space-y-8"
             >
               <div>
-                <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Uso & Localização</h3>
-                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Defina a tipologia da operação e o enquadramento urbano.</p>
+                <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Uso & Localizacao</h3>
+                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Defina a tipologia da operacao e o enquadramento urbano.</p>
               </div>
               <div className="space-y-6">
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-widest text-luxury-gold block mb-3">Tipo de Uso</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-gold block mb-3">Tipo de Uso</label>
                   <div className="flex flex-wrap gap-3">
                     {['residential', 'commercial', 'services', 'industrial'].map(use => (
                       <button
@@ -96,7 +96,7 @@ export const LegalWizard: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-widest text-luxury-gold block mb-3">Zona Urbana (PDM)</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-gold block mb-3">Zona Urbana (PDM)</label>
                   <div className="flex flex-wrap gap-3">
                     {['central', 'historical', 'expansion', 'rural'].map(zone => (
                       <button
@@ -120,12 +120,12 @@ export const LegalWizard: React.FC = () => {
               className="space-y-8"
             >
               <div>
-                <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Métricas de Dimensionamento</h3>
-                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Insira os dados brutos para cálculo de áreas e índices obrigatórios.</p>
+                <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Metricas de Dimensionamento</h3>
+                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Insira os dados brutos para calculo de areas e A­ndices obrigatorios.</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Área Bruta de Construção (m²)</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Area Bruta de Construcao (mA²)</label>
                   <input 
                     type="number" 
                     value={inputs.areaGross} 
@@ -134,7 +134,7 @@ export const LegalWizard: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Número de Fogos / Unidades</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Numero de Fogos / Unidades</label>
                   <input 
                     type="number" 
                     value={inputs.numDwellings} 
@@ -143,7 +143,7 @@ export const LegalWizard: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Área do Lote (m²)</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Area do Lote (mA²)</label>
                   <input 
                     type="number" 
                     value={inputs.areaPlot} 
@@ -152,7 +152,7 @@ export const LegalWizard: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Área de Implantação (m²)</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Area de Implantacao (mA²)</label>
                   <input 
                     type="number" 
                     value={inputs.areaFootprint} 
@@ -173,7 +173,7 @@ export const LegalWizard: React.FC = () => {
               <div className="flex justify-between items-end">
                 <div>
                   <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Output Legislativo</h3>
-                  <p className="text-xs font-black uppercase tracking-widest text-luxury-gold">{inputs.municipalityId} • Deterministic Engine v1.0</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-luxury-gold">{inputs.municipalityId} a€¢ Deterministic Engine v1.0</p>
                 </div>
                 <button onClick={() => window.print()} className="p-3 bg-white/5 border border-white/10 rounded-full hover:bg-luxury-gold hover:text-black transition-all">
                   <Calculator size={18} />
@@ -185,7 +185,7 @@ export const LegalWizard: React.FC = () => {
                   <div key={res.ruleId} className="glass p-6 rounded-2xl border-black/5 dark:border-white/5 flex flex-col md:flex-row justify-between gap-6">
                     <div className="space-y-2">
                       <div className="flex items-center gap-3">
-                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 bg-luxury-gold/20 text-luxury-gold rounded-md">{res.topic}</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 bg-luxury-gold/20 text-luxury-gold rounded-md">{res.topic}</span>
                         <h4 className="text-sm font-bold text-luxury-charcoal dark:text-white">{res.label}</h4>
                       </div>
                       <div className="text-4xl font-serif text-luxury-gold tabular-nums">
@@ -195,14 +195,14 @@ export const LegalWizard: React.FC = () => {
                     </div>
                     
                     <div className="text-right space-y-3">
-                      <div className={`text-[9px] font-black uppercase tracking-widest flex items-center gap-2 justify-end ${res.confidence === 'official_reference' ? 'text-emerald-500' : 'text-rose-500'}`}>
+                      <div className={`text-[10px] font-black uppercase tracking-widest flex items-center gap-2 justify-end ${res.confidence === 'official_reference' ? 'text-emerald-500' : 'text-rose-500'}`}>
                         {res.confidence === 'official_reference' ? <Check size={10} /> : <AlertTriangle size={10} />}
                         {res.confidence.replace('_', ' ')}
                       </div>
                       {res.sourceRef && (
                         <div className="p-3 bg-black/5 dark:bg-white/5 rounded-xl text-left border border-white/5">
-                          <p className="text-[10px] font-bold text-white/60 mb-1">{res.sourceRef.articleRef}</p>
-                          <a href="#" className="text-[9px] font-black uppercase tracking-widest text-luxury-gold flex items-center gap-1 hover:underline">
+                          <p className="text-[11px] font-bold text-white/60 mb-1">{res.sourceRef.articleRef}</p>
+                          <a href="#" className="text-[10px] font-black uppercase tracking-widest text-luxury-gold flex items-center gap-1 hover:underline">
                             <ExternalLink size={8} /> Ver Regulamento
                           </a>
                         </div>
@@ -221,7 +221,7 @@ export const LegalWizard: React.FC = () => {
         <button
           disabled={step === 1}
           onClick={() => setStep(s => s - 1)}
-          className={`px-8 py-3 rounded-xl border border-black/10 dark:border-white/10 text-[10px] font-black uppercase tracking-widest text-luxury-charcoal dark:text-white transition-opacity ${step === 1 ? 'opacity-0' : 'opacity-100'}`}
+          className={`px-8 py-3 rounded-xl border border-black/10 dark:border-white/10 text-[11px] font-black uppercase tracking-widest text-luxury-charcoal dark:text-white transition-opacity ${step === 1 ? 'opacity-0' : 'opacity-100'}`}
         >
           <div className="flex items-center gap-2">
             <ChevronLeft size={14} /> Voltar
@@ -231,18 +231,18 @@ export const LegalWizard: React.FC = () => {
         {step < 4 && (
           <button
             onClick={handleNext}
-            className="px-10 py-3 rounded-xl bg-luxury-gold text-black text-[10px] font-black uppercase tracking-widest shadow-xl shadow-luxury-gold/20 flex items-center gap-2 hover:scale-105 active:scale-95 transition-all"
+            className="px-10 py-3 rounded-xl bg-luxury-gold text-black text-[11px] font-black uppercase tracking-widest shadow-xl shadow-luxury-gold/20 flex items-center gap-2 hover:scale-105 active:scale-95 transition-all"
           >
-            Próximo <ChevronRight size={14} />
+            Proximo <ChevronRight size={14} />
           </button>
         )}
 
         {step === 4 && (
           <button
             onClick={() => setStep(1)}
-            className="px-10 py-3 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white hover:bg-white/10 transition-all"
+            className="px-10 py-3 rounded-xl bg-white/5 border border-white/10 text-[11px] font-black uppercase tracking-widest text-white hover:bg-white/10 transition-all"
           >
-            Nova Análise
+            Nova Analise
           </button>
         )}
       </div>

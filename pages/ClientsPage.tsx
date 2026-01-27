@@ -38,7 +38,7 @@ export default function ClientsPage() {
     e.preventDefault();
     setSaving(true);
 
-    // Dispara a sincronização com o Google Sheets
+    // Dispara a sincronizacao com o Google Sheets
     const result = await fa360.saveClient(newClient);
 
     if (result.success) {

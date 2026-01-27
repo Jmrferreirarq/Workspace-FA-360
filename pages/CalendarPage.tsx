@@ -50,7 +50,7 @@ export default function CalendarPage() {
   return (
     <div className="space-y-12 animate-in fade-in duration-1000 pb-32">
       <PageHeader
-        kicker="Timeline do Estúdio"
+        kicker="Timeline do Estudio"
         title={<>Agenda <span className="text-luxury-gold">Inteligente.</span></>}
         actionLabel="Novo Evento"
         onAction={() => { }}
@@ -69,7 +69,7 @@ export default function CalendarPage() {
 
           <div className="glass rounded-[3rem] p-8 border-white/5 shadow-2xl overflow-hidden">
             <div className="grid grid-cols-7 gap-px opacity-50 text-[11px] font-black uppercase tracking-[0.3em] mb-8 text-center">
-              <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span>
+              <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sab</span><span>Dom</span>
             </div>
             <div className="grid grid-cols-7 gap-4">
               {days.map(day => {

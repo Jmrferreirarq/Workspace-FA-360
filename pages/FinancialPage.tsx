@@ -130,9 +130,9 @@ export default function FinancialPage() {
       {/* METRICS ROW */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         <FinanceStat label="Liquidez Total" value={`€${(financeStats?.liquidity / 1000).toFixed(1)}k`} trend={financeStats?.liquidity > 0 ? "+0%" : "Zeroed"} up={financeStats?.liquidity > 0} icon={<DollarSign size={20} />} />
-        <FinanceStat label="Honorários Pendentes" value={`€${financeStats?.pendingFees}k`} trend="Ciclo 30d" up={true} icon={<Target size={20} />} />
-        <FinanceStat label="Burn Rate Médio" value={`€${financeStats?.burnRate}k`} trend="Estável" up={false} icon={<Zap size={20} />} />
-        <FinanceStat label="Margem Estúdio" value={`${financeStats?.margin}%`} trend={financeStats?.margin > 0 ? "Synced" : "TBD"} up={financeStats?.margin > 0} isGold={true} icon={<PieChart size={20} />} />
+        <FinanceStat label="Honorarios Pendentes" value={`€${financeStats?.pendingFees}k`} trend="Ciclo 30d" up={true} icon={<Target size={20} />} />
+        <FinanceStat label="Burn Rate Medio" value={`€${financeStats?.burnRate}k`} trend="Estavel" up={false} icon={<Zap size={20} />} />
+        <FinanceStat label="Margem Estudio" value={`${financeStats?.margin}%`} trend={financeStats?.margin > 0 ? "Synced" : "TBD"} up={financeStats?.margin > 0} isGold={true} icon={<PieChart size={20} />} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -141,8 +141,8 @@ export default function FinancialPage() {
           <section className="glass p-8 rounded-[2rem] border-white/5 space-y-12 shadow-2xl relative overflow-hidden">
             <div className="flex justify-between items-end">
               <div className="space-y-2">
-                <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white">Cashflow <span className="text-luxury-charcoal/20 dark:text-white/20">Real vs Projeção</span></h3>
-                <p className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 italic">Baseado em adjudicações via Antigravity</p>
+                <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white">Cashflow <span className="text-luxury-charcoal/20 dark:text-white/20">Real vs Projecao</span></h3>
+                <p className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 italic">Baseado em adjudicacoes via Antigravity</p>
               </div>
             </div>
 
@@ -170,7 +170,7 @@ export default function FinancialPage() {
               ) : (
                 <div className="text-center opacity-20 space-y-4">
                   <BarChart3 size={48} className="mx-auto" />
-                  <p className="text-[10px] uppercase font-black tracking-widest">Sem dados de projeção neural disponíveis.</p>
+                  <p className="text-[10px] uppercase font-black tracking-widest">Sem dados de projecao neural disponiveis.</p>
                 </div>
               )}
             </div>
@@ -187,7 +187,7 @@ export default function FinancialPage() {
                 <ProjectProfitCard key={proj.id} project={proj} />
               )) : (
                 <div className="glass p-20 rounded-[3rem] text-center opacity-20 border-black/5 dark:border-white/5">
-                  <p className="text-[10px] uppercase font-black tracking-widest text-luxury-charcoal dark:text-white">Zero projetos ativos para análise de margem.</p>
+                  <p className="text-[10px] uppercase font-black tracking-widest text-luxury-charcoal dark:text-white">Zero projetos ativos para analise de margem.</p>
                 </div>
               )}
             </div>
@@ -277,7 +277,7 @@ export default function FinancialPage() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Descrição / Fornecedor</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Descricao / Fornecedor</label>
                   <input
                     required
                     value={expenseForm.description}

@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import { Search, ExternalLink, BookOpen, Filter, ArrowRight, Activity } from 'lucide-react';
 import { legislationDatabase, Legislation } from '../../data/legislation_database';
@@ -83,13 +83,13 @@ export const LegislationLibrary: React.FC = () => {
                         <div className="flex gap-2 p-1 bg-black/5 dark:bg-white/5 rounded-xl w-fit">
                             <button 
                                 onClick={() => setViewMode('NATIONAL')}
-                                className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'NATIONAL' ? 'bg-luxury-gold text-black shadow-lg' : 'text-luxury-charcoal/40 dark:text-white/40'}`}
+                                className={`px-4 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all ${viewMode === 'NATIONAL' ? 'bg-luxury-gold text-black shadow-lg' : 'text-luxury-charcoal/40 dark:text-white/40'}`}
                             >
                                 Nacional
                             </button>
                             <button 
                                 onClick={() => setViewMode('MUNICIPAL')}
-                                className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'MUNICIPAL' ? 'bg-luxury-gold text-black shadow-lg' : 'text-luxury-charcoal/40 dark:text-white/40'}`}
+                                className={`px-4 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all ${viewMode === 'MUNICIPAL' ? 'bg-luxury-gold text-black shadow-lg' : 'text-luxury-charcoal/40 dark:text-white/40'}`}
                             >
                                 Municipal (MVP)
                             </button>
@@ -149,18 +149,18 @@ export const LegislationLibrary: React.FC = () => {
                             {/* Search Results from Index if searching */}
                             {searchTerm && filteredArticles.length > 0 && (
                                 <div className="space-y-6">
-                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold">Resultados no Índice Municipal ({filteredArticles.length})</h3>
+                                    <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-luxury-gold">Resultados no Andice Municipal ({filteredArticles.length})</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {filteredArticles.map(entry => (
                                             <div key={entry.entryId} className="glass p-6 rounded-2xl border-black/5 dark:border-white/5 border-l-2 border-l-luxury-gold">
                                                 <div className="flex justify-between items-start mb-2">
-                                                    <span className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 bg-luxury-gold/10 text-luxury-gold rounded-md">{entry.municipality}</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 bg-luxury-gold/10 text-luxury-gold rounded-md">{entry.municipality}</span>
                                                     <a href={entry.officialUrl} target="_blank" rel="noreferrer" className="text-luxury-gold hover:underline"><ExternalLink size={12} /></a>
                                                 </div>
                                                 <h4 className="text-sm font-bold text-white mb-1">{entry.title}</h4>
-                                                <p className="text-[10px] text-white/50 italic mb-3">Ref: {entry.articleRef}</p>
+                                                <p className="text-[11px] text-white/50 italic mb-3">Ref: {entry.articleRef}</p>
                                                 <div className="flex flex-wrap gap-2">
-                                                    {entry.topics.map(t => <span key={t} className="text-[8px] opacity-40">#{t}</span>)}
+                                                    {entry.topics.map(t => <span key={t} className="text-[9px] opacity-40">#{t}</span>)}
                                                 </div>
                                             </div>
                                         ))}
@@ -177,14 +177,14 @@ export const LegislationLibrary: React.FC = () => {
                                         </div>
                                         <div>
                                             <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white leading-tight">{mun.name}</h3>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-white/30">{mun.region}</p>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-white/30">{mun.region}</p>
                                         </div>
                                     </div>
                                     
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {mun.instruments.map((inst: any) => (
                                             <div key={inst.instrumentId} className="space-y-4">
-                                                <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold/60 flex items-center gap-2">
+                                                <h4 className="text-[11px] font-black uppercase tracking-widest text-luxury-gold/60 flex items-center gap-2">
                                                     <BookOpen size={10} /> {inst.title}
                                                 </h4>
                                                 <div className="space-y-3">
@@ -193,18 +193,18 @@ export const LegislationLibrary: React.FC = () => {
                                                             <div className="flex justify-between items-start">
                                                                 <div className="flex-1">
                                                                     <div className="flex items-center gap-2 mb-2">
-                                                                        <span className="text-[8px] font-black uppercase bg-white/5 px-1.5 py-0.5 rounded text-white/40">{src.docType}</span>
+                                                                        <span className="text-[9px] font-black uppercase bg-white/5 px-1.5 py-0.5 rounded text-white/40">{src.docType}</span>
                                                                         <h5 className="text-xs font-bold text-white group-hover:text-luxury-gold transition-colors">{src.sourceId.replace(`${mun.id}_`, '').replace(/_/g, ' ')}</h5>
                                                                     </div>
                                                                     <div className="flex flex-wrap gap-1.5">
                                                                         {src.topics.map((t: string) => (
-                                                                            <span key={t} className="text-[8px] font-black uppercase text-white/20">#{t}</span>
+                                                                            <span key={t} className="text-[9px] font-black uppercase text-white/20">#{t}</span>
                                                                         ))}
                                                                     </div>
                                                                 </div>
                                                                 <div className="flex gap-2">
                                                                     {src.drUrl && (
-                                                                        <a href={src.drUrl} target="_blank" rel="noreferrer" title="Ver Diário da República" className="p-2 bg-white/5 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
+                                                                        <a href={src.drUrl} target="_blank" rel="noreferrer" title="Ver Diario da Republica" className="p-2 bg-white/5 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
                                                                             <Activity size={12} />
                                                                         </a>
                                                                     )}
@@ -213,7 +213,7 @@ export const LegislationLibrary: React.FC = () => {
                                                                     </a>
                                                                 </div>
                                                             </div>
-                                                            {src.notes && <p className="text-[10px] italic text-white/30 mt-3">{src.notes}</p>}
+                                                            {src.notes && <p className="text-[11px] italic text-white/30 mt-3">{src.notes}</p>}
                                                         </div>
                                                     ))}
                                                 </div>
@@ -242,7 +242,7 @@ const NationalLawCard = ({ leg, supportedLawIds, onRead }: { leg: any, supported
                 <div className="space-y-1">
                     <div className="flex items-center gap-3">
                         <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-gold transition-colors">{leg.title}</h3>
-                        <div className="px-3 py-1 bg-slate-100 dark:bg-white/10 rounded-lg text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                        <div className="px-3 py-1 bg-slate-100 dark:bg-white/10 rounded-lg text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">
                             {leg.year}
                         </div>
                     </div>
@@ -253,7 +253,7 @@ const NationalLawCard = ({ leg, supportedLawIds, onRead }: { leg: any, supported
 
                 <div className="flex flex-wrap gap-2">
                     {leg.applicability.map((tag: string) => (
-                        <span key={tag} className="text-[10px] font-black bg-gold/5 text-gold-700 dark:text-gold/80 px-3 py-1 rounded-full border border-gold/10 uppercase tracking-tighter">
+                        <span key={tag} className="text-[11px] font-black bg-gold/5 text-gold-700 dark:text-gold/80 px-3 py-1 rounded-full border border-gold/10 uppercase tracking-tighter">
                             #{tag}
                         </span>
                     ))}
@@ -289,7 +289,7 @@ const NationalLawCard = ({ leg, supportedLawIds, onRead }: { leg: any, supported
                 <div className="absolute top-0 right-0 p-4 opacity-5 group-hover/points:opacity-20 transition-opacity">
                     <Activity className="w-12 h-12" />
                 </div>
-                <h4 className="text-[10px] font-black text-luxury-gold uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <h4 className="text-[11px] font-black text-luxury-gold uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
                     <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
                     Pontos-Chave
                 </h4>

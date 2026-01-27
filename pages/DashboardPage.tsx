@@ -99,14 +99,14 @@ export default function Dashboard() {
          <DayPanel data={vm.dailyHighlights} />
       </div>
 
-      {/* 3. Grid Operacional Secundário (KPIs) */}
+      {/* 3. Grid Operacional Secundario (KPIs) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto">
          <TodayOpsWidget data={vm.todayOps} />
          <CashflowWidget data={vm.cash30d} />
          <PipelineFunnelWidget funnel={vm.funnel} /> 
       </div>
 
-       {/* 3. Grid Ação & Risco (Linha 2) */}
+       {/* 3. Grid Acao & Risco (Linha 2) */}
        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
            <div className="lg:col-span-1">
               <HealthIndexWidget score={vm.health.score} breakdown={vm.health.breakdown} reason={vm.projects.length > 0 ? (vm.health.score === 100 ? t('op_stable') : t('op_threat')) : t('op_neutral')} />
@@ -119,7 +119,7 @@ export default function Dashboard() {
            </div>
        </div>
 
-       {/* 4. Grid Produção & Projetos (Linha 3 - Nova) */}
+       {/* 4. Grid Producao & Projetos (Linha 3 - Nova) */}
        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-12">
            <div className="lg:col-span-6">
               <HoursWeekCard 

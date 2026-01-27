@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import SpotlightCard from '../ui/SpotlightCard';
 
 const Row = ({ label, data }: { label: string; data: any }) => {
@@ -13,17 +13,17 @@ const Row = ({ label, data }: { label: string; data: any }) => {
   return (
     <div className="p-4 bg-black/30 border border-white/5 rounded-sm">
       <div className="flex items-center justify-between">
-        <div className="text-[10px] font-black uppercase tracking-[0.35em] text-white/30">
+        <div className="text-[11px] font-black uppercase tracking-[0.35em] text-white/30">
           {label}
         </div>
-        <div className={`text-[10px] font-mono ${tone}`}>{pct}%</div>
+        <div className={`text-[11px] font-mono ${tone}`}>{pct}%</div>
       </div>
 
       <div className="mt-2 flex items-end justify-between">
         <div className="text-2xl font-serif font-bold italic text-white/90">
           {data.hours}h
         </div>
-        <div className="text-[11px] font-mono text-white/40">
+        <div className="text-xs font-mono text-white/40">
           / {data.target}h
         </div>
       </div>
@@ -35,11 +35,11 @@ const Row = ({ label, data }: { label: string; data: any }) => {
         />
       </div>
 
-      <div className="mt-3 text-[11px] text-white/35 italic">
+      <div className="mt-3 text-xs text-white/35 italic">
         {data.status === 'over'
-          ? 'Acima do alvo — risco de sobrecarga.'
+          ? 'Acima do alvo a€” risco de sobrecarga.'
           : data.status === 'low'
-          ? 'Abaixo do alvo — pode haver capacidade livre.'
+          ? 'Abaixo do alvo a€” pode haver capacidade livre.'
           : 'Dentro do alvo semanal.'}
       </div>
     </div>
@@ -50,25 +50,25 @@ export const HoursWeekCard: React.FC<{ data: any; onOpen?: () => void }> = ({ da
   return (
     <SpotlightCard className="p-8 rounded-[0.5rem] bg-white/[0.02] border-white/5 h-full">
       <div className="flex items-center justify-between mb-6">
-        <div className="text-[9px] font-black uppercase tracking-[0.45em] text-white/20">
-          PRODUÇÃO • HORAS (SEMANA)
+        <div className="text-[10px] font-black uppercase tracking-[0.45em] text-white/20">
+          PRODUA‡AƒO a€¢ HORAS (SEMANA)
         </div>
         <button
           onClick={onOpen}
-          className="text-[10px] font-black uppercase tracking-[0.25em] text-white/50 hover:text-white transition-colors"
+          className="text-[11px] font-black uppercase tracking-[0.25em] text-white/50 hover:text-white transition-colors"
         >
-          Detalhe →
+          Detalhe a†’
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Row label="CEO" data={data?.CEO || { hours: 0, target: 40, pct: 0, status: 'low' }} />
-        <Row label="JÉSSICA" data={data?.JESSICA || { hours: 0, target: 40, pct: 0, status: 'low' }} />
+        <Row label="JA‰SSICA" data={data?.JESSICA || { hours: 0, target: 40, pct: 0, status: 'low' }} />
         <Row label="SOFIA" data={data?.SOFIA || { hours: 0, target: 40, pct: 0, status: 'low' }} />
       </div>
 
-      <div className="mt-6 text-[10px] text-white/25 italic">
-        Baseado em registos de horas (NET operacional). Ajusta o alvo por pessoa se necessário.
+      <div className="mt-6 text-[11px] text-white/25 italic">
+        Baseado em registos de horas (NET operacional). Ajusta o alvo por pessoa se necessario.
       </div>
     </SpotlightCard>
   );

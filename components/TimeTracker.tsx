@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Save, X, RotateCcw } from 'lucide-react';
@@ -45,7 +45,7 @@ export default function TimeTracker({ projectId, projectPhase, onLogAdded }: Tim
         <>
             <button
                 onClick={() => setIsOpen(true)}
-                className="flex items-center gap-2 px-6 py-3 bg-luxury-gold text-black rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-lg shadow-luxury-gold/20"
+                className="flex items-center gap-2 px-6 py-3 bg-luxury-gold text-black rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-lg shadow-luxury-gold/20"
             >
                 <Clock size={16} />
                 Registar Tempo
@@ -87,7 +87,7 @@ export default function TimeTracker({ projectId, projectPhase, onLogAdded }: Tim
 
                                 {/* Duration Controls */}
                                 <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4 block">Duração (Minutos)</label>
+                                    <label className="text-[11px] font-black uppercase tracking-widest text-white/40 mb-4 block">Duracao (Minutos)</label>
                                     <div className="flex items-center justify-between mb-6">
                                         <button onClick={() => adjustTime(-15)} className="w-10 h-10 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-colors">-</button>
                                         <span className="text-5xl font-serif italic text-white flex items-baseline gap-2">
@@ -97,7 +97,7 @@ export default function TimeTracker({ projectId, projectPhase, onLogAdded }: Tim
                                     </div>
                                     <div className="flex justify-center gap-2">
                                         {[15, 30, 60, 120].map(m => (
-                                            <button key={m} onClick={() => setDuration(m)} className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase ${duration === m ? 'bg-luxury-gold text-black' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}>
+                                            <button key={m} onClick={() => setDuration(m)} className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${duration === m ? 'bg-luxury-gold text-black' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}>
                                                 {m}m
                                             </button>
                                         ))}
@@ -107,7 +107,7 @@ export default function TimeTracker({ projectId, projectPhase, onLogAdded }: Tim
                                 {/* Details */}
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2 block">Fase do Projeto</label>
+                                        <label className="text-[11px] font-black uppercase tracking-widest text-white/40 mb-2 block">Fase do Projeto</label>
                                         <input
                                             type="text"
                                             value={phase}
@@ -116,7 +116,7 @@ export default function TimeTracker({ projectId, projectPhase, onLogAdded }: Tim
                                         />
                                     </div>
                                     <div>
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2 block">Descrição</label>
+                                        <label className="text-[11px] font-black uppercase tracking-widest text-white/40 mb-2 block">Descricao</label>
                                         <textarea
                                             value={description}
                                             onChange={(e) => setDescription(e.target.value)}

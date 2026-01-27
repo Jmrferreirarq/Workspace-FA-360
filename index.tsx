@@ -13,10 +13,10 @@ fa360.log("ECOSYSTEM: Inicializando Ferreira-360...");
   window.location.hash = '/antigravity';
 };
 
-// Listener de emergência (Shift + Alt + A)
+// Listener de emergencia (Shift + Alt + A)
 window.addEventListener('keydown', (e) => {
   if (e.shiftKey && e.altKey && e.key.toLowerCase() === 'a') {
-    console.log("WARP: Iniciando sequência de emergência Antigravity...");
+    console.log("WARP: Iniciando sequencia de emergencia Antigravity...");
     (window as any).antigravity();
   }
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Activity, HelpCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
@@ -33,10 +33,10 @@ export default function HealthIndexWidget({ score, breakdown, reason }: HealthIn
       
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-charcoal/50 dark:text-white/50 mb-1">{t('health_index')}</h3>
+          <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-luxury-charcoal/50 dark:text-white/50 mb-1">{t('health_index')}</h3>
           <div className="flex items-baseline gap-1">
              <span className={`text-4xl font-serif italic ${textColor}`}>{score}%</span>
-             <span className={`text-[10px] font-bold uppercase ${textColor} opacity-80`}>{score > 90 ? t('status_excellent') : t('status_warning')}</span>
+             <span className={`text-[11px] font-bold uppercase ${textColor} opacity-80`}>{score > 90 ? t('status_excellent') : t('status_warning')}</span>
           </div>
         </div>
         <Activity size={20} className={`${textColor} opacity-50`} />
@@ -50,7 +50,7 @@ export default function HealthIndexWidget({ score, breakdown, reason }: HealthIn
       </div>
 
        <div className="mt-auto pt-4 border-t border-black/5 dark:border-white/5">
-         <p className="text-[10px] text-luxury-charcoal/50 dark:text-white/50 italic leading-relaxed">
+         <p className="text-[11px] text-luxury-charcoal/50 dark:text-white/50 italic leading-relaxed">
             "{reason}"
          </p>
        </div>
@@ -65,7 +65,7 @@ const HealthBar = ({ label, value }: { label: string, value: number }) => {
 
     return (
         <div className="flex items-center gap-3">
-            <span className="text-[9px] font-black uppercase text-luxury-charcoal/40 dark:text-white/40 w-16 text-right">{label}</span>
+            <span className="text-[10px] font-black uppercase text-luxury-charcoal/40 dark:text-white/40 w-16 text-right">{label}</span>
             <div className="flex-1 h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
                 <div className={`h-full rounded-full ${color}`} style={{ width: `${value}%` }}></div>
             </div>

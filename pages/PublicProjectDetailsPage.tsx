@@ -55,7 +55,7 @@ export default function PublicProjectDetailsPage() {
             className="flex items-center gap-4"
           >
             <Link to="/public#portfolio" className="text-luxury-gold hover:opacity-70 transition-opacity flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-              <ArrowLeft size={14} /> Voltar ao Portefólio
+              <ArrowLeft size={14} /> Voltar ao Portefolio
             </Link>
           </Motion.div>
           
@@ -76,7 +76,7 @@ export default function PublicProjectDetailsPage() {
           >
             <span className="flex items-center gap-2"><MapPin size={12} className="text-luxury-gold"/> Lisboa, Portugal</span>
             <span className="flex items-center gap-2"><Layout size={12} className="text-luxury-gold"/> {project.type}</span>
-            <span className="flex items-center gap-2"><Calendar size={12} className="text-luxury-gold"/> Conclusão: 2025</span>
+            <span className="flex items-center gap-2"><Calendar size={12} className="text-luxury-gold"/> Conclusao: 2025</span>
           </Motion.div>
         </div>
       </section>
@@ -86,7 +86,7 @@ export default function PublicProjectDetailsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start">
           <div className="lg:col-span-4 space-y-10 sticky top-32">
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold">O Conceito</p>
-            <h2 className="text-5xl font-serif italic leading-tight">Uma ode ao <br/> <span className="text-luxury-gold">Minimalismo</span> Mediterrânico.</h2>
+            <h2 className="text-5xl font-serif italic leading-tight">Uma ode ao <br/> <span className="text-luxury-gold">Minimalismo</span> Mediterranico.</h2>
             <div className="flex gap-4">
               <button className="w-12 h-12 glass rounded-full flex items-center justify-center text-white/30 hover:text-luxury-gold transition-all">
                 <Share2 size={18} />
@@ -96,16 +96,16 @@ export default function PublicProjectDetailsPage() {
           
           <div className="lg:col-span-8 space-y-12 text-2xl font-light opacity-60 leading-relaxed italic">
             <p>
-              A {project.name} surge de uma premissa fundamental: a desmaterialização da fronteira entre o interior e o exterior. Através de grandes planos de vidro e uma paleta cromática reduzida ao essencial, o espaço convida a luz a tornar-se o principal elemento construtivo.
+              A {project.name} surge de uma premissa fundamental: a desmaterializacao da fronteira entre o interior e o exterior. Atraves de grandes planos de vidro e uma paleta cromatica reduzida ao essencial, o espaco convida a luz a tornar-se o principal elemento construtivo.
             </p>
             <p>
-              Nesta obra, o luxo não reside no ornamento, mas na precisão do detalhe e na nobreza dos materiais naturais. O mármore de Estremoz e a madeira de carvalho escovado dialogam em harmonia, criando uma atmosfera de silêncio e introspeção.
+              Nesta obra, o luxo nao reside no ornamento, mas na precisao do detalhe e na nobreza dos materiais naturais. O marmore de Estremoz e a madeira de carvalho escovado dialogam em harmonia, criando uma atmosfera de silencio e introspecao.
             </p>
             
             <div className="grid grid-cols-2 gap-8 pt-20 border-t border-white/5 not-italic">
-               <ProjectSpec label="Área de Construção" value="450 m²" />
+               <ProjectSpec label="Area de Construcao" value="450 m²" />
                <ProjectSpec label="Nº de Pisos" value="2 + Cave" />
-               <ProjectSpec label="Certificação" value="Classe A+" />
+               <ProjectSpec label="Certificacao" value="Classe A+" />
                <ProjectSpec label="Equipa" value="Ferreira, Castelo, Mendes" />
             </div>
           </div>
@@ -118,7 +118,7 @@ export default function PublicProjectDetailsPage() {
           <GalleryItem 
             src="https://images.unsplash.com/photo-1600607687940-477a284395e5?auto=format&fit=crop&w=1200" 
             className="col-span-12 md:col-span-8 aspect-[16/9]"
-            label="A Sala de Estar: Diálogo com o Horizonte"
+            label="A Sala de Estar: Dialogo com o Horizonte"
           />
           <GalleryItem 
             src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800" 
@@ -128,12 +128,12 @@ export default function PublicProjectDetailsPage() {
           <GalleryItem 
             src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800" 
             className="col-span-12 md:col-span-4 aspect-square"
-            label="O Pátio Interior"
+            label="O Patio Interior"
           />
           <GalleryItem 
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200" 
             className="col-span-12 md:col-span-8 aspect-video -mt-24"
-            label="Vista Exterior: A Geometria do Silêncio"
+            label="Vista Exterior: A Geometria do Silencio"
           />
         </div>
       </section>
@@ -141,8 +141,8 @@ export default function PublicProjectDetailsPage() {
       {/* Next Project / CTA */}
       <section className="py-40 bg-white/[0.02] border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center text-center space-y-12">
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold">Continuar Exploração</p>
-          <h2 className="text-4xl md:text-7xl font-serif italic">Pronto para materializar a sua <br/> <span className="text-luxury-gold underline underline-offset-8 decoration-1">própria visão?</span></h2>
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold">Continuar Exploracao</p>
+          <h2 className="text-4xl md:text-7xl font-serif italic">Pronto para materializar a sua <br/> <span className="text-luxury-gold underline underline-offset-8 decoration-1">propria visao?</span></h2>
           <div className="flex gap-8 pt-6">
             <Link to="/public/contact" className="px-12 py-6 bg-luxury-gold text-black rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
               Agendar Consultoria

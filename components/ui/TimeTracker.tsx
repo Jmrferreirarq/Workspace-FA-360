@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Square, Clock, Save, X } from 'lucide-react';
 import { useTimer } from '../../context/TimeContext';
@@ -80,8 +80,8 @@ export const TimeTracker: React.FC = () => {
               exit={{ opacity: 0, x: 20 }}
               className="glass px-4 py-2 rounded-xl border-black/5 dark:border-white/5 shadow-xl pointer-events-auto"
             >
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-luxury-gold mb-0.5">{t('timer_active')}</p>
-              <p className="text-[11px] font-bold text-luxury-charcoal dark:text-white">{activeProject.name}</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold mb-0.5">{t('timer_active')}</p>
+              <p className="text-xs font-bold text-luxury-charcoal dark:text-white">{activeProject.name}</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -99,26 +99,26 @@ export const TimeTracker: React.FC = () => {
             >
               <div>
                 <h3 className="text-2xl font-serif italic text-white mb-2">{t('timer_save')}</h3>
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold">{activeProject?.name}</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-luxury-gold">{activeProject?.name}</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="text-[9px] font-black uppercase tracking-widest text-white/40 block mb-2">{t('timer_phase')}</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-white/40 block mb-2">{t('timer_phase')}</label>
                   <select 
                     value={phase}
                     onChange={(e) => setPhase(e.target.value)}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:ring-1 focus:ring-luxury-gold outline-none"
                   >
-                    <option value="Research">Estudo Prévio</option>
+                    <option value="Research">Estudo Previo</option>
                     <option value="Production">Licenciamento</option>
-                    <option value="Execution">Execução</option>
-                    <option value="Meeting">Reunião</option>
+                    <option value="Execution">Execucao</option>
+                    <option value="Meeting">Reuniao</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="text-[9px] font-black uppercase tracking-widest text-white/40 block mb-2">{t('timer_description')}</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-white/40 block mb-2">{t('timer_description')}</label>
                   <textarea 
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -131,13 +131,13 @@ export const TimeTracker: React.FC = () => {
               <div className="flex gap-4 pt-4">
                 <button 
                   onClick={() => setShowLogModal(false)}
-                  className="flex-1 px-6 py-3 rounded-xl border border-white/10 text-[10px] font-black uppercase tracking-widest text-white hover:bg-white/5 transition-colors"
+                  className="flex-1 px-6 py-3 rounded-xl border border-white/10 text-[11px] font-black uppercase tracking-widest text-white hover:bg-white/5 transition-colors"
                 >
                   {t('timer_cancel')}
                 </button>
                 <button 
                   onClick={handleSave}
-                  className="flex-1 px-6 py-3 rounded-xl bg-luxury-gold text-black text-[10px] font-black uppercase tracking-widest shadow-lg shadow-luxury-gold/20 hover:scale-[1.02] active:scale-95 transition-all"
+                  className="flex-1 px-6 py-3 rounded-xl bg-luxury-gold text-black text-[11px] font-black uppercase tracking-widest shadow-lg shadow-luxury-gold/20 hover:scale-[1.02] active:scale-95 transition-all"
                 >
                   {t('timer_save')}
                 </button>

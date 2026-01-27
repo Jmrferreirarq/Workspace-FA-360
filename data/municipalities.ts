@@ -15,32 +15,32 @@ export const municipalities: Municipality[] = [
     {
         "id": "abrantes",
         "name": "Abrantes",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "agueda",
-        "name": "Águeda",
+        "name": "Agueda",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "aguiar-da-beira",
         "name": "Aguiar da Beira",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "alandroal",
         "name": "Alandroal",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "albergaria-a-velha",
         "name": "Albergaria-a-Velha",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "albufeira",
@@ -50,27 +50,27 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "alcacer-do-sal",
-        "name": "Alcácer do Sal",
-        "district": "Setúbal",
+        "name": "Alcacer do Sal",
+        "district": "Setubal",
         "region": "Alentejo"
     },
     {
         "id": "alcanena",
         "name": "Alcanena",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "alcobaca",
-        "name": "Alcobaça",
+        "name": "Alcobaca",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "alcochete",
         "name": "Alcochete",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "alcoutim",
@@ -82,19 +82,19 @@ export const municipalities: Municipality[] = [
         "id": "alenquer",
         "name": "Alenquer",
         "district": "Lisboa",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "alfandega-da-fe",
-        "name": "Alfândega da Fé",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "name": "Alfandega da Fe",
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "alijo",
-        "name": "Alijó",
+        "name": "Alijo",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "aljezur",
@@ -111,44 +111,44 @@ export const municipalities: Municipality[] = [
     {
         "id": "almada",
         "name": "Almada",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "almeida",
         "name": "Almeida",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "almeirim",
         "name": "Almeirim",
-        "district": "Santarém",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "almodovar",
-        "name": "Almodôvar",
+        "name": "Almodovar",
         "district": "Beja",
         "region": "Alentejo"
     },
     {
         "id": "alpiarca",
-        "name": "Alpiarça",
-        "district": "Santarém",
+        "name": "Alpiarca",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "alter-do-chao",
-        "name": "Alter do Chão",
+        "name": "Alter do Chao",
         "district": "Portalegre",
         "region": "Alentejo"
     },
     {
         "id": "alvaiazere",
-        "name": "Alvaiázere",
+        "name": "Alvaiazere",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "alvito",
@@ -160,60 +160,60 @@ export const municipalities: Municipality[] = [
         "id": "amadora",
         "name": "Amadora",
         "district": "Lisboa",
-        "region": "Região de Lisboa"
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "amarante",
         "name": "Amarante",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "amares",
         "name": "Amares",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "anadia",
         "name": "Anadia",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "ansiao",
-        "name": "Ansião",
+        "name": "Ansiao",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "arcos-de-valdevez",
         "name": "Arcos de Valdevez",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "arganil",
         "name": "Arganil",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "armamar",
         "name": "Armamar",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "arouca",
         "name": "Arouca",
         "district": "Aveiro",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "arraiolos",
         "name": "Arraiolos",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
@@ -226,13 +226,13 @@ export const municipalities: Municipality[] = [
         "id": "arruda-dos-vinhos",
         "name": "Arruda dos Vinhos",
         "district": "Lisboa",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "aveiro",
         "name": "Aveiro",
         "district": "Aveiro",
-        "region": "Região do Centro",
+        "region": "Regiao do Centro",
         "verified": true,
         "pdm_links": {
             "landing_page": "https://www.cm-aveiro.pt/servicos/ordenamento-do-territorio-e-urbanismo/instrumentos-de-gestao-territorial/plano-diretor-municipal",
@@ -254,15 +254,15 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "baiao",
-        "name": "Baião",
+        "name": "Baiao",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "barcelos",
         "name": "Barcelos",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "barrancos",
@@ -273,14 +273,14 @@ export const municipalities: Municipality[] = [
     {
         "id": "barreiro",
         "name": "Barreiro",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "batalha",
         "name": "Batalha",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "beja",
@@ -292,67 +292,67 @@ export const municipalities: Municipality[] = [
         "id": "belmonte",
         "name": "Belmonte",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "benavente",
         "name": "Benavente",
-        "district": "Santarém",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "bombarral",
         "name": "Bombarral",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "borba",
         "name": "Borba",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "boticas",
         "name": "Boticas",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "braga",
         "name": "Braga",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "braganca",
-        "name": "Bragança",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "name": "Braganca",
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "cabeceiras-de-basto[2]",
         "name": "Cabeceiras de Basto[2]",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "cadaval",
         "name": "Cadaval",
         "district": "Lisboa",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "caldas-da-rainha",
         "name": "Caldas da Rainha",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "caminha",
         "name": "Caminha",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "campo-maior",
@@ -364,49 +364,49 @@ export const municipalities: Municipality[] = [
         "id": "cantanhede",
         "name": "Cantanhede",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "carrazeda-de-ansiaes",
-        "name": "Carrazeda de Ansiães",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "name": "Carrazeda de Ansiaes",
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "carregal-do-sal",
         "name": "Carregal do Sal",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "cartaxo",
         "name": "Cartaxo",
-        "district": "Santarém",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "cascais",
         "name": "Cascais",
         "district": "Lisboa",
-        "region": "Região de Lisboa"
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "castanheira-de-pera",
         "name": "Castanheira de Pera",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "castelo-branco",
         "name": "Castelo Branco",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "castelo-de-paiva",
         "name": "Castelo de Paiva",
         "district": "Aveiro",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "castelo-de-vide",
@@ -418,7 +418,7 @@ export const municipalities: Municipality[] = [
         "id": "castro-daire",
         "name": "Castro Daire",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "castro-marim",
@@ -436,61 +436,61 @@ export const municipalities: Municipality[] = [
         "id": "celorico-da-beira",
         "name": "Celorico da Beira",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "celorico-de-basto",
         "name": "Celorico de Basto",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "chamusca",
         "name": "Chamusca",
-        "district": "Santarém",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "chaves",
         "name": "Chaves",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "cinfaes",
-        "name": "Cinfães",
+        "name": "Cinfaes",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "coimbra",
         "name": "Coimbra",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "condeixa-a-nova",
         "name": "Condeixa-a-Nova",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "constancia",
-        "name": "Constância",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "name": "Constancia",
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "coruche",
         "name": "Coruche",
-        "district": "Santarém",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "covilha",
-        "name": "Covilhã",
+        "name": "Covilha",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "crato",
@@ -513,44 +513,44 @@ export const municipalities: Municipality[] = [
     {
         "id": "entroncamento",
         "name": "Entroncamento",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "espinho",
         "name": "Espinho",
         "district": "Aveiro",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "esposende",
         "name": "Esposende",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "estarreja",
         "name": "Estarreja",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "estremoz",
         "name": "Estremoz",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "evora",
-        "name": "Évora",
-        "district": "Évora",
+        "name": "Evora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "fafe",
         "name": "Fafe",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "faro",
@@ -562,7 +562,7 @@ export const municipalities: Municipality[] = [
         "id": "felgueiras",
         "name": "Felgueiras",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "ferreira-do-alentejo",
@@ -572,39 +572,39 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "ferreira-do-zezere",
-        "name": "Ferreira do Zêzere",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "name": "Ferreira do Zezere",
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "figueira-da-foz",
         "name": "Figueira da Foz",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "figueira-de-castelo-rodrigo",
         "name": "Figueira de Castelo Rodrigo",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "figueiro-dos-vinhos",
-        "name": "Figueiró dos Vinhos",
+        "name": "Figueiro dos Vinhos",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "fornos-de-algodres",
         "name": "Fornos de Algodres",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "freixo-de-espada-a-cinta",
-        "name": "Freixo de Espada à Cinta",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "name": "Freixo de Espada a Cinta",
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "fronteira",
@@ -614,69 +614,69 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "fundao",
-        "name": "Fundão",
+        "name": "Fundao",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "gaviao",
-        "name": "Gavião",
+        "name": "Gaviao",
         "district": "Portalegre",
         "region": "Alentejo"
     },
     {
         "id": "gois",
-        "name": "Góis",
+        "name": "Gois",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "golega",
-        "name": "Golegã",
-        "district": "Santarém",
+        "name": "Golega",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "gondomar",
         "name": "Gondomar",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "gouveia",
         "name": "Gouveia",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "grandola",
-        "name": "Grândola",
-        "district": "Setúbal",
+        "name": "Grandola",
+        "district": "Setubal",
         "region": "Alentejo"
     },
     {
         "id": "guarda",
         "name": "Guarda",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "guimaraes",
-        "name": "Guimarães",
+        "name": "Guimaraes",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "idanha-a-nova",
         "name": "Idanha-a-Nova",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "ilhavo",
-        "name": "Ílhavo",
+        "name": "Ilhavo",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "lagoa",
@@ -694,19 +694,19 @@ export const municipalities: Municipality[] = [
         "id": "lamego",
         "name": "Lamego",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "leiria",
         "name": "Leiria",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "lisboa",
         "name": "Lisboa",
         "district": "Lisboa",
-        "region": "Região de Lisboa",
+        "region": "Regiao de Lisboa",
         "verified": true,
         "pdm_links": {
             "landing_page": "https://www.lisboa.pt/cidade/urbanismo/planeamento-urbano/pdm-em-vigor",
@@ -716,7 +716,7 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "loule",
-        "name": "Loulé",
+        "name": "Loule",
         "district": "Faro",
         "region": "Algarve"
     },
@@ -724,77 +724,77 @@ export const municipalities: Municipality[] = [
         "id": "loures",
         "name": "Loures",
         "district": "Lisboa",
-        "region": "Região de Lisboa"
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "lourinha",
-        "name": "Lourinhã",
+        "name": "Lourinha",
         "district": "Lisboa",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "lousa",
-        "name": "Lousã",
+        "name": "Lousa",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "lousada",
         "name": "Lousada",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "macao-[5]",
-        "name": "Mação [5]",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "name": "Macao [5]",
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "macedo-de-cavaleiros",
         "name": "Macedo de Cavaleiros",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "mafra",
         "name": "Mafra",
         "district": "Lisboa",
-        "region": "Região de Lisboa"
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "maia",
         "name": "Maia",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "mangualde",
         "name": "Mangualde",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "manteigas",
         "name": "Manteigas",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "marco-de-canaveses",
         "name": "Marco de Canaveses",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "marinha-grande",
         "name": "Marinha Grande",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "marvao",
-        "name": "Marvão",
+        "name": "Marvao",
         "district": "Portalegre",
         "region": "Alentejo"
     },
@@ -802,85 +802,85 @@ export const municipalities: Municipality[] = [
         "id": "matosinhos",
         "name": "Matosinhos",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "mealhada[2]",
         "name": "Mealhada[2]",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "meda",
-        "name": "Mêda",
+        "name": "Meda",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "melgaco",
-        "name": "Melgaço",
+        "name": "Melgaco",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "mertola",
-        "name": "Mértola",
+        "name": "Mertola",
         "district": "Beja",
         "region": "Alentejo"
     },
     {
         "id": "mesao-frio",
-        "name": "Mesão Frio",
+        "name": "Mesao Frio",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "mira",
         "name": "Mira",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "miranda-do-corvo",
         "name": "Miranda do Corvo",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "miranda-do-douro",
         "name": "Miranda do Douro",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "mirandela",
         "name": "Mirandela",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "mogadouro",
         "name": "Mogadouro",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "moimenta-da-beira",
         "name": "Moimenta da Beira",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "moita",
         "name": "Moita",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "moncao",
-        "name": "Monção",
+        "name": "Moncao",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "monchique",
@@ -892,7 +892,7 @@ export const municipalities: Municipality[] = [
         "id": "mondim-de-basto[2]",
         "name": "Mondim de Basto[2]",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "monforte",
@@ -904,37 +904,37 @@ export const municipalities: Municipality[] = [
         "id": "montalegre",
         "name": "Montalegre",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "montemor-o-novo",
         "name": "Montemor-o-Novo",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "montemor-o-velho",
         "name": "Montemor-o-Velho",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "montijo",
         "name": "Montijo",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "mora[4]",
         "name": "Mora[4]",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "mortagua[2]",
-        "name": "Mortágua[2]",
+        "name": "Mortagua[2]",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "moura",
@@ -944,33 +944,33 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "mourao",
-        "name": "Mourão",
-        "district": "Évora",
+        "name": "Mourao",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "murca",
-        "name": "Murça",
+        "name": "Murca",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "murtosa",
         "name": "Murtosa",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "nazare",
-        "name": "Nazaré",
+        "name": "Nazare",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "nelas",
         "name": "Nelas",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "nisa",
@@ -980,9 +980,9 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "obidos",
-        "name": "Óbidos",
+        "name": "Obidos",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "odemira",
@@ -994,55 +994,55 @@ export const municipalities: Municipality[] = [
         "id": "odivelas",
         "name": "Odivelas",
         "district": "Lisboa",
-        "region": "Região de Lisboa"
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "oeiras",
         "name": "Oeiras",
         "district": "Lisboa",
-        "region": "Região de Lisboa"
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "oleiros",
         "name": "Oleiros",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "olhao",
-        "name": "Olhão",
+        "name": "Olhao",
         "district": "Faro",
         "region": "Algarve"
     },
     {
         "id": "oliveira-de-azemeis",
-        "name": "Oliveira de Azeméis",
+        "name": "Oliveira de Azemeis",
         "district": "Aveiro",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "oliveira-de-frades",
         "name": "Oliveira de Frades",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "oliveira-do-bairro",
         "name": "Oliveira do Bairro",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "oliveira-do-hospital",
         "name": "Oliveira do Hospital",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "ourem",
-        "name": "Ourém",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "name": "Ourem",
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "ourique",
@@ -1054,115 +1054,115 @@ export const municipalities: Municipality[] = [
         "id": "ovar",
         "name": "Ovar",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "pacos-de-ferreira",
-        "name": "Paços de Ferreira",
+        "name": "Pacos de Ferreira",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "palmela",
         "name": "Palmela",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "pampilhosa-da-serra",
         "name": "Pampilhosa da Serra",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "paredes",
         "name": "Paredes",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "paredes-de-coura",
         "name": "Paredes de Coura",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "pedrogao-grande",
-        "name": "Pedrógão Grande",
+        "name": "Pedrogao Grande",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "penacova",
         "name": "Penacova",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "penafiel",
         "name": "Penafiel",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "penalva-do-castelo",
         "name": "Penalva do Castelo",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "penamacor",
         "name": "Penamacor",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "penedono",
         "name": "Penedono",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "penela",
         "name": "Penela",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "peniche",
         "name": "Peniche",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "peso-da-regua",
-        "name": "Peso da Régua",
+        "name": "Peso da Regua",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "pinhel",
         "name": "Pinhel",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "pombal",
         "name": "Pombal",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "ponte-da-barca",
         "name": "Ponte da Barca",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "ponte-de-lima",
         "name": "Ponte de Lima",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "ponte-de-sor",
@@ -1179,12 +1179,12 @@ export const municipalities: Municipality[] = [
     {
         "id": "portel",
         "name": "Portel",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "portimao",
-        "name": "Portimão",
+        "name": "Portimao",
         "district": "Faro",
         "region": "Algarve"
     },
@@ -1192,7 +1192,7 @@ export const municipalities: Municipality[] = [
         "id": "porto",
         "name": "Porto",
         "district": "Porto",
-        "region": "Região do Norte",
+        "region": "Regiao do Norte",
         "verified": true,
         "pdm_links": {
             "landing_page": "https://pdm.cm-porto.pt/",
@@ -1202,165 +1202,165 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "porto-de-mos",
-        "name": "Porto de Mós",
+        "name": "Porto de Mos",
         "district": "Leiria",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "povoa-de-lanhoso",
-        "name": "Póvoa de Lanhoso",
+        "name": "Povoa de Lanhoso",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "povoa-de-varzim",
-        "name": "Póvoa de Varzim",
+        "name": "Povoa de Varzim",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "proenca-a-nova",
-        "name": "Proença-a-Nova",
+        "name": "Proenca-a-Nova",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "redondo",
         "name": "Redondo",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "reguengos-de-monsaraz",
         "name": "Reguengos de Monsaraz",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "resende",
         "name": "Resende",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "ribeira-de-pena",
         "name": "Ribeira de Pena",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "rio-maior",
         "name": "Rio Maior",
-        "district": "Santarém",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "sabrosa",
         "name": "Sabrosa",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "sabugal",
         "name": "Sabugal",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "salvaterra-de-magos",
         "name": "Salvaterra de Magos",
-        "district": "Santarém",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "santa-comba-dao",
-        "name": "Santa Comba Dão",
+        "name": "Santa Comba Dao",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "santa-maria-da-feira",
         "name": "Santa Maria da Feira",
         "district": "Aveiro",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "santa-marta-de-penaguiao",
-        "name": "Santa Marta de Penaguião",
+        "name": "Santa Marta de Penaguiao",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "santarem",
-        "name": "Santarém",
-        "district": "Santarém",
+        "name": "Santarem",
+        "district": "Santarem",
         "region": "Alentejo"
     },
     {
         "id": "santiago-do-cacem",
-        "name": "Santiago do Cacém",
-        "district": "Setúbal",
+        "name": "Santiago do Cacem",
+        "district": "Setubal",
         "region": "Alentejo"
     },
     {
         "id": "santo-tirso[2]",
         "name": "Santo Tirso[2]",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "sao-bras-de-alportel",
-        "name": "São Brás de Alportel",
+        "name": "Sao Bras de Alportel",
         "district": "Faro",
         "region": "Algarve"
     },
     {
         "id": "sao-joao-da-madeira",
-        "name": "São João da Madeira",
+        "name": "Sao Joao da Madeira",
         "district": "Aveiro",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "sao-joao-da-pesqueira",
-        "name": "São João da Pesqueira",
+        "name": "Sao Joao da Pesqueira",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "sao-pedro-do-sul",
-        "name": "São Pedro do Sul",
+        "name": "Sao Pedro do Sul",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "sardoal",
         "name": "Sardoal",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "satao",
-        "name": "Sátão",
+        "name": "Satao",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "seia",
         "name": "Seia",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "seixal",
         "name": "Seixal",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "sernancelhe",
         "name": "Sernancelhe",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "serpa",
@@ -1370,27 +1370,27 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "serta",
-        "name": "Sertã",
+        "name": "Serta",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "sesimbra",
         "name": "Sesimbra",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "setubal",
-        "name": "Setúbal",
-        "district": "Setúbal",
-        "region": "Região de Lisboa"
+        "name": "Setubal",
+        "district": "Setubal",
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "sever-do-vouga",
         "name": "Sever do Vouga",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "silves",
@@ -1401,26 +1401,26 @@ export const municipalities: Municipality[] = [
     {
         "id": "sines",
         "name": "Sines",
-        "district": "Setúbal",
+        "district": "Setubal",
         "region": "Alentejo"
     },
     {
         "id": "sintra",
         "name": "Sintra",
         "district": "Lisboa",
-        "region": "Região de Lisboa"
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "sobral-de-monte-agraco",
-        "name": "Sobral de Monte Agraço",
+        "name": "Sobral de Monte Agraco",
         "district": "Lisboa",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "soure",
         "name": "Soure",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "sousel[4]",
@@ -1430,21 +1430,21 @@ export const municipalities: Municipality[] = [
     },
     {
         "id": "tabua",
-        "name": "Tábua",
+        "name": "Tabua",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "tabuaco",
-        "name": "Tabuaço",
+        "name": "Tabuaco",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "tarouca",
         "name": "Tarouca",
         "district": "Viseu",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "tavira",
@@ -1456,97 +1456,97 @@ export const municipalities: Municipality[] = [
         "id": "terras-de-bouro",
         "name": "Terras de Bouro",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "tomar",
         "name": "Tomar",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "tondela",
         "name": "Tondela",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "torre-de-moncorvo",
         "name": "Torre de Moncorvo",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "torres-novas",
         "name": "Torres Novas",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "torres-vedras",
         "name": "Torres Vedras",
         "district": "Lisboa",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "trancoso",
         "name": "Trancoso",
         "district": "Guarda",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "trofa[2]",
         "name": "Trofa[2]",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vagos",
         "name": "Vagos",
         "district": "Aveiro",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "vale-de-cambra",
         "name": "Vale de Cambra",
         "district": "Aveiro",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "valenca",
-        "name": "Valença",
+        "name": "Valenca",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "valongo",
         "name": "Valongo",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "valpacos",
-        "name": "Valpaços",
+        "name": "Valpacos",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vendas-novas",
         "name": "Vendas Novas",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "viana-do-alentejo",
         "name": "Viana do Alentejo",
-        "district": "Évora",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "viana-do-castelo",
         "name": "Viana do Castelo",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vidigueira",
@@ -1558,13 +1558,13 @@ export const municipalities: Municipality[] = [
         "id": "vieira-do-minho",
         "name": "Vieira do Minho",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-de-rei",
         "name": "Vila de Rei",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "vila-do-bispo",
@@ -1576,126 +1576,126 @@ export const municipalities: Municipality[] = [
         "id": "vila-do-conde",
         "name": "Vila do Conde",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-flor[2]",
         "name": "Vila Flor[2]",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-franca-de-xira",
         "name": "Vila Franca de Xira",
         "district": "Lisboa",
-        "region": "Região de Lisboa"
+        "region": "Regiao de Lisboa"
     },
     {
         "id": "vila-nova-da-barquinha",
         "name": "Vila Nova da Barquinha",
-        "district": "Santarém",
-        "region": "Região do Centro"
+        "district": "Santarem",
+        "region": "Regiao do Centro"
     },
     {
         "id": "vila-nova-de-cerveira",
         "name": "Vila Nova de Cerveira",
         "district": "Viana do Castelo",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-nova-de-famalicao",
-        "name": "Vila Nova de Famalicão",
+        "name": "Vila Nova de Famalicao",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-nova-de-foz-coa",
-        "name": "Vila Nova de Foz Côa",
+        "name": "Vila Nova de Foz Coa",
         "district": "Guarda",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-nova-de-gaia",
         "name": "Vila Nova de Gaia",
         "district": "Porto",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-nova-de-paiva",
         "name": "Vila Nova de Paiva",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "vila-nova-de-poiares",
         "name": "Vila Nova de Poiares",
         "district": "Coimbra",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "vila-pouca-de-aguiar",
         "name": "Vila Pouca de Aguiar",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-real",
         "name": "Vila Real",
         "district": "Vila Real",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-real-de-santo-antonio",
-        "name": "Vila Real de Santo António",
+        "name": "Vila Real de Santo Antonio",
         "district": "Faro",
         "region": "Algarve"
     },
     {
         "id": "vila-velha-de-rodao",
-        "name": "Vila Velha de Ródão",
+        "name": "Vila Velha de Rodao",
         "district": "Castelo Branco",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "vila-verde",
         "name": "Vila Verde",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vila-vicosa",
-        "name": "Vila Viçosa",
-        "district": "Évora",
+        "name": "Vila Vicosa",
+        "district": "Evora",
         "region": "Alentejo"
     },
     {
         "id": "vimioso",
         "name": "Vimioso",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "vinhais",
         "name": "Vinhais",
-        "district": "Bragança",
-        "region": "Região do Norte"
+        "district": "Braganca",
+        "region": "Regiao do Norte"
     },
     {
         "id": "viseu",
         "name": "Viseu",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     },
     {
         "id": "vizela",
         "name": "Vizela",
         "district": "Braga",
-        "region": "Região do Norte"
+        "region": "Regiao do Norte"
     },
     {
         "id": "vouzela",
         "name": "Vouzela",
         "district": "Viseu",
-        "region": "Região do Centro"
+        "region": "Regiao do Centro"
     }
 ];

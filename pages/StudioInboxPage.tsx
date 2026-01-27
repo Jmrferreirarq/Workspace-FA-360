@@ -15,9 +15,9 @@ export default function StudioInboxPage() {
 
   const handleAiDraft = async () => {
     setIsDrafting(true);
-    // Simulação de IA para draft de resposta de luxo
+    // Simulacao de IA para draft de resposta de luxo
     setTimeout(() => {
-      setReply("Estimado João, agradeço o seu contacto. Relativamente à questão da caixilharia, a nossa visão técnica privilegia a continuidade visual com perfis minimalistas. Podemos agendar uma breve chamada para detalhar os benefícios térmicos desta solução? Cordialmente, Miguel.");
+      setReply("Estimado Joao, agradeco o seu contacto. Relativamente a questao da caixilharia, a nossa visao tecnica privilegia a continuidade visual com perfis minimalistas. Podemos agendar uma breve chamada para detalhar os beneficios termicos desta solucao? Cordialmente, Miguel.");
       setIsDrafting(false);
     }, 1500);
   };
@@ -25,7 +25,7 @@ export default function StudioInboxPage() {
   return (
     <div className="h-[calc(100vh-160px)] flex flex-col animate-in fade-in duration-1000">
       <PageHeader 
-        kicker="Comunicações & Pulse"
+        kicker="Comunicacoes & Pulse"
         title={<>Studio <span className="text-luxury-gold">Inbox.</span></>}
       />
 
@@ -92,8 +92,8 @@ export default function StudioInboxPage() {
                     <h4 className="text-xl font-serif text-luxury-gold italic">"{selectedMsg.subject}"</h4>
                     <p className="text-lg font-light opacity-60 leading-relaxed italic">
                       Estimado Miguel, <br /><br />
-                      Espero que estejas bem. Estive a analisar os últimos renders da Villa Alentejo e fiquei com uma dúvida técnica sobre a caixilharia sugerida. <br /><br />
-                      Seria possível garantir a mesma performance térmica mantendo o perfil minimalista que discutimos na última reunião? <br /><br />
+                      Espero que estejas bem. Estive a analisar os ultimos renders da Villa Alentejo e fiquei com uma duvida tecnica sobre a caixilharia sugerida. <br /><br />
+                      Seria possivel garantir a mesma performance termica mantendo o perfil minimalista que discutimos na ultima reuniao? <br /><br />
                       Fico a aguardar o vosso feedback especializado.
                     </p>
                   </div>
@@ -105,7 +105,7 @@ export default function StudioInboxPage() {
                     <textarea
                       value={reply}
                       onChange={(e) => setReply(e.target.value)}
-                      placeholder="Escrever resposta de prestígio..."
+                      placeholder="Escrever resposta de prestigio..."
                       className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] p-8 h-40 focus:border-luxury-gold/50 outline-none transition-all text-sm font-light italic text-luxury-charcoal dark:text-white"
                     />
                     <div className="absolute top-4 right-4 flex gap-2">
@@ -122,7 +122,7 @@ export default function StudioInboxPage() {
                   <div className="flex justify-between items-center px-4">
                     <div className="flex gap-6 opacity-50 text-[11px] font-black uppercase tracking-widest">
                       <button className="hover:text-luxury-gold flex items-center gap-2"><Paperclip size={12} /> Anexar Ficheiro</button>
-                      <button className="hover:text-luxury-gold flex items-center gap-2"><CheckCircle2 size={12} /> Marcar Concluído</button>
+                      <button className="hover:text-luxury-gold flex items-center gap-2"><CheckCircle2 size={12} /> Marcar Concluido</button>
                     </div>
                     <button className="px-12 py-4 bg-luxury-gold text-black rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-all shadow-xl shadow-luxury-gold/20">
                       Enviar Mensagem <Send size={14} />

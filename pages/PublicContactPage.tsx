@@ -48,7 +48,7 @@ export default function PublicContactPage() {
                     type="text" 
                     required
                     className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 text-lg font-serif outline-none focus:border-luxury-gold transition-all"
-                    placeholder="Ex: João Silva"
+                    placeholder="Ex: Joao Silva"
                   />
                 </div>
                 <div className="space-y-4">

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, AlertTriangle, Trash2 } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -75,7 +75,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
             {/* Status indicator */}
             <div className="flex items-center gap-2 mb-4">
                 <div className={`w-2 h-2 rounded-full ${config.dot}`} />
-                <span className={`text-[10px] font-semibold uppercase tracking-widest ${config.labelColor}`}>
+                <span className={`text-[11px] font-semibold uppercase tracking-widest ${config.labelColor}`}>
                     {config.label}
                 </span>
             </div>
@@ -86,13 +86,13 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
             </h3>
 
             {/* Meta */}
-            <p className="text-[11px] text-luxury-charcoal/50 dark:text-white/50 mb-6">
-                {project.type_key} {project.area && `• ${project.area}`}
+            <p className="text-xs text-luxury-charcoal/50 dark:text-white/50 mb-6">
+                {project.type_key} {project.area && `a€¢ ${project.area}`}
             </p>
 
             {/* Progress bar */}
             <div className="space-y-3">
-                <div className="flex justify-between text-[10px]">
+                <div className="flex justify-between text-[11px]">
                     <span className="text-luxury-charcoal/50 dark:text-white/50">{t('card_progress')}</span>
                     <span className={`font-bold ${config.labelColor}`}>{project.progress}%</span>
                 </div>
@@ -109,19 +109,19 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
                 {project.status === 'warning' && project.lastUpdate && (
                     <div className="flex items-center gap-2 text-amber-500">
                         <AlertTriangle size={14} />
-                        <span className="text-[10px] font-bold">{t('card_no_update')} {project.lastUpdate}</span>
+                        <span className="text-[11px] font-bold">{t('card_no_update')} {project.lastUpdate}</span>
                     </div>
                 )}
 
                 {project.status === 'critical' && project.deadline && (
                     <div className="flex items-center gap-2 text-red-500">
                         <Clock size={14} />
-                        <span className="text-[10px] font-bold">{t('card_deadline_in')} {project.deadline}</span>
+                        <span className="text-[11px] font-bold">{t('card_deadline_in')} {project.deadline}</span>
                     </div>
                 )}
 
                 {(project.status === 'active' || project.status === 'completed') && (
-                    <span className="text-[10px] text-luxury-charcoal/40 dark:text-white/40">
+                    <span className="text-[11px] text-luxury-charcoal/40 dark:text-white/40">
                         {t('card_updated_ago')} {project.lastUpdate || '2h'}
                     </span>
                 )}

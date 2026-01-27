@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -36,7 +36,7 @@ export default function SiteLayout({ children }: { children?: React.ReactNode })
             <BrandLogo size={40} animated={true} light={true} />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-14 text-[11px] font-black uppercase tracking-[0.3em]">
+          <nav className="hidden md:flex items-center gap-14 text-xs font-black uppercase tracking-[0.3em]">
             {navLinks.map((link) => (
               <Link 
                 key={link.name} 
@@ -52,7 +52,7 @@ export default function SiteLayout({ children }: { children?: React.ReactNode })
 
             <button 
               onClick={toggleLanguage}
-              className="px-4 py-2 glass rounded-full text-[11px] font-black uppercase tracking-widest hover:text-luxury-gold transition-colors opacity-60 hover:opacity-100"
+              className="px-4 py-2 glass rounded-full text-xs font-black uppercase tracking-widest hover:text-luxury-gold transition-colors opacity-60 hover:opacity-100"
             >
               {locale.toUpperCase()}
             </button>
@@ -62,7 +62,7 @@ export default function SiteLayout({ children }: { children?: React.ReactNode })
               className="flex items-center gap-3 text-luxury-gold bg-luxury-gold/5 border border-luxury-gold/20 px-8 py-3 rounded-full hover:bg-luxury-gold hover:text-black transition-all shadow-2xl shadow-luxury-gold/5 group"
             >
               <LayoutDashboard size={14} className="group-hover:rotate-12 transition-transform" /> 
-              <span className="text-[11px]">{t('accessManagement')}</span>
+              <span className="text-xs">{t('accessManagement')}</span>
             </button>
           </nav>
 
@@ -113,23 +113,23 @@ export default function SiteLayout({ children }: { children?: React.ReactNode })
             </h3>
           </div>
           <div className="space-y-10">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-luxury-gold">{t('footerAddress')}</h4>
+            <h4 className="text-[11px] font-black uppercase tracking-[0.6em] text-luxury-gold">{t('footerAddress')}</h4>
             <p className="opacity-60 font-light text-base leading-relaxed italic text-white/80">
-              Av. da Liberdade, 110, 4º Esq.<br/>
+              Av. da Liberdade, 110, 4u Esq.<br/>
               1250-146 Lisboa, Portugal<br/>
               lisboa@ferreiraarq.pt
             </p>
           </div>
           <div className="space-y-10">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-luxury-gold">{t('footerNewsletter')}</h4>
+            <h4 className="text-[11px] font-black uppercase tracking-[0.6em] text-luxury-gold">{t('footerNewsletter')}</h4>
             <div className="flex border-b border-white/10 pb-4 group">
               <input type="email" placeholder="Email" className="bg-transparent outline-none flex-1 text-sm font-light italic text-white placeholder:opacity-20" />
               <button className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"><ArrowUpRight size={20} className="text-luxury-gold"/></button>
             </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-40 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 opacity-20 text-[11px] font-black uppercase tracking-[0.3em]">
-           <p>© 2024 Ferreira Arquitetos • FA-360 Ecosystem</p>
+        <div className="max-w-7xl mx-auto mt-40 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 opacity-20 text-xs font-black uppercase tracking-[0.3em]">
+           <p>e 2024 Ferreira Arquitetos a€¢ FA-360 Ecosystem</p>
            <div className="flex gap-8">
               <a href="#">{t('footerPrivacy')}</a>
               <a href="#">{t('footerCookies')}</a>

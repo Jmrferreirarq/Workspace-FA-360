@@ -3,29 +3,29 @@ import { LawStructure } from './rjue_structure';
 
 export const reruStructure: LawStructure = {
     id: 'reru',
-    title: 'Regime Excecional de Reabilitação Urbana (RERU)',
+    title: 'Regime Excecional de Reabilitacao Urbana (RERU)',
     description: 'Decreto-Lei n.º 95/2019, de 18 de julho.',
     articles: [
         {
             id: 'art-4',
             number: 'Artigo 4.º',
-            title: 'Princípio da não sobrecarga',
-            content: 'As obras de reabilitação não devem agravar as condições de segurança ou salubridade do edifício existente, mesmo que não atinjam os níveis exigíveis para construção nova.',
-            architect_note: 'O princípio mais importante da reabilitação. Se o edifício já existe e funciona, não somos obrigados a "destruí-lo" para cumprir normas de 2024, desde que não piore o que está.'
+            title: 'Principio da nao sobrecarga',
+            content: 'As obras de reabilitacao nao devem agravar as condicoes de seguranca ou salubridade do edificio existente, mesmo que nao atinjam os niveis exigiveis para construcao nova.',
+            architect_note: 'O principio mais importante da reabilitacao. Se o edificio ja existe e funciona, nao somos obrigados a "destrui-lo" para cumprir normas de 2024, desde que nao piore o que esta.'
         },
         {
             id: 'art-5',
             number: 'Artigo 5.º',
             title: 'Dispensa de requisitos',
-            content: 'É permitida a dispensa de requisitos técnicos relativos a acessibilidades, acústica e térmica quando a sua aplicação for tecnicamente inviável ou prejudicar o valor patrimonial.',
-            architect_note: 'Crucial para reabilitação em Centros Históricos. Permite manter escadas originais ou janelas de madeira por razões patrimoniais.'
+            content: 'E permitida a dispensa de requisitos tecnicos relativos a acessibilidades, acustica e termica quando a sua aplicacao for tecnicamente inviavel ou prejudicar o valor patrimonial.',
+            architect_note: 'Crucial para reabilitacao em Centros Historicos. Permite manter escadas originais ou janelas de madeira por razoes patrimoniais.'
         },
         {
             id: 'art-7',
             number: 'Artigo 7.º',
-            title: 'Relatório de Diagnóstico',
-            content: 'As operações de reabilitação devem ser precedidas de um diagnóstico preliminar sobre o estado de conservação do edifício.',
-            architect_note: 'Um bom diagnóstico poupa imensas surpresas em obra e facilita a aprovação da dispensa de normas.'
+            title: 'Relatorio de Diagnostico',
+            content: 'As operacoes de reabilitacao devem ser precedidas de um diagnostico preliminar sobre o estado de conservacao do edificio.',
+            architect_note: 'Um bom diagnostico poupa imensas surpresas em obra e facilita a aprovacao da dispensa de normas.'
         }
     ]
 };

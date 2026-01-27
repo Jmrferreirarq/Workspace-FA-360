@@ -37,7 +37,7 @@ export default function ClientPortalPage() {
   const [activeTab, setActiveTab] = useState('HOME');
   const [notifications, setNotifications] = useState(2);
 
-  const [projectInsight, setProjectInsight] = useState<string>('A carregar análise do diretor...');
+  const [projectInsight, setProjectInsight] = useState<string>('A carregar analise do diretor...');
 
   useEffect(() => {
     fa360.listProjects().then(all => {
@@ -50,8 +50,8 @@ export default function ClientPortalPage() {
   }, [projectId]);
 
   const tabs = [
-    { id: 'HOME', label: 'Início' },
-    { id: '3D VIEW', label: 'Visão 3D' },
+    { id: 'HOME', label: 'Inicio' },
+    { id: '3D VIEW', label: 'Visao 3D' },
     { id: 'CHRONOLOGY', label: 'Cronologia' },
     { id: 'DOCS', label: 'Documentos' },
     { id: 'MOODBOARD', label: 'Atmosfera' },
@@ -94,7 +94,7 @@ export default function ClientPortalPage() {
               {notifications > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-luxury-gold rounded-full shadow-[0_0_10px_#D4AF37]"></span>}
             </button>
             <div className="flex items-center gap-2 md:gap-4 glass pl-4 md:pl-6 pr-1.5 md:pr-2 py-1.5 md:py-2 rounded-full border-white/10">
-              <span className="text-[11px] md:text-[11px] font-black uppercase tracking-widest opacity-60 hidden sm:block">João Silva</span>
+              <span className="text-[11px] md:text-[11px] font-black uppercase tracking-widest opacity-60 hidden sm:block">Joao Silva</span>
               <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-luxury-gold text-black flex items-center justify-center font-black text-xs">J</div>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function ClientPortalPage() {
             <div className="h-[1px] w-8 md:w-12 bg-luxury-gold"></div>
             <p className="text-[11px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.6em] text-luxury-gold">Private Residency Client Portal</p>
           </div>
-          <h1 className="text-4xl sm:text-6xl md:text-[9rem] font-serif tracking-tighter leading-[0.8] italic text-white" style={{ fontSize: 'clamp(2.5rem, 15vw, 9rem)' }}>{project?.name || 'A Sua Visão'}</h1>
+          <h1 className="text-4xl sm:text-6xl md:text-[9rem] font-serif tracking-tighter leading-[0.8] italic text-white" style={{ fontSize: 'clamp(2.5rem, 15vw, 9rem)' }}>{project?.name || 'A Sua Visao'}</h1>
         </Motion.div>
       </header>
 
@@ -179,7 +179,7 @@ function HomeTab({ project, insight }: any) {
     const success = await fa360.updateProjectStatus(project.id, 'status_construction');
     if (success) {
       setIsApproved(true);
-      fa360.log(`CLIENT_PORTAL: Aprovação do cliente recebida para ${project.name}`);
+      fa360.log(`CLIENT_PORTAL: Aprovacao do cliente recebida para ${project.name}`);
     }
   };
 
@@ -187,9 +187,9 @@ function HomeTab({ project, insight }: any) {
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 text-white">
       <div className="lg:col-span-8 space-y-12 md:space-y-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-10">
-          <PortalStat icon={<Box />} label="Estado Atual" value={isApproved ? "Construção" : "Execução"} />
-          <PortalStat icon={<Calendar />} label="Previsão Entrega" value="Out 2025" />
-          <PortalStat icon={<Layers />} label="Decisões Técnicas" value={isApproved ? "25 / 28" : "24 / 28"} />
+          <PortalStat icon={<Box />} label="Estado Atual" value={isApproved ? "Construcao" : "Execucao"} />
+          <PortalStat icon={<Calendar />} label="Previsao Entrega" value="Out 2025" />
+          <PortalStat icon={<Layers />} label="Decisoes Tecnicas" value={isApproved ? "25 / 28" : "24 / 28"} />
         </div>
 
         <div className="glass p-8 md:p-16 rounded-[2.5rem] md:rounded-[2rem] border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 md:space-y-12 group relative overflow-hidden shadow-2xl">
@@ -198,7 +198,7 @@ function HomeTab({ project, insight }: any) {
           </div>
           <div className="space-y-3 md:space-y-4">
             <h3 className="text-3xl md:text-5xl font-serif italic">Acordos Pendentes</h3>
-            <p className="text-lg md:text-xl font-light opacity-50">Sua aprovação é necessária para avançar com a próxima fase.</p>
+            <p className="text-lg md:text-xl font-light opacity-50">Sua aprovacao e necessaria para avancar com a proxima fase.</p>
           </div>
 
           <div className="space-y-6 md:space-y-8">
@@ -209,7 +209,7 @@ function HomeTab({ project, insight }: any) {
                 </div>
                 <div>
                   <h4 className="text-lg md:text-xl font-medium">Revestimento Suite Master</h4>
-                  <p className="text-[11px] md:text-sm opacity-60 font-light italic">Mármore de Estremoz (Amostra #24)</p>
+                  <p className="text-[11px] md:text-sm opacity-60 font-light italic">Marmore de Estremoz (Amostra #24)</p>
                 </div>
               </div>
               <div className="flex gap-3 md:gap-4 w-full md:w-auto">
@@ -220,7 +220,7 @@ function HomeTab({ project, insight }: any) {
                       onClick={handleApprove}
                       className="flex-1 md:flex-none px-6 py-3 md:py-4 bg-luxury-gold text-black rounded-2xl text-[11px] md:text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-luxury-gold/20 whitespace-nowrap"
                     >
-                      Aprovar Seleção
+                      Aprovar Selecao
                     </button>
                   </>
                 ) : (
@@ -239,9 +239,9 @@ function HomeTab({ project, insight }: any) {
             <span className="text-[11px] md:text-[10px] font-black uppercase tracking-widest opacity-20 text-luxury-gold">Live Sync Ativo</span>
           </div>
           <div className="space-y-4 md:space-y-6">
-            <LogItem date="14 Out" title="Betonagem concluída com sucesso no Setor B" status="Sucesso" />
-            <LogItem date="12 Out" title="Visita da Equipa de Engenharia de Estruturas" status="Concluído" />
-            <LogItem date="11 Out" title="Receção de Materiais de Revestimento (Showroom)" status="Verificado" />
+            <LogItem date="14 Out" title="Betonagem concluida com sucesso no Setor B" status="Sucesso" />
+            <LogItem date="12 Out" title="Visita da Equipa de Engenharia de Estruturas" status="Concluido" />
+            <LogItem date="11 Out" title="Rececao de Materiais de Revestimento (Showroom)" status="Verificado" />
           </div>
         </div>
       </div>
@@ -277,7 +277,7 @@ function HomeTab({ project, insight }: any) {
             <h4 className="text-xl md:text-2xl font-serif italic">Live Site Cam</h4>
             <p className="text-[11px] md:text-[10px] opacity-60 font-black uppercase tracking-widest">Acesso Restrito 4K</p>
           </div>
-          <button className="flex items-center gap-2 text-[11px] md:text-[11px] font-black uppercase tracking-widest text-luxury-gold border-b border-luxury-gold pb-1 hover:opacity-100 transition-opacity opacity-60">Iniciar Transmissão</button>
+          <button className="flex items-center gap-2 text-[11px] md:text-[11px] font-black uppercase tracking-widest text-luxury-gold border-b border-luxury-gold pb-1 hover:opacity-100 transition-opacity opacity-60">Iniciar Transmissao</button>
         </div>
       </aside>
     </div>
@@ -316,9 +316,9 @@ function ThreeDViewTab() {
   return (
     <div className="glass p-8 md:p-16 rounded-[2.5rem] md:rounded-[2rem] border-white/5 space-y-8 flex flex-col items-center justify-center min-h-[500px]">
       <Box size={64} className="text-luxury-gold opacity-20" />
-      <h3 className="text-3xl font-serif italic text-white">Experiência Imersiva</h3>
+      <h3 className="text-3xl font-serif italic text-white">Experiencia Imersiva</h3>
       <p className="text-lg font-light opacity-50 max-w-md text-center">
-        O modelo tridimensional do seu projeto está a ser processado para visualização web.
+        O modelo tridimensional do seu projeto esta a ser processado para visualizacao web.
       </p>
       <button className="px-12 py-4 bg-luxury-gold text-black rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-luxury-gold/20 flex items-center gap-3">
         <Maximize2 size={16} /> Abrir Viewer Fullscreen
@@ -332,9 +332,9 @@ function ChronologyTab() {
     <div className="space-y-12">
       <div className="flex flex-col gap-8 relative before:absolute before:left-8 before:top-0 before:bottom-0 before:w-px before:bg-white/5">
         {[
-          { date: 'Set 2024', title: 'Conclusão de Fundações', desc: 'A estrutura base da residência foi finalizada com sucesso.' },
-          { date: 'Ago 2024', title: 'Início de Escavação', desc: 'Arranque oficial dos trabalhos em obra.' },
-          { date: 'Jun 2024', title: 'Aprovação de Licenciamento', desc: 'Projeto aprovado pela C.M. Lisboa.' },
+          { date: 'Set 2024', title: 'Conclusao de Fundacoes', desc: 'A estrutura base da residencia foi finalizada com sucesso.' },
+          { date: 'Ago 2024', title: 'Inicio de Escavacao', desc: 'Arranque oficial dos trabalhos em obra.' },
+          { date: 'Jun 2024', title: 'Aprovacao de Licenciamento', desc: 'Projeto aprovado pela C.M. Lisboa.' },
         ].map((item, i) => (
           <div key={i} className="relative pl-24 group">
             <div className="absolute left-6 top-2 w-4 h-4 rounded-full bg-luxury-gold shadow-[0_0_15px_rgba(212,175,55,0.6)] group-hover:scale-125 transition-transform"></div>

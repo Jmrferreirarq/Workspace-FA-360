@@ -42,7 +42,7 @@ export default function TeamManagementPage() {
     <div className="space-y-16 animate-in fade-in duration-1000 pb-32">
       <PageHeader
         kicker="Recursos Humanos & Performance"
-        title={<>Gestão de <span className="text-luxury-gold">Equipa.</span></>}
+        title={<>Gestao de <span className="text-luxury-gold">Equipa.</span></>}
       />
 
       <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-full border border-black/10 dark:border-white/10 text-luxury-charcoal dark:text-white w-fit mb-8">
@@ -123,12 +123,12 @@ export default function TeamManagementPage() {
                     <th className="px-10 py-6">Projecto</th>
                     <th className="px-10 py-6">Tarefa / Fase</th>
                     <th className="px-10 py-6">Horas</th>
-                    <th className="px-10 py-6 text-right">Acção</th>
+                    <th className="px-10 py-6 text-right">Accao</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-black/5 dark:divide-white/5 text-sm text-luxury-charcoal/60 dark:text-white/60">
                   <tr>
-                    <td colSpan={5} className="px-10 py-20 text-center italic text-luxury-charcoal/30 dark:text-white/30">Nenhuma folha de horas registada este mês.</td>
+                    <td colSpan={5} className="px-10 py-20 text-center italic text-luxury-charcoal/30 dark:text-white/30">Nenhuma folha de horas registada este mes.</td>
                   </tr>
                 </tbody>
               </table>
@@ -149,25 +149,25 @@ export default function TeamManagementPage() {
             <div className="space-y-6">
               <div className="p-6 bg-black/5 dark:bg-white/5 rounded-3xl border border-black/10 dark:border-white/10 space-y-4">
                 <p className="text-xs font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed">
-                  "O cérebro está a aguardar a sincronização de dados de produtividade para gerar recomendações de alocação."
+                  "O cerebro esta a aguardar a sincronizacao de dados de produtividade para gerar recomendacoes de alocacao."
                 </p>
               </div>
             </div>
           </div>
 
           <div className="glass p-10 rounded-[3rem] border-black/5 dark:border-white/5 space-y-8 text-luxury-charcoal dark:text-white">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Métricas de Equipa</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Metricas de Equipa</h4>
             <div className="space-y-6">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-luxury-charcoal/50 dark:text-white/50 flex items-center gap-2"><Clock size={14} /> Total Semanal</span>
                 <span className="text-xl font-serif">0h</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-xs text-luxury-charcoal/50 dark:text-white/50 flex items-center gap-2"><Coffee size={14} /> Taxa de Faturação</span>
+                <span className="text-xs text-luxury-charcoal/50 dark:text-white/50 flex items-center gap-2"><Coffee size={14} /> Taxa de Faturacao</span>
                 <span className="text-xl font-serif text-emerald-500">0%</span>
               </div>
               <div className="pt-6 border-t border-black/5 dark:border-white/5">
-                <button className="w-full py-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-black/10 dark:hover:bg-white/10 transition-all text-luxury-charcoal dark:text-white">Relatório de Desempenho</button>
+                <button className="w-full py-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-black/10 dark:hover:bg-white/10 transition-all text-luxury-charcoal dark:text-white">Relatorio de Desempenho</button>
               </div>
             </div>
           </div>

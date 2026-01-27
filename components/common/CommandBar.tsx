@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Command, ArrowRight, Briefcase, User, Box, FileText, Zap, Sparkles, Globe, Layout, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,12 +40,12 @@ export default function CommandBar() {
 
   const results = [
     { id: '1', title: 'Villa Alentejo', category: 'Projectos', icon: <Briefcase size={14} />, path: '/projects/1' },
-    { id: '2', title: 'João Silva', category: 'Clientes', icon: <User size={14} />, path: '/clients/1' },
-    { id: '3', title: 'Mármore de Estremoz', category: 'Material DNA', icon: <Box size={14} />, path: '/dna' },
-    { id: 'site1', title: 'Home Portfólio', category: 'Site Público', icon: <Globe size={14} className="text-luxury-gold" />, path: '/public' },
-    { id: 'site2', title: 'Página do Estúdio', category: 'Site Público', icon: <Layout size={14} className="text-luxury-gold" />, path: '/public/studio' },
-    { id: 'cmd1', title: 'Nova Proposta', category: 'Acções', icon: <Zap size={14} className="text-luxury-gold" />, path: '/calculator' },
-    { id: 'cmd2', title: 'Gerar Caption IA', category: 'Acções', icon: <Sparkles size={14} className="text-luxury-gold" />, path: '/marketing' },
+    { id: '2', title: 'Joao Silva', category: 'Clientes', icon: <User size={14} />, path: '/clients/1' },
+    { id: '3', title: 'Marmore de Estremoz', category: 'Material DNA', icon: <Box size={14} />, path: '/dna' },
+    { id: 'site1', title: 'Home Portfolio', category: 'Site Publico', icon: <Globe size={14} className="text-luxury-gold" />, path: '/public' },
+    { id: 'site2', title: 'Pagina do Estudio', category: 'Site Publico', icon: <Layout size={14} className="text-luxury-gold" />, path: '/public/studio' },
+    { id: 'cmd1', title: 'Nova Proposta', category: 'Accoes', icon: <Zap size={14} className="text-luxury-gold" />, path: '/calculator' },
+    { id: 'cmd2', title: 'Gerar Caption IA', category: 'Accoes', icon: <Sparkles size={14} className="text-luxury-gold" />, path: '/marketing' },
   ].filter(item =>
     item.title.toLowerCase().includes(query.toLowerCase()) ||
     item.category.toLowerCase().includes(query.toLowerCase())
@@ -81,7 +81,7 @@ export default function CommandBar() {
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Pesquisar ou Site Público..."
+                placeholder="Pesquisar ou Site Publico..."
                 className="flex-1 bg-transparent border-none outline-none text-lg md:text-xl font-serif italic placeholder:opacity-20 text-white"
               />
               <button onClick={() => setIsOpen(false)} className="md:hidden p-2 opacity-60">
@@ -106,7 +106,7 @@ export default function CommandBar() {
                         </div>
                         <div className="text-left">
                           <p className={`text-sm font-medium ${selectedIndex === idx ? 'text-black' : 'text-white'}`}>{item.title}</p>
-                          <p className={`text-[11px] font-black uppercase tracking-widest ${selectedIndex === idx ? 'text-black/40' : 'opacity-50 text-white'}`}>{item.category}</p>
+                          <p className={`text-xs font-black uppercase tracking-widest ${selectedIndex === idx ? 'text-black/40' : 'opacity-50 text-white'}`}>{item.category}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
@@ -125,10 +125,10 @@ export default function CommandBar() {
 
             <div className="p-4 bg-black/40 border-t border-white/5 flex justify-between items-center px-8">
               <div className="hidden md:flex gap-6">
-                <Kbd label="↑↓" desc="Navegar" />
-                <Kbd label="↵" desc="Seleccionar" />
+                <Kbd label="a†‘a†“" desc="Navegar" />
+                <Kbd label="a†µ" desc="Seleccionar" />
               </div>
-              <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.3em] opacity-50 text-white">
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.3em] opacity-50 text-white">
                 <Sparkles size={10} className="text-luxury-gold" />
                 IA Search Hub
               </div>
@@ -143,8 +143,8 @@ export default function CommandBar() {
 function Kbd({ label, desc }: { label: string, desc: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-md text-[11px] font-mono opacity-60 text-white">{label}</span>
-      <span className="text-[11px] font-black uppercase tracking-widest opacity-20 text-white">{desc}</span>
+      <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-md text-xs font-mono opacity-60 text-white">{label}</span>
+      <span className="text-xs font-black uppercase tracking-widest opacity-20 text-white">{desc}</span>
     </div>
   );
 }

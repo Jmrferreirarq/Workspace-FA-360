@@ -1,4 +1,4 @@
-
+﻿
 import React from 'react';
 import { Sun, Moon, Globe } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
@@ -16,7 +16,7 @@ export default function GlobalUtilities() {
                 <Tooltip content={t('sys_language')} position="bottom">
                   <button
                       onClick={toggleLanguage}
-                      className="px-4 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest text-white hover:bg-white/10 transition-all flex items-center gap-2"
+                      className="px-4 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest text-white hover:bg-white/10 transition-all flex items-center gap-2"
                   >
                       <Globe size={16} className="text-luxury-gold opactiy-80" />
                       {locale}

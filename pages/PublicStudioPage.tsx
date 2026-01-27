@@ -26,7 +26,7 @@ export default function PublicStudioPage() {
             className="text-6xl md:text-9xl font-serif italic tracking-tighter leading-none"
           >
             {/* Fix: use locale directly for conditional text */}
-            {t('studio_title').split('excel')[0]} <span className="text-luxury-gold">{t('studio_title').includes('excel') ? (locale === 'pt' ? 'excelência.' : 'excellence.') : ''}</span>
+            {t('studio_title').split('excel')[0]} <span className="text-luxury-gold">{t('studio_title').includes('excel') ? (locale === 'pt' ? 'excelencia.' : 'excellence.') : ''}</span>
           </Motion.h1>
         </header>
 

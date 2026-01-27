@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Zap, Bell, MessageSquare, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react';
@@ -11,9 +11,9 @@ interface NotificationPulseProps {
 }
 
 const NOTIFICATIONS = [
-  { id: 1, type: 'critical', title: 'Atraso em Licenciamento', desc: 'C.M. Lisboa solicitou esclarecimentos para Villa Alentejo.', time: '12m atrás', project: 'Villa Alentejo', link: '/legal' },
-  { id: 2, type: 'client', title: 'João Silva aprovou material', desc: 'Revestimento Master Suite confirmado via Portal.', time: '1h atrás', project: 'Apartamento Chiado', link: '/portal/demo' },
-  { id: 3, type: 'update', title: 'Novo Render Finalizado', desc: 'A equipa de 3D carregou as vistas nocturnas.', time: '4h atrás', project: 'HQ Tech Valley', link: '/media' },
+  { id: 1, type: 'critical', title: 'Atraso em Licenciamento', desc: 'C.M. Lisboa solicitou esclarecimentos para Villa Alentejo.', time: '12m atras', project: 'Villa Alentejo', link: '/legal' },
+  { id: 2, type: 'client', title: 'Joao Silva aprovou material', desc: 'Revestimento Master Suite confirmado via Portal.', time: '1h atras', project: 'Apartamento Chiado', link: '/portal/demo' },
+  { id: 3, type: 'update', title: 'Novo Render Finalizado', desc: 'A equipa de 3D carregou as vistas nocturnas.', time: '4h atras', project: 'HQ Tech Valley', link: '/media' },
 ];
 
 const STORAGE_KEY = 'fa-studio-pulse-notifications';
@@ -62,7 +62,7 @@ export default function NotificationPulse({ isOpen, onClose }: NotificationPulse
             <div className="flex justify-between items-center mb-12">
               <div className="flex items-center gap-3">
                 <Bell size={18} className="text-luxury-gold" />
-                <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Studio Pulse</h2>
+                <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-white">Studio Pulse</h2>
               </div>
               <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors">
                 <X size={20} className="opacity-50" />
@@ -92,8 +92,8 @@ export default function NotificationPulse({ isOpen, onClose }: NotificationPulse
                         </div>
                         <div className="space-y-1">
                           <div className="flex justify-between items-center">
-                            <p className="text-[11px] font-black uppercase tracking-widest text-luxury-gold group-hover:text-white transition-colors">{n.project}</p>
-                            <span className="text-[11px] font-mono opacity-20">{n.time}</span>
+                            <p className="text-xs font-black uppercase tracking-widest text-luxury-gold group-hover:text-white transition-colors">{n.project}</p>
+                            <span className="text-xs font-mono opacity-20">{n.time}</span>
                           </div>
                           <h4 className="text-sm font-medium text-white/90 group-hover:text-white transition-colors">{n.title}</h4>
                           <p className="text-xs font-light opacity-60 leading-relaxed">{n.desc}</p>
@@ -111,15 +111,15 @@ export default function NotificationPulse({ isOpen, onClose }: NotificationPulse
                     className="h-full flex flex-col items-center justify-center text-center p-8 opacity-40 space-y-4"
                   >
                     <Bell size={48} className="text-white/20" />
-                    <p className="text-sm font-serif italic">Tudo limpo. Desfrute do silêncio.</p>
+                    <p className="text-sm font-serif italic">Tudo limpo. Desfrute do silencio.</p>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
             <div className="pt-8 border-t border-white/5 mt-auto">
-              <button onClick={resetNotifications} className="w-full py-4 glass border-white/10 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-luxury-gold hover:text-black transition-all flex items-center justify-center gap-2 group">
-                 {notifications.length === 0 ? "Simular Novas Notificações" : "Ver Todo o Histórico"} <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+              <button onClick={resetNotifications} className="w-full py-4 glass border-white/10 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-luxury-gold hover:text-black transition-all flex items-center justify-center gap-2 group">
+                 {notifications.length === 0 ? "Simular Novas Notificacoes" : "Ver Todo o Historico"} <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </motion.div>

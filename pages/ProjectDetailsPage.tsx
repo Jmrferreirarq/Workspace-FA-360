@@ -129,7 +129,7 @@ export default function ProjectDetailsPage() {
             {project?.lastUpdate && (
               <div className="flex items-center gap-2 px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full text-[10px] text-luxury-charcoal/60 dark:text-white/60">
                 <Clock size={10} />
-                <span>Atualizado há {Math.floor((now - project.lastUpdate) / (1000 * 60 * 60 * 24))} dias</span>
+                <span>Atualizado ha {Math.floor((now - project.lastUpdate) / (1000 * 60 * 60 * 24))} dias</span>
               </div>
             )}
           </div>
@@ -144,9 +144,9 @@ export default function ProjectDetailsPage() {
           <div className="flex items-center gap-4 pt-2">
             <div className="flex items-center gap-2 text-luxury-gold">
               <Play size={14} className="fill-luxury-gold" />
-              <span className="text-[10px] font-black uppercase tracking-widest">Próxima Ação:</span>
+              <span className="text-[10px] font-black uppercase tracking-widest">Proxima Acao:</span>
             </div>
-            <p className="text-sm italic font-serif text-luxury-charcoal dark:text-white">{project?.nextAction || "Sem ação definida"}</p>
+            <p className="text-sm italic font-serif text-luxury-charcoal dark:text-white">{project?.nextAction || "Sem acao definida"}</p>
             <span className="text-[10px] text-luxury-charcoal/40 dark:text-white/40 font-mono">({new Date(project?.nextActionDate).toLocaleDateString()})</span>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function ProjectDetailsPage() {
             {isActive && activeProject?.id === projectId ? (
               <div className="flex items-center gap-3 px-4 py-2 bg-luxury-gold text-black rounded-full animate-in fade-in zoom-in duration-300">
                 <div className="w-2 h-2 bg-black rounded-full animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-widest">A gravar esforço...</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">A gravar esforco...</span>
               </div>
             ) : (
               <button
@@ -241,9 +241,9 @@ function TasksView({ t }: { project: ProjectData | null, t: (key: string) => str
                 <Circle className="text-luxury-gold opacity-50 group-hover:opacity-100 transition-opacity" size={24} />
                 <div className="flex-1">
                   <h4 className="text-lg font-serif text-luxury-charcoal dark:text-white italic">Tarefa Exemplo #{i}</h4>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Amanhã • {t('proj_high_priority')}</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Amanha • {t('proj_high_priority')}</p>
                 </div>
-                <Tooltip content={t('more_options') || "Mais Opções"} position="left">
+                <Tooltip content={t('more_options') || "Mais Opcoes"} position="left">
                   <MoreVertical size={20} className="text-luxury-charcoal/20 dark:text-white/20 cursor-pointer" />
                 </Tooltip>
               </div>
@@ -302,7 +302,7 @@ function PaymentsView({ payments, client, projectName, t }: { payments: ProjectP
             <th className="px-10 py-6">Fase</th>
             <th className="px-10 py-6 text-right">Valor</th>
             <th className="px-10 py-6 text-right">Status</th>
-            <th className="px-10 py-6 text-right">Ação</th>
+            <th className="px-10 py-6 text-right">Acao</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-black/5 dark:divide-white/5 text-luxury-charcoal dark:text-white">
@@ -348,12 +348,12 @@ function DiaryView({ diary, t }: { diary: ProjectDiaryItem[], t: (key: string) =
               <p className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-1">{item.date}</p>
               <h4 className="text-2xl font-serif text-luxury-charcoal dark:text-white italic">{item.title}</h4>
             </div>
-            <Tooltip content={t('weather_sunny') || "Céu Limpo"} position="left">
+            <Tooltip content={t('weather_sunny') || "Ceu Limpo"} position="left">
               <Sun className="text-luxury-gold" size={24} />
             </Tooltip>
           </div>
           <p className="text-sm font-light italic text-luxury-charcoal/50 dark:text-white/50 leading-relaxed">
-            Registo visual e técnico dos trabalhos realizados no local.
+            Registo visual e tecnico dos trabalhos realizados no local.
           </p>
           <div className="flex justify-between items-center pt-6 border-t border-black/5 dark:border-white/5 text-luxury-charcoal/50 dark:text-white/50 text-[11px] font-black uppercase tracking-widest">
             <span>{item.author}</span>
@@ -394,9 +394,9 @@ function TimeLogsView({ projectId }: { projectId: string }) {
           <thead className="bg-black/5 dark:bg-white/5 text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">
             <tr>
               <th className="px-10 py-6">Data</th>
-              <th className="px-10 py-6">Descrição</th>
+              <th className="px-10 py-6">Descricao</th>
               <th className="px-10 py-6">Fase</th>
-              <th className="px-10 py-6 text-right">Duração</th>
+              <th className="px-10 py-6 text-right">Duracao</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-black/5 dark:divide-white/5 text-luxury-charcoal dark:text-white">

@@ -128,7 +128,7 @@ export default function TechnicalHubPage() {
               <span className="text-[10px] font-black uppercase tracking-widest text-luxury-gold">AI Integrity Check</span>
             </div>
             <p className="text-xs italic leading-relaxed text-luxury-charcoal/60 dark:text-white/60">
-              {isScanning ? "O cérebro está a analisar os vetores técnicos..." : (files.length > 0 ? aiMessage : "Aguardando upload de ficheiros para análise de integridade.")}
+              {isScanning ? "O cerebro esta a analisar os vetores tecnicos..." : (files.length > 0 ? aiMessage : "Aguardando upload de ficheiros para analise de integridade.")}
             </p>
           </div>
         </aside>

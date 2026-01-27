@@ -8,25 +8,25 @@ export const acessibilidadesStructure: LawStructure = {
     articles: [
         {
             id: 'art-10',
-            number: 'Capítulo 2.1',
-            title: 'Percursos Acessíveis',
-            content: 'Os percursos devem ter uma largura útil não inferior a 1,20m e inclinações que não ultrapassem os limites definidos.',
-            architect_note: 'A famosa regra do 1.20m. Essencial em átrios de prédios e espaços públicos.'
+            number: 'Capitulo 2.1',
+            title: 'Percursos Acessiveis',
+            content: 'Os percursos devem ter uma largura util nao inferior a 1,20m e inclinacoes que nao ultrapassem os limites definidos.',
+            architect_note: 'A famosa regra do 1.20m. Essencial em atrios de predios e espacos publicos.'
         },
         {
             id: 'art-22',
-            number: 'Capítulo 2.2',
-            title: 'Portas e Vãos',
-            content: 'A largura útil das portas não deve ser inferior a 0,77m.',
-            architect_note: 'Na prática, usamos folha de 80cm ou 90cm para garantir a passagem livre de cadeiras de rodas.'
+            number: 'Capitulo 2.2',
+            title: 'Portas e Vaos',
+            content: 'A largura util das portas nao deve ser inferior a 0,77m.',
+            architect_note: 'Na pratica, usamos folha de 80cm ou 90cm para garantir a passagem livre de cadeiras de rodas.'
         },
         {
             id: 'art-3',
             number: 'Artigo 10.º',
-            title: 'Isenções e Ajustamentos razoáveis',
-            content: 'Em edifícios existentes, são permitidos ajustamentos razoáveis quando a conformidade total for impossível.',
-            architect_note: 'Frequentemente usado em lojas antigas onde não há espaço para rampas com a inclinação ideal. Exige termo de responsabilidade específico.',
-            simplex_2024_update: 'O Simplex facilitou a aceitação de soluções alternativas de acessibilidade.'
+            title: 'Isencoes e Ajustamentos razoaveis',
+            content: 'Em edificios existentes, sao permitidos ajustamentos razoaveis quando a conformidade total for impossivel.',
+            architect_note: 'Frequentemente usado em lojas antigas onde nao ha espaco para rampas com a inclinacao ideal. Exige termo de responsabilidade especifico.',
+            simplex_2024_update: 'O Simplex facilitou a aceitacao de solucoes alternativas de acessibilidade.'
         }
     ]
 };

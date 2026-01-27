@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import { Search, ChevronRight, Info, Book, ArrowLeft, ToggleLeft, ToggleRight, X } from 'lucide-react';
 import { rjueStructure, LawArticle, LawStructure } from '../../data/laws/rjue_structure';
@@ -40,8 +40,8 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
                 <div className="flex items-center gap-3">
                     <Book className="w-5 h-5 text-gold" />
                     <div>
-                        <h2 className="text-sm font-bold uppercase tracking-tight">Leitor de Legislação Interativo</h2>
-                        <p className="text-[10px] text-slate-400 font-mono">{activeLaw.title}</p>
+                        <h2 className="text-sm font-bold uppercase tracking-tight">Leitor de Legislacao Interativo</h2>
+                        <p className="text-[11px] text-slate-400 font-mono">{activeLaw.title}</p>
                     </div>
                 </div>
                 {onClose && (
@@ -61,7 +61,7 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
                             <input
                                 type="text"
                                 placeholder="Pesquisar Artigo..."
-                                className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-md pl-8 h-8 text-[11px] focus:ring-1 focus:ring-gold"
+                                className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-md pl-8 h-8 text-xs focus:ring-1 focus:ring-gold"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -75,8 +75,8 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
                                 className={`w-full text-left p-3 border-b border-slate-100 dark:border-slate-800 transition-colors flex items-center justify-between group ${selectedArticle?.id === art.id ? 'bg-white dark:bg-slate-800' : 'hover:bg-slate-50 dark:hover:bg-slate-900/50'}`}
                             >
                                 <div className="min-w-0">
-                                    <div className={`text-[10px] font-bold ${selectedArticle?.id === art.id ? 'text-gold' : 'text-slate-400'}`}>{art.number}</div>
-                                    <div className="text-[11px] font-medium text-slate-700 dark:text-slate-300 truncate">{art.title}</div>
+                                    <div className={`text-[11px] font-bold ${selectedArticle?.id === art.id ? 'text-gold' : 'text-slate-400'}`}>{art.number}</div>
+                                    <div className="text-xs font-medium text-slate-700 dark:text-slate-300 truncate">{art.title}</div>
                                 </div>
                                 <ChevronRight className={`w-3.5 h-3.5 ${selectedArticle?.id === art.id ? 'text-gold' : 'text-slate-300 opacity-0 group-hover:opacity-100'}`} />
                             </button>
@@ -93,7 +93,7 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
                         </div>
                         <button
                             onClick={() => setArchitectMode(!architectMode)}
-                            className="flex items-center gap-2 text-[10px] font-medium text-slate-600 dark:text-slate-400 hover:text-gold transition-colors"
+                            className="flex items-center gap-2 text-[11px] font-medium text-slate-600 dark:text-slate-400 hover:text-gold transition-colors"
                         >
                             <span>Modo Arquiteto (Notas AI)</span>
                             {architectMode ? <ToggleRight className="w-4 h-4 text-emerald-500" /> : <ToggleLeft className="w-4 h-4" />}
@@ -119,7 +119,7 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
                                             <div className="bg-emerald-50 dark:bg-emerald-900/20 border-l-4 border-emerald-500 p-5 rounded-r-lg">
                                                 <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">
                                                     <Info className="w-4 h-4" />
-                                                    Destaque Técnico
+                                                    Destaque Tecnico
                                                 </div>
                                                 <p className="text-sm text-emerald-800 dark:text-emerald-300 italic">
                                                     {selectedArticle.architect_note}
@@ -131,7 +131,7 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
                                             <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-5 rounded-r-lg">
                                                 <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400 font-bold text-xs uppercase tracking-wider mb-2">
                                                     <Book className="w-4 h-4" />
-                                                    Alteração Simplex 2024
+                                                    Alteracao Simplex 2024
                                                 </div>
                                                 <p className="text-sm text-amber-800 dark:text-amber-300">
                                                     {selectedArticle.simplex_2024_update}
@@ -144,7 +144,7 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
                         ) : (
                             <div className="h-full flex flex-col items-center justify-center text-slate-400 p-8 text-center">
                                 <Search className="w-12 h-12 mb-4 opacity-10" />
-                                <p>Selecione um artigo para começar a leitura.</p>
+                                <p>Selecione um artigo para comecar a leitura.</p>
                             </div>
                         )}
                     </div>
@@ -152,8 +152,8 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
             </div>
 
             {/* Footer */}
-            <div className="p-3 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-500">
-                <div>Ferreira Arquitetos - Inteligência Jurídica v1.0</div>
+            <div className="p-3 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-[11px] text-slate-500">
+                <div>Ferreira Arquitetos - Inteligencia JurA­dica v1.0</div>
                 <div className="flex gap-4">
                     <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> RJUE Atualizado</span>
                     <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span> Simplex 2024</span>
