@@ -735,7 +735,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   {/* Category: Licensing */}
                   <tr className="bg-black/[0.02] dark:bg-white/[0.02]">
                     <td colSpan={5} className="px-6 py-3 text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold/80 bg-luxury-gold/5">
-                      A. Processo de Licenciamento (Total de Etapa: 100%)
+                      1. Processo de Licenciamento (Total de Etapa: 100%)
                     </td>
                   </tr>
                   {(() => {
@@ -792,7 +792,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           <td colSpan={5} className="px-6 py-3 bg-luxury-gold/5">
                             <div className="flex justify-between items-center">
                               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold/60">
-                                B. Projeto de Execução & Assistência (Total Estimado: 100%)
+                                2. Projeto de Execução & Assistência (Total Estimado: 100%)
                               </span>
                               <span className="bg-luxury-gold/10 text-luxury-gold px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">Opcional</span>
                             </div>

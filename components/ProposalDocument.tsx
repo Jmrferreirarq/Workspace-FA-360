@@ -322,18 +322,28 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
 
                   {/* 5. Valor Global & Matriz de Investimento */}
-                  <section className="py-12 border-y-2 border-luxury-black flex flex-col items-center justify-center space-y-8 bg-luxury-black/[0.02]">
-                     <div className="text-center space-y-4">
-                        <p className="text-[11px] font-black uppercase tracking-[0.4em] opacity-40">Investimento Global Refletido</p>
-                        <h3 className="text-7xl font-serif italic tracking-tighter text-luxury-black">
-                           €{data.feeTotal.toLocaleString()}<span className="text-2xl font-sans not-italic text-luxury-gold ml-2">+ IVA</span>
-                        </h3>
-                        <div className="flex items-center justify-center gap-4 text-[10px] uppercase font-black tracking-widest text-luxury-black/60">
-                           <span>€{stages.licensing.value.toLocaleString()} Licenciamento</span>
-                           <span className="w-1 h-1 rounded-full bg-luxury-gold"></span>
-                           <span>€{stages.execution.value.toLocaleString()} Execução (Opcional)</span>
+                  <section className="py-12 border-y-2 border-luxury-black bg-luxury-black/[0.02]">
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-8 mb-12">
+                        {/* FASE 1: LICENCIAMENTO */}
+                        <div className="bg-white p-8 rounded-3xl border-2 border-luxury-black shadow-sm space-y-4">
+                           <div className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold">Fase 1: Adjudicação Imediata</div>
+                           <h3 className="text-4xl font-serif italic tracking-tighter text-luxury-black">
+                              €{stages.licensing.value.toLocaleString()}<span className="text-lg font-sans not-italic text-luxury-gold ml-2">+ IVA</span>
+                           </h3>
+                           <div className="text-[10px] font-black uppercase tracking-widest text-luxury-black/40">Licenciamento (Duração: {formatWeeks(stages.licensing.weeks)})</div>
                         </div>
-                        <p className="text-[10px] font-mono opacity-40 italic pt-2">Matriz de investimento detalhada por disciplina e etapa.</p>
+
+                        {/* FASE 2: EXECUÇÃO (OPCIONAL) */}
+                        <div className="bg-white p-8 rounded-3xl border border-luxury-black/10 shadow-sm space-y-4 opacity-90">
+                           <div className="flex justify-between items-center">
+                              <div className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-black/40">Fase 2: Adjudicação Futura</div>
+                              <span className="bg-luxury-gold/10 text-luxury-gold px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">Opcional</span>
+                           </div>
+                           <h3 className="text-4xl font-serif italic tracking-tighter text-luxury-black/60">
+                              €{stages.execution.value.toLocaleString()}<span className="text-lg font-sans not-italic text-luxury-gold/40 ml-2">+ IVA</span>
+                           </h3>
+                           <div className="text-[10px] font-black uppercase tracking-widest text-luxury-black/20">Execução (Duração: {formatWeeks(stages.execution.weeks)})</div>
+                        </div>
                      </div>
 
                      {/* MATRIZ UNIFICADA - The "Holy Grid" of Fees */}
@@ -355,8 +365,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                               {/* Header */}
                               <div className="grid grid-cols-4 bg-luxury-black text-white text-[10px] uppercase font-black tracking-widest py-3">
                                  <div className="px-6 flex items-center">Disciplina</div>
-                                 <div className="px-4 text-center border-l border-white/10 bg-luxury-gold/20 text-luxury-gold">Licenciamento</div>
-                                 <div className="px-4 text-center border-l border-white/10">Execução</div>
+                                 <div className="px-4 text-center border-l border-white/10 bg-luxury-gold/20 text-luxury-gold">1. Licenciamento</div>
+                                 <div className="px-4 text-center border-l border-white/10">2. Execução (Opt.)</div>
                                  <div className="px-4 text-right border-l border-white/10">Total</div>
                               </div>
 
@@ -471,7 +481,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            <div className="space-y-8">
                               {/* TABELA DE LICENCIAMENTO */}
                               <div>
-                                 <h5 className="font-bold text-xs uppercase mb-2 opacity-70">A. Licenciamento</h5>
+                                 <h5 className="font-bold text-xs uppercase mb-2 text-luxury-gold">1. Fase de Licenciamento</h5>
                                  <table className="w-full text-xs">
                                     <thead>
                                        <tr className="border-b border-luxury-black/10">
@@ -496,7 +506,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                     </tbody>
                                     <tfoot>
                                        <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                          <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (A)</td>
+                                          <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (Fase 1)</td>
                                           <td className="py-2 text-right font-bold text-[10px]">100%</td>
                                           <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                                        </tr>
@@ -508,7 +518,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                               {executionPhases.length > 0 && (
                                  <div>
                                     <div className="flex justify-between items-center mb-2">
-                                       <h5 className="font-bold text-xs uppercase opacity-70">B. Execução (Opcional)</h5>
+                                       <h5 className="font-bold text-xs uppercase text-luxury-black/60">2. Fase de Execução (Opcional)</h5>
                                        <span className="text-[10px] bg-luxury-gold/20 text-luxury-gold px-2 py-0.5 rounded font-bold uppercase tracking-wider">Opcional</span>
                                     </div>
                                     <table className="w-full text-xs opacity-90">
@@ -540,7 +550,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                              </td>
                                           </tr>
                                           <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                             <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (B)</td>
+                                             <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
                                              <td className="py-2 text-right font-bold text-[10px]">100%</td>
                                              <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                                           </tr>
@@ -554,8 +564,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  <div className="bg-luxury-black/[0.02] p-6 rounded-3xl border border-luxury-black/5">
                                     <div className="flex justify-between items-end mb-4">
                                        <div>
-                                          <div className="text-xs font-black uppercase tracking-widest">A. LICENCIAMENTO (Imediato)</div>
-                                          <div className="text-[10px] opacity-50 italic">Fase de desenvolvimento e entrega documental (+ IVA)</div>
+                                          <div className="text-xs font-black uppercase tracking-widest">1. LICENCIAMENTO (Imediato)</div>
+                                          <div className="text-[10px] opacity-50 italic">Total devido à adjudicação inicial desta proposta (+ IVA)</div>
                                        </div>
                                        <div className="text-right">
                                           <div className="text-2xl font-mono font-black">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
@@ -565,8 +575,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                     {executionPhases.length > 0 && (
                                        <div className="flex justify-between items-end pt-4 border-t border-luxury-black/10 mt-2 opacity-80">
                                           <div>
-                                             <div className="text-xs font-bold uppercase text-luxury-gold tracking-widest">B. EXECUÇÃO (Opcional)</div>
-                                             <div className="text-[10px] opacity-50 italic">Valor condicionado à adjudicação pós-licenciamento (+ IVA)</div>
+                                             <div className="text-xs font-bold uppercase text-luxury-gold tracking-widest">2. EXECUÇÃO (Opcional)</div>
+                                             <div className="text-[10px] opacity-50 italic">Valor condicionado à adjudicação futura pós-licenciamento (+ IVA)</div>
                                           </div>
                                           <div className="text-right">
                                              <div className="text-2xl font-mono font-bold text-luxury-gold">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
