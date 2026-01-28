@@ -517,451 +517,456 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
                               {/* SECCAO 2: EXECUÇÃO (SE EXISTIR) */}
                               {executionPhases.length > 0 && (
-                                             <thead>
-                                                <tr className="border-b border-luxury-black/10">
-                                                   <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest opacity-40 pl-2">Marco de Entrega</th>
-                                                   <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">Peso</th>
-                                                   <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">Valor</th>
+                                 <div className="space-y-6 pt-8 mt-8 border-t border-luxury-black/5">
+                                    <div className="flex justify-between items-center">
+                                       <h5 className="font-bold text-xs uppercase text-luxury-black/60">2. Fase de Execução (Opcional)</h5>
+                                       <span className="text-[10px] bg-luxury-gold/20 text-luxury-gold px-2 py-0.5 rounded font-bold uppercase tracking-wider">Opcional</span>
+                                    </div>
+                                    <table className="w-full text-xs opacity-90">
+                                       <thead>
+                                          <tr className="border-b border-luxury-black/10">
+                                             <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest opacity-40 pl-2">Marco de Entrega</th>
+                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">Peso</th>
+                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">Valor</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody className="divide-y divide-luxury-black/5">
+                                          {executionPhases.map((p, i) => {
+                                             const relativePercentage = Math.round((p.value! / executionTotal) * 100);
+                                             return (
+                                                <tr key={i} className="hover:bg-luxury-gold/[0.01] transition-colors">
+                                                   <td className="py-4 pl-2 italic font-light opacity-50 border-b border-luxury-black/5">{p.phase.triggerPT}</td>
+                                                   <td className="py-4 text-right font-mono opacity-30 border-b border-luxury-black/5">{relativePercentage}%</td>
+                                                   <td className="py-4 text-right font-mono border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}</td>
                                                 </tr>
-                                             </thead>
-                                             <tbody className="divide-y divide-luxury-black/5">
-                                                {executionPhases.map((p, i) => {
-                                                   const relativePercentage = Math.round((p.value! / executionTotal) * 100);
-                                                   return (
-                                                      <tr key={i} className="hover:bg-luxury-gold/[0.01] transition-colors">
-                                                         <td className="py-4 pl-2 italic font-light opacity-50 border-b border-luxury-black/5">{p.phase.triggerPT}</td>
-                                                         <td className="py-4 text-right font-mono opacity-30 border-b border-luxury-black/5">{relativePercentage}%</td>
-                                                         <td className="py-4 text-right font-mono border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}</td>
-                                                      </tr>
-                                                   );
-                                                })}
-                                             </tbody>
-                                             <tfoot>
-                                                <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5 opacity-60">
-                                                   <td className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
-                                                   <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                                   <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                                </tr>
-                                             </tfoot>
-                                          </table>
+                                             );
+                                          })}
+                                       </tbody>
+                                       <tfoot>
+                                          <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5 opacity-60">
+                                             <td className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
+                                             <td className="py-2 text-right font-bold text-[10px]">100%</td>
+                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                          </tr>
+                                       </tfoot>
+                                    </table>
 
-                                          {/* SUMMARY BOX 2 */ }
-                        <div className="bg-luxury-black/[0.02] p-8 rounded-[40px] border border-luxury-black/5 flex justify-between items-center mt-4">
-                           <div>
-                              <div className="text-xs font-bold uppercase text-luxury-gold tracking-widest mb-1">2. EXECUÇÃO (OPCIONAL)</div>
-                              <div className="text-[10px] opacity-50 italic">Valor condicionado à adjudicação futura pós-licenciamento (+ IVA)</div>
-                           </div>
-                           <div className="text-4xl font-mono font-black text-luxury-gold/60">
-                              €{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                           </div>
-                        </div>
+                                    {/* SUMMARY BOX 2 */}
+                                    <div className="bg-luxury-black/[0.02] p-8 rounded-[40px] border border-luxury-black/5 flex justify-between items-center mt-4">
+                                       <div>
+                                          <div className="text-xs font-bold uppercase text-luxury-gold tracking-widest mb-1">2. EXECUÇÃO (OPCIONAL)</div>
+                                          <div className="text-[10px] opacity-50 italic">Valor condicionado à adjudicação futura pós-licenciamento (+ IVA)</div>
                                        </div>
-               )
-                                 }
-            </div>
-            );
+                                       <div className="text-4xl font-mono font-black text-luxury-gold/60">
+                                          €{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                       </div>
+                                    </div>
+                                 </div>
+                              )}
+                           </div>
+                        );
                      })()}
-         </section>
+                  </section>
 
-         {/* 8. Call to Action */}
-         <section className="pt-12 border-t border-luxury-black/5">
-            <div className="flex flex-col items-center py-10 bg-white border border-luxury-black text-luxury-black rounded-[3rem] space-y-6 shadow-sm">
-               <p className="text-[11px] font-black uppercase tracking-[0.3em]">Instrucoes de Adjudicacao</p>
-               <p className="text-xs font-light italic max-w-md text-center opacity-60">Para avancar, confirme por escrito a adjudicacao e proceda ao pagamento do sinal de processamento indicado nas condicoes financeiras.</p>
-               <div className="flex items-center gap-4 text-xs font-black uppercase tracking-widest border border-luxury-black/20 px-8 py-3 rounded-full">
-                  <ShieldCheck size={14} className="text-luxury-gold" />
-                  Pronto para Adjudicar
+                  {/* 8. Call to Action */}
+                  <section className="pt-12 border-t border-luxury-black/5">
+                     <div className="flex flex-col items-center py-10 bg-white border border-luxury-black text-luxury-black rounded-[3rem] space-y-6 shadow-sm">
+                        <p className="text-[11px] font-black uppercase tracking-[0.3em]">Instrucoes de Adjudicacao</p>
+                        <p className="text-xs font-light italic max-w-md text-center opacity-60">Para avancar, confirme por escrito a adjudicacao e proceda ao pagamento do sinal de processamento indicado nas condicoes financeiras.</p>
+                        <div className="flex items-center gap-4 text-xs font-black uppercase tracking-widest border border-luxury-black/20 px-8 py-3 rounded-full">
+                           <ShieldCheck size={14} className="text-luxury-gold" />
+                           Pronto para Adjudicar
+                        </div>
+                     </div>
+                     <p className="text-[10px] text-center mt-6 italic opacity-40">
+                        “A presente proposta reflete uma abordagem tecnica responsavel, orientada para a reducao de risco, controlo de custos e fluidez do processo ate a aprovacao.”
+                     </p>
+                  </section>
                </div>
             </div>
-            <p className="text-[10px] text-center mt-6 italic opacity-40">
-               “A presente proposta reflete uma abordagem tecnica responsavel, orientada para a reducao de risco, controlo de custos e fluidez do processo ate a aprovacao.”
-            </p>
-         </section>
-      </div >
-            </div >
 
-      {/* PAGINA 2: COMPARACAO (NOVO) */ }
-   {
-      data.comparisonData && data.comparisonData.length > 0 && (
-         <div className="page-break" style={{ pageBreakBefore: 'always', minHeight: '1100px', display: 'block' }}>
-            <header className="flex justify-between items-start border-b border-luxury-black pb-8 mb-12">
-               <h3 className="text-xs font-black uppercase tracking-[0.3em]">Opcoes de Investimento</h3>
-               <p className="text-[11px] font-mono opacity-50">REF: {data.internalRef} / COMPARATIVO</p>
-            </header>
+            {/* PAGINA 2: COMPARACAO (NOVO) */}
+            {
+               data.comparisonData && data.comparisonData.length > 0 && (
+                  <div className="page-break" style={{ pageBreakBefore: 'always', minHeight: '1100px', display: 'block' }}>
+                     <header className="flex justify-between items-start border-b border-luxury-black pb-8 mb-12">
+                        <h3 className="text-xs font-black uppercase tracking-[0.3em]">Opcoes de Investimento</h3>
+                        <p className="text-[11px] font-mono opacity-50">REF: {data.internalRef} / COMPARATIVO</p>
+                     </header>
 
-            <div className="grid grid-cols-3 gap-8">
-               {data.comparisonData.map((item: ComparisonItem, idx: number) => {
-                  if (!item || !item.result) return null;
-                  const isSelected = data.scenario === item.scenario;
+                     <div className="grid grid-cols-3 gap-8">
+                        {data.comparisonData.map((item: ComparisonItem, idx: number) => {
+                           if (!item || !item.result) return null;
+                           const isSelected = data.scenario === item.scenario;
 
-                  return (
-                     <div key={idx} className={`p-5 rounded-[2rem] border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
-                        <h4 className="text-xs font-black uppercase tracking-widest mb-4 flex items-center gap-2">
-                           {item.pack?.labelPT || item.scenario}
-                           {isSelected && <span className="text-[10px] bg-luxury-gold text-white px-2 py-0.5 rounded-full">Selecionado</span>}
-                        </h4>
+                           return (
+                              <div key={idx} className={`p-5 rounded-[2rem] border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
+                                 <h4 className="text-xs font-black uppercase tracking-widest mb-4 flex items-center gap-2">
+                                    {item.pack?.labelPT || item.scenario}
+                                    {isSelected && <span className="text-[10px] bg-luxury-gold text-white px-2 py-0.5 rounded-full">Selecionado</span>}
+                                 </h4>
 
-                        <div className="mb-6">
-                           <p className="text-2xl font-serif">€{item.result.feeTotal.toLocaleString()}</p>
-                           <p className="text-[10px] font-mono opacity-50">s/IVA (€{Math.round(item.result.feeTotal / (data.area || 1))} /m²)</p>
-                        </div>
-
-                        {/* Breakdown Mini-Matrix */}
-                        <div className="mb-6 space-y-2">
-                           <div className="flex justify-between items-end gap-2 text-[10px] bg-black/[0.02] px-4 py-2 rounded-lg border border-black/5">
-                              <div className="space-y-0.5">
-                                 <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ARQ.</span>
-                                 <span className="font-bold block">€{(item.result.feeArch || 0).toLocaleString()}</span>
-                              </div>
-                              <div className="space-y-0.5 text-right">
-                                 <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ENG.</span>
-                                 <span className="font-bold block">€{(item.result.feeSpec || 0).toLocaleString()}</span>
-                              </div>
-                           </div>
-                           <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-2 rounded-lg border border-luxury-gold/20">
-                              <div className="space-y-0.5">
-                                 <span className="block uppercase font-black opacity-60 text-luxury-gold text-[8px] tracking-tight">LIC.</span>
-                                 <span className="font-bold text-luxury-black/80 block">
-                                    €{(
-                                       (item.result.phasesBreakdown || [])
-                                          .filter(p => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)))
-                                          .reduce((acc, p) => acc + (p.value || 0), 0)
-                                    ).toLocaleString()}
-                                 </span>
-                              </div>
-                              <div className="space-y-0.5 text-right">
-                                 <span className="block uppercase font-black opacity-60 text-luxury-gold text-[8px] tracking-tight">EXEC.</span>
-                                 <span className="font-bold text-luxury-black/80 block">
-                                    €{(
-                                       (item.result.phasesBreakdown || [])
-                                          .filter(p => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)))
-                                          .reduce((acc, p) => acc + (p.value || 0), 0)
-                                    ).toLocaleString()}
-                                 </span>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div className="space-y-6">
-                           <div>
-                              <p className="text-[9px] uppercase font-black opacity-30 border-b border-luxury-black/10 pb-1 mb-2">Entregaveis</p>
-                              <ul className="space-y-2">
-                                 {item.pack?.deliverablesPT?.slice(0, 5).map((d: string, i: number) => (
-                                    <li key={i} className="text-[10px] font-light leading-tight opacity-70 flex items-start gap-2">
-                                       <span className="text-luxury-gold mt-1">●</span> {d}
-                                    </li>
-                                 ))}
-                              </ul>
-                           </div>
-
-                           <div className="grid grid-cols-2 gap-4 pt-4 border-t border-luxury-black/5">
-                              <div>
-                                 <p className="text-[9px] uppercase font-black opacity-30">Revisoes</p>
-                                 <p className="text-sm font-serif">{item.pack?.revisionsIncluded || 2}</p>
-                              </div>
-                              <div>
-                                 <p className="text-[9px] uppercase font-black opacity-30">Esforco</p>
-                                 <p className="text-sm font-serif">{Math.round(item.result.effortMap?.reduce((acc: number, c: { hours: number }) => acc + c.hours, 0) || 0)}h</p>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  );
-               })}
-            </div>
-         </div>
-      )
-   }
-
-   {/* QUEBRA DE PAGINA PARA ANEXO TECNICO */ }
-   {
-      includeAnnex && (
-         <div className="page-break" style={{ pageBreakBefore: 'always', marginTop: '4rem' }}>
-            <header className="flex justify-between items-start border-b border-luxury-black pb-8 mb-16">
-               <h3 className="text-xs font-black uppercase tracking-[0.3em]">Anexo Tecnico de Validacao</h3>
-               <p className="text-[11px] font-mono opacity-50">REF: {data.internalRef} / ANEXO</p>
-            </header>
-
-            <div className="space-y-16">
-               {/* Memoria Descritiva das Fases */}
-               <section className="space-y-8">
-                  <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-8">1. Detalhe do Ambito por Fase</h3>
-                  <div className="grid grid-cols-1 gap-12">
-                     {(data.phases || []).map((p, i) => {
-                        // Mapeamento de descrições expandidas por fase
-                        const phaseDetails: Record<string, { deliverables: string[], processes: string[], result: string }> = {
-                           'A0': {
-                              deliverables: [
-                                 'Levantamento completo de requisitos funcionais e espaciais',
-                                 'Analise de condicionantes legais e urbanisticas (PDM, RJUE)',
-                                 'Estudo de viabilidade construtiva e volumetrica',
-                                 'Programa preliminar de areas e compartimentacao',
-                                 'Analise de referencias e benchmark de mercado'
-                              ],
-                              processes: [
-                                 'Reunioes de briefing com o cliente (2-3 sessoes)',
-                                 'Visita tecnica ao local e analise contextual',
-                                 'Consulta preliminar de certidoes e plantas de localizacao',
-                                 'Validacao de objetivos e expectativas do investimento'
-                              ],
-                              result: 'Documento de Programa Base aprovado pelo cliente, servindo como fundacao estrategica para todas as fases subsequentes.'
-                           },
-                           'A1': {
-                              deliverables: [
-                                 'Plantas de implantacao e localizacao',
-                                 'Plantas de todos os pisos (escala 1:100 ou 1:200)',
-                                 'Alcados principais e cortes esquematicos',
-                                 'Perspetivas 3D ou maquetes volumetricas',
-                                 'Memoria descritiva e justificativa',
-                                 'Quadro de areas por tipologia/funcao'
-                              ],
-                              processes: [
-                                 'Desenvolvimento de 2-3 alternativas conceptuais',
-                                 'Estudos de insolacao e orientacao solar',
-                                 'Analise de acessos e circulacoes',
-                                 'Apresentacao ao cliente e recolha de feedback',
-                                 'Refinamento da solucao escolhida (ate 2 revisoes)'
-                              ],
-                              result: 'Estudo Previo aprovado pelo cliente, definindo a volumetria, organizacao funcional e linguagem arquitetonica do projeto.'
-                           },
-                           'A2': {
-                              deliverables: [
-                                 'Pecas desenhadas completas (plantas, alcados, cortes - 1:100)',
-                                 'Planta de implantacao georreferenciada',
-                                 'Memoria descritiva e justificativa tecnica',
-                                 'Fichas tecnicas de habitacao (se aplicavel)',
-                                 'Projetos de especialidades coordenados (Estruturas, Aguas, Eletricidade, AVAC)',
-                                 'Termos de responsabilidade de todas as disciplinas'
-                              ],
-                              processes: [
-                                 'Compatibilizacao 3D entre todas as especialidades',
-                                 'Verificacao de conformidade legal (RJUE, RGEU, Simplex)',
-                                 'Preparacao de formularios e requerimentos',
-                                 'Submissao digital na plataforma municipal',
-                                 'Acompanhamento processual e resposta a pedidos de esclarecimento'
-                              ],
-                              result: 'Processo de licenciamento submetido e aprovado pela Camara Municipal, com alvara de licenca de construcao emitido.'
-                           },
-                           'A3': {
-                              deliverables: [
-                                 'Pecas desenhadas de execucao (escala 1:50 e 1:20)',
-                                 'Plantas de acabamentos e revestimentos',
-                                 'Detalhes construtivos (pormenores 1:10, 1:5, 1:2)',
-                                 'Plantas de carpintarias (portas, janelas, armarios)',
-                                 'Especificacoes tecnicas de materiais e acabamentos',
-                                 'Caderno de encargos tecnico completo'
-                              ],
-                              processes: [
-                                 'Compatibilizacao 3D final (BIM clash detection)',
-                                 'Coordenacao interdisciplinar semanal',
-                                 'Validacao de solucoes construtivas com fornecedores',
-                                 'Otimizacao de custos e alternativas tecnicas',
-                                 'Revisao tecnica por coordenador de projeto'
-                              ],
-                              result: 'Projeto de Execucao completo e coordenado, pronto para consulta de empreiteiros e construcao sem ambiguidades.'
-                           },
-                           'A4': {
-                              deliverables: [
-                                 'Esclarecimentos tecnicos por escrito',
-                                 'Relatorios de visitas a obra (5 visitas incluidas)',
-                                 'Pareceres sobre materiais e solucoes alternativas',
-                                 'Desenhos de alteracoes pontuais (se necessario)',
-                                 'Validacao de amostras de acabamentos',
-                                 'Telas finais (as-built) do projeto executado'
-                              ],
-                              processes: [
-                                 'Reunioes de esclarecimento com empreiteiro',
-                                 'Visitas tecnicas periodicas a obra',
-                                 'Analise de RFIs (Request for Information)',
-                                 'Validacao de materiais e fornecedores',
-                                 'Suporte tecnico remoto (email/telefone)'
-                              ],
-                              result: 'Obra executada em conformidade com o projeto aprovado, com registo documental de todas as decisoes tecnicas.'
-                           }
-                        };
-
-                        const phaseId = p?.label?.split('.')[0] || '';
-                        const details = phaseDetails[phaseId];
-
-                        return (
-                           <div key={i} className="flex gap-6">
-                              <div className="w-12 h-12 rounded-full border border-luxury-black/10 flex items-center justify-center shrink-0">
-                                 <span className="font-serif italic text-lg text-luxury-gold">{i + 1}</span>
-                              </div>
-                              <div className="flex-1 space-y-6">
-                                 <div>
-                                    <h4 className="text-xs font-black uppercase tracking-widest mb-2">{p?.label || 'Fase'}</h4>
-                                    <p className="text-xs font-light italic opacity-60 leading-relaxed">{p?.description || ''}</p>
+                                 <div className="mb-6">
+                                    <p className="text-2xl font-serif">€{item.result.feeTotal.toLocaleString()}</p>
+                                    <p className="text-[10px] font-mono opacity-50">s/IVA (€{Math.round(item.result.feeTotal / (data.area || 1))} /m²)</p>
                                  </div>
 
-                                 {details && (
-                                    <>
-                                       {/* Entregaveis */}
-                                       <div className="bg-luxury-black/[0.02] rounded-xl p-6 border border-luxury-black/5">
-                                          <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-3">📦 Entregaveis</h5>
-                                          <ul className="space-y-2">
-                                             {details.deliverables.map((item, idx) => (
-                                                <li key={idx} className="text-[11px] font-light leading-relaxed opacity-70 flex items-start gap-2">
-                                                   <span className="text-luxury-gold mt-0.5">•</span>
-                                                   <span>{item}</span>
-                                                </li>
-                                             ))}
-                                          </ul>
+                                 {/* Breakdown Mini-Matrix */}
+                                 <div className="mb-6 space-y-2">
+                                    <div className="flex justify-between items-end gap-2 text-[10px] bg-black/[0.02] px-4 py-2 rounded-lg border border-black/5">
+                                       <div className="space-y-0.5">
+                                          <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ARQ.</span>
+                                          <span className="font-bold block">€{(item.result.feeArch || 0).toLocaleString()}</span>
                                        </div>
+                                       <div className="space-y-0.5 text-right">
+                                          <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ENG.</span>
+                                          <span className="font-bold block">€{(item.result.feeSpec || 0).toLocaleString()}</span>
+                                       </div>
+                                    </div>
+                                    <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-2 rounded-lg border border-luxury-gold/20">
+                                       <div className="space-y-0.5">
+                                          <span className="block uppercase font-black opacity-60 text-luxury-gold text-[8px] tracking-tight">LIC.</span>
+                                          <span className="font-bold text-luxury-black/80 block">
+                                             €{(
+                                                (item.result.phasesBreakdown || [])
+                                                   .filter(p => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)))
+                                                   .reduce((acc, p) => acc + (p.value || 0), 0)
+                                             ).toLocaleString()}
+                                          </span>
+                                       </div>
+                                       <div className="space-y-0.5 text-right">
+                                          <span className="block uppercase font-black opacity-60 text-luxury-gold text-[8px] tracking-tight">EXEC.</span>
+                                          <span className="font-bold text-luxury-black/80 block">
+                                             €{(
+                                                (item.result.phasesBreakdown || [])
+                                                   .filter(p => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)))
+                                                   .reduce((acc, p) => acc + (p.value || 0), 0)
+                                             ).toLocaleString()}
+                                          </span>
+                                       </div>
+                                    </div>
+                                 </div>
 
-                                       {/* Processos */}
-                                       <div className="bg-luxury-black/[0.02] rounded-xl p-6 border border-luxury-black/5">
-                                          <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-black/60 mb-3">⚙️ Processos</h5>
-                                          <ul className="space-y-2">
-                                             {details.processes.map((item, idx) => (
-                                                <li key={idx} className="text-[11px] font-light leading-relaxed opacity-70 flex items-start gap-2">
-                                                   <span className="text-luxury-black/40 mt-0.5">▸</span>
-                                                   <span>{item}</span>
-                                                </li>
-                                             ))}
-                                          </ul>
-                                       </div>
+                                 <div className="space-y-6">
+                                    <div>
+                                       <p className="text-[9px] uppercase font-black opacity-30 border-b border-luxury-black/10 pb-1 mb-2">Entregaveis</p>
+                                       <ul className="space-y-2">
+                                          {item.pack?.deliverablesPT?.slice(0, 5).map((d: string, i: number) => (
+                                             <li key={i} className="text-[10px] font-light leading-tight opacity-70 flex items-start gap-2">
+                                                <span className="text-luxury-gold mt-1">●</span> {d}
+                                             </li>
+                                          ))}
+                                       </ul>
+                                    </div>
 
-                                       {/* Resultado Final */}
-                                       <div className="border-l-2 border-luxury-gold pl-4">
-                                          <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-2">✅ Resultado Final</h5>
-                                          <p className="text-[11px] font-light italic opacity-70 leading-relaxed">{details.result}</p>
+                                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-luxury-black/5">
+                                       <div>
+                                          <p className="text-[9px] uppercase font-black opacity-30">Revisoes</p>
+                                          <p className="text-sm font-serif">{item.pack?.revisionsIncluded || 2}</p>
                                        </div>
-                                    </>
-                                 )}
+                                       <div>
+                                          <p className="text-[9px] uppercase font-black opacity-30">Esforco</p>
+                                          <p className="text-sm font-serif">{Math.round(item.result.effortMap?.reduce((acc: number, c: { hours: number }) => acc + c.hours, 0) || 0)}h</p>
+                                       </div>
+                                    </div>
+                                 </div>
                               </div>
-                           </div>
-                        );
-                     })}
-                  </div>
-               </section>
-
-               {/* Especialidades Integradas */}
-               <section className="space-y-6">
-                  <h3 className="text-[11px] font-black uppercase tracking-[0.2em] border-b border-luxury-black/5 pb-3">2. Disciplinas Tecnicas Coordenadas</h3>
-                  <div className="grid grid-cols-3 gap-4 text-[11px] font-light italic opacity-60">
-                     {(data.activeSpecs || []).map((specId, i) => {
-                        const spec = disciplines.find(d => d.disciplineId === specId);
-                        return (
-                           <div key={i} className="flex gap-2 items-center">
-                              <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
-                              <span>{spec?.labelPT || specId}</span>
-                           </div>
-                        );
-                     })}
-                  </div>
-               </section>
-
-               {/* Mapa de Esforco Tecnico (DO PASSO 3) */}
-               <section className="space-y-8">
-                  <div className="flex justify-between items-end border-b border-luxury-black/5 pb-3">
-                     <h3 className="text-[11px] font-black uppercase tracking-[0.2em]">3. Mapa de Esforco Tecnico</h3>
-                     <p className="text-[10px] font-mono opacity-40">Estimativa baseada em benchmarks internos</p>
-                  </div>
-                  <div className="overflow-hidden rounded-2xl border border-luxury-black/10">
-                     <table className="w-full text-left text-[11px]">
-                        <thead className="bg-luxury-black/[0.02]">
-                           <tr>
-                              <th className="px-6 py-4 font-black uppercase tracking-[0.1em]">Fase</th>
-                              <th className="px-6 py-4 font-black uppercase tracking-[0.1em]">Esforco (h)</th>
-                              <th className="px-6 py-4 font-black uppercase tracking-[0.1em]">Responsabilidade</th>
-                           </tr>
-                        </thead>
-                        <tbody className="divide-y divide-luxury-black/5">
-                           {(data.effortMap || []).map((eff, i) => (
-                              <tr key={i} className="font-light italic">
-                                 <td className="px-6 py-3 opacity-70">{eff?.label || ''}</td>
-                                 <td className="px-6 py-3 font-mono">{eff?.hours || 0} h</td>
-                                 <td className="px-6 py-3 opacity-40 text-[10px]">{eff?.profile || ''}</td>
-                              </tr>
-                           ))}
-                        </tbody>
-                     </table>
-                  </div>
-               </section>
-
-               {/* Notas Finais / Condicoes */}
-               <section className="grid grid-cols-1 md:grid-cols-2 gap-16 text-[11px]">
-                  <div className="space-y-4">
-                     <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">Faturacao e Pagamentos</h4>
-                     <ul className="space-y-2 text-[11px] font-light italic opacity-60">
-                        <li>Adjudicacao: 20% do valor global de honorarios.</li>
-                        <li>Restantes 80%: Faturacao mensal conforme progresso das fases.</li>
-                        <li>IVA nao incluido nos valores base (taxa legal em vigor).</li>
-                     </ul>
-                  </div>
-                  <div className="space-y-4">
-                     <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Suporte Camarario (RJUE)</h4>
-                     <p className="text-[11px] font-light italic opacity-60 leading-relaxed">
-                        A presente proposta garante conformidade com o <b>Decreto-Lei 10/2024 (Simplex)</b>. A responsabilidade tecnica inclui submissao e acompanhamento processual ate decisao final.
-                     </p>
-                  </div>
-               </section>
-            </div>
-         </div>
-      )
-   }
-
-   {/* Anexo Tecnico (Passo 9) */ }
-   {
-      includeAnnex && (
-         <div className="mt-20 pt-10 border-t border-black/10 page-break pb-10">
-            <h3 className="text-xl font-serif italic mb-6">III. Ambito Tecnico por Especialidade</h3>
-            <p className="text-[11px] opacity-60 mb-8 italic uppercase tracking-widest leading-relaxed">
-               Detalhamento dos servicos de engenharia integrados na proposta,
-               assegurando a conformidade normativa e a coordenacao interdisciplinar.
-            </p>
-
-            <div className="space-y-10">
-               {data.selectedSpecs?.map((specId: string) => {
-                  const spec = disciplines.find(d => d.disciplineId === specId);
-                  if (!spec || !spec.phases) return null;
-
-                  return (
-                     <div key={specId} className="space-y-4">
-                        <div className="flex items-center gap-3">
-                           <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
-                           <h4 className="text-xs font-bold uppercase tracking-widest">{spec.labelPT}</h4>
-                        </div>
-                        <div className="grid grid-cols-1 gap-4 ml-4">
-                           {spec.phases.map((ph) => (
-                              <div key={ph.phaseId} className="space-y-1">
-                                 <p className="text-[10px] font-bold uppercase opacity-80">
-                                    {ph.phaseId} — {ph.labelPT}
-                                 </p>
-                                 <p className="text-[11px] font-light italic leading-relaxed opacity-60">
-                                    {ph.shortPT}
-                                 </p>
-                              </div>
-                           ))}
-                        </div>
+                           );
+                        })}
                      </div>
-                  );
-               })}
+                  </div>
+               )
+            }
+
+            {/* QUEBRA DE PAGINA PARA ANEXO TECNICO */}
+            {
+               includeAnnex && (
+                  <div className="page-break" style={{ pageBreakBefore: 'always', marginTop: '4rem' }}>
+                     <header className="flex justify-between items-start border-b border-luxury-black pb-8 mb-16">
+                        <h3 className="text-xs font-black uppercase tracking-[0.3em]">Anexo Tecnico de Validacao</h3>
+                        <p className="text-[11px] font-mono opacity-50">REF: {data.internalRef} / ANEXO</p>
+                     </header>
+
+                     <div className="space-y-16">
+                        {/* Memoria Descritiva das Fases */}
+                        <section className="space-y-8">
+                           <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-8">1. Detalhe do Ambito por Fase</h3>
+                           <div className="grid grid-cols-1 gap-12">
+                              {(data.phases || []).map((p, i) => {
+                                 // Mapeamento de descrições expandidas por fase
+                                 const phaseDetails: Record<string, { deliverables: string[], processes: string[], result: string }> = {
+                                    'A0': {
+                                       deliverables: [
+                                          'Levantamento completo de requisitos funcionais e espaciais',
+                                          'Analise de condicionantes legais e urbanisticas (PDM, RJUE)',
+                                          'Estudo de viabilidade construtiva e volumetrica',
+                                          'Programa preliminar de areas e compartimentacao',
+                                          'Analise de referencias e benchmark de mercado'
+                                       ],
+                                       processes: [
+                                          'Reunioes de briefing com o cliente (2-3 sessoes)',
+                                          'Visita tecnica ao local e analise contextual',
+                                          'Consulta preliminar de certidoes e plantas de localizacao',
+                                          'Validacao de objetivos e expectativas do investimento'
+                                       ],
+                                       result: 'Documento de Programa Base aprovado pelo cliente, servindo como fundacao estrategica para todas as fases subsequentes.'
+                                    },
+                                    'A1': {
+                                       deliverables: [
+                                          'Plantas de implantacao e localizacao',
+                                          'Plantas de todos os pisos (escala 1:100 ou 1:200)',
+                                          'Alcados principais e cortes esquematicos',
+                                          'Perspetivas 3D ou maquetes volumetricas',
+                                          'Memoria descritiva e justificativa',
+                                          'Quadro de areas por tipologia/funcao'
+                                       ],
+                                       processes: [
+                                          'Desenvolvimento de 2-3 alternativas conceptuais',
+                                          'Estudos de insolacao e orientacao solar',
+                                          'Analise de acessos e circulacoes',
+                                          'Apresentacao ao cliente e recolha de feedback',
+                                          'Refinamento da solucao escolhida (ate 2 revisoes)'
+                                       ],
+                                       result: 'Estudo Previo aprovado pelo cliente, definindo a volumetria, organizacao funcional e linguagem arquitetonica do projeto.'
+                                    },
+                                    'A2': {
+                                       deliverables: [
+                                          'Pecas desenhadas completas (plantas, alcados, cortes - 1:100)',
+                                          'Planta de implantacao georreferenciada',
+                                          'Memoria descritiva e justificativa tecnica',
+                                          'Fichas tecnicas de habitacao (se aplicavel)',
+                                          'Projetos de especialidades coordenados (Estruturas, Aguas, Eletricidade, AVAC)',
+                                          'Termos de responsabilidade de todas as disciplinas'
+                                       ],
+                                       processes: [
+                                          'Compatibilizacao 3D entre todas as especialidades',
+                                          'Verificacao de conformidade legal (RJUE, RGEU, Simplex)',
+                                          'Preparacao de formularios e requerimentos',
+                                          'Submissao digital na plataforma municipal',
+                                          'Acompanhamento processual e resposta a pedidos de esclarecimento'
+                                       ],
+                                       result: 'Processo de licenciamento submetido e aprovado pela Camara Municipal, com alvara de licenca de construcao emitido.'
+                                    },
+                                    'A3': {
+                                       deliverables: [
+                                          'Pecas desenhadas de execucao (escala 1:50 e 1:20)',
+                                          'Plantas de acabamentos e revestimentos',
+                                          'Detalhes construtivos (pormenores 1:10, 1:5, 1:2)',
+                                          'Plantas de carpintarias (portas, janelas, armarios)',
+                                          'Especificacoes tecnicas de materiais e acabamentos',
+                                          'Caderno de encargos tecnico completo'
+                                       ],
+                                       processes: [
+                                          'Compatibilizacao 3D final (BIM clash detection)',
+                                          'Coordenacao interdisciplinar semanal',
+                                          'Validacao de solucoes construtivas com fornecedores',
+                                          'Otimizacao de custos e alternativas tecnicas',
+                                          'Revisao tecnica por coordenador de projeto'
+                                       ],
+                                       result: 'Projeto de Execucao completo e coordenado, pronto para consulta de empreiteiros e construcao sem ambiguidades.'
+                                    },
+                                    'A4': {
+                                       deliverables: [
+                                          'Esclarecimentos tecnicos por escrito',
+                                          'Relatorios de visitas a obra (5 visitas incluidas)',
+                                          'Pareceres sobre materiais e solucoes alternativas',
+                                          'Desenhos de alteracoes pontuais (se necessario)',
+                                          'Validacao de amostras de acabamentos',
+                                          'Telas finais (as-built) do projeto executado'
+                                       ],
+                                       processes: [
+                                          'Reunioes de esclarecimento com empreiteiro',
+                                          'Visitas tecnicas periodicas a obra',
+                                          'Analise de RFIs (Request for Information)',
+                                          'Validacao de materiais e fornecedores',
+                                          'Suporte tecnico remoto (email/telefone)'
+                                       ],
+                                       result: 'Obra executada em conformidade com o projeto aprovado, com registo documental de todas as decisoes tecnicas.'
+                                    }
+                                 };
+
+                                 const phaseId = p?.label?.split('.')[0] || '';
+                                 const details = phaseDetails[phaseId];
+
+                                 return (
+                                    <div key={i} className="flex gap-6">
+                                       <div className="w-12 h-12 rounded-full border border-luxury-black/10 flex items-center justify-center shrink-0">
+                                          <span className="font-serif italic text-lg text-luxury-gold">{i + 1}</span>
+                                       </div>
+                                       <div className="flex-1 space-y-6">
+                                          <div>
+                                             <h4 className="text-xs font-black uppercase tracking-widest mb-2">{p?.label || 'Fase'}</h4>
+                                             <p className="text-xs font-light italic opacity-60 leading-relaxed">{p?.description || ''}</p>
+                                          </div>
+
+                                          {details && (
+                                             <>
+                                                {/* Entregaveis */}
+                                                <div className="bg-luxury-black/[0.02] rounded-xl p-6 border border-luxury-black/5">
+                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-3">📦 Entregaveis</h5>
+                                                   <ul className="space-y-2">
+                                                      {details.deliverables.map((item, idx) => (
+                                                         <li key={idx} className="text-[11px] font-light leading-relaxed opacity-70 flex items-start gap-2">
+                                                            <span className="text-luxury-gold mt-0.5">•</span>
+                                                            <span>{item}</span>
+                                                         </li>
+                                                      ))}
+                                                   </ul>
+                                                </div>
+
+                                                {/* Processos */}
+                                                <div className="bg-luxury-black/[0.02] rounded-xl p-6 border border-luxury-black/5">
+                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-black/60 mb-3">⚙️ Processos</h5>
+                                                   <ul className="space-y-2">
+                                                      {details.processes.map((item, idx) => (
+                                                         <li key={idx} className="text-[11px] font-light leading-relaxed opacity-70 flex items-start gap-2">
+                                                            <span className="text-luxury-black/40 mt-0.5">▸</span>
+                                                            <span>{item}</span>
+                                                         </li>
+                                                      ))}
+                                                   </ul>
+                                                </div>
+
+                                                {/* Resultado Final */}
+                                                <div className="border-l-2 border-luxury-gold pl-4">
+                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-2">✅ Resultado Final</h5>
+                                                   <p className="text-[11px] font-light italic opacity-70 leading-relaxed">{details.result}</p>
+                                                </div>
+                                             </>
+                                          )}
+                                       </div>
+                                    </div>
+                                 );
+                              })}
+                           </div>
+                        </section>
+
+                        {/* Especialidades Integradas */}
+                        <section className="space-y-6">
+                           <h3 className="text-[11px] font-black uppercase tracking-[0.2em] border-b border-luxury-black/5 pb-3">2. Disciplinas Tecnicas Coordenadas</h3>
+                           <div className="grid grid-cols-3 gap-4 text-[11px] font-light italic opacity-60">
+                              {(data.activeSpecs || []).map((specId, i) => {
+                                 const spec = disciplines.find(d => d.disciplineId === specId);
+                                 return (
+                                    <div key={i} className="flex gap-2 items-center">
+                                       <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
+                                       <span>{spec?.labelPT || specId}</span>
+                                    </div>
+                                 );
+                              })}
+                           </div>
+                        </section>
+
+                        {/* Mapa de Esforco Tecnico (DO PASSO 3) */}
+                        <section className="space-y-8">
+                           <div className="flex justify-between items-end border-b border-luxury-black/5 pb-3">
+                              <h3 className="text-[11px] font-black uppercase tracking-[0.2em]">3. Mapa de Esforco Tecnico</h3>
+                              <p className="text-[10px] font-mono opacity-40">Estimativa baseada em benchmarks internos</p>
+                           </div>
+                           <div className="overflow-hidden rounded-2xl border border-luxury-black/10">
+                              <table className="w-full text-left text-[11px]">
+                                 <thead className="bg-luxury-black/[0.02]">
+                                    <tr>
+                                       <th className="px-6 py-4 font-black uppercase tracking-[0.1em]">Fase</th>
+                                       <th className="px-6 py-4 font-black uppercase tracking-[0.1em]">Esforco (h)</th>
+                                       <th className="px-6 py-4 font-black uppercase tracking-[0.1em]">Responsabilidade</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody className="divide-y divide-luxury-black/5">
+                                    {(data.effortMap || []).map((eff, i) => (
+                                       <tr key={i} className="font-light italic">
+                                          <td className="px-6 py-3 opacity-70">{eff?.label || ''}</td>
+                                          <td className="px-6 py-3 font-mono">{eff?.hours || 0} h</td>
+                                          <td className="px-6 py-3 opacity-40 text-[10px]">{eff?.profile || ''}</td>
+                                       </tr>
+                                    ))}
+                                 </tbody>
+                              </table>
+                           </div>
+                        </section>
+
+                        {/* Notas Finais / Condicoes */}
+                        <section className="grid grid-cols-1 md:grid-cols-2 gap-16 text-[11px]">
+                           <div className="space-y-4">
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">Faturacao e Pagamentos</h4>
+                              <ul className="space-y-2 text-[11px] font-light italic opacity-60">
+                                 <li>Adjudicacao: 20% do valor global de honorarios.</li>
+                                 <li>Restantes 80%: Faturacao mensal conforme progresso das fases.</li>
+                                 <li>IVA nao incluido nos valores base (taxa legal em vigor).</li>
+                              </ul>
+                           </div>
+                           <div className="space-y-4">
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Suporte Camarario (RJUE)</h4>
+                              <p className="text-[11px] font-light italic opacity-60 leading-relaxed">
+                                 A presente proposta garante conformidade com o <b>Decreto-Lei 10/2024 (Simplex)</b>. A responsabilidade tecnica inclui submissao e acompanhamento processual ate decisao final.
+                              </p>
+                           </div>
+                        </section>
+                     </div>
+                  </div>
+               )
+            }
+
+            {/* Anexo Tecnico (Passo 9) */}
+            {
+               includeAnnex && (
+                  <div className="mt-20 pt-10 border-t border-black/10 page-break pb-10">
+                     <h3 className="text-xl font-serif italic mb-6">III. Ambito Tecnico por Especialidade</h3>
+                     <p className="text-[11px] opacity-60 mb-8 italic uppercase tracking-widest leading-relaxed">
+                        Detalhamento dos servicos de engenharia integrados na proposta,
+                        assegurando a conformidade normativa e a coordenacao interdisciplinar.
+                     </p>
+
+                     <div className="space-y-10">
+                        {data.selectedSpecs?.map((specId: string) => {
+                           const spec = disciplines.find(d => d.disciplineId === specId);
+                           if (!spec || !spec.phases) return null;
+
+                           return (
+                              <div key={specId} className="space-y-4">
+                                 <div className="flex items-center gap-3">
+                                    <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
+                                    <h4 className="text-xs font-bold uppercase tracking-widest">{spec.labelPT}</h4>
+                                 </div>
+                                 <div className="grid grid-cols-1 gap-4 ml-4">
+                                    {spec.phases.map((ph) => (
+                                       <div key={ph.phaseId} className="space-y-1">
+                                          <p className="text-[10px] font-bold uppercase opacity-80">
+                                             {ph.phaseId} — {ph.labelPT}
+                                          </p>
+                                          <p className="text-[11px] font-light italic leading-relaxed opacity-60">
+                                             {ph.shortPT}
+                                          </p>
+                                       </div>
+                                    ))}
+                                 </div>
+                              </div>
+                           );
+                        })}
+                     </div>
+
+
+                  </div>
+               )
+            }
+
+            {/* Rodape Documento */}
+            <footer className="mt-24 pt-12 border-t border-luxury-black/10 flex justify-between items-end">
+               <div className="space-y-2">
+                  <p className="text-xs font-black uppercase tracking-[0.3em] opacity-50">Jose Miguel Rebelo Ferreira, Arquitetos</p>
+               </div>
+               <div className="text-right text-[10px] opacity-50 font-light italic">
+                  FERREIRARQUITETOS • Aveiro • https://ferreira-arquitetos.pt/
+               </div>
+            </footer>
+
+            {/* Pág. Final: CONTRA-CAPA */}
+            <div className="w-full h-[1123px] relative page-break-before-always p-0 bg-white flex flex-col items-center justify-center">
+               <div className="w-[90%] h-[90%] relative overflow-hidden">
+                  <img src="/assets/cover-back.jpg" alt="Contra-Capa" className="w-full h-full object-contain" />
+               </div>
             </div>
-
-
          </div>
-      )
-   }
-
-   {/* Rodape Documento */ }
-   <footer className="mt-24 pt-12 border-t border-luxury-black/10 flex justify-between items-end">
-      <div className="space-y-2">
-         <p className="text-xs font-black uppercase tracking-[0.3em] opacity-50">Jose Miguel Rebelo Ferreira, Arquitetos</p>
-      </div>
-      <div className="text-right text-[10px] opacity-50 font-light italic">
-         FERREIRARQUITETOS • Aveiro • https://ferreira-arquitetos.pt/
-      </div>
-   </footer>
-
-   {/* Pág. Final: CONTRA-CAPA */ }
-   <div className="w-full h-[1123px] relative page-break-before-always p-0 bg-white flex flex-col items-center justify-center">
-      <div className="w-[90%] h-[90%] relative overflow-hidden">
-         <img src="/assets/cover-back.jpg" alt="Contra-Capa" className="w-full h-full object-contain" />
-      </div>
-   </div>
-         </div >
       </>
    );
 }
