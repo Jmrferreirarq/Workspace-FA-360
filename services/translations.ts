@@ -162,9 +162,11 @@ export const translations = {
     calc_scope_phase: "Ambito de Prestacao por Fase",
     calc_cond_excl: "Condicoes & Exclusoes",
     calc_exec_deadline: "Prazo de Execucao",
-    calc_exec_deadline_desc_premium: "Prazos estimados de execucao tecnica: 18 a 24 semanas (sujeito a alteracoes por parte de entidades externas e aprovacoes camarias).",
-    calc_exec_deadline_desc_standard: "Prazos estimados de execucao tecnica: 10 a 14 semanas (sujeito a alteracoes por parte de entidades externas e aprovacoes camarias).",
+    calc_exec_deadline_desc_premium: "Prazos estimados de execucao tecnica: 18 a 24 semanas (4,5 a 6 meses) (sujeito a alteracoes por parte de entidades externas e aprovacoes camarias).",
+    calc_exec_deadline_desc_standard: "Prazos estimados de execucao tecnica: 10 a 14 semanas (2,5 a 3,5 meses) (sujeito a alteracoes por parte de entidades externas e aprovacoes camarias).",
     calc_excl_support: "Exclusoes de Suporte",
+    calc_excl_arch: "Exclusoes de Arquitetura",
+    calc_excl_eng: "Exclusoes de Engenharias",
     calc_est_investment: "Investimento Estimado",
     calc_vat_legal: "+ IVA a taxa legal",
     calc_arch_design: "Arquitetura (Design & Tech)",
@@ -219,8 +221,8 @@ export const translations = {
     calc_propagate_antigravity: "Propagar para Antigravity",
     calc_create_project: "Criar Projeto",
     calc_project_proposal: "Projeto + Proposta",
-    
-    
+
+
     calc_waiting_data: "Selecione um modelo e indique a area para visualizar o detalhe.",
 
     // Dashboard Specific
@@ -285,7 +287,7 @@ export const translations = {
     timer_description: "O que estiveste a fazer?",
     timer_phase: "Fase",
     timer_cancel: "Cancelar",
-    
+
     // Proposals
     prop_kicker: "Pipeline Comercial & Conversao",
     prop_title_prefix: "Propostas",
@@ -560,9 +562,11 @@ export const translations = {
     calc_scope_phase: "Scope of Service by Phase",
     calc_cond_excl: "Conditions & Exclusions",
     calc_exec_deadline: "Execution Deadline",
-    calc_exec_deadline_desc_premium: "Estimated technical execution deadlines: 18 to 24 weeks (subject to changes by external entities and municipal approvals).",
-    calc_exec_deadline_desc_standard: "Estimated technical execution deadlines: 10 to 14 weeks (subject to changes by external entities and municipal approvals).",
+    calc_exec_deadline_desc_premium: "Estimated technical execution deadlines: 18 to 24 weeks (4.5 to 6 months) (subject to changes by external entities and municipal approvals).",
+    calc_exec_deadline_desc_standard: "Estimated technical execution deadlines: 10 to 14 weeks (2.5 to 3.5 months) (subject to changes by external entities and municipal approvals).",
     calc_excl_support: "Support Exclusions",
+    calc_excl_arch: "Architecture Exclusions",
+    calc_excl_eng: "Engineering Exclusions",
     calc_est_investment: "Estimated Investment",
     calc_vat_legal: "+ VAT at legal rate",
     calc_arch_design: "Architecture (Design & Tech)",
@@ -617,7 +621,7 @@ export const translations = {
     calc_propagate_antigravity: "Propagate to Antigravity",
     calc_create_project: "Create Project",
     calc_project_proposal: "Project + Proposal",
-    
+
 
     // Dashboard Specific
     op_command: "Operational Command",
