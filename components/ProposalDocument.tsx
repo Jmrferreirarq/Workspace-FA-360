@@ -2,6 +2,7 @@
 // Heartbeat 2.0 - Final Build Fix
 
 import { disciplines } from '../services/feeData';
+import { getPaymentModelForTemplate, calculatePaymentValues } from '../services/paymentModels';
 import { ShieldCheck, MapPin } from 'lucide-react';
 
 interface ProposalPhase {
@@ -447,6 +448,50 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            <li>• Certificacoes energeticas e auditorias pos-construcao.</li>
                         </ul>
                      </div>
+                  </section>
+
+                  {/* PLANO DE PAGAMENTOS */}
+                  <section className="space-y-6 pt-8">
+                     <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Plano de Pagamentos</h4>
+
+                     {(() => {
+                        const paymentModel = getPaymentModelForTemplate(data.templateName);
+                        const totalFee = (data.feeArch || 0) + (data.feeSpec || 0);
+                        const paymentValues = calculatePaymentValues(totalFee, paymentModel);
+
+                        return (
+                           <div className="space-y-4">
+                              <table className="w-full text-xs">
+                                 <thead>
+                                    <tr className="border-b border-luxury-black/10">
+                                       <th className="text-left font-black py-2 w-16">Fase</th>
+                                       <th className="text-left font-black py-2">Marco de Entrega</th>
+                                       <th className="text-right font-black py-2 w-20">%</th>
+                                       <th className="text-right font-black py-2 w-32">Valor</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {paymentValues.map(({ phase, value }, idx) => (
+                                       <tr key={idx} className="border-b border-luxury-black/5">
+                                          <td className="py-3 font-medium">{phase.phaseNumber}</td>
+                                          <td className="py-3 opacity-70">{phase.triggerPT}</td>
+                                          <td className="py-3 text-right font-medium">{phase.percentage}%</td>
+                                          <td className="py-3 text-right font-mono">€{value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                       </tr>
+                                    ))}
+                                 </tbody>
+                                 <tfoot>
+                                    <tr className="border-t-2 border-luxury-black/20">
+                                       <td colSpan={2} className="py-3 font-black uppercase">TOTAL</td>
+                                       <td className="py-3 text-right font-black">100%</td>
+                                       <td className="py-3 text-right font-mono font-black">€{totalFee.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                    </tr>
+                                 </tfoot>
+                              </table>
+                              <p className="text-[10px] italic opacity-50 text-right">+ IVA a taxa legal</p>
+                           </div>
+                        );
+                     })()}
                   </section>
 
 
