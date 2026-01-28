@@ -30,25 +30,25 @@ const licenciamentoModel: PaymentModel = {
     phases: [
         {
             phaseNumber: 1,
-            labelPT: "Sinal",
-            labelEN: "Down Payment",
+            labelPT: "Adjudicacao",
+            labelEN: "Award",
             percentage: 30,
-            triggerPT: "Assinatura do contrato",
-            triggerEN: "Contract signature",
-            activatesPhases: ["A0", "A1"],
-            descriptionPT: "Inicia desenvolvimento do Programa Base e Estudo Previo",
-            descriptionEN: "Initiates Briefing and Schematic Design development"
+            triggerPT: "Adjudicacao",
+            triggerEN: "Project award",
+            activatesPhases: ["A0"],
+            descriptionPT: "Inicia desenvolvimento do Programa Base",
+            descriptionEN: "Initiates Briefing development"
         },
         {
             phaseNumber: 2,
-            labelPT: "Desenvolvimento",
-            labelEN: "Development",
+            labelPT: "Programa Base",
+            labelEN: "Briefing",
             percentage: 40,
-            triggerPT: "Aprovacao do Estudo Previo",
-            triggerEN: "Schematic Design approval",
-            activatesPhases: ["A2"],
-            descriptionPT: "Desenvolvimento do projeto de licenciamento",
-            descriptionEN: "Permitting project development"
+            triggerPT: "Programa Base aprovado",
+            triggerEN: "Briefing approved",
+            activatesPhases: ["A1", "A2"],
+            descriptionPT: "Desenvolvimento do Estudo Previo e Licenciamento",
+            descriptionEN: "Schematic Design and Permitting development"
         },
         {
             phaseNumber: 3,
@@ -92,25 +92,25 @@ const execucaoModel: PaymentModel = {
     phases: [
         {
             phaseNumber: 1,
-            labelPT: "Sinal",
-            labelEN: "Down Payment",
+            labelPT: "Adjudicacao",
+            labelEN: "Award",
             percentage: 25,
-            triggerPT: "Assinatura do contrato",
-            triggerEN: "Contract signature",
-            activatesPhases: ["A0", "A1"],
-            descriptionPT: "Inicia desenvolvimento do Programa Base e Estudo Previo",
-            descriptionEN: "Initiates Briefing and Schematic Design"
+            triggerPT: "Adjudicacao",
+            triggerEN: "Project award",
+            activatesPhases: ["A0"],
+            descriptionPT: "Inicia desenvolvimento do Programa Base",
+            descriptionEN: "Initiates Briefing"
         },
         {
             phaseNumber: 2,
-            labelPT: "Licenciamento",
-            labelEN: "Permitting",
+            labelPT: "Programa Base",
+            labelEN: "Briefing",
             percentage: 25,
-            triggerPT: "Aprovacao do Estudo Previo",
-            triggerEN: "Schematic Design approval",
-            activatesPhases: ["A2"],
-            descriptionPT: "Desenvolvimento do projeto de licenciamento",
-            descriptionEN: "Permitting project development"
+            triggerPT: "Programa Base aprovado",
+            triggerEN: "Briefing approved",
+            activatesPhases: ["A1", "A2"],
+            descriptionPT: "Desenvolvimento do Estudo Previo e Licenciamento",
+            descriptionEN: "Schematic Design and Permitting"
         },
         {
             phaseNumber: 3,
@@ -161,25 +161,25 @@ const hibridoModel: PaymentModel = {
     phases: [
         {
             phaseNumber: 1,
-            labelPT: "Sinal",
-            labelEN: "Down Payment",
+            labelPT: "Adjudicacao",
+            labelEN: "Award",
             percentage: 30,
-            triggerPT: "Assinatura do contrato",
-            triggerEN: "Contract signature",
-            activatesPhases: ["A0", "A1"],
-            descriptionPT: "Inicia desenvolvimento do Programa Base e Estudo Previo",
-            descriptionEN: "Initiates Briefing and Schematic Design"
+            triggerPT: "Adjudicacao",
+            triggerEN: "Project award",
+            activatesPhases: ["A0"],
+            descriptionPT: "Inicia desenvolvimento do Programa Base",
+            descriptionEN: "Initiates Briefing"
         },
         {
             phaseNumber: 2,
-            labelPT: "Licenciamento",
-            labelEN: "Permitting",
+            labelPT: "Programa Base",
+            labelEN: "Briefing",
             percentage: 35,
-            triggerPT: "Aprovacao do Estudo Previo",
-            triggerEN: "Schematic Design approval",
-            activatesPhases: ["A2"],
-            descriptionPT: "Projeto de licenciamento + Especialidades",
-            descriptionEN: "Permitting project + Engineering"
+            triggerPT: "Programa Base aprovado",
+            triggerEN: "Briefing approved",
+            activatesPhases: ["A1", "A2"],
+            descriptionPT: "Estudo Previo e Licenciamento + Especialidades",
+            descriptionEN: "Schematic Design and Permitting + Engineering"
         },
         {
             phaseNumber: 3,
@@ -221,11 +221,11 @@ const legalizacaoModel: PaymentModel = {
     phases: [
         {
             phaseNumber: 1,
-            labelPT: "Sinal",
-            labelEN: "Down Payment",
+            labelPT: "Adjudicacao",
+            labelEN: "Award",
             percentage: 50,
-            triggerPT: "Assinatura do contrato",
-            triggerEN: "Contract signature",
+            triggerPT: "Adjudicacao",
+            triggerEN: "Project award",
             activatesPhases: ["A0"],
             descriptionPT: "Inicia levantamento e analise de viabilidade",
             descriptionEN: "Initiates survey and feasibility analysis"
