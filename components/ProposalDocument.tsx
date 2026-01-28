@@ -339,9 +339,10 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      {/* MATRIZ UNIFICADA - The "Holy Grid" of Fees */}
                      {(() => {
                         // Ratios para distribuicao
-                        const total = data.feeTotal || 1;
-                        const licRatio = stages.licensing.value / total;
-                        // const execRatio = stages.execution.value / total;
+                        const paymentModel = getPaymentModelForTemplate(data.templateName);
+                        // Default to 100/0 if no split defined (legacy fallback)
+                        const licRatio = paymentModel.baseSplit ? paymentModel.baseSplit.licensing : 1.0;
+                        // execRatio used implicitly by subtraction
 
                         // Calculo de celulas (Safe rounding)
                         const archLic = Math.round(data.feeArch * licRatio);
@@ -417,7 +418,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      })()}
 
                      <p className="text-[9px] italic opacity-50 max-w-sm text-center leading-relaxed">
-                        Nota: A fase de **Execução** (40%) é facultativa e só avança por decisão do cliente após a aprovação do licenciamento, garantindo total controlo sobre o investimento.
+                        Nota: A fase de **Execução** ({(getPaymentModelForTemplate(data.templateName).baseSplit?.execution || 0) * 100}%) é facultativa e só avança por decisão do cliente após a aprovação do licenciamento, garantindo total controlo sobre o investimento.
                      </p>
                   </section>
 

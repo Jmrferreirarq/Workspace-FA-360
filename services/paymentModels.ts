@@ -20,6 +20,10 @@ export interface PaymentModel {
     nameEN: string;
     phases: PaymentPhase[];
     applicableTemplates: string[]; // IDs das tipologias
+    baseSplit?: { // NEW: Define como o valor total é dividido entre as etapas
+        licensing: number; // ex: 0.4 (40%)
+        execution: number; // ex: 0.6 (60%)
+    };
 }
 
 // MODELO 1: LICENCIAMENTO (6 Fases)
@@ -35,7 +39,9 @@ const licenciamentoModel: PaymentModel = {
         { phaseNumber: 5, labelPT: "Submissao", labelEN: "Submission", percentage: 20, triggerPT: "Submissao camararia concluida", triggerEN: "Council submission completed", activatesPhases: ["A2"], descriptionPT: "Pecas tecnicas submetidas", descriptionEN: "Technical documents submitted", type: "LICENSING" },
         { phaseNumber: 6, labelPT: "Documentacao Final", labelEN: "Final Documentation", percentage: 10, triggerPT: "Entrega de documentacao final", triggerEN: "Final documentation delivery", activatesPhases: [], descriptionPT: "Processo de licenciamento concluido", descriptionEN: "Permitting process completed", type: "LICENSING" }
     ],
-    applicableTemplates: ["MORADIA_LICENSE", "MULTIFAMILY", "LOTEAMENTO", "BEACH_SUPPORT", "TOURISM_RURAL", "INDUSTRIAL"]
+    applicableTemplates: ["MORADIA_NEW", "PUBLIC_BUILDING"],
+    // Licenciamento puro: 100% Licenciamento
+    baseSplit: { licensing: 1.0, execution: 0.0 }
 };
 
 // MODELO 2: EXECUÇÃO (9 Fases - 6 Lic + 3 Exec)
@@ -56,7 +62,9 @@ const execucaoModel: PaymentModel = {
         { phaseNumber: 8, labelPT: "Projeto Execucao", labelEN: "Construction Docs", percentage: 50, triggerPT: "Entrega do Projeto de Execucao Detalhado", triggerEN: "Construction Docs Delivery", activatesPhases: ["A3"], descriptionPT: "Detalhamento Tecnico", descriptionEN: "Technical Detailing", type: "EXECUTION" },
         { phaseNumber: 9, labelPT: "Assistencia", labelEN: "Site Assistance", percentage: 30, triggerPT: "Assistencia Tecnica e Visitas a Obra", triggerEN: "Technical Assistance", activatesPhases: ["A4"], descriptionPT: "Acompanhamento", descriptionEN: "Site Supervision", type: "EXECUTION" }
     ],
-    applicableTemplates: ["MORADIA_EXEC", "INTERIOR_DESIGN"]
+    applicableTemplates: ["MORADIA_EXEC", "INTERIOR_DESIGN"],
+    // Execução pura ou foco em execução: 0% Lic / 100% Exec (Ajustar conforme necessidade de entrada)
+    baseSplit: { licensing: 0.0, execution: 1.0 }
 };
 
 // MODELO 3: HÍBRIDO (Reabilitacao)
@@ -74,7 +82,9 @@ const hibridoModel: PaymentModel = {
         { phaseNumber: 7, labelPT: "Execucao", labelEN: "Execution", percentage: 70, triggerPT: "Entrega Projeto de Execucao", triggerEN: "Execution delivery", activatesPhases: ["A3"], descriptionPT: "Conclusao Execucao", descriptionEN: "Execution conclusion", type: "EXECUTION" },
         { phaseNumber: 8, labelPT: "Finalizacao", labelEN: "Finalization", percentage: 30, triggerPT: "Entrega de documentacao final", triggerEN: "Final documentation", activatesPhases: ["A4"], descriptionPT: "Finalizacao Global", descriptionEN: "Global finalization", type: "EXECUTION" }
     ],
-    applicableTemplates: ["MORADIA_REHAB", "RESTAURANT", "RETAIL_SHOP", "OFFICE_HQ"]
+    applicableTemplates: ["MORADIA_REHAB", "RESTAURANT", "RETAIL_SHOP", "OFFICE_HQ"],
+    // Híbrido: 40% Licenciamento / 60% Execução (Regra de Ouro)
+    baseSplit: { licensing: 0.4, execution: 0.6 }
 };
 
 // MODELO 4: LEGALIZAÇÃO
@@ -88,7 +98,9 @@ const legalizacaoModel: PaymentModel = {
         { phaseNumber: 3, labelPT: "Submissao", labelEN: "Submission", percentage: 30, triggerPT: "Entrega para submissao", triggerEN: "Submission delivery", activatesPhases: ["A2"], descriptionPT: "Technical delivery", descriptionEN: "Technical delivery", type: "LICENSING" },
         { phaseNumber: 4, labelPT: "Finalizacao", labelEN: "Finalization", percentage: 20, triggerPT: "Entrega de documentacao final", triggerEN: "Final documents", activatesPhases: [], descriptionPT: "Closed", descriptionEN: "Closed", type: "LICENSING" }
     ],
-    applicableTemplates: ["LEGAL", "PIP", "LEGAL_GENERAL"]
+    applicableTemplates: ["LEGAL", "PIP", "LEGAL_GENERAL"],
+    // Legalização: 100% Licenciamento
+    baseSplit: { licensing: 1.0, execution: 0.0 }
 };
 
 // Exportar todos os modelos
@@ -114,8 +126,20 @@ export function calculatePaymentValues(
     totalFee: number,
     model: PaymentModel
 ): { phase: PaymentPhase; value: number }[] {
-    return model.phases.map(phase => ({
-        phase,
-        value: (totalFee * phase.percentage) / 100
-    }));
+    // Definir bases de cálculo
+    // Se o modelo não tiver split definido, assume 100% Licenciamento (comportamento legacy)
+    const split = model.baseSplit || { licensing: 1.0, execution: 0.0 };
+
+    const licensingBase = totalFee * split.licensing;
+    const executionBase = totalFee * split.execution;
+
+    return model.phases.map(phase => {
+        // Selecionar a base correta consoante o tipo de fase
+        const baseValue = phase.type === 'EXECUTION' ? executionBase : licensingBase;
+
+        return {
+            phase,
+            value: (baseValue * phase.percentage) / 100
+        };
+    });
 }
