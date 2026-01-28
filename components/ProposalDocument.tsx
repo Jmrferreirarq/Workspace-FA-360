@@ -475,9 +475,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  <table className="w-full text-xs">
                                     <thead>
                                        <tr className="border-b border-luxury-black/10">
-                                          <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest">Fase</th>
-                                          <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest">Marco de Entrega</th>
-                                          <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">%</th>
+                                          <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest pl-2">Marco de Entrega</th>
+                                          <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">Peso</th>
                                           <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">Valor</th>
                                        </tr>
                                     </thead>
@@ -486,20 +485,20 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                           const relativePercentage = Math.round((p.value! / licensingTotal) * 100);
                                           return (
                                              <tr key={i} className="hover:bg-luxury-gold/[0.02] transition-colors">
-                                                <td className="py-4 font-bold text-luxury-black whitespace-nowrap">{i + 1}</td>
-                                                <td className="py-4 italic font-light opacity-80">{p.phase.triggerPT}</td>
-                                                <td className="py-4 text-right font-mono opacity-60">{relativePercentage}%</td>
-                                                <td className="py-4 text-right font-mono font-bold">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}</td>
+                                                <td className="py-4 pl-2 italic font-light opacity-80 border-b border-luxury-black/5">{p.phase.triggerPT}</td>
+                                                <td className="py-4 text-right font-mono opacity-60 border-b border-luxury-black/5">{relativePercentage}%</td>
+                                                <td className="py-4 text-right font-mono font-bold border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}</td>
                                              </tr>
                                           );
                                        })}
                                     </tbody>
                                     <tfoot>
                                        <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                          <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (Fase 1)</td>
-                                          <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                          <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                       </tr>
+                                          <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
+                                             <td className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (Fase 1)</td>
+                                             <td className="py-2 text-right font-bold text-[10px]">100%</td>
+                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                          </tr>
                                     </tfoot>
                                  </table>
 
@@ -525,9 +524,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                     <table className="w-full text-xs opacity-90">
                                        <thead>
                                           <tr className="border-b border-luxury-black/10">
-                                             <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest opacity-40">Fase</th>
-                                             <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest opacity-40">Marco de Entrega</th>
-                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">%</th>
+                                             <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest opacity-40 pl-2">Marco de Entrega</th>
+                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">Peso</th>
                                              <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">Valor</th>
                                           </tr>
                                        </thead>
@@ -536,20 +534,20 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                              const relativePercentage = Math.round((p.value! / executionTotal) * 100);
                                              return (
                                                 <tr key={i} className="hover:bg-luxury-gold/[0.01] transition-colors">
-                                                   <td className="py-4 font-bold text-luxury-black/40 whitespace-nowrap">{i + 1}</td>
-                                                   <td className="py-4 italic font-light opacity-50">{p.phase.triggerPT}</td>
-                                                   <td className="py-4 text-right font-mono opacity-30">{relativePercentage}%</td>
-                                                   <td className="py-4 text-right font-mono">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}</td>
+                                                   <td className="py-4 pl-2 italic font-light opacity-50 border-b border-luxury-black/5">{p.phase.triggerPT}</td>
+                                                   <td className="py-4 text-right font-mono opacity-30 border-b border-luxury-black/5">{relativePercentage}%</td>
+                                                   <td className="py-4 text-right font-mono border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}</td>
                                                 </tr>
                                              );
                                           })}
                                        </tbody>
                                        <tfoot>
                                           <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5 opacity-60">
-                                             <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
-                                             <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                          </tr>
+                                             <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5 opacity-60">
+                                                <td className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
+                                                <td className="py-2 text-right font-bold text-[10px]">100%</td>
+                                                <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                             </tr>
                                        </tfoot>
                                     </table>
 
