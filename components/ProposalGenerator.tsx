@@ -735,15 +735,18 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   {/* Category: Licensing */}
                   <tr className="bg-black/[0.02] dark:bg-white/[0.02]">
                     <td colSpan={5} className="px-6 py-3 text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold/80 bg-luxury-gold/5">
-                      A. Processo de Licenciamento
+                      A. Processo de Licenciamento (Total de Etapa: 100%)
                     </td>
                   </tr>
-                  {currentResult.phasesBreakdown
-                    .filter((p: UIPhase) => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)))
-                    .map((p: UIPhase, i: number) => {
+                  {(() => {
+                    const licPhases = currentResult.phasesBreakdown.filter((p: UIPhase) => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)));
+                    const licTotal = licPhases.reduce((sum: number, p: UIPhase) => sum + p.value, 0);
+
+                    return licPhases.map((p: UIPhase, i: number) => {
                       const label = locale === 'en' ? (p.labelEN || p.label) : p.label;
                       const description = locale === 'en' ? (p.descriptionEN || p.description) : p.description;
                       const duration = locale === 'en' && p.weeks ? `${p.weeks} ${p.weeks === 1 ? 'Week' : 'Weeks'}` : p.duration;
+                      const relativePercent = (p.value / licTotal) * 100;
 
                       return (
                         <tr key={`lic-${i}`} className="group hover:bg-luxury-gold/[0.02] transition-colors">
@@ -763,7 +766,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           </td>
                           <td className="px-6 py-5 align-top text-center">
                             <span className="text-[11px] font-mono text-luxury-gold font-bold">
-                              {p.percentage}%
+                              {Math.round(relativePercent)}%
                             </span>
                           </td>
                           <td className="px-6 py-5 align-top text-right">
@@ -773,27 +776,33 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           </td>
                         </tr>
                       );
-                    })}
+                    });
+                  })()}
 
                   {/* Category: Execution */}
-                  {currentResult.phasesBreakdown.some((p: UIPhase) => ['A3', 'A4'].some(id => p.phaseId.startsWith(id))) && (
-                    <>
-                      <tr className="bg-black/[0.02] dark:bg-white/[0.02] border-t-2 border-black/5 dark:border-white/5">
-                        <td colSpan={5} className="px-6 py-3 bg-luxury-gold/5">
-                          <div className="flex justify-between items-center">
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold/60">
-                              B. Projeto de Execução & Assistência
-                            </span>
-                            <span className="bg-luxury-gold/10 text-luxury-gold px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">Opcional</span>
-                          </div>
-                        </td>
-                      </tr>
-                      {currentResult.phasesBreakdown
-                        .filter((p: UIPhase) => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)))
-                        .map((p: UIPhase, i: number) => {
+                  {(() => {
+                    const execPhases = currentResult.phasesBreakdown.filter((p: UIPhase) => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)));
+                    if (execPhases.length === 0) return null;
+
+                    const execTotal = execPhases.reduce((sum: number, p: UIPhase) => sum + p.value, 0);
+
+                    return (
+                      <>
+                        <tr className="bg-black/[0.02] dark:bg-white/[0.02] border-t-2 border-black/5 dark:border-white/5">
+                          <td colSpan={5} className="px-6 py-3 bg-luxury-gold/5">
+                            <div className="flex justify-between items-center">
+                              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold/60">
+                                B. Projeto de Execução & Assistência (Total Estimado: 100%)
+                              </span>
+                              <span className="bg-luxury-gold/10 text-luxury-gold px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">Opcional</span>
+                            </div>
+                          </td>
+                        </tr>
+                        {execPhases.map((p: UIPhase, i: number) => {
                           const label = locale === 'en' ? (p.labelEN || p.label) : p.label;
                           const description = locale === 'en' ? (p.descriptionEN || p.description) : p.description;
                           const duration = locale === 'en' && p.weeks ? `${p.weeks} ${p.weeks === 1 ? 'Week' : 'Weeks'}` : p.duration;
+                          const relativePercent = (p.value / execTotal) * 100;
 
                           return (
                             <tr key={`exec-${i}`} className="group hover:bg-luxury-gold/[0.01] transition-colors opacity-80">
@@ -813,7 +822,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                               </td>
                               <td className="px-6 py-5 align-top text-center">
                                 <span className="text-[11px] font-mono text-luxury-gold/60 font-bold">
-                                  {p.percentage}%
+                                  {Math.round(relativePercent)}%
                                 </span>
                               </td>
                               <td className="px-6 py-5 align-top text-right">
@@ -824,8 +833,9 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                             </tr>
                           );
                         })}
-                    </>
-                  )}
+                      </>
+                    );
+                  })()}
                 </tbody>
               </table>
             </div>

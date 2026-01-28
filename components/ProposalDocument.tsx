@@ -463,12 +463,9 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         const licensingPhases = paymentValues.filter(p => p.phase.type === 'LICENSING');
                         const executionPhases = paymentValues.filter(p => p.phase.type === 'EXECUTION');
 
-                        // Calcular subtotais
+                        // Calcular subtotais absolutos
                         const licensingTotal = licensingPhases.reduce((sum, p) => sum + p.value, 0);
-                        const licensingPercent = licensingPhases.reduce((sum, p) => sum + p.phase.percentage, 0);
-
                         const executionTotal = executionPhases.reduce((sum, p) => sum + p.value, 0);
-                        const executionPercent = executionPhases.reduce((sum, p) => sum + p.phase.percentage, 0);
 
                         return (
                            <div className="space-y-8">
@@ -485,19 +482,22 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       {licensingPhases.map(({ phase, value }, idx) => (
-                                          <tr key={idx} className="border-b border-luxury-black/5">
-                                             <td className="py-3 font-medium">{phase.phaseNumber}</td>
-                                             <td className="py-3 opacity-70">{phase.triggerPT}</td>
-                                             <td className="py-3 text-right font-medium">{phase.percentage}%</td>
-                                             <td className="py-3 text-right font-mono">€{value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                          </tr>
-                                       ))}
+                                       {licensingPhases.map(({ phase, value }, idx) => {
+                                          const relativePercent = (value / licensingTotal) * 100;
+                                          return (
+                                             <tr key={idx} className="border-b border-luxury-black/5">
+                                                <td className="py-3 font-medium">{phase.phaseNumber}</td>
+                                                <td className="py-3 opacity-70">{phase.triggerPT}</td>
+                                                <td className="py-3 text-right font-medium">{Math.round(relativePercent)}%</td>
+                                                <td className="py-3 text-right font-mono">€{value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                             </tr>
+                                          );
+                                       })}
                                     </tbody>
                                     <tfoot>
                                        <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                          <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Subtotal Licenciamento</td>
-                                          <td className="py-2 text-right font-bold text-[10px]">{licensingPercent}%</td>
+                                          <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (A)</td>
+                                          <td className="py-2 text-right font-bold text-[10px]">100%</td>
                                           <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                                        </tr>
                                     </tfoot>
@@ -521,14 +521,17 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          {executionPhases.map(({ phase, value }, idx) => (
-                                             <tr key={idx} className="border-b border-luxury-black/5">
-                                                <td className="py-3 font-medium">{phase.phaseNumber}</td>
-                                                <td className="py-3 opacity-70">{phase.triggerPT}</td>
-                                                <td className="py-3 text-right font-medium">{phase.percentage}%</td>
-                                                <td className="py-3 text-right font-mono">€{value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                             </tr>
-                                          ))}
+                                          {executionPhases.map(({ phase, value }, idx) => {
+                                             const relativePercent = (value / executionTotal) * 100;
+                                             return (
+                                                <tr key={idx} className="border-b border-luxury-black/5">
+                                                   <td className="py-3 font-medium">{phase.phaseNumber}</td>
+                                                   <td className="py-3 opacity-70">{phase.triggerPT}</td>
+                                                   <td className="py-3 text-right font-medium">{Math.round(relativePercent)}%</td>
+                                                   <td className="py-3 text-right font-mono">€{value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                                </tr>
+                                             );
+                                          })}
                                        </tbody>
                                        <tfoot>
                                           <tr>
@@ -537,8 +540,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                              </td>
                                           </tr>
                                           <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                             <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Subtotal Execução</td>
-                                             <td className="py-2 text-right font-bold text-[10px]">{executionPercent}%</td>
+                                             <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (B)</td>
+                                             <td className="py-2 text-right font-bold text-[10px]">100%</td>
                                              <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                                           </tr>
                                        </tfoot>
@@ -546,33 +549,31 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  </div>
                               )}
 
-                              {/* TOTAIS SEPARADOS */}
-                              <div className="border-t-4 border-luxury-black pt-4 flex flex-col gap-2">
-                                 {/* Resumo Licenciamento */}
-                                 <div className="flex justify-between items-end">
-                                    <div>
-                                       <div className="text-xs font-black uppercase">TOTAL FASE A (LICENCIAMENTO)</div>
-                                       <div className="text-[10px] opacity-50 italic">Valor a adjudicar nesta fase (+ IVA)</div>
-                                    </div>
-                                    <div className="text-right">
-                                       <div className="text-xs font-black">{licensingPercent}%</div>
-                                       <div className="text-xl font-mono font-black">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-                                    </div>
-                                 </div>
-
-                                 {/* Resumo Execução (se aplicável) */}
-                                 {executionPhases.length > 0 && (
-                                    <div className="flex justify-between items-end pt-2 border-t border-luxury-black/10 mt-2 opacity-80">
+                              {/* TOTAIS SEPARADOS - RESUMO FINAL */}
+                              <div className="border-t-4 border-luxury-black pt-6 flex flex-col gap-4">
+                                 <div className="bg-luxury-black/[0.02] p-6 rounded-3xl border border-luxury-black/5">
+                                    <div className="flex justify-between items-end mb-4">
                                        <div>
-                                          <div className="text-xs font-bold uppercase text-luxury-gold decoration-slice">TOTAL FASE B (EXECUÇÃO)</div>
-                                          <div className="text-[10px] opacity-50 italic">Valor estimado opcional (+ IVA)</div>
+                                          <div className="text-xs font-black uppercase tracking-widest">A. LICENCIAMENTO (Imediato)</div>
+                                          <div className="text-[10px] opacity-50 italic">Fase de desenvolvimento e entrega documental (+ IVA)</div>
                                        </div>
                                        <div className="text-right">
-                                          <div className="text-xs font-bold text-luxury-gold">{executionPercent}%</div>
-                                          <div className="text-xl font-mono font-bold text-luxury-gold">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                                          <div className="text-2xl font-mono font-black">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                                        </div>
                                     </div>
-                                 )}
+
+                                    {executionPhases.length > 0 && (
+                                       <div className="flex justify-between items-end pt-4 border-t border-luxury-black/10 mt-2 opacity-80">
+                                          <div>
+                                             <div className="text-xs font-bold uppercase text-luxury-gold tracking-widest">B. EXECUÇÃO (Opcional)</div>
+                                             <div className="text-[10px] opacity-50 italic">Valor condicionado à adjudicação pós-licenciamento (+ IVA)</div>
+                                          </div>
+                                          <div className="text-right">
+                                             <div className="text-2xl font-mono font-bold text-luxury-gold">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                                          </div>
+                                       </div>
+                                    )}
+                                 </div>
                               </div>
                            </div>
                         );
