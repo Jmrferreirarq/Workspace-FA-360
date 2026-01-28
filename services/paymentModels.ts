@@ -9,6 +9,7 @@ export interface PaymentPhase {
     triggerPT: string; // Marco de pagamento
     triggerEN: string;
     activatesPhases: string[]; // Fases A0-A4 que ativa
+    type: 'LICENSING' | 'EXECUTION';
     descriptionPT: string;
     descriptionEN: string;
 }
@@ -37,7 +38,8 @@ const licenciamentoModel: PaymentModel = {
             triggerEN: "Project award",
             activatesPhases: ["A0"],
             descriptionPT: "Inicia desenvolvimento do Programa Base",
-            descriptionEN: "Initiates Briefing development"
+            descriptionEN: "Initiates Briefing development",
+            type: "LICENSING"
         },
         {
             phaseNumber: 2,
@@ -48,7 +50,8 @@ const licenciamentoModel: PaymentModel = {
             triggerEN: "Briefing approved",
             activatesPhases: ["A0", "A1"],
             descriptionPT: "Conclusao do Programa Base",
-            descriptionEN: "Briefing conclusion"
+            descriptionEN: "Briefing conclusion",
+            type: "LICENSING"
         },
         {
             phaseNumber: 3,
@@ -59,7 +62,8 @@ const licenciamentoModel: PaymentModel = {
             triggerEN: "Schematic Design delivery",
             activatesPhases: ["A1"],
             descriptionPT: "Desenvolvimento do Estudo Previo",
-            descriptionEN: "Schematic Design development"
+            descriptionEN: "Schematic Design development",
+            type: "LICENSING"
         },
         {
             phaseNumber: 4,
@@ -70,7 +74,8 @@ const licenciamentoModel: PaymentModel = {
             triggerEN: "Permitting delivery",
             activatesPhases: ["A2"],
             descriptionPT: "Desenvolvimento do Licenciamento",
-            descriptionEN: "Permitting development"
+            descriptionEN: "Permitting development",
+            type: "LICENSING"
         },
         {
             phaseNumber: 5,
@@ -81,7 +86,8 @@ const licenciamentoModel: PaymentModel = {
             triggerEN: "Council submission completed",
             activatesPhases: ["A2"],
             descriptionPT: "Pecas tecnicas submetidas",
-            descriptionEN: "Technical documents submitted"
+            descriptionEN: "Technical documents submitted",
+            type: "LICENSING"
         },
         {
             phaseNumber: 6,
@@ -92,7 +98,8 @@ const licenciamentoModel: PaymentModel = {
             triggerEN: "Final documentation delivery",
             activatesPhases: [],
             descriptionPT: "Processo de licenciamento concluido",
-            descriptionEN: "Permitting process completed"
+            descriptionEN: "Permitting process completed",
+            type: "LICENSING"
         }
     ],
     applicableTemplates: [
@@ -121,7 +128,8 @@ const execucaoModel: PaymentModel = {
             triggerEN: "Project award",
             activatesPhases: ["A0"],
             descriptionPT: "Inicia desenvolvimento do Programa Base",
-            descriptionEN: "Initiates Briefing"
+            descriptionEN: "Initiates Briefing",
+            type: "LICENSING"
         },
         {
             phaseNumber: 2,
@@ -132,7 +140,8 @@ const execucaoModel: PaymentModel = {
             triggerEN: "Briefing approved",
             activatesPhases: ["A0", "A1"],
             descriptionPT: "Conclusao do Programa Base",
-            descriptionEN: "Briefing conclusion"
+            descriptionEN: "Briefing conclusion",
+            type: "LICENSING"
         },
         {
             phaseNumber: 3,
@@ -143,7 +152,8 @@ const execucaoModel: PaymentModel = {
             triggerEN: "Schematic Design delivery",
             activatesPhases: ["A1"],
             descriptionPT: "Desenvolvimento do Estudo Previo",
-            descriptionEN: "Schematic Design development"
+            descriptionEN: "Schematic Design development",
+            type: "LICENSING"
         },
         {
             phaseNumber: 4,
@@ -154,7 +164,8 @@ const execucaoModel: PaymentModel = {
             triggerEN: "Permitting delivery",
             activatesPhases: ["A2"],
             descriptionPT: "Desenvolvimento do Licenciamento",
-            descriptionEN: "Permitting development"
+            descriptionEN: "Permitting development",
+            type: "LICENSING"
         },
         {
             phaseNumber: 5,
@@ -165,7 +176,8 @@ const execucaoModel: PaymentModel = {
             triggerEN: "Construction Docs (1st Delivery)",
             activatesPhases: ["A3"],
             descriptionPT: "Inicio do Projeto de Execucao",
-            descriptionEN: "Construction Docs start"
+            descriptionEN: "Construction Docs start",
+            type: "EXECUTION"
         },
         {
             phaseNumber: 6,
@@ -176,7 +188,8 @@ const execucaoModel: PaymentModel = {
             triggerEN: "Final Construction Docs delivery",
             activatesPhases: ["A3"],
             descriptionPT: "Conclusao do Projeto de Execucao",
-            descriptionEN: "Construction Docs completion"
+            descriptionEN: "Construction Docs completion",
+            type: "EXECUTION"
         },
         {
             phaseNumber: 7,
@@ -187,7 +200,8 @@ const execucaoModel: PaymentModel = {
             triggerEN: "After 1st site visit",
             activatesPhases: ["A4"],
             descriptionPT: "Assistencia tecnica em obra",
-            descriptionEN: "Technical assistance on site"
+            descriptionEN: "Technical assistance on site",
+            type: "EXECUTION"
         }
     ],
     applicableTemplates: [
@@ -212,7 +226,8 @@ const hibridoModel: PaymentModel = {
             triggerEN: "Project award",
             activatesPhases: ["A0"],
             descriptionPT: "Inicia desenvolvimento do Programa Base",
-            descriptionEN: "Initiates Briefing"
+            descriptionEN: "Initiates Briefing",
+            type: "LICENSING"
         },
         {
             phaseNumber: 2,
@@ -223,7 +238,8 @@ const hibridoModel: PaymentModel = {
             triggerEN: "Briefing approved",
             activatesPhases: ["A0", "A1"],
             descriptionPT: "Conclusao do Programa Base",
-            descriptionEN: "Briefing conclusion"
+            descriptionEN: "Briefing conclusion",
+            type: "LICENSING"
         },
         {
             phaseNumber: 3,
@@ -234,7 +250,8 @@ const hibridoModel: PaymentModel = {
             triggerEN: "Schematic Design delivery",
             activatesPhases: ["A1"],
             descriptionPT: "Desenvolvimento do Estudo Previo",
-            descriptionEN: "Schematic Design development"
+            descriptionEN: "Schematic Design development",
+            type: "LICENSING"
         },
         {
             phaseNumber: 4,
@@ -245,7 +262,8 @@ const hibridoModel: PaymentModel = {
             triggerEN: "Permitting delivery",
             activatesPhases: ["A2"],
             descriptionPT: "Desenvolvimento do Licenciamento",
-            descriptionEN: "Permitting development"
+            descriptionEN: "Permitting development",
+            type: "LICENSING"
         },
         {
             phaseNumber: 5,
@@ -256,7 +274,8 @@ const hibridoModel: PaymentModel = {
             triggerEN: "Construction Docs delivery",
             activatesPhases: ["A3"],
             descriptionPT: "Projeto de Execucao + Especialidades",
-            descriptionEN: "Construction Docs + Engineering"
+            descriptionEN: "Construction Docs + Engineering",
+            type: "EXECUTION"
         },
         {
             phaseNumber: 6,
@@ -267,7 +286,8 @@ const hibridoModel: PaymentModel = {
             triggerEN: "Final documentation delivery",
             activatesPhases: [],
             descriptionPT: "Projeto completo + Todas as especialidades",
-            descriptionEN: "Complete project + All engineering"
+            descriptionEN: "Complete project + All engineering",
+            type: "EXECUTION"
         }
     ],
     applicableTemplates: [
@@ -294,7 +314,8 @@ const legalizacaoModel: PaymentModel = {
             triggerEN: "Project award",
             activatesPhases: ["A0"],
             descriptionPT: "Inicia levantamento e analise de viabilidade",
-            descriptionEN: "Initiates survey and feasibility analysis"
+            descriptionEN: "Initiates survey and feasibility analysis",
+            type: "LICENSING"
         },
         {
             phaseNumber: 2,
@@ -305,7 +326,8 @@ const legalizacaoModel: PaymentModel = {
             triggerEN: "Full Survey",
             activatesPhases: ["A0", "A1"],
             descriptionPT: "Conclusao do levantamento",
-            descriptionEN: "Survey conclusion"
+            descriptionEN: "Survey conclusion",
+            type: "LICENSING"
         },
         {
             phaseNumber: 3,
@@ -316,7 +338,8 @@ const legalizacaoModel: PaymentModel = {
             triggerEN: "Submission delivery",
             activatesPhases: ["A2"],
             descriptionPT: "Pecas tecnicas completas e submetidas",
-            descriptionEN: "Technical documents completed and submitted"
+            descriptionEN: "Technical documents completed and submitted",
+            type: "LICENSING"
         },
         {
             phaseNumber: 4,
@@ -327,7 +350,8 @@ const legalizacaoModel: PaymentModel = {
             triggerEN: "Final documentation delivery",
             activatesPhases: [],
             descriptionPT: "Processo de legalizacao concluido aka documentacao final entregue",
-            descriptionEN: "Legalization process completed / final docs delivered"
+            descriptionEN: "Legalization process completed / final docs delivered",
+            type: "LICENSING"
         }
     ],
     applicableTemplates: [

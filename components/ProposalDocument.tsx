@@ -459,36 +459,104 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         const totalFee = (data.feeArch || 0) + (data.feeSpec || 0);
                         const paymentValues = calculatePaymentValues(totalFee, paymentModel);
 
+                        // Agrupar fases por tipo
+                        const licensingPhases = paymentValues.filter(p => p.phase.type === 'LICENSING');
+                        const executionPhases = paymentValues.filter(p => p.phase.type === 'EXECUTION');
+
+                        // Calcular subtotais
+                        const licensingTotal = licensingPhases.reduce((sum, p) => sum + p.value, 0);
+                        const licensingPercent = licensingPhases.reduce((sum, p) => sum + p.phase.percentage, 0);
+
+                        const executionTotal = executionPhases.reduce((sum, p) => sum + p.value, 0);
+                        const executionPercent = executionPhases.reduce((sum, p) => sum + p.phase.percentage, 0);
+
                         return (
-                           <div className="space-y-4">
-                              <table className="w-full text-xs">
-                                 <thead>
-                                    <tr className="border-b border-luxury-black/10">
-                                       <th className="text-left font-black py-2 w-16">Fase</th>
-                                       <th className="text-left font-black py-2">Marco de Entrega</th>
-                                       <th className="text-right font-black py-2 w-20">%</th>
-                                       <th className="text-right font-black py-2 w-32">Valor</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    {paymentValues.map(({ phase, value }, idx) => (
-                                       <tr key={idx} className="border-b border-luxury-black/5">
-                                          <td className="py-3 font-medium">{phase.phaseNumber}</td>
-                                          <td className="py-3 opacity-70">{phase.triggerPT}</td>
-                                          <td className="py-3 text-right font-medium">{phase.percentage}%</td>
-                                          <td className="py-3 text-right font-mono">€{value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                           <div className="space-y-8">
+                              {/* TABELA DE LICENCIAMENTO */}
+                              <div>
+                                 <h5 className="font-bold text-xs uppercase mb-2 opacity-70">A. Licenciamento</h5>
+                                 <table className="w-full text-xs">
+                                    <thead>
+                                       <tr className="border-b border-luxury-black/10">
+                                          <th className="text-left font-black py-2 w-16">Fase</th>
+                                          <th className="text-left font-black py-2">Marco de Entrega</th>
+                                          <th className="text-right font-black py-2 w-20">%</th>
+                                          <th className="text-right font-black py-2 w-32">Valor</th>
                                        </tr>
-                                    ))}
-                                 </tbody>
-                                 <tfoot>
-                                    <tr className="border-t-2 border-luxury-black/20">
-                                       <td colSpan={2} className="py-3 font-black uppercase">TOTAL</td>
-                                       <td className="py-3 text-right font-black">100%</td>
-                                       <td className="py-3 text-right font-mono font-black">€{totalFee.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                    </tr>
-                                 </tfoot>
-                              </table>
-                              <p className="text-[10px] italic opacity-50 text-right">+ IVA a taxa legal</p>
+                                    </thead>
+                                    <tbody>
+                                       {licensingPhases.map(({ phase, value }, idx) => (
+                                          <tr key={idx} className="border-b border-luxury-black/5">
+                                             <td className="py-3 font-medium">{phase.phaseNumber}</td>
+                                             <td className="py-3 opacity-70">{phase.triggerPT}</td>
+                                             <td className="py-3 text-right font-medium">{phase.percentage}%</td>
+                                             <td className="py-3 text-right font-mono">€{value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                          </tr>
+                                       ))}
+                                    </tbody>
+                                    <tfoot>
+                                       <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
+                                          <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Subtotal Licenciamento</td>
+                                          <td className="py-2 text-right font-bold text-[10px]">{licensingPercent}%</td>
+                                          <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                       </tr>
+                                    </tfoot>
+                                 </table>
+                              </div>
+
+                              {/* TABELA DE EXECUÇÃO (SE EXISTIR) */}
+                              {executionPhases.length > 0 && (
+                                 <div>
+                                    <div className="flex justify-between items-center mb-2">
+                                       <h5 className="font-bold text-xs uppercase opacity-70">B. Execução (Opcional)</h5>
+                                       <span className="text-[10px] bg-luxury-gold/20 text-luxury-gold px-2 py-0.5 rounded font-bold uppercase tracking-wider">Opcional</span>
+                                    </div>
+                                    <table className="w-full text-xs opacity-90">
+                                       <thead>
+                                          <tr className="border-b border-luxury-black/10">
+                                             <th className="text-left font-black py-2 w-16">Fase</th>
+                                             <th className="text-left font-black py-2">Marco de Entrega</th>
+                                             <th className="text-right font-black py-2 w-20">%</th>
+                                             <th className="text-right font-black py-2 w-32">Valor</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          {executionPhases.map(({ phase, value }, idx) => (
+                                             <tr key={idx} className="border-b border-luxury-black/5">
+                                                <td className="py-3 font-medium">{phase.phaseNumber}</td>
+                                                <td className="py-3 opacity-70">{phase.triggerPT}</td>
+                                                <td className="py-3 text-right font-medium">{phase.percentage}%</td>
+                                                <td className="py-3 text-right font-mono">€{value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                             </tr>
+                                          ))}
+                                       </tbody>
+                                       <tfoot>
+                                          <tr>
+                                             <td colSpan={4} className="pt-2 text-[10px] italic opacity-60 text-center">
+                                                * A fase de execução é opcional e carece de adjudicação específica após o licenciamento.
+                                             </td>
+                                          </tr>
+                                          <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
+                                             <td colSpan={2} className="py-2 px-2 font-bold uppercase text-[10px]">Subtotal Execução</td>
+                                             <td className="py-2 text-right font-bold text-[10px]">{executionPercent}%</td>
+                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                          </tr>
+                                       </tfoot>
+                                    </table>
+                                 </div>
+                              )}
+
+                              {/* TOTAL GERAL */}
+                              <div className="border-t-4 border-luxury-black pt-2 flex justify-between items-end">
+                                 <div>
+                                    <div className="text-xs font-black uppercase">TOTAL GERAL ESTIMADO</div>
+                                    <div className="text-[10px] opacity-50 italic">+ IVA a taxa legal em vigor</div>
+                                 </div>
+                                 <div className="text-right">
+                                    <div className="text-xs font-black">100%</div>
+                                    <div className="text-xl font-mono font-black">€{totalFee.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                                 </div>
+                              </div>
                            </div>
                         );
                      })()}
