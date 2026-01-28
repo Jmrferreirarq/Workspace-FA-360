@@ -37,11 +37,14 @@ const licenciamentoModel: PaymentModel = {
         { phaseNumber: 3, labelPT: "Estudo Previo", labelEN: "Schematic Design", percentage: 20, triggerPT: "Entrega do Estudo Previo", triggerEN: "Schematic Design delivery", activatesPhases: ["A1"], descriptionPT: "Desenvolvimento do Estudo Previo", descriptionEN: "Schematic Design development", type: "LICENSING" },
         { phaseNumber: 4, labelPT: "Licenciamento", labelEN: "Permitting", percentage: 20, triggerPT: "Entrega do Licenciamento", triggerEN: "Permitting delivery", activatesPhases: ["A2"], descriptionPT: "Desenvolvimento do Licenciamento", descriptionEN: "Permitting development", type: "LICENSING" },
         { phaseNumber: 5, labelPT: "Submissao", labelEN: "Submission", percentage: 20, triggerPT: "Submissao camararia concluida", triggerEN: "Council submission completed", activatesPhases: ["A2"], descriptionPT: "Pecas tecnicas submetidas", descriptionEN: "Technical documents submitted", type: "LICENSING" },
-        { phaseNumber: 6, labelPT: "Documentacao Final", labelEN: "Final Documentation", percentage: 10, triggerPT: "Entrega de documentacao final", triggerEN: "Final documentation delivery", activatesPhases: [], descriptionPT: "Processo de licenciamento concluido", descriptionEN: "Permitting process completed", type: "LICENSING" }
+        { phaseNumber: 6, labelPT: "Documentacao Final", labelEN: "Final Documentation", percentage: 10, triggerPT: "Entrega de documentacao final", triggerEN: "Final documentation delivery", activatesPhases: [], descriptionPT: "Processo de licenciamento concluido", descriptionEN: "Permitting process completed", type: "LICENSING" },
+        // EXECUTION ESTIMATE (For full proposal visibility)
+        { phaseNumber: 7, labelPT: "Execucao", labelEN: "Execution", percentage: 70, triggerPT: "Entrega Projeto de Execucao", triggerEN: "Execution delivery", activatesPhases: ["A3"], descriptionPT: "Conclusao Execucao", descriptionEN: "Execution conclusion", type: "EXECUTION" },
+        { phaseNumber: 8, labelPT: "Finalizacao", labelEN: "Finalization", percentage: 30, triggerPT: "Entrega de documentacao final", triggerEN: "Final documentation", activatesPhases: ["A4"], descriptionPT: "Finalizacao Global", descriptionEN: "Global finalization", type: "EXECUTION" }
     ],
     applicableTemplates: ["MORADIA_NEW", "PUBLIC_BUILDING"],
-    // Licenciamento puro: 100% Licenciamento
-    baseSplit: { licensing: 1.0, execution: 0.0 }
+    // Agora reflete a mesma logica do Hibrido: 60/40 para mostrar estimativa completa
+    baseSplit: { licensing: 0.6, execution: 0.4 }
 };
 
 // MODELO 2: EXECUÇÃO (9 Fases - 6 Lic + 3 Exec)
