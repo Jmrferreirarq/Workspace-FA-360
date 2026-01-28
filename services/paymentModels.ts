@@ -24,15 +24,15 @@ export interface PaymentModel {
 // MODELO 1: LICENCIAMENTO (4 Fases)
 // Para: Moradias Licenciamento, Multifamiliar, Turismo, Industrial
 const licenciamentoModel: PaymentModel = {
-    modelId: "LIC_4PHASES",
-    namePT: "Licenciamento (4 Fases)",
-    nameEN: "Permitting (4 Phases)",
+    modelId: "LIC_6PHASES",
+    namePT: "Licenciamento (6 Fases)",
+    nameEN: "Permitting (6 Phases)",
     phases: [
         {
             phaseNumber: 1,
             labelPT: "Adjudicacao",
             labelEN: "Award",
-            percentage: 30,
+            percentage: 15,
             triggerPT: "Adjudicacao",
             triggerEN: "Project award",
             activatesPhases: ["A0"],
@@ -43,31 +43,53 @@ const licenciamentoModel: PaymentModel = {
             phaseNumber: 2,
             labelPT: "Programa Base",
             labelEN: "Briefing",
-            percentage: 40,
+            percentage: 15,
             triggerPT: "Programa Base aprovado",
             triggerEN: "Briefing approved",
-            activatesPhases: ["A1", "A2"],
-            descriptionPT: "Desenvolvimento do Estudo Previo e Licenciamento",
-            descriptionEN: "Schematic Design and Permitting development"
+            activatesPhases: ["A0", "A1"],
+            descriptionPT: "Conclusao do Programa Base",
+            descriptionEN: "Briefing conclusion"
         },
         {
             phaseNumber: 3,
-            labelPT: "Submissao",
-            labelEN: "Submission",
+            labelPT: "Estudo Previo",
+            labelEN: "Schematic Design",
             percentage: 20,
-            triggerPT: "Entrega para submissao camararia",
-            triggerEN: "Submission to council",
-            activatesPhases: [],
-            descriptionPT: "Pecas tecnicas completas e submetidas",
-            descriptionEN: "Technical documents completed and submitted"
+            triggerPT: "Entrega do Estudo Previo",
+            triggerEN: "Schematic Design delivery",
+            activatesPhases: ["A1"],
+            descriptionPT: "Desenvolvimento do Estudo Previo",
+            descriptionEN: "Schematic Design development"
         },
         {
             phaseNumber: 4,
-            labelPT: "Aprovacao",
-            labelEN: "Approval",
+            labelPT: "Licenciamento",
+            labelEN: "Permitting",
+            percentage: 20,
+            triggerPT: "Entrega do Licenciamento",
+            triggerEN: "Permitting delivery",
+            activatesPhases: ["A2"],
+            descriptionPT: "Desenvolvimento do Licenciamento",
+            descriptionEN: "Permitting development"
+        },
+        {
+            phaseNumber: 5,
+            labelPT: "Submissao",
+            labelEN: "Submission",
+            percentage: 20,
+            triggerPT: "Submissao camararia concluida",
+            triggerEN: "Council submission completed",
+            activatesPhases: ["A2"],
+            descriptionPT: "Pecas tecnicas submetidas",
+            descriptionEN: "Technical documents submitted"
+        },
+        {
+            phaseNumber: 6,
+            labelPT: "Documentacao Final",
+            labelEN: "Final Documentation",
             percentage: 10,
-            triggerPT: "Alvara emitido",
-            triggerEN: "Permit issued",
+            triggerPT: "Entrega de documentacao final",
+            triggerEN: "Final documentation delivery",
             activatesPhases: [],
             descriptionPT: "Processo de licenciamento concluido",
             descriptionEN: "Permitting process completed"
@@ -86,15 +108,15 @@ const licenciamentoModel: PaymentModel = {
 // MODELO 2: EXECUÇÃO (5 Fases)
 // Para: Moradias Execução, Interiores
 const execucaoModel: PaymentModel = {
-    modelId: "EXEC_5PHASES",
-    namePT: "Execucao (5 Fases)",
-    nameEN: "Construction Docs (5 Phases)",
+    modelId: "EXEC_7PHASES",
+    namePT: "Execucao (7 Fases)",
+    nameEN: "Construction Docs (7 Phases)",
     phases: [
         {
             phaseNumber: 1,
             labelPT: "Adjudicacao",
             labelEN: "Award",
-            percentage: 25,
+            percentage: 12,
             triggerPT: "Adjudicacao",
             triggerEN: "Project award",
             activatesPhases: ["A0"],
@@ -105,40 +127,62 @@ const execucaoModel: PaymentModel = {
             phaseNumber: 2,
             labelPT: "Programa Base",
             labelEN: "Briefing",
-            percentage: 25,
+            percentage: 13,
             triggerPT: "Programa Base aprovado",
             triggerEN: "Briefing approved",
-            activatesPhases: ["A1", "A2"],
-            descriptionPT: "Desenvolvimento do Estudo Previo e Licenciamento",
-            descriptionEN: "Schematic Design and Permitting"
+            activatesPhases: ["A0", "A1"],
+            descriptionPT: "Conclusao do Programa Base",
+            descriptionEN: "Briefing conclusion"
         },
         {
             phaseNumber: 3,
-            labelPT: "Desenvolvimento",
-            labelEN: "Development",
-            percentage: 30,
-            triggerPT: "Submissao camararia concluida",
-            triggerEN: "Council submission completed",
-            activatesPhases: ["A3"],
-            descriptionPT: "Desenvolvimento do Projeto de Execucao",
-            descriptionEN: "Construction Documents development"
+            labelPT: "Estudo Previo",
+            labelEN: "Schematic Design",
+            percentage: 12,
+            triggerPT: "Entrega do Estudo Previo",
+            triggerEN: "Schematic Design delivery",
+            activatesPhases: ["A1"],
+            descriptionPT: "Desenvolvimento do Estudo Previo",
+            descriptionEN: "Schematic Design development"
         },
         {
             phaseNumber: 4,
-            labelPT: "Entrega Final",
-            labelEN: "Final Delivery",
-            percentage: 15,
-            triggerPT: "Entrega de Projeto de Execucao",
-            triggerEN: "Construction Documents delivery",
-            activatesPhases: [],
-            descriptionPT: "Projeto de Execucao completo",
-            descriptionEN: "Construction Documents completed"
+            labelPT: "Licenciamento",
+            labelEN: "Permitting",
+            percentage: 13,
+            triggerPT: "Entrega do Licenciamento",
+            triggerEN: "Permitting delivery",
+            activatesPhases: ["A2"],
+            descriptionPT: "Desenvolvimento do Licenciamento",
+            descriptionEN: "Permitting development"
         },
         {
             phaseNumber: 5,
+            labelPT: "Execucao 1",
+            labelEN: "Execution 1",
+            percentage: 20,
+            triggerPT: "Projeto de Execucao (1ª Entrega)",
+            triggerEN: "Construction Docs (1st Delivery)",
+            activatesPhases: ["A3"],
+            descriptionPT: "Inicio do Projeto de Execucao",
+            descriptionEN: "Construction Docs start"
+        },
+        {
+            phaseNumber: 6,
+            labelPT: "Execucao Final",
+            labelEN: "Final Execution",
+            percentage: 20,
+            triggerPT: "Entrega Final de Execucao",
+            triggerEN: "Final Construction Docs delivery",
+            activatesPhases: ["A3"],
+            descriptionPT: "Conclusao do Projeto de Execucao",
+            descriptionEN: "Construction Docs completion"
+        },
+        {
+            phaseNumber: 7,
             labelPT: "Assistencia",
             labelEN: "Assistance",
-            percentage: 5,
+            percentage: 10,
             triggerPT: "Apos 1ª visita a obra",
             triggerEN: "After 1st site visit",
             activatesPhases: ["A4"],
@@ -155,15 +199,15 @@ const execucaoModel: PaymentModel = {
 // MODELO 3: HÍBRIDO (4 Fases)
 // Para: Reabilitação, Comercial, Restauração, Escritórios
 const hibridoModel: PaymentModel = {
-    modelId: "HYBRID_4PHASES",
-    namePT: "Hibrido (4 Fases)",
-    nameEN: "Hybrid (4 Phases)",
+    modelId: "HYBRID_6PHASES",
+    namePT: "Hibrido (6 Fases)",
+    nameEN: "Hybrid (6 Phases)",
     phases: [
         {
             phaseNumber: 1,
             labelPT: "Adjudicacao",
             labelEN: "Award",
-            percentage: 30,
+            percentage: 15,
             triggerPT: "Adjudicacao",
             triggerEN: "Project award",
             activatesPhases: ["A0"],
@@ -174,31 +218,53 @@ const hibridoModel: PaymentModel = {
             phaseNumber: 2,
             labelPT: "Programa Base",
             labelEN: "Briefing",
-            percentage: 35,
+            percentage: 15,
             triggerPT: "Programa Base aprovado",
             triggerEN: "Briefing approved",
-            activatesPhases: ["A1", "A2"],
-            descriptionPT: "Estudo Previo e Licenciamento + Especialidades",
-            descriptionEN: "Schematic Design and Permitting + Engineering"
+            activatesPhases: ["A0", "A1"],
+            descriptionPT: "Conclusao do Programa Base",
+            descriptionEN: "Briefing conclusion"
         },
         {
             phaseNumber: 3,
+            labelPT: "Estudo Previo",
+            labelEN: "Schematic Design",
+            percentage: 17,
+            triggerPT: "Entrega do Estudo Previo",
+            triggerEN: "Schematic Design delivery",
+            activatesPhases: ["A1"],
+            descriptionPT: "Desenvolvimento do Estudo Previo",
+            descriptionEN: "Schematic Design development"
+        },
+        {
+            phaseNumber: 4,
+            labelPT: "Licenciamento",
+            labelEN: "Permitting",
+            percentage: 18,
+            triggerPT: "Entrega do Licenciamento",
+            triggerEN: "Permitting delivery",
+            activatesPhases: ["A2"],
+            descriptionPT: "Desenvolvimento do Licenciamento",
+            descriptionEN: "Permitting development"
+        },
+        {
+            phaseNumber: 5,
             labelPT: "Execucao",
             labelEN: "Execution",
             percentage: 25,
-            triggerPT: "Alvara emitido",
-            triggerEN: "Permit issued",
+            triggerPT: "Entrega Projeto de Execucao",
+            triggerEN: "Construction Docs delivery",
             activatesPhases: ["A3"],
             descriptionPT: "Projeto de Execucao + Especialidades",
             descriptionEN: "Construction Docs + Engineering"
         },
         {
-            phaseNumber: 4,
+            phaseNumber: 6,
             labelPT: "Finalizacao",
             labelEN: "Completion",
             percentage: 10,
-            triggerPT: "Entrega completa",
-            triggerEN: "Complete delivery",
+            triggerPT: "Entrega de documentacao final",
+            triggerEN: "Final documentation delivery",
             activatesPhases: [],
             descriptionPT: "Projeto completo + Todas as especialidades",
             descriptionEN: "Complete project + All engineering"
@@ -215,15 +281,15 @@ const hibridoModel: PaymentModel = {
 // MODELO 4: LEGALIZAÇÃO (3 Fases)
 // Para: Simplex, Regularização
 const legalizacaoModel: PaymentModel = {
-    modelId: "LEGAL_3PHASES",
-    namePT: "Legalizacao (3 Fases)",
-    nameEN: "Legalization (3 Phases)",
+    modelId: "LEGAL_4PHASES",
+    namePT: "Legalizacao (4 Fases)",
+    nameEN: "Legalization (4 Phases)",
     phases: [
         {
             phaseNumber: 1,
             labelPT: "Adjudicacao",
             labelEN: "Award",
-            percentage: 50,
+            percentage: 25,
             triggerPT: "Adjudicacao",
             triggerEN: "Project award",
             activatesPhases: ["A0"],
@@ -232,6 +298,17 @@ const legalizacaoModel: PaymentModel = {
         },
         {
             phaseNumber: 2,
+            labelPT: "Levantamento",
+            labelEN: "Survey",
+            percentage: 25,
+            triggerPT: "Levantamento Completo",
+            triggerEN: "Full Survey",
+            activatesPhases: ["A0", "A1"],
+            descriptionPT: "Conclusao do levantamento",
+            descriptionEN: "Survey conclusion"
+        },
+        {
+            phaseNumber: 3,
             labelPT: "Submissao",
             labelEN: "Submission",
             percentage: 30,
@@ -242,15 +319,15 @@ const legalizacaoModel: PaymentModel = {
             descriptionEN: "Technical documents completed and submitted"
         },
         {
-            phaseNumber: 3,
-            labelPT: "Aprovacao",
-            labelEN: "Approval",
+            phaseNumber: 4,
+            labelPT: "Finalizacao",
+            labelEN: "Completion",
             percentage: 20,
-            triggerPT: "Deferimento/Alvara",
-            triggerEN: "Approval/Permit",
+            triggerPT: "Entrega de documentacao final",
+            triggerEN: "Final documentation delivery",
             activatesPhases: [],
-            descriptionPT: "Processo de legalizacao concluido",
-            descriptionEN: "Legalization process completed"
+            descriptionPT: "Processo de legalizacao concluido aka documentacao final entregue",
+            descriptionEN: "Legalization process completed / final docs delivered"
         }
     ],
     applicableTemplates: [
