@@ -45,16 +45,16 @@ const execucaoModel: PaymentModel = {
     nameEN: "Permitting + Execution",
     phases: [
         // LICENSING (100% total)
-        { phaseNumber: 1, labelPT: "Adjudicacao", labelEN: "Award", percentage: 15, triggerPT: "Adjudicacao", triggerEN: "Project award", activatesPhases: ["A0"], descriptionPT: "Inicia desenvolvimento", type: "LICENSING" },
-        { phaseNumber: 2, labelPT: "Programa Base", labelEN: "Briefing", percentage: 15, triggerPT: "Programa Base aprovado", triggerEN: "Briefing approved", activatesPhases: ["A0", "A1"], descriptionPT: "Conclusao do Programa", type: "LICENSING" },
-        { phaseNumber: 3, labelPT: "Estudo Previo", labelEN: "Schematic Design", percentage: 20, triggerPT: "Entrega Estudo Previo", triggerEN: "SD delivery", activatesPhases: ["A1"], descriptionPT: "Desenvolvimento SD", type: "LICENSING" },
-        { phaseNumber: 4, labelPT: "Licenciamento", labelEN: "Permitting", percentage: 20, triggerPT: "Entrega Licenciamento", triggerEN: "Permitting delivery", activatesPhases: ["A2"], descriptionPT: "Desenvolvimento Lic.", type: "LICENSING" },
-        { phaseNumber: 5, labelPT: "Submissao", labelEN: "Submission", percentage: 20, triggerPT: "Submissao concluida", triggerEN: "Submission", activatesPhases: ["A2"], descriptionPT: "Pecas submetidas", type: "LICENSING" },
-        { phaseNumber: 6, labelPT: "Doc. Final", labelEN: "Final Docs", percentage: 10, triggerPT: "Entrega doc. final", triggerEN: "Final docs", activatesPhases: [], descriptionPT: "Conclusao Lic.", type: "LICENSING" },
+        { phaseNumber: 1, labelPT: "Adjudicacao", labelEN: "Award", percentage: 15, triggerPT: "Adjudicacao", triggerEN: "Project award", activatesPhases: ["A0"], descriptionPT: "Inicia desenvolvimento", descriptionEN: "Initiates development", type: "LICENSING" },
+        { phaseNumber: 2, labelPT: "Programa Base", labelEN: "Briefing", percentage: 15, triggerPT: "Programa Base aprovado", triggerEN: "Briefing approved", activatesPhases: ["A0", "A1"], descriptionPT: "Conclusao do Programa", descriptionEN: "Briefing conclusion", type: "LICENSING" },
+        { phaseNumber: 3, labelPT: "Estudo Previo", labelEN: "Schematic Design", percentage: 20, triggerPT: "Entrega Estudo Previo", triggerEN: "SD delivery", activatesPhases: ["A1"], descriptionPT: "Desenvolvimento SD", descriptionEN: "SD development", type: "LICENSING" },
+        { phaseNumber: 4, labelPT: "Licenciamento", labelEN: "Permitting", percentage: 20, triggerPT: "Entrega Licenciamento", triggerEN: "Permitting delivery", activatesPhases: ["A2"], descriptionPT: "Desenvolvimento Lic.", descriptionEN: "Permitting development", type: "LICENSING" },
+        { phaseNumber: 5, labelPT: "Submissao", labelEN: "Submission", percentage: 20, triggerPT: "Submissao concluida", triggerEN: "Submission", activatesPhases: ["A2"], descriptionPT: "Pecas submetidas", descriptionEN: "Technical submission", type: "LICENSING" },
+        { phaseNumber: 6, labelPT: "Doc. Final", labelEN: "Final Docs", percentage: 10, triggerPT: "Entrega doc. final", triggerEN: "Final docs", activatesPhases: [], descriptionPT: "Conclusao Lic.", descriptionEN: "Permitting conclusion", type: "LICENSING" },
         // EXECUTION (100% total - will be calculated relatively in UI)
-        { phaseNumber: 7, labelPT: "Adjudicacao Execucao", labelEN: "Execution Award", percentage: 20, triggerPT: "Adjudicacao da Fase de Execucao", activatesPhases: ["A3"], descriptionPT: "Inicio da Execucao", type: "EXECUTION" },
-        { phaseNumber: 8, labelPT: "Projeto Execucao", labelEN: "Construction Docs", percentage: 50, triggerPT: "Entrega do Projeto de Execucao Detalhado", activatesPhases: ["A3"], descriptionPT: "Detalhamento Tecnico", type: "EXECUTION" },
-        { phaseNumber: 9, labelPT: "Assistencia", labelEN: "Site Assistance", percentage: 30, triggerPT: "Assistencia Tecnica e Visitas a Obra", activatesPhases: ["A4"], descriptionPT: "Acompanhamento", type: "EXECUTION" }
+        { phaseNumber: 7, labelPT: "Adjudicacao Execucao", labelEN: "Execution Award", percentage: 20, triggerPT: "Adjudicacao da Fase de Execucao", triggerEN: "Execution Award", activatesPhases: ["A3"], descriptionPT: "Inicio da Execucao", descriptionEN: "Start of Execution", type: "EXECUTION" },
+        { phaseNumber: 8, labelPT: "Projeto Execucao", labelEN: "Construction Docs", percentage: 50, triggerPT: "Entrega do Projeto de Execucao Detalhado", triggerEN: "Construction Docs Delivery", activatesPhases: ["A3"], descriptionPT: "Detalhamento Tecnico", descriptionEN: "Technical Detailing", type: "EXECUTION" },
+        { phaseNumber: 9, labelPT: "Assistencia", labelEN: "Site Assistance", percentage: 30, triggerPT: "Assistencia Tecnica e Visitas a Obra", triggerEN: "Technical Assistance", activatesPhases: ["A4"], descriptionPT: "Acompanhamento", descriptionEN: "Site Supervision", type: "EXECUTION" }
     ],
     applicableTemplates: ["MORADIA_EXEC", "INTERIOR_DESIGN"]
 };

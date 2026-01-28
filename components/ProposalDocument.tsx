@@ -494,11 +494,10 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                     </tbody>
                                     <tfoot>
                                        <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                          <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                             <td className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (Fase 1)</td>
-                                             <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                          </tr>
+                                          <td className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (Fase 1)</td>
+                                          <td className="py-2 text-right font-bold text-[10px]">100%</td>
+                                          <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                       </tr>
                                     </tfoot>
                                  </table>
 
@@ -543,11 +542,10 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        </tbody>
                                        <tfoot>
                                           <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5 opacity-60">
-                                             <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5 opacity-60">
-                                                <td className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
-                                                <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                                <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                             </tr>
+                                             <td className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
+                                             <td className="py-2 text-right font-bold text-[10px]">100%</td>
+                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                          </tr>
                                        </tfoot>
                                     </table>
 
