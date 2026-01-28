@@ -26,7 +26,8 @@ import {
   StretchHorizontal,
   Star,
   Check,
-  FileText
+  FileText,
+  Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { templates, disciplines, templateSpecialties, exclusionsPT } from '../services/feeData';
@@ -781,10 +782,97 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   <Zap size={14} /> {t('calc_vat_legal')} (€{currentResult?.vat?.toLocaleString() || '0'})
                 </p>
 
-                <div className="mt-8 space-y-2">
-                  <ResultRow label={t('calc_arch_design')} value={`€${currentResult?.feeArch?.toLocaleString() || '0'}`} />
-                  <ResultRow label={t('calc_eng_integrated')} value={`€${currentResult?.feeSpec?.toLocaleString() || '0'}`} />
-                </div>
+
+
+                {/* MATRIZ UNIFICADA - Summary Panel Version */}
+                {(() => {
+                   if (!currentResult?.phasesBreakdown) return null;
+                   
+                   // Licenciamento: A0, A1, A2
+                   const licPhases = currentResult.phasesBreakdown.filter(p => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)));
+                   const licValue = licPhases.reduce((acc, p) => acc + (p.value || 0), 0);
+                   
+                   // Execucao: A3, A4
+                   const execPhases = currentResult.phasesBreakdown.filter(p => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)));
+                   const execValue = execPhases.reduce((acc, p) => acc + (p.value || 0), 0);
+
+                   const total = currentResult.feeTotal || 1;
+                   const licRatio = licValue / total;
+                   // const execRatio = execValue / total;
+
+                   const feeArch = currentResult.feeArch || 0;
+                   const feeSpec = currentResult.feeSpec || 0;
+
+                   const archLic = Math.round(feeArch * licRatio);
+                   const archExec = feeArch - archLic;
+                   
+                   const specLic = Math.round(feeSpec * licRatio);
+                   const specExec = feeSpec - specLic;
+
+                   if(licValue > 0 || execValue > 0) {
+                     return (
+                       <div className="w-full mt-8 bg-black/5 dark:bg-white/5 rounded-xl overflow-hidden border border-black/5 dark:border-white/5">
+                           {/* Header */}
+                           <div className="grid grid-cols-4 bg-luxury-black/10 dark:bg-white/10 text-[9px] uppercase font-black tracking-widest py-2 text-luxury-charcoal dark:text-white">
+                              <div className="px-3 flex items-center">Disciplina</div>
+                              <div className="px-1 text-center border-l border-black/5 dark:border-white/5 text-luxury-gold">Licenc.</div>
+                              <div className="px-1 text-center border-l border-black/5 dark:border-white/5">Exec.</div>
+                              <div className="px-2 text-right border-l border-black/5 dark:border-white/5">Total</div>
+                           </div>
+
+                           <div className="divide-y divide-black/5 dark:divide-white/5 text-[10px]">
+                              {/* Architecture */}
+                              <div className="grid grid-cols-4 py-2 hover:bg-black/5 dark:hover:bg-white/5">
+                                 <div className="px-3 font-bold text-luxury-charcoal dark:text-white flex flex-col justify-center">
+                                    Arquitetura
+                                 </div>
+                                 <div className="px-1 text-center font-mono opacity-80 flex items-center justify-center text-luxury-gold">
+                                    €{archLic.toLocaleString()}
+                                 </div>
+                                 <div className="px-1 text-center font-mono opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
+                                    €{archExec.toLocaleString()}
+                                 </div>
+                                 <div className="px-2 text-right font-bold flex items-center justify-end text-luxury-charcoal dark:text-white">
+                                    €{feeArch.toLocaleString()}
+                                 </div>
+                              </div>
+
+                              {/* Specialties */}
+                              <div className="grid grid-cols-4 py-2 hover:bg-black/5 dark:hover:bg-white/5">
+                                 <div className="px-3 font-bold text-luxury-charcoal dark:text-white flex flex-col justify-center">
+                                    Especialidades
+                                 </div>
+                                 <div className="px-1 text-center font-mono opacity-80 flex items-center justify-center text-luxury-gold">
+                                    €{specLic.toLocaleString()}
+                                 </div>
+                                 <div className="px-1 text-center font-mono opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
+                                    €{specExec.toLocaleString()}
+                                 </div>
+                                 <div className="px-2 text-right font-bold flex items-center justify-end text-luxury-charcoal dark:text-white">
+                                    €{feeSpec.toLocaleString()}
+                                 </div>
+                              </div>
+
+                              {/* Totals */}
+                              <div className="grid grid-cols-4 py-2 bg-black/5 dark:bg-white/5 font-bold">
+                                 <div className="px-3 uppercase opacity-50 flex items-center text-luxury-charcoal dark:text-white">Total</div>
+                                 <div className="px-1 text-center text-luxury-gold flex items-center justify-center">
+                                    €{licValue.toLocaleString()}
+                                 </div>
+                                 <div className="px-1 text-center opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
+                                    €{execValue.toLocaleString()}
+                                 </div>
+                                 <div className="px-2 text-right flex items-center justify-end text-luxury-charcoal dark:text-white">
+                                    €{total.toLocaleString()}
+                                 </div>
+                              </div>
+                           </div>
+                       </div>
+                     );
+                   }
+                   return null;
+                })()}
+
                 {/* Descontos & PolA­tica Comercial */}
                 <div className="pt-8 border-t border-black/5 dark:border-white/5 space-y-6">
 
@@ -1148,6 +1236,15 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 <label className="text-xs font-black uppercase tracking-widest opacity-60 px-2 text-white">Centro de Emissao & Adjudicacao</label>
                 {/* Centro de Emissao (Passo 6: Governanca) */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* NEW: Direct PDF Export Button */}
+                  <button
+                    onClick={() => window.print()}
+                    className="col-span-1 md:col-span-2 py-7 bg-luxury-gold text-black rounded-[2.5rem] text-xs font-black uppercase tracking-widest hover:brightness-110 transition-all shadow-2xl flex items-center justify-center gap-4 group"
+                  >
+                    <Download size={18} className="group-hover:translate-y-1 transition-transform" />
+                    Exportar PDF Completo (com Comparador)
+                  </button>
+
                   <button
                     onClick={() => setViewMode('document')} // Changed to switch tab instead of modal
                     className="col-span-1 md:col-span-2 py-7 bg-white text-black rounded-[2.5rem] text-xs font-black uppercase tracking-widest hover:bg-luxury-gold transition-all shadow-2xl flex items-center justify-center gap-4 group"
@@ -1293,7 +1390,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   selectedSpecs: currentResult?.selectedSpecs || [],
                   phases: currentResult?.phasesBreakdown || [],
                   effortMap: currentResult?.effortMap || [],
-                  units: currentResult?.units || 'm2'
+                  units: currentResult?.units || 'm2',
+                  comparisonData
                 }}
                   includeAnnex={includeAnnex} />
               </div>
@@ -1553,12 +1651,19 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           <div className="space-y-4">
                             <p className="text-[10px] font-black uppercase tracking-widest opacity-40">Entregáveis incluidos</p>
                             <ul className="space-y-3">
-                              {(item.pack?.deliverablesPT || []).map((del, i) => (
-                                <li key={i} className="flex gap-3 text-xs font-light text-white/80">
-                                  <CheckCircle2 size={14} className="text-luxury-gold shrink-0 mt-0.5" />
-                                  <span className="leading-relaxed">{del}</span>
-                                </li>
-                              ))}
+                              {(item.pack?.deliverablesPT || []).map((del, i) => {
+                                let displayLabel = del;
+                                if (del.includes('Assistência Técnica')) {
+                                   const visitCount = complexity === 3 ? 15 : complexity === 2 ? 10 : 5;
+                                   displayLabel = `${del} (${visitCount} visitas)`;
+                                }
+                                return (
+                                  <li key={i} className="flex gap-3 text-xs font-light text-white/80">
+                                    <CheckCircle2 size={14} className="text-luxury-gold shrink-0 mt-0.5" />
+                                    <span className="leading-relaxed">{displayLabel}</span>
+                                  </li>
+                                );
+                              })}
                             </ul>
                           </div>
 
@@ -1678,12 +1783,5 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
   );
 }
 
-function ResultRow({ label, value }: { label: string, value: string }) {
-  return (
-    <div className="flex justify-between items-end border-b border-white/5 pb-4">
-      <span className="text-xs font-black uppercase tracking-widest opacity-50 text-white">{label}</span>
-      <span className="text-xl font-serif italic text-white">{value}</span>
-    </div>
-  );
-}
+
 

@@ -33,11 +33,11 @@ const PROFILE_RATE_KEY: Record<string, keyof typeof INTERNAL_RATES> = {
 
 // Fases: pesos (mantive os teus, mas com normalizacao robusta)
 const ALL_PHASE_WEIGHTS = [
-  { id: "A0", weight: 0.20 },
-  { id: "A1", weight: 0.25 },
-  { id: "A2", weight: 0.30 },
-  { id: "A3", weight: 0.15 },
-  { id: "A4", weight: 0.10 },
+  { id: "A0", weight: 0.05 }, // 5% - Entrada facilitada
+  { id: "A1", weight: 0.20 }, // 20% - Estudo Previo
+  { id: "A2", weight: 0.35 }, // 35% - Licenciamento (Responsabilidade)
+  { id: "A3", weight: 0.30 }, // 30% - Execucao (Trabalho Tecnico)
+  { id: "A4", weight: 0.10 }, // 10% - Assistencia
 ] as const;
 
 function normalizeWeights(weights: { id: string; weight: number }[]) {
@@ -158,29 +158,27 @@ function estimatedInternalCost(effortMap: { hours: number; profile: string }[]) 
 
 function phasesBreakdown(feeTotal: number, scenario: Scenario, area: number, complexity: Complexity, template?: FeeTemplate) {
   // 1. Determine base active phases by Scenario
-  let activePhases = scenario === 'premium'
-    ? ALL_PHASE_WEIGHTS
-    : ALL_PHASE_WEIGHTS.filter(w => ['A0', 'A1', 'A2'].includes(w.id));
+  // [MODIFIED] Always show full phases breakdown (A0-A4) to reflect the 60/40 split map.
+  const activePhases = ALL_PHASE_WEIGHTS;
 
   // 2. Filter by Template Process Type (Typology)
+  // [MODIFIED] User requested explicit separation of Licensing vs Execution for ALL templates.
+  // We removed the 'lic' filter to ensure even "Licensing" templates show the full potential roadmap (A0-A4)
+  // with the new 60/40 split.
+  
   if (template) {
-    if (template.processType === 'lic') {
-      // Licensing only: Force remove Execution (A3) and usually Assistance (A4) if purely licensing, 
-      // but lets keep A4 if scenario is premium? No, Licensing shouldn't have construction phases.
-      activePhases = activePhases.filter(w => ['A0', 'A1', 'A2'].includes(w.id));
-    }
-    // If 'exec', we assume it CAN go up to execution, so we respect the Scenario (Premium vs Standard).
-    // If 'hybrid' (e.g. Rehab), allows all.
+     // Previously filtered 'lic' to drop A3/A4. Now allowing full scope visibility.
+     // if (template.processType === 'lic') ... (Removed)
   }
 
-  const normalized = normalizeWeights(activePhases as { id: string; weight: number }[]);
+  const normalized = normalizeWeights(activePhases as unknown as { id: string; weight: number }[]);
 
   // Base weeks per phase (Standard complexity, ~200m2)
   const baseWeeks: Record<string, number> = {
-    'A0': 1,
+    'A0': 2,
     'A1': 4,
     'A2': 4,
-    'A3': 4, // Execucao
+    'A3': 8, // Execucao (Aumentado para segurança - 2 meses)
     'A4': 2  // Assistencia
   };
 
@@ -198,11 +196,19 @@ function phasesBreakdown(feeTotal: number, scenario: Scenario, area: number, com
     const rawWeeks = (baseWeeks[pw.id] || 2) * areaMult * compMult;
     const weeks = Math.max(1, Math.round(rawWeeks));
 
+    let description = info?.shortPT || "";
+    
+    // [MODIFIED] Add visit limits to A4 (Safeguard)
+    if (pw.id === 'A4') {
+       const visitCount = complexity === 3 ? 15 : complexity === 2 ? 10 : 5;
+       description += ` Inclui pacote de ${visitCount} visitas à obra.`;
+    }
+
     return {
       phaseId: pw.id,
       label: info?.labelPT || pw.id,
       labelEN: info?.labelEN || info?.labelPT || pw.id,
-      description: info?.shortPT || "",
+      description: description,
       descriptionEN: info?.shortEN || info?.shortPT || "",
       value: round(feeTotal * pw.weight),
       percentage: round(pw.weight * 100),

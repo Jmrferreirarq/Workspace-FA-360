@@ -23,7 +23,8 @@ export const SCENARIO_CATALOG: Record<Scenario, ScenarioPack> = {
       'Programa Base + checklist de decisões',
       'Estudo Prévio (1 solução)',
       'Peças para licenciamento (mínimo necessário)',
-      'Coordenação base com especialidades',
+      'Projeto de Execução (Peças Base)',
+      'Assistência Técnica (Standard)',
       'Plano de pagamento por marcos'
     ],
     deliverablesEN: [
@@ -60,7 +61,8 @@ export const SCENARIO_CATALOG: Record<Scenario, ScenarioPack> = {
       'Programa Base + métricas',
       'Estudo Prévio (1–2 opções quando aplicável)',
       'Licenciamento completo (peças desenhadas + escritas)',
-      'Coordenação reforçada com especialidades',
+      'Projeto de Execução (Completo p/ Obra)',
+      'Assistência Técnica (Standard c/ Visitas)',
       'Checklist legal e plano de pagamentos'
     ],
     deliverablesEN: [
