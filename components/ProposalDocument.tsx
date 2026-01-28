@@ -371,7 +371,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            const isSelected = data.scenario === item.scenario;
 
                            return (
-                              <div key={idx} className={`p-8 rounded-[2rem] border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
+                              <div key={idx} className={`p-5 rounded-[2rem] border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
                                  <h4 className="text-xs font-black uppercase tracking-widest mb-4 flex items-center gap-2">
                                     {item.pack?.labelPT || item.scenario}
                                     {isSelected && <span className="text-[10px] bg-luxury-gold text-white px-2 py-0.5 rounded-full">Selecionado</span>}
@@ -384,20 +384,20 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
                                  {/* Breakdown Mini-Matrix */}
                                  <div className="mb-6 space-y-2">
-                                    <div className="grid grid-cols-2 gap-2 text-[10px] bg-black/[0.02] p-2 rounded-lg border border-black/5">
+                                    <div className="flex justify-between items-end gap-2 text-[10px] bg-black/[0.02] px-4 py-2 rounded-lg border border-black/5">
                                        <div className="space-y-0.5">
-                                          <span className="block uppercase font-black opacity-40 text-[9px]">Arquitetura</span>
-                                          <span className="font-bold">€{(item.result.feeArch || 0).toLocaleString()}</span>
+                                          <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ARQ.</span>
+                                          <span className="font-bold block">€{(item.result.feeArch || 0).toLocaleString()}</span>
                                        </div>
                                        <div className="space-y-0.5 text-right">
-                                          <span className="block uppercase font-black opacity-40 text-[9px]">Especialidades</span>
-                                          <span className="font-bold">€{(item.result.feeSpec || 0).toLocaleString()}</span>
+                                          <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ENG.</span>
+                                          <span className="font-bold block">€{(item.result.feeSpec || 0).toLocaleString()}</span>
                                        </div>
                                     </div>
-                                    <div className="grid grid-cols-2 gap-2 text-[10px] bg-luxury-gold/[0.05] p-2 rounded-lg border border-luxury-gold/20">
+                                    <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-2 rounded-lg border border-luxury-gold/20">
                                        <div className="space-y-0.5">
-                                          <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px]">Licenciamento</span>
-                                          <span className="font-bold text-luxury-black/80">
+                                          <span className="block uppercase font-black opacity-60 text-luxury-gold text-[8px] tracking-tight">LIC.</span>
+                                          <span className="font-bold text-luxury-black/80 block">
                                              €{(
                                                 (item.result.phasesBreakdown || [])
                                                    .filter(p => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)))
@@ -406,8 +406,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                           </span>
                                        </div>
                                        <div className="space-y-0.5 text-right">
-                                          <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px]">Execução</span>
-                                          <span className="font-bold text-luxury-black/80">
+                                          <span className="block uppercase font-black opacity-60 text-luxury-gold text-[8px] tracking-tight">EXEC.</span>
+                                          <span className="font-bold text-luxury-black/80 block">
                                              €{(
                                                 (item.result.phasesBreakdown || [])
                                                    .filter(p => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)))
