@@ -546,16 +546,33 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  </div>
                               )}
 
-                              {/* TOTAL GERAL */}
-                              <div className="border-t-4 border-luxury-black pt-2 flex justify-between items-end">
-                                 <div>
-                                    <div className="text-xs font-black uppercase">TOTAL GERAL ESTIMADO</div>
-                                    <div className="text-[10px] opacity-50 italic">+ IVA a taxa legal em vigor</div>
+                              {/* TOTAIS SEPARADOS */}
+                              <div className="border-t-4 border-luxury-black pt-4 flex flex-col gap-2">
+                                 {/* Resumo Licenciamento */}
+                                 <div className="flex justify-between items-end">
+                                    <div>
+                                       <div className="text-xs font-black uppercase">TOTAL FASE A (LICENCIAMENTO)</div>
+                                       <div className="text-[10px] opacity-50 italic">Valor a adjudicar nesta fase (+ IVA)</div>
+                                    </div>
+                                    <div className="text-right">
+                                       <div className="text-xs font-black">{licensingPercent}%</div>
+                                       <div className="text-xl font-mono font-black">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                                    </div>
                                  </div>
-                                 <div className="text-right">
-                                    <div className="text-xs font-black">100%</div>
-                                    <div className="text-xl font-mono font-black">€{totalFee.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-                                 </div>
+
+                                 {/* Resumo Execução (se aplicável) */}
+                                 {executionPhases.length > 0 && (
+                                    <div className="flex justify-between items-end pt-2 border-t border-luxury-black/10 mt-2 opacity-80">
+                                       <div>
+                                          <div className="text-xs font-bold uppercase text-luxury-gold decoration-slice">TOTAL FASE B (EXECUÇÃO)</div>
+                                          <div className="text-[10px] opacity-50 italic">Valor estimado opcional (+ IVA)</div>
+                                       </div>
+                                       <div className="text-right">
+                                          <div className="text-xs font-bold text-luxury-gold">{executionPercent}%</div>
+                                          <div className="text-xl font-mono font-bold text-luxury-gold">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                                       </div>
+                                    </div>
+                                 )}
                               </div>
                            </div>
                         );

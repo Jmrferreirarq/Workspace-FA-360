@@ -129,7 +129,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
   // SMART PROJECT NAMING (NEW)
   useEffect(() => {
-    if (!selectedTemplate || !clientName) return; 
+    if (!selectedTemplate || !clientName) return;
 
     // Logic: Always suggest a new name when Client or Typology changes, 
     // mimicking the Internal Ref behavior requested by the user.
@@ -162,7 +162,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
     const newName = `${prefix} ${cleanName} ${monthCap} ${currentYear}`;
     if (cleanName.length > 1 && projectName !== newName) {
-       setProjectName(newName);
+      setProjectName(newName);
     }
 
   }, [selectedTemplate, clientName, projectName]);
@@ -433,7 +433,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
               />
             </div>
-            
+
             <div className="space-y-3">
               <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Localização (Concelho)</label>
               <div className="relative">
@@ -448,32 +448,32 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             </div>
 
             <div className="space-y-3">
-               <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Referência Interna</label>
-               <input
-                 value={internalRef}
-                 onChange={e => setInternalRef(e.target.value)}
-                 className="w-full bg-black/10 dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-gold font-mono outline-none"
-               />
+              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Referência Interna</label>
+              <input
+                value={internalRef}
+                onChange={e => setInternalRef(e.target.value)}
+                className="w-full bg-black/10 dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-gold font-mono outline-none"
+              />
             </div>
 
             {/* NEW FIELDS */}
             <div className="space-y-3 md:col-span-2">
-               <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Morada do Terreno</label>
-               <input
-                 value={address}
-                 onChange={e => setAddress(e.target.value)}
-                 placeholder="Ex: Rua de Baixo, n 32, 3800-123 Aveiro"
-                 className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
-               />
+              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Morada do Terreno</label>
+              <input
+                value={address}
+                onChange={e => setAddress(e.target.value)}
+                placeholder="Ex: Rua de Baixo, n 32, 3800-123 Aveiro"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
+              />
             </div>
-             <div className="space-y-3 md:col-span-2">
-               <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Link Google Maps</label>
-               <input
-                 value={mapsLink}
-                 onChange={e => setMapsLink(e.target.value)}
-                 placeholder="https://maps.google.com/..."
-                 className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-gold font-mono focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
-               />
+            <div className="space-y-3 md:col-span-2">
+              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Link Google Maps</label>
+              <input
+                value={mapsLink}
+                onChange={e => setMapsLink(e.target.value)}
+                placeholder="https://maps.google.com/..."
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-gold font-mono focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
+              />
             </div>
           </div>
         </div>
@@ -732,40 +732,100 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-black/5 dark:divide-white/5">
-                  {currentResult.phasesBreakdown.map((p: UIPhase, i: number) => {
-                    const label = locale === 'en' ? (p.labelEN || p.label) : p.label;
-                    const description = locale === 'en' ? (p.descriptionEN || p.description) : p.description;
-                    const duration = locale === 'en' && p.weeks ? `${p.weeks} ${p.weeks === 1 ? 'Week' : 'Weeks'}` : p.duration;
+                  {/* Category: Licensing */}
+                  <tr className="bg-black/[0.02] dark:bg-white/[0.02]">
+                    <td colSpan={5} className="px-6 py-3 text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold/80 bg-luxury-gold/5">
+                      A. Processo de Licenciamento
+                    </td>
+                  </tr>
+                  {currentResult.phasesBreakdown
+                    .filter((p: UIPhase) => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)))
+                    .map((p: UIPhase, i: number) => {
+                      const label = locale === 'en' ? (p.labelEN || p.label) : p.label;
+                      const description = locale === 'en' ? (p.descriptionEN || p.description) : p.description;
+                      const duration = locale === 'en' && p.weeks ? `${p.weeks} ${p.weeks === 1 ? 'Week' : 'Weeks'}` : p.duration;
 
-                    return (
-                      <tr key={i} className="group hover:bg-luxury-gold/[0.02] transition-colors">
-                        <td className="px-6 py-5 align-top">
-                          <span className="text-xs font-black uppercase tracking-widest text-luxury-gold block mb-1">{p.phaseId}</span>
-                          <span className="text-[10px] font-bold text-luxury-charcoal/80 dark:text-white/80 uppercase tracking-tighter block">{label}</span>
-                        </td>
-                        <td className="px-6 py-5 align-top">
-                          <p className="text-[11px] font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed max-w-sm">
-                            {description}
-                          </p>
-                        </td>
-                        <td className="px-6 py-5 align-top text-center">
-                          <span className="text-[10px] font-mono text-luxury-charcoal/40 dark:text-white/40 uppercase whitespace-nowrap">
-                            {duration}
-                          </span>
-                        </td>
-                        <td className="px-6 py-5 align-top text-center">
-                          <span className="text-[11px] font-mono text-luxury-gold font-bold">
-                            {p.percentage}%
-                          </span>
-                        </td>
-                        <td className="px-6 py-5 align-top text-right">
-                          <span className="text-xs font-mono font-bold text-luxury-charcoal dark:text-white">
-                            €{p.value.toLocaleString()}
-                          </span>
+                      return (
+                        <tr key={`lic-${i}`} className="group hover:bg-luxury-gold/[0.02] transition-colors">
+                          <td className="px-6 py-5 align-top">
+                            <span className="text-xs font-black uppercase tracking-widest text-luxury-gold block mb-1">{p.phaseId}</span>
+                            <span className="text-[10px] font-bold text-luxury-charcoal/80 dark:text-white/80 uppercase tracking-tighter block">{label}</span>
+                          </td>
+                          <td className="px-6 py-5 align-top">
+                            <p className="text-[11px] font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed max-w-sm">
+                              {description}
+                            </p>
+                          </td>
+                          <td className="px-6 py-5 align-top text-center">
+                            <span className="text-[10px] font-mono text-luxury-charcoal/40 dark:text-white/40 uppercase whitespace-nowrap">
+                              {duration}
+                            </span>
+                          </td>
+                          <td className="px-6 py-5 align-top text-center">
+                            <span className="text-[11px] font-mono text-luxury-gold font-bold">
+                              {p.percentage}%
+                            </span>
+                          </td>
+                          <td className="px-6 py-5 align-top text-right">
+                            <span className="text-xs font-mono font-bold text-luxury-charcoal dark:text-white">
+                              €{p.value.toLocaleString()}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                  {/* Category: Execution */}
+                  {currentResult.phasesBreakdown.some((p: UIPhase) => ['A3', 'A4'].some(id => p.phaseId.startsWith(id))) && (
+                    <>
+                      <tr className="bg-black/[0.02] dark:bg-white/[0.02] border-t-2 border-black/5 dark:border-white/5">
+                        <td colSpan={5} className="px-6 py-3 bg-luxury-gold/5">
+                          <div className="flex justify-between items-center">
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold/60">
+                              B. Projeto de Execução & Assistência
+                            </span>
+                            <span className="bg-luxury-gold/10 text-luxury-gold px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">Opcional</span>
+                          </div>
                         </td>
                       </tr>
-                    );
-                  })}
+                      {currentResult.phasesBreakdown
+                        .filter((p: UIPhase) => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)))
+                        .map((p: UIPhase, i: number) => {
+                          const label = locale === 'en' ? (p.labelEN || p.label) : p.label;
+                          const description = locale === 'en' ? (p.descriptionEN || p.description) : p.description;
+                          const duration = locale === 'en' && p.weeks ? `${p.weeks} ${p.weeks === 1 ? 'Week' : 'Weeks'}` : p.duration;
+
+                          return (
+                            <tr key={`exec-${i}`} className="group hover:bg-luxury-gold/[0.01] transition-colors opacity-80">
+                              <td className="px-6 py-5 align-top">
+                                <span className="text-xs font-black uppercase tracking-widest text-luxury-gold/60 block mb-1">{p.phaseId}</span>
+                                <span className="text-[10px] font-bold text-luxury-charcoal/60 dark:text-white/60 uppercase tracking-tighter block">{label}</span>
+                              </td>
+                              <td className="px-6 py-5 align-top">
+                                <p className="text-[11px] font-light italic text-luxury-charcoal/40 dark:text-white/40 leading-relaxed max-w-sm">
+                                  {description}
+                                </p>
+                              </td>
+                              <td className="px-6 py-5 align-top text-center">
+                                <span className="text-[10px] font-mono text-luxury-charcoal/30 dark:text-white/30 uppercase whitespace-nowrap">
+                                  {duration}
+                                </span>
+                              </td>
+                              <td className="px-6 py-5 align-top text-center">
+                                <span className="text-[11px] font-mono text-luxury-gold/60 font-bold">
+                                  {p.percentage}%
+                                </span>
+                              </td>
+                              <td className="px-6 py-5 align-top text-right">
+                                <span className="text-xs font-mono font-bold text-luxury-charcoal/60 dark:text-white/60">
+                                  €{p.value.toLocaleString()}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                    </>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -856,91 +916,91 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
                 {/* MATRIZ UNIFICADA - Summary Panel Version */}
                 {(() => {
-                   if (!currentResult?.phasesBreakdown) return null;
-                   
-                   // Licenciamento: A0, A1, A2
-                   const licPhases = currentResult.phasesBreakdown.filter(p => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)));
-                   const licValue = licPhases.reduce((acc, p) => acc + (p.value || 0), 0);
-                   
-                   // Execucao: A3, A4
-                   const execPhases = currentResult.phasesBreakdown.filter(p => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)));
-                   const execValue = execPhases.reduce((acc, p) => acc + (p.value || 0), 0);
+                  if (!currentResult?.phasesBreakdown) return null;
 
-                   const total = currentResult.feeTotal || 1;
-                   const licRatio = licValue / total;
-                   // const execRatio = execValue / total;
+                  // Licenciamento: A0, A1, A2
+                  const licPhases = currentResult.phasesBreakdown.filter(p => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)));
+                  const licValue = licPhases.reduce((acc, p) => acc + (p.value || 0), 0);
 
-                   const feeArch = currentResult.feeArch || 0;
-                   const feeSpec = currentResult.feeSpec || 0;
+                  // Execucao: A3, A4
+                  const execPhases = currentResult.phasesBreakdown.filter(p => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)));
+                  const execValue = execPhases.reduce((acc, p) => acc + (p.value || 0), 0);
 
-                   const archLic = Math.round(feeArch * licRatio);
-                   const archExec = feeArch - archLic;
-                   
-                   const specLic = Math.round(feeSpec * licRatio);
-                   const specExec = feeSpec - specLic;
+                  const total = currentResult.feeTotal || 1;
+                  const licRatio = licValue / total;
+                  // const execRatio = execValue / total;
 
-                   if(licValue > 0 || execValue > 0) {
-                     return (
-                       <div className="w-full mt-8 bg-black/5 dark:bg-white/5 rounded-xl overflow-hidden border border-black/5 dark:border-white/5">
-                           {/* Header */}
-                           <div className="grid grid-cols-4 bg-luxury-black/10 dark:bg-white/10 text-[9px] uppercase font-black tracking-widest py-2 text-luxury-charcoal dark:text-white">
-                              <div className="px-3 flex items-center">Disciplina</div>
-                              <div className="px-1 text-center border-l border-black/5 dark:border-white/5 text-luxury-gold">Licenc.</div>
-                              <div className="px-1 text-center border-l border-black/5 dark:border-white/5">Exec.</div>
-                              <div className="px-2 text-right border-l border-black/5 dark:border-white/5">Total</div>
-                           </div>
+                  const feeArch = currentResult.feeArch || 0;
+                  const feeSpec = currentResult.feeSpec || 0;
 
-                           <div className="divide-y divide-black/5 dark:divide-white/5 text-[10px]">
-                              {/* Architecture */}
-                              <div className="grid grid-cols-4 py-2 hover:bg-black/5 dark:hover:bg-white/5">
-                                 <div className="px-3 font-bold text-luxury-charcoal dark:text-white flex flex-col justify-center">
-                                    Arquitetura
-                                 </div>
-                                 <div className="px-1 text-center font-mono opacity-80 flex items-center justify-center text-luxury-gold">
-                                    €{archLic.toLocaleString()}
-                                 </div>
-                                 <div className="px-1 text-center font-mono opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
-                                    €{archExec.toLocaleString()}
-                                 </div>
-                                 <div className="px-2 text-right font-bold flex items-center justify-end text-luxury-charcoal dark:text-white">
-                                    €{feeArch.toLocaleString()}
-                                 </div>
-                              </div>
+                  const archLic = Math.round(feeArch * licRatio);
+                  const archExec = feeArch - archLic;
 
-                              {/* Specialties */}
-                              <div className="grid grid-cols-4 py-2 hover:bg-black/5 dark:hover:bg-white/5">
-                                 <div className="px-3 font-bold text-luxury-charcoal dark:text-white flex flex-col justify-center">
-                                    Especialidades
-                                 </div>
-                                 <div className="px-1 text-center font-mono opacity-80 flex items-center justify-center text-luxury-gold">
-                                    €{specLic.toLocaleString()}
-                                 </div>
-                                 <div className="px-1 text-center font-mono opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
-                                    €{specExec.toLocaleString()}
-                                 </div>
-                                 <div className="px-2 text-right font-bold flex items-center justify-end text-luxury-charcoal dark:text-white">
-                                    €{feeSpec.toLocaleString()}
-                                 </div>
-                              </div>
+                  const specLic = Math.round(feeSpec * licRatio);
+                  const specExec = feeSpec - specLic;
 
-                              {/* Totals */}
-                              <div className="grid grid-cols-4 py-2 bg-black/5 dark:bg-white/5 font-bold">
-                                 <div className="px-3 uppercase opacity-50 flex items-center text-luxury-charcoal dark:text-white">Total</div>
-                                 <div className="px-1 text-center text-luxury-gold flex items-center justify-center">
-                                    €{licValue.toLocaleString()}
-                                 </div>
-                                 <div className="px-1 text-center opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
-                                    €{execValue.toLocaleString()}
-                                 </div>
-                                 <div className="px-2 text-right flex items-center justify-end text-luxury-charcoal dark:text-white">
-                                    €{total.toLocaleString()}
-                                 </div>
-                              </div>
-                           </div>
-                       </div>
-                     );
-                   }
-                   return null;
+                  if (licValue > 0 || execValue > 0) {
+                    return (
+                      <div className="w-full mt-8 bg-black/5 dark:bg-white/5 rounded-xl overflow-hidden border border-black/5 dark:border-white/5">
+                        {/* Header */}
+                        <div className="grid grid-cols-4 bg-luxury-black/10 dark:bg-white/10 text-[9px] uppercase font-black tracking-widest py-2 text-luxury-charcoal dark:text-white">
+                          <div className="px-3 flex items-center">Disciplina</div>
+                          <div className="px-1 text-center border-l border-black/5 dark:border-white/5 text-luxury-gold">Licenc.</div>
+                          <div className="px-1 text-center border-l border-black/5 dark:border-white/5">Exec.</div>
+                          <div className="px-2 text-right border-l border-black/5 dark:border-white/5">Total</div>
+                        </div>
+
+                        <div className="divide-y divide-black/5 dark:divide-white/5 text-[10px]">
+                          {/* Architecture */}
+                          <div className="grid grid-cols-4 py-2 hover:bg-black/5 dark:hover:bg-white/5">
+                            <div className="px-3 font-bold text-luxury-charcoal dark:text-white flex flex-col justify-center">
+                              Arquitetura
+                            </div>
+                            <div className="px-1 text-center font-mono opacity-80 flex items-center justify-center text-luxury-gold">
+                              €{archLic.toLocaleString()}
+                            </div>
+                            <div className="px-1 text-center font-mono opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
+                              €{archExec.toLocaleString()}
+                            </div>
+                            <div className="px-2 text-right font-bold flex items-center justify-end text-luxury-charcoal dark:text-white">
+                              €{feeArch.toLocaleString()}
+                            </div>
+                          </div>
+
+                          {/* Specialties */}
+                          <div className="grid grid-cols-4 py-2 hover:bg-black/5 dark:hover:bg-white/5">
+                            <div className="px-3 font-bold text-luxury-charcoal dark:text-white flex flex-col justify-center">
+                              Especialidades
+                            </div>
+                            <div className="px-1 text-center font-mono opacity-80 flex items-center justify-center text-luxury-gold">
+                              €{specLic.toLocaleString()}
+                            </div>
+                            <div className="px-1 text-center font-mono opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
+                              €{specExec.toLocaleString()}
+                            </div>
+                            <div className="px-2 text-right font-bold flex items-center justify-end text-luxury-charcoal dark:text-white">
+                              €{feeSpec.toLocaleString()}
+                            </div>
+                          </div>
+
+                          {/* Totals */}
+                          <div className="grid grid-cols-4 py-2 bg-black/5 dark:bg-white/5 font-bold">
+                            <div className="px-3 uppercase opacity-50 flex items-center text-luxury-charcoal dark:text-white">Total</div>
+                            <div className="px-1 text-center text-luxury-gold flex items-center justify-center">
+                              €{licValue.toLocaleString()}
+                            </div>
+                            <div className="px-1 text-center opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
+                              €{execValue.toLocaleString()}
+                            </div>
+                            <div className="px-2 text-right flex items-center justify-end text-luxury-charcoal dark:text-white">
+                              €{total.toLocaleString()}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
                 })()}
 
                 {/* Descontos & PolA­tica Comercial */}
@@ -1744,38 +1804,38 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
                         {/* Breakdown Mini-Matrix (Consistency with PDF) */}
                         <div className="px-8 pb-4 space-y-2">
-                           <div className="flex justify-between items-end gap-2 text-[10px] bg-white/[0.03] px-4 py-3 rounded-lg border border-white/5">
-                              <div className="space-y-1">
-                                 <span className="block uppercase font-black opacity-40 text-[9px] tracking-tight">ARQ. Total</span>
-                                 <span className="font-bold block text-sm">€{(item.result?.feeArch || 0).toLocaleString()}</span>
-                              </div>
-                              <div className="space-y-1 text-right">
-                                 <span className="block uppercase font-black opacity-40 text-[9px] tracking-tight">ENG. Total</span>
-                                 <span className="font-bold block text-sm">€{(item.result?.feeSpec || 0).toLocaleString()}</span>
-                              </div>
-                           </div>
-                           <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-3 rounded-lg border border-luxury-gold/20">
-                              <div className="space-y-1">
-                                 <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px] tracking-tight">LIC. (Fases)</span>
-                                 <span className="font-bold text-white/90 block text-sm">
-                                    €{(
-                                       (item.result?.phasesBreakdown || [])
-                                          .filter((p: { phaseId: string }) => ['A0', 'A1', 'A2'].some((id: string) => p.phaseId.startsWith(id)))
-                                          .reduce((acc: number, p: { value: number }) => acc + (p.value || 0), 0)
-                                    ).toLocaleString()}
-                                 </span>
-                              </div>
-                              <div className="space-y-1 text-right">
-                                 <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px] tracking-tight">EXEC. (Fases)</span>
-                                 <span className="font-bold text-white/90 block text-sm">
-                                    €{(
-                                       (item.result?.phasesBreakdown || [])
-                                          .filter((p: { phaseId: string }) => ['A3', 'A4'].some((id: string) => p.phaseId.startsWith(id)))
-                                          .reduce((acc: number, p: { value: number }) => acc + (p.value || 0), 0)
-                                    ).toLocaleString()}
-                                 </span>
-                              </div>
-                           </div>
+                          <div className="flex justify-between items-end gap-2 text-[10px] bg-white/[0.03] px-4 py-3 rounded-lg border border-white/5">
+                            <div className="space-y-1">
+                              <span className="block uppercase font-black opacity-40 text-[9px] tracking-tight">ARQ. Total</span>
+                              <span className="font-bold block text-sm">€{(item.result?.feeArch || 0).toLocaleString()}</span>
+                            </div>
+                            <div className="space-y-1 text-right">
+                              <span className="block uppercase font-black opacity-40 text-[9px] tracking-tight">ENG. Total</span>
+                              <span className="font-bold block text-sm">€{(item.result?.feeSpec || 0).toLocaleString()}</span>
+                            </div>
+                          </div>
+                          <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-3 rounded-lg border border-luxury-gold/20">
+                            <div className="space-y-1">
+                              <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px] tracking-tight">LIC. (Fases)</span>
+                              <span className="font-bold text-white/90 block text-sm">
+                                €{(
+                                  (item.result?.phasesBreakdown || [])
+                                    .filter((p: { phaseId: string }) => ['A0', 'A1', 'A2'].some((id: string) => p.phaseId.startsWith(id)))
+                                    .reduce((acc: number, p: { value: number }) => acc + (p.value || 0), 0)
+                                ).toLocaleString()}
+                              </span>
+                            </div>
+                            <div className="space-y-1 text-right">
+                              <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px] tracking-tight">EXEC. (Fases)</span>
+                              <span className="font-bold text-white/90 block text-sm">
+                                €{(
+                                  (item.result?.phasesBreakdown || [])
+                                    .filter((p: { phaseId: string }) => ['A3', 'A4'].some((id: string) => p.phaseId.startsWith(id)))
+                                    .reduce((acc: number, p: { value: number }) => acc + (p.value || 0), 0)
+                                ).toLocaleString()}
+                              </span>
+                            </div>
+                          </div>
                         </div>
 
                         {/* Content */}
@@ -1787,8 +1847,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                               {(item.pack?.deliverablesPT || []).map((del, i) => {
                                 let displayLabel = del;
                                 if (del.includes('Assistência Técnica')) {
-                                   const visitCount = complexity === 3 ? 15 : complexity === 2 ? 10 : 5;
-                                   displayLabel = `${del} (${visitCount} visitas)`;
+                                  const visitCount = complexity === 3 ? 15 : complexity === 2 ? 10 : 5;
+                                  displayLabel = `${del} (${visitCount} visitas)`;
                                 }
                                 return (
                                   <li key={i} className="flex gap-3 text-xs font-light text-white/80">
@@ -1896,29 +1956,29 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
       {/* DEDICATED PRINT CONTAINER - OUTSIDE OF MODALS/TRANSFORMS */}
       {showPreview && (
         <div id="print-mount-point" className="hidden print:block">
-           <ProposalDocument data={{
-             templateName: currentTemplate?.namePT || '',
-             clientName,
-             projectName,
-             location,
-             internalRef,
-             address, // NEW
-             mapsLink, // NEW
-             area,
-             complexity: complexity === 1 ? 'Baixa' : complexity === 2 ? 'Media' : 'Alta',
-             scenario: selectedScenario === 'essential' ? 'Essencial' : selectedScenario === 'standard' ? 'Profissional' : 'Executivo',
-             feeArch: currentResult?.feeArch || 0,
-             feeSpec: currentResult?.feeSpec || 0,
-             feeTotal: currentResult?.feeTotal || 0,
-             vat: currentResult?.vat || 0,
-             totalWithVat: currentResult?.totalWithVat || 0,
-             activeSpecs,
-             selectedSpecs: currentResult?.selectedSpecs || [],
-             phases: currentResult?.phasesBreakdown || [],
-             effortMap: currentResult?.effortMap || [],
-             units: currentResult?.units || 'm2',
-             comparisonData
-           }} includeAnnex={includeAnnex} />
+          <ProposalDocument data={{
+            templateName: currentTemplate?.namePT || '',
+            clientName,
+            projectName,
+            location,
+            internalRef,
+            address, // NEW
+            mapsLink, // NEW
+            area,
+            complexity: complexity === 1 ? 'Baixa' : complexity === 2 ? 'Media' : 'Alta',
+            scenario: selectedScenario === 'essential' ? 'Essencial' : selectedScenario === 'standard' ? 'Profissional' : 'Executivo',
+            feeArch: currentResult?.feeArch || 0,
+            feeSpec: currentResult?.feeSpec || 0,
+            feeTotal: currentResult?.feeTotal || 0,
+            vat: currentResult?.vat || 0,
+            totalWithVat: currentResult?.totalWithVat || 0,
+            activeSpecs,
+            selectedSpecs: currentResult?.selectedSpecs || [],
+            phases: currentResult?.phasesBreakdown || [],
+            effortMap: currentResult?.effortMap || [],
+            units: currentResult?.units || 'm2',
+            comparisonData
+          }} includeAnnex={includeAnnex} />
         </div>
       )}
 
