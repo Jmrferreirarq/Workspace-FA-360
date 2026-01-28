@@ -572,18 +572,153 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            {/* Memoria Descritiva das Fases */}
                            <section className="space-y-8">
                               <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-8">1. Detalhe do Ambito por Fase</h3>
-                              <div className="grid grid-cols-1 gap-8">
-                                 {(data.phases || []).map((p, i) => (
-                                    <div key={i} className="flex gap-10">
-                                       <div className="w-12 h-12 rounded-full border border-luxury-black/10 flex items-center justify-center shrink-0">
-                                          <span className="font-serif italic text-lg text-luxury-gold">{i + 1}</span>
+                              <div className="grid grid-cols-1 gap-12">
+                                 {(data.phases || []).map((p, i) => {
+                                    // Mapeamento de descrições expandidas por fase
+                                    const phaseDetails: Record<string, { deliverables: string[], processes: string[], result: string }> = {
+                                       'A0': {
+                                          deliverables: [
+                                             'Levantamento completo de requisitos funcionais e espaciais',
+                                             'Analise de condicionantes legais e urbanisticas (PDM, RJUE)',
+                                             'Estudo de viabilidade construtiva e volumetrica',
+                                             'Programa preliminar de areas e compartimentacao',
+                                             'Analise de referencias e benchmark de mercado'
+                                          ],
+                                          processes: [
+                                             'Reunioes de briefing com o cliente (2-3 sessoes)',
+                                             'Visita tecnica ao local e analise contextual',
+                                             'Consulta preliminar de certidoes e plantas de localizacao',
+                                             'Validacao de objetivos e expectativas do investimento'
+                                          ],
+                                          result: 'Documento de Programa Base aprovado pelo cliente, servindo como fundacao estrategica para todas as fases subsequentes.'
+                                       },
+                                       'A1': {
+                                          deliverables: [
+                                             'Plantas de implantacao e localizacao',
+                                             'Plantas de todos os pisos (escala 1:100 ou 1:200)',
+                                             'Alcados principais e cortes esquematicos',
+                                             'Perspetivas 3D ou maquetes volumetricas',
+                                             'Memoria descritiva e justificativa',
+                                             'Quadro de areas por tipologia/funcao'
+                                          ],
+                                          processes: [
+                                             'Desenvolvimento de 2-3 alternativas conceptuais',
+                                             'Estudos de insolacao e orientacao solar',
+                                             'Analise de acessos e circulacoes',
+                                             'Apresentacao ao cliente e recolha de feedback',
+                                             'Refinamento da solucao escolhida (ate 2 revisoes)'
+                                          ],
+                                          result: 'Estudo Previo aprovado pelo cliente, definindo a volumetria, organizacao funcional e linguagem arquitetonica do projeto.'
+                                       },
+                                       'A2': {
+                                          deliverables: [
+                                             'Pecas desenhadas completas (plantas, alcados, cortes - 1:100)',
+                                             'Planta de implantacao georreferenciada',
+                                             'Memoria descritiva e justificativa tecnica',
+                                             'Fichas tecnicas de habitacao (se aplicavel)',
+                                             'Projetos de especialidades coordenados (Estruturas, Aguas, Eletricidade, AVAC)',
+                                             'Termos de responsabilidade de todas as disciplinas'
+                                          ],
+                                          processes: [
+                                             'Compatibilizacao 3D entre todas as especialidades',
+                                             'Verificacao de conformidade legal (RJUE, RGEU, Simplex)',
+                                             'Preparacao de formularios e requerimentos',
+                                             'Submissao digital na plataforma municipal',
+                                             'Acompanhamento processual e resposta a pedidos de esclarecimento'
+                                          ],
+                                          result: 'Processo de licenciamento submetido e aprovado pela Camara Municipal, com alvara de licenca de construcao emitido.'
+                                       },
+                                       'A3': {
+                                          deliverables: [
+                                             'Pecas desenhadas de execucao (escala 1:50 e 1:20)',
+                                             'Plantas de acabamentos e revestimentos',
+                                             'Detalhes construtivos (pormenores 1:10, 1:5, 1:2)',
+                                             'Plantas de carpintarias (portas, janelas, armarios)',
+                                             'Especificacoes tecnicas de materiais e acabamentos',
+                                             'Caderno de encargos tecnico completo'
+                                          ],
+                                          processes: [
+                                             'Compatibilizacao 3D final (BIM clash detection)',
+                                             'Coordenacao interdisciplinar semanal',
+                                             'Validacao de solucoes construtivas com fornecedores',
+                                             'Otimizacao de custos e alternativas tecnicas',
+                                             'Revisao tecnica por coordenador de projeto'
+                                          ],
+                                          result: 'Projeto de Execucao completo e coordenado, pronto para consulta de empreiteiros e construcao sem ambiguidades.'
+                                       },
+                                       'A4': {
+                                          deliverables: [
+                                             'Esclarecimentos tecnicos por escrito',
+                                             'Relatorios de visitas a obra (5 visitas incluidas)',
+                                             'Pareceres sobre materiais e solucoes alternativas',
+                                             'Desenhos de alteracoes pontuais (se necessario)',
+                                             'Validacao de amostras de acabamentos',
+                                             'Telas finais (as-built) do projeto executado'
+                                          ],
+                                          processes: [
+                                             'Reunioes de esclarecimento com empreiteiro',
+                                             'Visitas tecnicas periodicas a obra',
+                                             'Analise de RFIs (Request for Information)',
+                                             'Validacao de materiais e fornecedores',
+                                             'Suporte tecnico remoto (email/telefone)'
+                                          ],
+                                          result: 'Obra executada em conformidade com o projeto aprovado, com registo documental de todas as decisoes tecnicas.'
+                                       }
+                                    };
+
+                                    const phaseId = p?.label?.split('.')[0] || '';
+                                    const details = phaseDetails[phaseId];
+
+                                    return (
+                                       <div key={i} className="flex gap-6">
+                                          <div className="w-12 h-12 rounded-full border border-luxury-black/10 flex items-center justify-center shrink-0">
+                                             <span className="font-serif italic text-lg text-luxury-gold">{i + 1}</span>
+                                          </div>
+                                          <div className="flex-1 space-y-6">
+                                             <div>
+                                                <h4 className="text-xs font-black uppercase tracking-widest mb-2">{p?.label || 'Fase'}</h4>
+                                                <p className="text-xs font-light italic opacity-60 leading-relaxed">{p?.description || ''}</p>
+                                             </div>
+
+                                             {details && (
+                                                <>
+                                                   {/* Entregaveis */}
+                                                   <div className="bg-luxury-black/[0.02] rounded-xl p-6 border border-luxury-black/5">
+                                                      <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-3">📦 Entregaveis</h5>
+                                                      <ul className="space-y-2">
+                                                         {details.deliverables.map((item, idx) => (
+                                                            <li key={idx} className="text-[11px] font-light leading-relaxed opacity-70 flex items-start gap-2">
+                                                               <span className="text-luxury-gold mt-0.5">•</span>
+                                                               <span>{item}</span>
+                                                            </li>
+                                                         ))}
+                                                      </ul>
+                                                   </div>
+
+                                                   {/* Processos */}
+                                                   <div className="bg-luxury-black/[0.02] rounded-xl p-6 border border-luxury-black/5">
+                                                      <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-black/60 mb-3">⚙️ Processos</h5>
+                                                      <ul className="space-y-2">
+                                                         {details.processes.map((item, idx) => (
+                                                            <li key={idx} className="text-[11px] font-light leading-relaxed opacity-70 flex items-start gap-2">
+                                                               <span className="text-luxury-black/40 mt-0.5">▸</span>
+                                                               <span>{item}</span>
+                                                            </li>
+                                                         ))}
+                                                      </ul>
+                                                   </div>
+
+                                                   {/* Resultado Final */}
+                                                   <div className="border-l-2 border-luxury-gold pl-4">
+                                                      <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-2">✅ Resultado Final</h5>
+                                                      <p className="text-[11px] font-light italic opacity-70 leading-relaxed">{details.result}</p>
+                                                   </div>
+                                                </>
+                                             )}
+                                          </div>
                                        </div>
-                                       <div className="space-y-1">
-                                          <h4 className="text-xs font-black uppercase tracking-widest">{p?.label || 'Fase'}</h4>
-                                          <p className="text-xs font-light italic opacity-60 leading-relaxed">{p?.description || ''}</p>
-                                       </div>
-                                    </div>
-                                 ))}
+                                    );
+                                 })}
                               </div>
                            </section>
 
