@@ -1,8 +1,8 @@
 ﻿import React from 'react';
 // Heartbeat 2.0 - Final Build Fix
-import BrandLogo from './common/BrandLogo';
+
 import { disciplines } from '../services/feeData';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, MapPin } from 'lucide-react';
 
 interface ProposalPhase {
    label: string;
@@ -42,6 +42,8 @@ interface ProposalDocumentProps {
       projectName: string;
       location: string;
       internalRef: string;
+      address?: string; // NEW
+      mapsLink?: string; // NEW
       area: number;
       complexity: string;
       scenario: string;
@@ -89,33 +91,89 @@ const getStageBreakdown = (phases: ProposalPhase[]) => {
 
 export default function ProposalDocument({ data, includeAnnex }: ProposalDocumentProps) {
    const today = new Date().toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' });
+   const stages = getStageBreakdown(data.phases);
 
    return (
       <>
          <style>{`
         @media print {
-          body * { visibility: hidden; }
-          .proposal-to-print, .proposal-to-print * { visibility: visible; }
-          .proposal-to-print {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100% !important;
+          @page { size: A4; margin: 0; }
+          
+          /* RESET GLOBAL VISIBILITY */
+          body { visibility: hidden; }
+          
+          /* TARGET DEDICATED PRINT MOUNT */
+          #print-mount-point {
+             visibility: visible !important;
+             display: block !important;
+             position: absolute !important;
+             top: 0 !important;
+             left: 0 !important;
+             width: 210mm !important;
+             z-index: 2147483647 !important;
+          }
+
+          /* SHOW PROPOSAL INSIDE PRINT MOUNT */
+          #print-mount-point .proposal-to-print {
+            visibility: visible !important;
+            display: block !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important; /* Relative to mount point */
+            background: white !important;
             margin: 0 !important;
             padding: 0 !important;
-            box-shadow: none !important;
-            border: none !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
           }
-          .page-break { page-break-before: always; }
-          @page { margin: 0; }
+
+          /* FORCE CONTENT COLOR & VISIBILITY */
+          #print-mount-point .proposal-to-print * {
+             visibility: visible !important;
+             color: #000000 !important;
+             text-shadow: none !important;
+             box-shadow: none !important;
+          }
+
+          /* IMAGES */
+          #print-mount-point .proposal-to-print img {
+             opacity: 1 !important;
+             display: block !important;
+          }
+
+          /* HIDE EVERYTHING ELSE (To be sure) */
+          body > *:not(#root) { display: none !important; }
+          
+          /* RESET ROOTS */
+          html, body, #root { 
+             overflow: visible !important; 
+             height: auto !important; 
+             width: auto !important;
+          }
+
+          /* PAGE BREAKS */
+          .page-break-after-always { 
+             page-break-after: always !important; 
+             break-after: page !important;
+             display: block; 
+             height: 1px; 
+             content: "";
+             margin-bottom: 0 !important;
+          }
         }
       `}</style>
-         <div className="proposal-to-print bg-white text-luxury-black p-8 md:p-24 shadow-2xl min-h-[1100px] w-full max-w-[900px] mx-auto flex flex-col font-sans border border-luxury-black/5">
+         <div className="proposal-to-print bg-white text-luxury-black shadow-none min-h-[1100px] w-full max-w-[900px] mx-auto flex flex-col font-sans">
+            {/* CAPA (Com Margem) */}
+            <div className="w-full h-[1123px] relative page-break-after-always p-0 bg-white flex flex-col items-center justify-center">
+               <div className="w-[90%] h-[90%] relative overflow-hidden">
+                  <img src="/assets/cover-front.jpg" alt="Capa" className="w-full h-full object-contain" />
+               </div>
+            </div>
+
+            {/* Pág. 1: CONTEÚDO (Com Padding) */}
+            <div className="p-8 md:p-24 flex-1 flex flex-col page-break-after-always">
             {/* Estacionario Premium */}
-            <header className="flex justify-between items-start border-b-2 border-luxury-black pb-12 mb-20">
-               <BrandLogo animated={false} size={35} withIcon={true} />
+            <header className="flex justify-between items-start border-b-2 border-luxury-black pb-12 mb-12">
+
                <div className="text-right">
                   <p className="text-[11px] font-black uppercase tracking-[0.3em]">Honorarios Profissionais</p>
                   <p className="text-xs font-mono mt-2 tracking-tighter">REF: {data.internalRef}</p>
@@ -123,14 +181,53 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                </div>
             </header>
 
+            {/* DADOS DA OBRA (NEW) */}
+            <div className="grid grid-cols-2 md:grid-cols-[1.2fr_2fr_0.8fr_0.6fr_1.4fr] gap-6 mb-16 border-b border-black/5 pb-8 items-start">
+               <div className="space-y-1">
+                  <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Cliente</p>
+                  <p className="text-xs font-serif italic leading-tight">{data.clientName || 'Cliente Final'}</p>
+               </div>
+               <div className="space-y-1">
+                  <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Projeto</p>
+                  <p className="text-xs font-serif italic leading-tight">{data.projectName || 'Nova Construção'}</p>
+               </div>
+               <div className="space-y-1">
+                  <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Localização</p>
+                  <p className="text-xs font-serif italic leading-tight">{data.location || 'Portugal'}</p>
+               </div>
+               <div className="space-y-1">
+                  <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Área</p>
+                  <p className="text-xs font-serif italic leading-tight whitespace-nowrap">{data.area} m²</p>
+               </div>
+               {data.address && (
+                  <div className="space-y-1">
+                     <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Morada</p>
+                     <p className="text-xs font-serif italic leading-tight" title={data.address}>{data.address}</p>
+                     {data.mapsLink && (
+                        <a href={data.mapsLink} target="_blank" rel="noreferrer" className="text-[9px] text-blue-500 underline flex items-center gap-1 opacity-60 hover:opacity-100 mt-1">
+                           <MapPin size={8} /> Ver Mapa
+                        </a>
+                     )}
+                  </div>
+               )}
+            </div>
+
             {/* Identificacao do Projeto */}
             {/* PAGINA 1: PROPOSTA EXECUTIVA */}
             <div className="flex-1 space-y-16">
-               {/* 2. Enquadramento */}
+               {/* 2. Enquadramento Institucional & Técnico */}
                <section className="space-y-4">
-                  <p className="text-xs font-light italic leading-relaxed opacity-60 text-luxury-black">
-                     A presente proposta refere-se a prestacao de servicos de arquitetura para o desenvolvimento do projeto identificado,
-                     incluindo as fases e disciplinas necessarias para garantir um processo tecnicamente consistente e conforme o RJUE.
+                  <h4 className="text-[11px] font-black uppercase tracking-widest text-luxury-black opacity-30">Quem Somos</h4>
+                  <p className="text-xs font-light italic leading-relaxed opacity-60 text-luxury-black text-justify">
+                     Fundada em 2017 pelo arquiteto José Ferreira, a Ferreirarquitetos é uma referência no setor de arquitetura em Portugal, 
+                     especialmente na região de Aveiro. Com uma combinação única de precisão e criatividade, a nossa equipa dedica-se a 
+                     transformar visões em realidade, abordagem reconhecida por diversos prémios, incluindo a Medalha de Prata nos Prémios 
+                     Lusófonos de Arquitetura.
+                  </p>
+                  <p className="text-xs font-light italic leading-relaxed opacity-60 text-luxury-black text-justify">
+                     Nesse sentido, a presente proposta reflete o nosso compromisso com a excelência, apresentando uma metodologia de trabalho 
+                     rigorosa para o desenvolvimento do seu projeto, assegurando um processo tecnicamente consistente e em total cumprimento 
+                     legal com o RJUE.
                   </p>
                </section>
 
@@ -230,13 +327,16 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <h3 className="text-7xl font-serif italic tracking-tighter text-luxury-black">
                         €{data.feeTotal.toLocaleString()}<span className="text-2xl font-sans not-italic text-luxury-gold ml-2">+ IVA</span>
                      </h3>
-                     <p className="text-[10px] font-mono opacity-40 italic">Matriz de investimento detalhada por disciplina e etapa.</p>
+                     <div className="flex items-center justify-center gap-4 text-[10px] uppercase font-black tracking-widest text-luxury-black/60">
+                        <span>€{stages.licensing.value.toLocaleString()} Licenciamento</span>
+                        <span className="w-1 h-1 rounded-full bg-luxury-gold"></span>
+                        <span>€{stages.execution.value.toLocaleString()} Execução (Opcional)</span>
+                     </div>
+                     <p className="text-[10px] font-mono opacity-40 italic pt-2">Matriz de investimento detalhada por disciplina e etapa.</p>
                   </div>
 
                   {/* MATRIZ UNIFICADA - The "Holy Grid" of Fees */}
                   {(() => {
-                     const stages = getStageBreakdown(data.phases);
-                     
                      // Ratios para distribuicao
                      const total = data.feeTotal || 1;
                      const licRatio = stages.licensing.value / total;
@@ -315,8 +415,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      );
                   })()}
                   
-                  <p className="text-[9px] italic opacity-40 max-w-md text-center">
-                     Nota: A fase de Execução (40%) só avança após aprovação do Licenciamento, garantindo controlo de risco financeiro para o cliente.
+                  <p className="text-[9px] italic opacity-50 max-w-sm text-center leading-relaxed">
+                     Nota: A fase de **Execução** (40%) é facultativa e só avança por decisão do cliente após a aprovação do licenciamento, garantindo total controlo sobre o investimento.
                   </p>
                </section>
 
@@ -342,10 +442,10 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
                {/* 8. Call to Action */}
                <section className="pt-12 border-t border-luxury-black/5">
-                  <div className="flex flex-col items-center py-10 bg-luxury-black text-white rounded-[3rem] space-y-6 shadow-xl">
+                  <div className="flex flex-col items-center py-10 bg-white border border-luxury-black text-luxury-black rounded-[3rem] space-y-6 shadow-sm">
                      <p className="text-[11px] font-black uppercase tracking-[0.3em]">Instrucoes de Adjudicacao</p>
                      <p className="text-xs font-light italic max-w-md text-center opacity-60">Para avancar, confirme por escrito a adjudicacao e proceda ao pagamento do sinal de processamento indicado nas condicoes financeiras.</p>
-                     <div className="flex items-center gap-4 text-xs font-black uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full">
+                     <div className="flex items-center gap-4 text-xs font-black uppercase tracking-widest border border-luxury-black/20 px-8 py-3 rounded-full">
                         <ShieldCheck size={14} className="text-luxury-gold" />
                         Pronto para Adjudicar
                      </div>
@@ -595,7 +695,15 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                   FERREIRARQUITETOS • Aveiro • https://ferreira-arquitetos.pt/
                </div>
             </footer>
-         </div >
+         </div>
+
+         {/* Pág. Final: CONTRA-CAPA (Com Margem) */}
+         <div className="w-full h-[1123px] relative page-break-after-always p-0 bg-white flex flex-col items-center justify-center">
+            <div className="w-[90%] h-[90%] relative overflow-hidden">
+                <img src="/assets/cover-back.jpg" alt="Contra-Capa" className="w-full h-full object-contain" />
+            </div>
+         </div>
+      </div >
       </>
    );
 }

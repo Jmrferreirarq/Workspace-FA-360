@@ -65,7 +65,9 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
   // Dados de Identidade
   const [clientName, setClientName] = useState('');
   const [projectName, setProjectName] = useState('');
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(''); // Maintains 'Municipality/City' for ref generation
+  const [address, setAddress] = useState(''); // NEW: Full Address
+  const [mapsLink, setMapsLink] = useState(''); // NEW: Google Maps Link
   const [internalRef, setInternalRef] = useState('');
 
   const query = useQuery();
@@ -84,9 +86,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
   // Auto-Generate Reference
   useEffect(() => {
-    // Format: FA-YYMMDD-CLIENT-CITY
+    // Format: FA-YYMMDD-HHMM-CLIENT-CITY (Strict Uniqueness)
     const date = new Date();
     const dateStr = date.toISOString().slice(2, 10).replace(/-/g, ''); // 260127
+    const timeStr = date.toTimeString().slice(0, 5).replace(':', ''); // 1809
 
     const cleanClient = clientName
       .trim()
@@ -108,16 +111,61 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
     // Only update if we have valid data, otherwise keep empty
     if (clientName && location && clientName.length > 2 && location.length > 2) {
-      setInternalRef(`FA-${dateStr}-${cleanClient || 'CLI'}-${cleanLoc || 'LOC'}`);
+      setInternalRef(`FA-${dateStr}-${timeStr}-${cleanClient || 'CLI'}-${cleanLoc || 'LOC'}`);
     } else if (!clientName && !location) {
       // Keep empty if checking for reset
       setInternalRef('');
     }
   }, [clientName, location]);
 
+
+
   // Configuracoes Tecnicas
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [area, setArea] = useState(0);
+
+
+
+
+  // SMART PROJECT NAMING (NEW)
+  useEffect(() => {
+    if (!selectedTemplate || !clientName) return; 
+
+    // Logic: Always suggest a new name when Client or Typology changes, 
+    // mimicking the Internal Ref behavior requested by the user.
+
+    // 1. Extract Name (Last word usually works best for "Casa Author", e.g. "Casa Ferreira")
+    const nameParts = clientName.trim().split(' ');
+    const surname = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
+    const cleanName = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
+
+    // 2. Define Prefix based on Template ID
+    let prefix = 'Projeto';
+    const tid = selectedTemplate;
+
+    if (tid.includes('MORADIA') || tid === 'LEGAL') prefix = 'Casa';
+    else if (tid === 'MULTIFAMILY') prefix = 'Edifício';
+    else if (tid === 'LOTEAMENTO') prefix = 'Loteamento';
+    else if (tid === 'RESTAURANT') prefix = 'Restaurante';
+    else if (tid === 'RETAIL_SHOP') prefix = 'Loja';
+    else if (tid === 'OFFICE_HQ') prefix = 'Sede';
+    else if (tid === 'TOURISM_RURAL') prefix = 'Turismo';
+    else if (tid === 'INDUSTRIAL') prefix = 'Instalação';
+    else if (tid === 'INTERIOR_DESIGN') prefix = 'Interiores';
+
+    // 3. Set Name
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.toLocaleString('pt-PT', { month: 'short' }); // jan, fev...
+    // Capitalize Month
+    const monthCap = currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1);
+
+    const newName = `${prefix} ${cleanName} ${monthCap} ${currentYear}`;
+    if (cleanName.length > 1 && projectName !== newName) {
+       setProjectName(newName);
+    }
+
+  }, [selectedTemplate, clientName, projectName]);
   const [complexity, setComplexity] = useState<Complexity>(1);
   const [activeSpecs, setActiveSpecs] = useState<string[]>([]);
 
@@ -385,25 +433,47 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
               />
             </div>
+            
             <div className="space-y-3">
-              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">{t('calc_location')}</label>
+              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Localização (Concelho)</label>
               <div className="relative">
                 <MapPin size={16} className="absolute left-5 top-1/2 -translate-y-1/2 text-luxury-gold opacity-60" />
                 <input
                   value={location}
                   onChange={e => setLocation(e.target.value)}
-                  placeholder="Lisboa, Estoril, etc..."
+                  placeholder="Ex: Lisboa, Estoril, etc..."
                   className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 pl-14 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
                 />
               </div>
             </div>
+
             <div className="space-y-3">
-              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">{t('calc_ref')}</label>
-              <input
-                value={internalRef}
-                onChange={e => setInternalRef(e.target.value)}
-                className="w-full bg-black/10 dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-gold font-mono outline-none"
-              />
+               <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Referência Interna</label>
+               <input
+                 value={internalRef}
+                 onChange={e => setInternalRef(e.target.value)}
+                 className="w-full bg-black/10 dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-gold font-mono outline-none"
+               />
+            </div>
+
+            {/* NEW FIELDS */}
+            <div className="space-y-3 md:col-span-2">
+               <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Morada do Terreno</label>
+               <input
+                 value={address}
+                 onChange={e => setAddress(e.target.value)}
+                 placeholder="Ex: Rua de Baixo, n 32, 3800-123 Aveiro"
+                 className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
+               />
+            </div>
+             <div className="space-y-3 md:col-span-2">
+               <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Link Google Maps</label>
+               <input
+                 value={mapsLink}
+                 onChange={e => setMapsLink(e.target.value)}
+                 placeholder="https://maps.google.com/..."
+                 className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-gold font-mono focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
+               />
             </div>
           </div>
         </div>
@@ -1271,23 +1341,50 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                         <head>
                           <title>Proposta: ${projectName}</title>
                           <script src="https://cdn.tailwindcss.com"></script>
-                          <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:italic,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+                          <script>
+                            tailwind.config = {
+                              darkMode: 'class',
+                              theme: {
+                                extend: {
+                                  colors: {
+                                    'luxury-black': '#0A0A0A',
+                                    'luxury-white': '#F5F5F7',
+                                    'luxury-gold': '#D4AF37',
+                                    'luxury-charcoal': '#1C1C1E',
+                                    'luxury-silver': '#B0B0B0',
+                                    'success': '#10B981',
+                                    'warning': '#F59E0B',
+                                    'error': '#EF4444',
+                                    'info': '#6366F1',
+                                  },
+                                  fontFamily: {
+                                    sans: ['"Montserrat"', 'sans-serif'],
+                                    serif: ['"Montserrat"', 'sans-serif'],
+                                  },
+                                }
+                              }
+                            }
+                          </script>
+                          <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
                           <style>
-                            body { background: #f4f4f4; padding: 40px; display: flex; justify-content: center; }
+                            body { background: #f4f4f4; padding: 40px; display: flex; justify-content: center; font-family: 'Montserrat', sans-serif; }
                             .proposal-to-print { background: white; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); }
-                            .font-serif { font-family: 'Cormorant Garamond', serif !important; }
-                            .luxury-gold { color: #d4af37 !important; }
-                            .bg-luxury-gold { background-color: #d4af37 !important; }
-                            .text-luxury-black { color: #0a0a0a !important; }
-                            .border-luxury-black { border-color: #0a0a0a !important; }
-                            @media print { body { padding: 0; background: white; } .proposal-to-print { box-shadow: none; border: none; } }
+                            
+                            /* FORCE BLACK TEXT FOR HTML VIEW MODE */
+                            .proposal-to-print * { color: black !important; }
+                            .proposal-to-print .bg-luxury-gold { color: black !important; }
+                            
+                            @media print { 
+                                body { padding: 0; background: white; } 
+                                .proposal-to-print { box-shadow: none; border: none; } 
+                            }
                           </style>
                         </head>
                         <body>
                           <div class="w-full max-w-[900px]">
                             ${content}
                             <p style="text-align:center; font-family: sans-serif; font-size: 10px; opacity: 0.3; margin-top: 60px; text-transform: uppercase; letter-spacing: 2px;">
-                              Documento Estrategico Ferreira Arquitetos a€¢ e 2026
+                              Documento Estrategico Ferreira Arquitetos a€¢ e ? 2026
                             </p>
                           </div>
                         </body>
@@ -1380,7 +1477,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   internalRef,
                   area,
                   complexity: complexity === 1 ? 'Baixa' : complexity === 2 ? 'Media' : 'Alta',
-                  scenario: selectedScenario === 'essential' ? 'Essencial' : selectedScenario === 'standard' ? 'Profissional' : 'Executivo',
+                  scenario: selectedScenario,
                   feeArch: currentResult?.feeArch || 0,
                   feeSpec: currentResult?.feeSpec || 0,
                   feeTotal: currentResult?.feeTotal || 0,
@@ -1645,6 +1742,42 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           </div>}
                         </div>
 
+                        {/* Breakdown Mini-Matrix (Consistency with PDF) */}
+                        <div className="px-8 pb-4 space-y-2">
+                           <div className="flex justify-between items-end gap-2 text-[10px] bg-white/[0.03] px-4 py-3 rounded-lg border border-white/5">
+                              <div className="space-y-1">
+                                 <span className="block uppercase font-black opacity-40 text-[9px] tracking-tight">ARQ. Total</span>
+                                 <span className="font-bold block text-sm">€{(item.result?.feeArch || 0).toLocaleString()}</span>
+                              </div>
+                              <div className="space-y-1 text-right">
+                                 <span className="block uppercase font-black opacity-40 text-[9px] tracking-tight">ENG. Total</span>
+                                 <span className="font-bold block text-sm">€{(item.result?.feeSpec || 0).toLocaleString()}</span>
+                              </div>
+                           </div>
+                           <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-3 rounded-lg border border-luxury-gold/20">
+                              <div className="space-y-1">
+                                 <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px] tracking-tight">LIC. (Fases)</span>
+                                 <span className="font-bold text-white/90 block text-sm">
+                                    €{(
+                                       (item.result?.phasesBreakdown || [])
+                                          .filter((p: { phaseId: string }) => ['A0', 'A1', 'A2'].some((id: string) => p.phaseId.startsWith(id)))
+                                          .reduce((acc: number, p: { value: number }) => acc + (p.value || 0), 0)
+                                    ).toLocaleString()}
+                                 </span>
+                              </div>
+                              <div className="space-y-1 text-right">
+                                 <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px] tracking-tight">EXEC. (Fases)</span>
+                                 <span className="font-bold text-white/90 block text-sm">
+                                    €{(
+                                       (item.result?.phasesBreakdown || [])
+                                          .filter((p: { phaseId: string }) => ['A3', 'A4'].some((id: string) => p.phaseId.startsWith(id)))
+                                          .reduce((acc: number, p: { value: number }) => acc + (p.value || 0), 0)
+                                    ).toLocaleString()}
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+
                         {/* Content */}
                         <div className="p-8 space-y-8 flex-1">
                           {/* Deliverables */}
@@ -1735,9 +1868,11 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 projectName,
                 location,
                 internalRef,
+                address, // NEW
+                mapsLink, // NEW
                 area,
                 complexity: complexity === 1 ? 'Baixa' : complexity === 2 ? 'Media' : 'Alta',
-                scenario: selectedScenario === 'essential' ? 'Essencial' : selectedScenario === 'standard' ? 'Profissional' : 'Executivo',
+                scenario: selectedScenario,
                 feeArch: currentResult?.feeArch || 0,
                 feeSpec: currentResult?.feeSpec || 0,
                 feeTotal: currentResult?.feeTotal || 0,
@@ -1756,6 +1891,37 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         )}
       </AnimatePresence>
 
+
+
+      {/* DEDICATED PRINT CONTAINER - OUTSIDE OF MODALS/TRANSFORMS */}
+      {showPreview && (
+        <div id="print-mount-point" className="hidden print:block">
+           <ProposalDocument data={{
+             templateName: currentTemplate?.namePT || '',
+             clientName,
+             projectName,
+             location,
+             internalRef,
+             address, // NEW
+             mapsLink, // NEW
+             area,
+             complexity: complexity === 1 ? 'Baixa' : complexity === 2 ? 'Media' : 'Alta',
+             scenario: selectedScenario === 'essential' ? 'Essencial' : selectedScenario === 'standard' ? 'Profissional' : 'Executivo',
+             feeArch: currentResult?.feeArch || 0,
+             feeSpec: currentResult?.feeSpec || 0,
+             feeTotal: currentResult?.feeTotal || 0,
+             vat: currentResult?.vat || 0,
+             totalWithVat: currentResult?.totalWithVat || 0,
+             activeSpecs,
+             selectedSpecs: currentResult?.selectedSpecs || [],
+             phases: currentResult?.phasesBreakdown || [],
+             effortMap: currentResult?.effortMap || [],
+             units: currentResult?.units || 'm2',
+             comparisonData
+           }} includeAnnex={includeAnnex} />
+        </div>
+      )}
+
       {/* Zona de Captura (InvisA­vel) para Exportacao HTML */}
       <div id="proposal-capture-zone" className="fixed -left-[2000px] -top-[2000px] pointer-events-none opacity-0">
         <ProposalDocument data={{
@@ -1764,6 +1930,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           projectName,
           location,
           internalRef,
+          address, // NEW
+          mapsLink, // NEW
           area,
           complexity: complexity === 1 ? 'Essencial' : complexity === 2 ? 'Medio' : 'Rigor+',
           scenario: selectedScenario,
