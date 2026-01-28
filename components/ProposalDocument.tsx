@@ -457,8 +457,9 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
                      {(() => {
                         const paymentModel = getPaymentModelForTemplate(data.templateName);
-                        const totalFee = (data.feeArch || 0) + (data.feeSpec || 0);
-                        const paymentValues = calculatePaymentValues(totalFee, paymentModel);
+                        // CHANGE: Use ONLY feeArch as base, ignoring feeSpec for this detailed breakdown
+                        const baseFee = data.feeArch || 0;
+                        const paymentValues = calculatePaymentValues(baseFee, paymentModel);
 
                         // Agrupar fases por tipo
                         const licensingPhases = paymentValues.filter(p => p.phase.type === 'LICENSING');

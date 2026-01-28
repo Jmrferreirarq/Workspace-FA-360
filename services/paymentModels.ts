@@ -83,8 +83,8 @@ const hibridoModel: PaymentModel = {
         { phaseNumber: 8, labelPT: "Finalizacao", labelEN: "Finalization", percentage: 30, triggerPT: "Entrega de documentacao final", triggerEN: "Final documentation", activatesPhases: ["A4"], descriptionPT: "Finalizacao Global", descriptionEN: "Global finalization", type: "EXECUTION" }
     ],
     applicableTemplates: ["MORADIA_REHAB", "RESTAURANT", "RETAIL_SHOP", "OFFICE_HQ"],
-    // Híbrido: 40% Licenciamento / 60% Execução (Regra de Ouro)
-    baseSplit: { licensing: 0.4, execution: 0.6 }
+    // Híbrido: 60% Licenciamento / 40% Execução (Ajustado conforme pedido: €7692 de €12820 ~ 60%)
+    baseSplit: { licensing: 0.6, execution: 0.4 }
 };
 
 // MODELO 4: LEGALIZAÇÃO
