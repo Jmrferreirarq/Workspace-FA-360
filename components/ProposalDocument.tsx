@@ -522,12 +522,12 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        <h5 className="font-bold text-xs uppercase text-luxury-black/60">2. Fase de Execução (Opcional)</h5>
                                        <span className="text-[10px] bg-luxury-gold/20 text-luxury-gold px-2 py-0.5 rounded font-bold uppercase tracking-wider">Opcional</span>
                                     </div>
-                                    <table className="w-full text-xs opacity-90">
+                                    <table className="w-full text-xs">
                                        <thead>
                                           <tr className="border-b border-luxury-black/10">
-                                             <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest opacity-40 pl-2">Marco de Entrega</th>
-                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">Peso</th>
-                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest opacity-40">Valor</th>
+                                             <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest pl-2">Marco de Entrega</th>
+                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">Peso</th>
+                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">Valor</th>
                                           </tr>
                                        </thead>
                                        <tbody className="divide-y divide-luxury-black/5">
@@ -543,7 +543,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                           })}
                                        </tbody>
                                        <tfoot>
-                                          <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5 opacity-60">
+                                          <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
                                              <td className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
                                              <td className="py-2 text-right font-bold text-[10px]">100%</td>
                                              <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
