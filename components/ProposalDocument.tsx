@@ -681,7 +681,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
             {/* QUEBRA DE PAGINA PARA ANEXO TECNICO */}
             {
                includeAnnex && (
-                  <div className="page-break" style={{ pageBreakBefore: 'always', marginTop: '4rem' }}>
+                  <div className="page-break p-8 md:p-24" style={{ pageBreakBefore: 'always', marginTop: '4rem' }}>
                      <header className="flex justify-between items-start border-b border-luxury-black pb-8 mb-16">
                         <h3 className="text-xs font-black uppercase tracking-[0.3em]">Anexo Tecnico de Validacao</h3>
                         <p className="text-[11px] font-mono opacity-50">REF: {data.internalRef} / ANEXO</p>
@@ -910,7 +910,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
             {/* Anexo Tecnico (Passo 9) */}
             {
                includeAnnex && (
-                  <div className="mt-20 pt-10 border-t border-black/10 page-break pb-10">
+                  <div className="mt-20 pt-10 border-t border-black/10 page-break pb-10 p-8 md:p-24">
                      <h3 className="text-xl font-serif italic mb-6">III. Ambito Tecnico por Especialidade</h3>
                      <p className="text-[11px] opacity-60 mb-8 italic uppercase tracking-widest leading-relaxed">
                         Detalhamento dos servicos de engenharia integrados na proposta,
@@ -951,7 +951,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
             }
 
             {/* Rodape Documento */}
-            <footer className="mt-24 pt-12 border-t border-luxury-black/10 flex justify-between items-end">
+            <footer className="mt-24 pt-12 border-t border-luxury-black/10 flex justify-between items-end px-8 md:px-24">
                <div className="space-y-2">
                   <p className="text-xs font-black uppercase tracking-[0.3em] opacity-50">Jose Miguel Rebelo Ferreira, Arquitetos</p>
                </div>
