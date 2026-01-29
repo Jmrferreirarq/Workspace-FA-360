@@ -110,6 +110,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
   const [address, setAddress] = useState(''); // NEW: Full Address
   const [mapsLink, setMapsLink] = useState(''); // NEW: Google Maps Link
   const [internalRef, setInternalRef] = useState('');
+  
+  /* New: Location Fields */
+  const [municipality, setMunicipality] = useState('');
+  const [distanceKm, setDistanceKm] = useState(0);
 
   const query = useQuery();
 
@@ -138,6 +142,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
       .replace(/[^a-zA-Z0-9]/g, '')
       .toUpperCase()
       .substring(0, 5);
+
+
 
     const cleanLoc = location
       .trim()
@@ -170,21 +176,25 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
   // SMART PROJECT NAMING (NEW)
   useEffect(() => {
-    if (!selectedTemplate || !clientName) return;
+    if (!selectedTemplate) return;
 
     // Logic: Always suggest a new name when Client or Typology changes, 
     // mimicking the Internal Ref behavior requested by the user.
 
     // 1. Extract Name (Last word usually works best for "Casa Author", e.g. "Casa Ferreira")
-    const nameParts = clientName.trim().split(' ');
-    const surname = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
-    const cleanName = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
+    let cleanName = '';
+    if (clientName) {
+      const nameParts = clientName.trim().split(' ');
+      const surname = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
+      cleanName = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
+    }
 
     // 2. Define Prefix based on Template ID
     let prefix = 'Projeto';
     const tid = selectedTemplate;
 
-    if (tid.includes('MORADIA') || tid === 'LEGAL') prefix = 'Casa';
+    if (tid === 'LEGAL' || tid === 'LEGAL_GENERAL') prefix = 'Legalização';
+    else if (tid.includes('MORADIA')) prefix = 'Casa';
     else if (tid === 'MULTIFAMILY') prefix = 'Edifício';
     else if (tid === 'LOTEAMENTO') prefix = 'Loteamento';
     else if (tid === 'RESTAURANT') prefix = 'Restaurante';
@@ -195,14 +205,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
     else if (tid === 'INTERIOR_DESIGN') prefix = 'Interiores';
 
     // 3. Set Name
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.toLocaleString('pt-PT', { month: 'short' }); // jan, fev...
-    // Capitalize Month
-    const monthCap = currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1);
-
-    const newName = `${prefix} ${cleanName} ${monthCap} ${currentYear}`;
-    if (cleanName.length > 1 && projectName !== newName) {
+    const newName = cleanName ? `${prefix} ${cleanName}` : prefix;
+    if (projectName !== newName) {
       setProjectName(newName);
     }
 
@@ -453,22 +457,37 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
   // Calculate Extras for Document
   const extrasForDoc = useMemo(() => {
+    // Safety check
+    if (!catalogExtras || !selectedExtras) return [];
+
+    const travelExtras = ['extra_visit', 'municipal_consult', 'site_supervision'];
     return catalogExtras
-      .filter(e => selectedExtras[e.id] > 0)
+      .filter(e => e && selectedExtras[e.id] > 0)
       .map(e => {
-        const qty = selectedExtras[e.id];
+        const qty = selectedExtras[e.id] || 0;
+        let base = 0;
         let val = 0;
-        if (e.type === 'fixed') val = (e.basePrice || 0) * qty;
-        if (e.type === 'quantity') val = (e.pricePerUnit || 0) * qty;
+        
+        if (e.type === 'fixed') base = (e.basePrice || 0);
+        if (e.type === 'quantity') base = (e.pricePerUnit || 0);
+
+        // Apply Surcharge (Defensive distance check)
+        const dist = Number(distanceKm) || 0;
+        if (travelExtras.includes(e.id) && dist > 0) {
+           base += dist * 1.0;
+        }
+
+        if (e.type === 'fixed') val = base; 
+        if (e.type === 'quantity') val = base * qty;
         if (e.type === 'area_based') val = (e.pricePerM2 || 0) * (area || 0);
 
         return {
           label: e.label,
-          description: e.description,
-          value: val
+          description: e.description + (dist > 0 && travelExtras.includes(e.id) ? ` (+${dist}km deslocação)` : ''),
+          value: val || 0 // Ensure no NaN
         };
       });
-  }, [selectedExtras, area]);
+  }, [selectedExtras, area, distanceKm]);
 
   if (!isOpen) return null;
 
@@ -499,21 +518,38 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
               <input
                 value={projectName}
                 onChange={e => setProjectName(e.target.value)}
-                placeholder="Ex: Villa Alentejo"
+                placeholder="Ex: Casa Ferreira"
                 className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
               />
             </div>
 
-            <div className="space-y-3">
-              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Localização (Concelho)</label>
-              <div className="relative">
-                <MapPin size={16} className="absolute left-5 top-1/2 -translate-y-1/2 text-luxury-gold opacity-60" />
-                <input
-                  value={location}
-                  onChange={e => setLocation(e.target.value)}
-                  placeholder="Ex: Lisboa, Estoril, etc..."
-                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 pl-14 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
-                />
+            {/* New: Municipality & Distance */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Concelho</label>
+                <div className="relative">
+                  <MapPin size={16} className="absolute left-5 top-1/2 -translate-y-1/2 text-luxury-gold opacity-60" />
+                  <input
+                    value={municipality}
+                    onChange={e => setMunicipality(e.target.value)}
+                    placeholder="Ex: Aveiro, Porto..."
+                    className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 pl-14 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Distância (Km)</label>
+                <div className="relative">
+                  <span className="absolute left-5 top-1/2 -translate-y-1/2 text-luxury-gold opacity-60 text-xs font-black">KM</span>
+                  <input
+                    type="number"
+                    value={distanceKm}
+                    onChange={e => setDistanceKm(Number(e.target.value))}
+                    placeholder="0"
+                    className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-5 pl-14 text-sm text-luxury-charcoal dark:text-white focus:border-luxury-gold outline-none transition-all placeholder:text-luxury-charcoal/30 dark:placeholder:text-white/30"
+                  />
+                </div>
               </div>
             </div>
 
@@ -2056,9 +2092,11 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             <div className="flex-1 overflow-y-auto custom-scrollbar p-2 sm:p-6 bg-gray-100/50">
               <div className="bg-white shadow-xl min-h-[1000px] w-full origin-top transform scale-[var(--scale-factor,1)]">
                 <ProposalDocument data={{
+                  templateId: selectedTemplate || 'MORADIA_LICENSE',
                   templateName: currentTemplate?.namePT || '',
                   clientName,
                   projectName,
+                  municipality, // NEW
                   location,
                   internalRef,
                   area,
@@ -2454,6 +2492,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 <X size={24} />
               </button>
               <ProposalDocument data={{
+                templateId: selectedTemplate || 'MORADIA_LICENSE',
                 templateName: currentTemplate?.namePT || '',
                 clientName,
                 projectName,
@@ -2492,6 +2531,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
       {showPreview && (
         <div id="print-mount-point" className="hidden print:block">
           <ProposalDocument data={{
+            templateId: selectedTemplate || 'MORADIA_LICENSE',
             templateName: currentTemplate?.namePT || '',
             clientName,
             projectName,
@@ -2524,6 +2564,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
       {/* Zona de Captura (InvisA­vel) para Exportacao HTML */}
       <div id="proposal-capture-zone" className="fixed -left-[2000px] -top-[2000px] pointer-events-none opacity-0">
         <ProposalDocument data={{
+          templateId: selectedTemplate || 'MORADIA_LICENSE',
           templateName: currentTemplate?.namePT || '',
           clientName,
           projectName,

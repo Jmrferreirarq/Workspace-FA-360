@@ -51,7 +51,8 @@ export const SCENARIO_OVERRIDES: Record<string, Record<string, Partial<ScenarioP
                 "Levantamento Rigoroso",
                 "Análise do PDM",
                 "Relatório de Conformidade",
-                "Reunião com Câmara Municipal"
+                "Reunião com Câmara Municipal",
+                "Entrega de Processo de Arquitetura na CM"
             ],
             exclusionsPT: [
                 "Projetos de Especialidades",

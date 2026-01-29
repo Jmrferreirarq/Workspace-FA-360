@@ -1,5 +1,6 @@
 // services/feeCalculator.ts
 import { templates, phaseCatalog } from './feeData';
+import { getPaymentModelForTemplate } from './paymentModels';
 import { PAYMENT_MILESTONES } from './paymentMilestones';
 import { TASK_CATALOG } from './taskCatalog';
 import { applyDiscountPolicy } from './discountPolicy';
@@ -160,10 +161,17 @@ function estimatedInternalCost(effortMap: { hours: number; profile: string }[]) 
   return base * OVERHEAD_MULT;
 }
 
-function phasesBreakdown(feeArch: number, feeSpecProject: number, feeSpecExempt: number, scenario: Scenario, area: number, complexity: Complexity) {
+function phasesBreakdown(feeArch: number, feeSpecProject: number, feeSpecExempt: number, scenario: Scenario, area: number, complexity: Complexity, templateId: string) {
   // 1. Determine base active phases
-  const activePhases = ALL_PHASE_WEIGHTS;
-  const normalized = normalizeWeights(activePhases as unknown as { id: string; weight: number }[]);
+  const paymentModel = getPaymentModelForTemplate(templateId);
+  let activePhases = ALL_PHASE_WEIGHTS as unknown as { id: string; weight: number }[];
+
+  // Filter out execution phases if model doesn't support them (e.g. Legalization) or has 0% execution
+  if (paymentModel.baseSplit && paymentModel.baseSplit.execution === 0) {
+     activePhases = activePhases.filter(p => !['A3', 'A4'].includes(p.id));
+  }
+
+  const normalized = normalizeWeights(activePhases);
 
   // Licensing vs Execution weights for distribution of exemptions
   const licWeightSum = normalized.filter(pw => ['A0', 'A1', 'A2'].includes(pw.id)).reduce((acc, pw) => acc + pw.weight, 0);
@@ -496,7 +504,7 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   const feeSpecProjectAdjusted = feeSpecProject * ratio;
   const feeSpecExemptAdjusted = feeSpecExempt * ratio;
 
-  const phases = phasesBreakdown(feeArch, feeSpecProjectAdjusted, feeSpecExemptAdjusted, scenario, safeArea, complexity);
+  const phases = phasesBreakdown(feeArch, feeSpecProjectAdjusted, feeSpecExemptAdjusted, scenario, safeArea, complexity, templateId);
   const paymentPlan = buildPaymentPlan(feeTotal, scenario).map(p => ({
     ...p,
     vat: round(p.value * vatRate)

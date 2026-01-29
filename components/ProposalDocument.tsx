@@ -3,7 +3,7 @@
 
 import { disciplines, catalogExtras } from '../services/feeData';
 import { ExtraService } from '../services/types_extras';
-import { getPaymentModelForTemplate, calculatePaymentValues } from '../services/paymentModels';
+import { getPaymentModelForTemplate, calculatePaymentValues, PaymentPhase } from '../services/paymentModels';
 import { ShieldCheck, MapPin } from 'lucide-react';
 
 interface ProposalPhase {
@@ -39,13 +39,15 @@ interface ComparisonItem {
 
 interface ProposalDocumentProps {
    data: {
+      templateId: string; // NEW: Critical for correct model lookup
       templateName: string;
       clientName: string;
       projectName: string;
       location: string;
       internalRef: string;
-      address?: string; // NEW
-      mapsLink?: string; // NEW
+      address?: string;
+      municipality?: string; // NEW: Concelho
+      mapsLink?: string;
       area: number;
       complexity: string;
       scenario: string;
@@ -199,12 +201,13 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <p className="text-xs font-serif italic leading-tight">{data.clientName || 'Cliente Final'}</p>
                   </div>
                   <div className="space-y-1">
-                     <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Projeto</p>
-                     <p className="text-xs font-serif italic leading-tight">{data.projectName || 'Nova Construção'}</p>
+                     <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Tipologia</p>
+                     <p className="text-xs font-serif italic leading-tight">{data.projectName || data.templateName || 'Tipologia Selecionada'}</p>
                   </div>
                   <div className="space-y-1">
                      <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Localização</p>
                      <p className="text-xs font-serif italic leading-tight">{data.location || 'Portugal'}</p>
+                     {data.municipality && <p className="text-[10px] opacity-60 mt-1">{data.municipality}</p>}
                   </div>
                   <div className="space-y-1">
                      <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Área</p>
@@ -382,7 +385,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      {/* MATRIZ UNIFICADA - The "Holy Grid" of Fees */}
                      {(() => {
                         // Ratios para distribuicao
-                        const paymentModel = getPaymentModelForTemplate(data.templateName);
+                        const paymentModel = getPaymentModelForTemplate(data.templateId);
                         // Default to 100/0 if no split defined (legacy fallback)
                         const licRatio = paymentModel.baseSplit ? paymentModel.baseSplit.licensing : 1.0;
                         // execRatio used implicitly by subtraction
@@ -471,7 +474,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      })()}
 
                      <p className="text-[9px] italic opacity-50 max-w-sm text-center leading-relaxed">
-                        Nota: A fase de **Execução** ({(getPaymentModelForTemplate(data.templateName).baseSplit?.execution || 0) * 100}%) é facultativa e só avança por decisão do cliente após a aprovação do licenciamento, garantindo total controlo sobre o investimento.
+                        Nota: A fase de **Execução** ({(getPaymentModelForTemplate(data.templateId).baseSplit?.execution || 0) * 100}%) é facultativa e só avança por decisão do cliente após a aprovação do licenciamento, garantindo total controlo sobre o investimento.
                      </p>
                   </section>
 
@@ -511,7 +514,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <h4 className="font-black uppercase tracking-widest mb-2">Formato de Entrega</h4>
                      <p className="font-light italic opacity-60">
                         O processo será entregue em formato digital (DWFX e PDF) e **2 exemplares em papel**.
-                        Cópias suplementares: 50€ + IVA / processo.
+                        Cópias suplementares: 50€ + IVA / processo. Caso o custo de reprodução supere este valor, será solicitada cotação prévia.
                      </p>
                   </section>
 
@@ -580,116 +583,86 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Plano de Pagamentos</h4>
 
                      {(() => {
-                        const paymentModel = getPaymentModelForTemplate(data.templateName);
-                        // CHANGE: Use ONLY feeArch as base, ignoring feeSpec for this detailed breakdown
-                        const baseFee = data.feeArch || 0;
-                        const paymentValues = calculatePaymentValues(baseFee, paymentModel);
+                        const paymentModel = getPaymentModelForTemplate(data.templateId);
+                        
+                        // 1. Calculate Full Arrays for Arch and Spec
+                        const archValues = calculatePaymentValues(data.feeArch || 0, paymentModel);
+                        const specValues = calculatePaymentValues(data.feeSpec || 0, paymentModel);
 
-                        // Agrupar fases por tipo
-                        const licensingPhases = paymentValues.filter(p => p.phase.type === 'LICENSING');
-                        const executionPhases = paymentValues.filter(p => p.phase.type === 'EXECUTION');
+                        // 2. Filter Groups
+                        const archLic = archValues.filter(p => p.phase.type === 'LICENSING');
+                        const archExec = archValues.filter(p => p.phase.type === 'EXECUTION');
+                        
+                        let specLic = specValues.filter(p => p.phase.type === 'LICENSING');
+                        const specExec = specValues.filter(p => p.phase.type === 'EXECUTION');
 
-                        // Calcular subtotais absolutos
-                        const licensingTotal = licensingPhases.reduce((sum, p) => sum + p.value, 0);
-                        const executionTotal = executionPhases.reduce((sum, p) => sum + p.value, 0);
+                        // OVERRIDE: Legalizacao tem especialidades pagas a 100% na entrega/submissao
+                        if (data.templateId.includes('LEGAL') || data.templateId === 'PIP') {
+                           if (data.feeSpec > 0) {
+                              specLic = [{
+                                 phase: {
+                                    phaseNumber: 1,
+                                    labelPT: "Pagamento Único",
+                                    labelEN: "Single Payment",
+                                    triggerPT: "Aquando da entrega para Submissão",
+                                    triggerEN: "Upon submission",
+                                    percentage: 100,
+                                    activatesPhases: [],
+                                    type: 'LICENSING',
+                                    descriptionPT: 'Pagamento integral das especialidades',
+                                    descriptionEN: 'Full payment of engineering',
+                                 },
+                                 value: data.feeSpec
+                              }];
+                           }
+                        }
+
+                        // 3. Helper to render a table
+                        const renderTable = (title: string, items: { phase: PaymentPhase; value: number }[], total: number, isOptional: boolean = false) => {
+                           if (items.length === 0 || total === 0) return null;
+                           
+                           return (
+                              <div className="space-y-4">
+                                 <div className="flex justify-between items-end border-b border-black/10 pb-2">
+                                    <h5 className="font-bold text-sm uppercase tracking-wider text-black flex items-center gap-2">
+                                       {title}
+                                       {isOptional && <span className="text-[9px] bg-black/5 px-2 py-0.5 rounded text-black/50">Opcional / Fase 2</span>}
+                                    </h5>
+                                    <span className="font-mono font-bold text-sm">€{total.toLocaleString()} + IVA</span>
+                                 </div>
+                                 <div className="space-y-2"> {/* Row Spacing */}
+                                    {items.map((item, idx) => (
+                                       <div key={idx} className="grid grid-cols-[1fr_auto_auto] gap-4 items-center py-2 border-b border-black/5 last:border-0 text-xs text-black/70"> {/* Row Layout */}
+                                          <div>
+                                             <span className="font-bold text-black/90 block">{item.phase.phaseNumber}. {item.phase.labelPT}</span>
+                                             <span className="text-[10px] italic opacity-60 block">{item.phase.triggerPT}</span>
+                                          </div>
+                                          <div className="w-12 text-right opacity-50 font-mono">{item.phase.percentage}%</div>
+                                          <div className="font-mono font-bold text-black min-w-[80px] text-right">€{item.value.toLocaleString()}</div>
+                                       </div>
+                                    ))}
+                                 </div>
+                              </div>
+                           );
+                        };
 
                         return (
                            <div className="space-y-12">
-                              {/* SECCAO 1: LICENCIAMENTO */}
-                              <div className="space-y-6">
-                                 <h5 className="font-bold text-xs uppercase mb-2 text-luxury-gold">1. Fase de Licenciamento</h5>
-                                 <table className="w-full text-xs">
-                                    <thead>
-                                       <tr className="border-b border-luxury-black/10">
-                                          <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest pl-2">Marco de Entrega</th>
-                                          <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">Peso</th>
-                                          <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">Valor</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-luxury-black/5">
-                                       {licensingPhases.map((p, i) => {
-                                          const relativePercentage = Math.round((p.value! / licensingTotal) * 100);
-                                          return (
-                                             <tr key={i} className="hover:bg-luxury-gold/[0.02] transition-colors">
-                                                <td className="py-4 pl-2 italic font-light opacity-80 border-b border-luxury-black/5">{p.phase.triggerPT}</td>
-                                                <td className="py-4 text-right font-mono opacity-60 border-b border-luxury-black/5">{relativePercentage}%</td>
-                                                <td className="py-4 text-right font-mono font-bold border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })} + IVA</td>
-                                             </tr>
-                                          );
-                                       })}
-                                    </tbody>
-                                    <tfoot>
-                                       <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                          <td className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (Fase 1)</td>
-                                          <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                          <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + IVA</td>
-                                       </tr>
-                                    </tfoot>
-                                 </table>
+                              {/* 1. ARQUITETURA - LICENCIAMENTO */}
+                              {renderTable("1. Licenciamento — Arquitetura", archLic, archLic.reduce((a, b) => a + b.value, 0))}
 
-                                 {/* SUMMARY BOX 1 */}
-                                 <div className="bg-white p-8 rounded-[40px] border border-luxury-black/10 shadow-sm flex justify-between items-center mt-4">
-                                    <div>
-                                       <div className="text-xs font-black uppercase tracking-widest mb-1">1. LICENCIAMENTO (IMEDIATO)</div>
-                                       <div className="text-[10px] opacity-50 italic">Total devido à adjudicação inicial desta proposta (+ IVA)</div>
-                                    </div>
-                                    <div className="text-4xl font-mono font-black">
-                                       €{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + IVA
-                                    </div>
-                                 </div>
-                              </div>
+                              {/* 2. ESPECIALIDADES - LICENCIAMENTO */}
+                              {renderTable("2. Licenciamento — Especialidades", specLic, specLic.reduce((a, b) => a + b.value, 0))}
 
-                              {/* SECCAO 2: EXECUÇÃO (SE EXISTIR) */}
-                              {executionPhases.length > 0 && (
-                                 <div className="space-y-6 pt-8 mt-8 border-t border-luxury-black/5">
-                                    <div className="flex justify-between items-center">
-                                       <h5 className="font-bold text-xs uppercase text-luxury-black/60">2. Fase de Execução (Opcional)</h5>
-                                       <span className="text-[10px] bg-luxury-gold/20 text-luxury-gold px-2 py-0.5 rounded font-bold uppercase tracking-wider">Opcional</span>
-                                    </div>
-                                    <table className="w-full text-xs">
-                                       <thead>
-                                          <tr className="border-b border-luxury-black/10">
-                                             <th className="py-2 text-left font-black uppercase text-[10px] tracking-widest pl-2">Marco de Entrega</th>
-                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">Peso</th>
-                                             <th className="py-2 text-right font-black uppercase text-[10px] tracking-widest">Valor</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody className="divide-y divide-luxury-black/5">
-                                          {executionPhases.map((p, i) => {
-                                             const relativePercentage = Math.round((p.value! / executionTotal) * 100);
-                                             return (
-                                                <tr key={i} className="hover:bg-luxury-gold/[0.01] transition-colors">
-                                                   <td className="py-4 pl-2 italic font-light opacity-50 border-b border-luxury-black/5">{p.phase.triggerPT}</td>
-                                                   <td className="py-4 text-right font-mono opacity-30 border-b border-luxury-black/5">{relativePercentage}%</td>
-                                                   <td className="py-4 text-right font-mono border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })} + IVA</td>
-                                                </tr>
-                                             );
-                                          })}
-                                       </tbody>
-                                       <tfoot>
-                                          <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
-                                             <td className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
-                                             <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + IVA</td>
-                                          </tr>
-                                       </tfoot>
-                                    </table>
+                              {/* 3. ARQUITETURA - EXECUÇÃO */}
+                              {renderTable("3. Execução — Arquitetura", archExec, archExec.reduce((a, b) => a + b.value, 0), true)}
 
-                                    {/* SUMMARY BOX 2 */}
-                                    <div className="bg-luxury-black/[0.02] p-8 rounded-[40px] border border-luxury-black/5 flex justify-between items-center mt-4">
-                                       <div>
-                                          <div className="text-xs font-bold uppercase text-luxury-gold tracking-widest mb-1">2. EXECUÇÃO (OPCIONAL)</div>
-                                          <div className="text-[10px] opacity-50 italic">Valor condicionado à adjudicação futura pós-licenciamento (+ IVA)</div>
-                                       </div>
-                                       <div className="text-4xl font-mono font-black text-luxury-gold/60">
-                                          €{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + IVA
-                                       </div>
-                                    </div>
-                                 </div>
-                              )}
+                              {/* 4. ESPECIALIDADES - EXECUÇÃO */}
+                              {renderTable("4. Execução — Especialidades", specExec, specExec.reduce((a, b) => a + b.value, 0), true)}
                            </div>
                         );
                      })()}
+
                   </section>
 
                   {/* 8. Call to Action */}
@@ -1049,10 +1022,10 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         {/* NOVO: ITENS 6 E 7 */}
                         <section className="grid grid-cols-1 md:grid-cols-2 gap-16 text-[11px]">
                            <div className="space-y-4">
-                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">6. Prazos e Metodologia</h4>
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">6. Prazos e Entregas</h4>
                               <p className="text-[11px] font-light italic opacity-60 leading-relaxed">
                                  Os prazos indicados referem-se à produção técnica interna. Atrasos decorrentes de aprovações camararias ou decisões de terceiros não são imputáveis à Ferreira Arquitetos. 
-                                 Utilizamos metodologia BIM para garantir a máxima coordenação técnica entre disciplinas.
+                                 O processo será entregue em formato digital (DWFX e PDF) e 2 exemplares em papel. Cópias suplementares: 50€ + IVA / processo. Caso o custo de reprodução supere este valor, será solicitada cotação prévia.
                               </p>
                            </div>
                            <div className="space-y-4">

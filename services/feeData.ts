@@ -5,7 +5,7 @@ export const templates: FeeTemplate[] = [
   { templateId: "MORADIA_LICENSE", namePT: "Moradia — Licenciamento", nameEN: "House — Permitting", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 1, rateArchPerM2: 65, minFeeTotal: 4500 },
   { templateId: "MORADIA_EXEC", namePT: "Moradia — Execucao", nameEN: "House — Construction Docs", processType: "exec", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 2, rateArchPerM2: 85, minFeeTotal: 6500 },
   { templateId: "MORADIA_REHAB", namePT: "Moradia — Reabilitacao/Ampliacao", nameEN: "House — Rehab", processType: "hybrid", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 3, rateArchPerM2: 75, minFeeTotal: 5500 },
-  { templateId: "LEGAL", namePT: "Moradia — Legalizacao (Simplex)", nameEN: "House — Legalization", processType: "lic", pricingModel: "PACKAGE", legalProfile: "PT", sortOrder: 4, baseFeeArch: 4000, minFeeTotal: 2500 },
+  { templateId: "LEGAL", namePT: "Moradia — Legalizacao (Simplex)", nameEN: "House — Legalization", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 4, rateArchPerM2: 40, minFeeTotal: 2500 },
   {
     templateId: "MULTIFAMILY",
     namePT: "Multifamiliar — Licenciamento",
@@ -49,7 +49,7 @@ export const templates: FeeTemplate[] = [
   { templateId: "OFFICE_HQ", namePT: "Escritórios / Corporate", nameEN: "Offices / HQ", processType: "hybrid", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 12, rateArchPerM2: 75, minFeeTotal: 5000 },
   { templateId: "TOURISM_RURAL", namePT: "Turismo Rural / Hotelaria", nameEN: "Rural Tourism / Hotel", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 13, rateArchPerM2: 80, minFeeTotal: 10000 },
   { templateId: "INDUSTRIAL", namePT: "Industrial / Armazém", nameEN: "Industrial / Warehouse", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 14, rateArchPerM2: 45, minFeeTotal: 6000 },
-  { templateId: "LEGAL_GENERAL", namePT: "Legalização / Regularização (Geral)", nameEN: "Legalization (General)", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 15, rateArchPerM2: 60, minFeeTotal: 3000 },
+  { templateId: "LEGAL_GENERAL", namePT: "Legalização / Regularização (Geral)", nameEN: "Legalization (General)", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 15, rateArchPerM2: 40, minFeeTotal: 3000 },
   {
     templateId: "PH_CHANGE",
     namePT: "Alteração de Propriedade Horizontal",
@@ -233,8 +233,8 @@ export const exclusionsPT = [
   "Estudos geotécnicos, ensaios laboratoriais e sondagens",
   "Fiscalização e Direção de Obra (salvo contrato específico)",
   "Plano de Segurança e Saúde (PSS) e Coordenação de Segurança",
-  "Impressão de cópias físicas (entrega padrão em formato digital)",
-  "Cópias suplementares: 50€ + IVA / processo (ou sob consulta mediante o tamanho do processo)",
+  "Impressão de cópias físicas: O processo será entregue em formato digital (DWFX e PDF) e 2 exemplares em papel.",
+  "Cópias suplementares: 50€ + IVA / processo. Caso o custo de reprodução supere este valor, será solicitada cotação prévia.",
 ];
 
 import { ExtraService } from './types_extras';
