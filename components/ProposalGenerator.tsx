@@ -1672,167 +1672,159 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                             {(() => {
                                 const total = currentResult?.feeTotal || 0;
                                 const feeArch = currentResult?.feeArch || 0;
-                                const feeSpecs = (total - feeArch); // Derived
+                                const feeSpecs = (total - feeArch);
 
-                                // ARCHITECTURE LOGIC
+                                // PHASING WEIGHTS (Based on feeCalculator.ts)
+                                // Lic = A0(5) + A1(20) + A2(35) = 60%
+                                // Exec = A3(30) + A4(10) = 40%
+                                const LIC_PCT = 0.60;
+                                const EXEC_PCT = 0.40;
+
+                                // SCENARIO CONFIG
                                 let archMyPct = 0;
-                                let archFreePct = 0;
-                                let archLabelMine = '';
-                                let archLabelFree = '';
-                                let archRespMine: string[] = [];
-                                let archRespFree: string[] = [];
+                                let respLicMine: string[] = [];
+                                let respLicFree: string[] = [];
+                                let respExecMine: string[] = [];
+                                let respExecFree: string[] = [];
                                 
-                                // Licensing vs Execution (Approx 40/60 split for display)
-                                const licValue = feeArch * 0.4;
-                                const execValue = feeArch * 0.6;
-
                                 if (marginScenario === 'specs') {
                                     archMyPct = 1.0; 
-                                    archFreePct = 0.0;
-                                    archLabelMine = 'Produção Interna';
-                                    archRespMine = ['Conceito', 'Licenciamento', 'Execução', 'Coordenação'];
-                                    archRespFree = [];
+                                    respLicMine = ['Conceito Artistico', 'Dossier Licenciamento', 'Reuniões CM', 'Coord. Especialidades'];
+                                    respExecMine = ['Projeto de Execução', 'Pormenorização Técnica', 'Mapa de Acabamentos'];
                                 } else if (marginScenario === 'prod') {
                                     archMyPct = 0.60; 
-                                    archFreePct = 0.40;
-                                    archLabelMine = 'Direção Criativa & Licenc.';
-                                    archLabelFree = 'Produção BIM / CAD';
-                                    archRespMine = ['Conceito & Design', 'Licenciamento', 'Reuniões Cliente', 'TR Autor'];
-                                    archRespFree = ['Modelagem 3D/BIM', 'Extração Peças Desenhadas', 'Apoio Backoffice'];
+                                    respLicMine = ['Conceito & Design', 'Direção Criativa', 'RP Cliente', 'TR Autor'];
+                                    respLicFree = ['Modelação BIM/CAD', 'Peças Desenhadas', 'Dossier Técnico'];
+                                    respExecMine = ['Supervisão Técnica', 'Validação Detalhes'];
+                                    respExecFree = ['Pormenorização BIM', 'Mapas de Quantidades'];
                                 } else { // partner
                                     archMyPct = 0.25; 
-                                    archFreePct = 0.75;
-                                    archLabelMine = 'Comercial (Angariação)';
-                                    archLabelFree = 'Gestão Integral';
-                                    archRespMine = ['Lead Comercial', 'Contrato Inicial', 'Acompanhamento Pontual'];
-                                    archRespFree = ['Desenvolvimento Completo', 'Gestão Cliente', 'Todas as Fases', 'TR Completo'];
+                                    respLicMine = ['Gestão Comercial', 'Acompanhamento Estratégico'];
+                                    respLicFree = ['Desenvolvimento Integral', 'Licenciamento Completo', 'TR de Arquitetura'];
+                                    respExecFree = ['Projeto de Execução Integral', 'Assistência Técnica à Obra'];
                                 }
 
-                                const archMyShare = feeArch * archMyPct;
-                                const archFreeShare = feeArch * archFreePct;
-
-                                // SPECIALTIES LOGIC (Standard Coordination Model)
+                                // SPEC CONFIG (Always 20/80 - Coordination Model)
                                 const specMyPct = 0.20;
-                                const specFreePct = 0.80;
-                                const specMyShare = feeSpecs * specMyPct;
-                                const specFreeShare = feeSpecs * specFreePct;
-                                const specRespMine = ['Compatibilização Geral', 'Gestão Interfaces', 'Validação'];
-                                const specRespFree = ['Cálculos e Dimensionamento', 'Peças Desenhadas', 'TR de Especialidade'];
+                                const specRespMine = ['Compatibilização', 'Validação de Interfaces'];
+                                const specRespFree = ['Cálculos Técnicos', 'Dimensionamento', 'PE Especialidade'];
 
-                                const totalMyShare = archMyShare + specMyShare;
+                                // CALCULATE SHARES BY PHASE
+                                // 1. LICENSING (60%)
+                                const licTotal = (total * LIC_PCT);
+                                const licFeeArch = feeArch * LIC_PCT;
+                                const licFeeSpecs = feeSpecs * LIC_PCT;
+                                
+                                const licMyShare = (licFeeArch * archMyPct) + (licFeeSpecs * specMyPct);
+                                const licCost = licTotal - licMyShare; 
+                                
+                                const licIRC = licMyShare * 0.21;
+                                const licNet = licMyShare - licIRC;
+
+                                // 2. EXECUTION (40%)
+                                const execTotal = (total * EXEC_PCT);
+                                const execFeeArch = feeArch * EXEC_PCT;
+                                const execFeeSpecs = feeSpecs * EXEC_PCT;
+                                
+                                const execMyShare = (execFeeArch * archMyPct) + (execFeeSpecs * specMyPct);
+                                const execCost = execTotal - execMyShare; 
+
+                                const execIRC = execMyShare * 0.21;
+                                const execNet = execMyShare - execIRC;
+
+                                // TOTALS
+                                const totalMyShare = licMyShare + execMyShare;
+                                const totalCost = licCost + execCost;
+                                
+                                const totalIRC = totalMyShare * 0.21;
+                                const totalNet = totalMyShare - totalIRC;
 
                                 return (
                                     <div className="space-y-6">
-                                        {/* SUMMARY HEADER */}
+                                        {/* SUMMARY HEADER (GLOBAL) */}
                                         <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex justify-between items-end">
                                             <div>
-                                                <p className="text-[9px] uppercase font-black tracking-widest opacity-40 text-white">Margem Total Estimada</p>
-                                                <p className="text-3xl font-mono text-luxury-gold pt-1">€{totalMyShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                <p className="text-[9px] uppercase font-black tracking-widest opacity-40 text-white">Margem Potencial Total</p>
+                                                <p className="text-3xl font-mono text-luxury-gold pt-1">€{totalNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                <p className="text-[9px] text-white/30 italic">Líquido Global (Lic + Exec)</p>
                                             </div>
                                             <div className="text-right">
-                                                 <p className="text-[9px] uppercase font-black tracking-widest opacity-40 text-white">Total Proposta</p>
-                                                 <p className="text-sm font-mono text-white/60">€{total.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                 <p className="text-[9px] uppercase font-black tracking-widest opacity-40 text-white">Custo Externo Total</p>
+                                                 <p className="text-lg font-mono text-white/60">€{totalCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                 <p className="text-[9px] text-white/30 italic">Colaboração & Especialidades</p>
                                             </div>
                                         </div>
 
-                                        {/* ARCHITECTURE BREAKDOWN */}
-                                        <div className="space-y-2">
-                                            <div className="flex justify-between items-center text-[10px] uppercase font-black tracking-widest text-white/60 px-1">
-                                                <span>1. Arquitetura</span>
-                                                <span>€{feeArch.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
+                                        {/* PHASE 1: LICENSING (THE REALITY) */}
+                                        <div className="space-y-2 relative group">
+                                            <div className="absolute inset-0 bg-green-500/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                            <div className="flex justify-between items-center px-1">
+                                                <span className="text-[10px] uppercase font-black tracking-widest text-green-400 flex items-center gap-2">
+                                                    <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div> 1. Licenciamento
+                                                </span>
+                                                <span className="text-[10px] uppercase font-bold text-white/40">Faturação: €{licTotal.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
                                             </div>
                                             
-                                            <div className="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-3 relative overflow-hidden">
-                                                 <div className="absolute top-0 right-0 p-2 opacity-5"><Layout size={40} /></div>
-                                                 
-                                                 {/* Split Display */}
-                                                 <div className="flex gap-4">
-                                                    <div className="flex-1 space-y-1">
-                                                        <p className="text-[9px] font-bold text-luxury-gold uppercase">Ferreira Arq. ({archMyPct*100}%)</p>
-                                                        <p className="text-lg font-mono text-white">€{archMyShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
-                                                        <p className="text-[9px] italic opacity-50 text-white leading-tight mb-2">{archLabelMine}</p>
-                                                        <ul className="space-y-1 pt-2 border-t border-white/5">
-                                                            {archRespMine.map((r, i) => (
-                                                                <li key={i} className="text-[9px] font-medium opacity-60 flex items-center gap-1.5 text-white">
-                                                                    <div className="w-1 h-1 rounded-full bg-luxury-gold/50" /> {r}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                    
-                                                    {archFreePct > 0 && (
-                                                    <>
-                                                        <div className="w-px bg-white/10"></div>
-                                                        <div className="flex-1 space-y-1">
-                                                            <p className="text-[9px] font-bold text-white/40 uppercase">Parceiro ({archFreePct*100}%)</p>
-                                                            <p className="text-lg font-mono text-white/40">€{archFreeShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
-                                                            <p className="text-[9px] italic opacity-30 text-white leading-tight mb-2">{archLabelFree}</p>
-                                                            <ul className="space-y-1 pt-2 border-t border-white/5">
-                                                                {archRespFree.map((r, i) => (
-                                                                    <li key={i} className="text-[9px] font-medium opacity-30 flex items-center gap-1.5 text-white">
-                                                                        <div className="w-1 h-1 rounded-full bg-white/20" /> {r}
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                    </>
-                                                    )}
+                                            <div className="p-4 bg-gradient-to-br from-green-900/20 to-black rounded-2xl border border-green-500/20 grid grid-cols-2 gap-4 relative overflow-hidden">
+                                                 {/* Profit Side */}
+                                                 <div className="space-y-3">
+                                                     <div>
+                                                         <p className="text-[9px] uppercase font-bold text-green-400 opacity-70">A sua Margem</p>
+                                                         <p className="text-2xl font-mono text-white">€{licNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                     </div>
+                                                     <ul className="space-y-1 opacity-60">
+                                                        {respLicMine.map((r, i) => <li key={i} className="text-[8px] text-white flex items-center gap-1"><div className="w-1 h-1 bg-green-400" /> {r}</li>)}
+                                                        <li className="text-[8px] text-luxury-gold flex items-center gap-1 border-t border-white/5 pt-1"><div className="w-1 h-1 bg-luxury-gold" /> {specRespMine[0]}</li>
+                                                     </ul>
                                                  </div>
 
-                                                 {/* Phase Context (Lic vs Exec) */}
-                                                 <div className="pt-2 border-t border-white/5 flex gap-2 overflow-hidden mt-2">
-                                                    <div className="h-1.5 flex-1 rounded-full bg-luxury-gold/50 flex items-center justify-center relative group">
-                                                         <span className="absolute -top-3 text-[8px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-black px-1 rounded">Lic: €{licValue.toLocaleString()}</span>
-                                                    </div>
-                                                    <div className="h-1.5 flex-1 rounded-full bg-white/20 flex items-center justify-center relative group">
-                                                         <span className="absolute -top-3 text-[8px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-black px-1 rounded">Exec: €{execValue.toLocaleString()}</span>
-                                                    </div>
+                                                 {/* Cost Side */}
+                                                 <div className="space-y-3 text-right border-l border-white/10 pl-4">
+                                                     <div>
+                                                         <p className="text-[9px] uppercase font-bold text-red-300 opacity-50">Custos Colab.</p>
+                                                         <p className="text-xl font-mono text-white/60">€{licCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                     </div>
+                                                     <ul className="space-y-1 opacity-40 inline-block text-left">
+                                                        {respLicFree.map((r, i) => <li key={i} className="text-[8px] text-white flex items-center gap-1"><div className="w-1 h-1 bg-red-400/50" /> {r}</li>)}
+                                                        <li className="text-[8px] text-white/60 flex items-center gap-1 border-t border-white/5 pt-1"><div className="w-1 h-1 bg-white/30" /> {specRespFree[0]}</li>
+                                                     </ul>
                                                  </div>
-                                                 <p className="text-[9px] text-center opacity-30 italic">Licenciamento (Est.) vs Execução</p>
                                             </div>
                                         </div>
 
-                                        {/* SPECIALTIES BREAKDOWN */}
-                                        {feeSpecs > 0 && (
-                                        <div className="space-y-2">
-                                            <div className="flex justify-between items-center text-[10px] uppercase font-black tracking-widest text-white/60 px-1">
-                                                <span>2. Especialidades</span>
-                                                <span>€{feeSpecs.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
+                                        {/* PHASE 2: EXECUTION (THE OPTIONAL) */}
+                                        <div className="space-y-2 opacity-60 hover:opacity-100 transition-opacity">
+                                            <div className="flex justify-between items-center px-1">
+                                                <span className="text-[10px] uppercase font-black tracking-widest text-white/60 flex items-center gap-2">
+                                                    <div className="w-2 h-2 rounded-full border border-white/30"></div> 2. Execução
+                                                </span>
+                                                <span className="text-[10px] uppercase font-bold text-white/30">Faturação: €{execTotal.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
                                             </div>
                                             
-                                            <div className="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-3 relative overflow-hidden hover:bg-white/10 transition-colors">
-                                                 <div className="absolute top-0 right-0 p-2 opacity-5"><Brain size={40} /></div>
+                                            <div className="p-4 bg-white/5 rounded-2xl border border-white/5 grid grid-cols-2 gap-4">
+                                                 {/* Profit Side */}
+                                                 <div className="space-y-3">
+                                                     <div>
+                                                         <p className="text-[9px] uppercase font-bold text-white/50">A sua Margem</p>
+                                                         <p className="text-2xl font-mono text-white">€{execNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                     </div>
+                                                     <ul className="space-y-1 opacity-40">
+                                                        {respExecMine.map((r, i) => <li key={i} className="text-[8px] text-white flex items-center gap-1"><div className="w-0.5 h-0.5 bg-white/50" /> {r}</li>)}
+                                                     </ul>
+                                                 </div>
 
-                                                 <div className="flex gap-4">
-                                                    <div className="flex-1 space-y-1">
-                                                        <p className="text-[9px] font-bold text-luxury-gold uppercase">Coordenação ({specMyPct*100}%)</p>
-                                                        <p className="text-lg font-mono text-white">€{specMyShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
-                                                        <p className="text-[9px] italic opacity-50 text-white leading-tight mb-2">Gestão & Compatibilização</p>
-                                                        <ul className="space-y-1 pt-2 border-t border-white/5">
-                                                            {specRespMine.map((r, i) => (
-                                                                <li key={i} className="text-[9px] font-medium opacity-60 flex items-center gap-1.5 text-white">
-                                                                    <div className="w-1 h-1 rounded-full bg-luxury-gold/50" /> {r}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                    <div className="w-px bg-white/10"></div>
-                                                    <div className="flex-1 space-y-1">
-                                                        <p className="text-[9px] font-bold text-white/40 uppercase">Engenheiros ({specFreePct*100}%)</p>
-                                                        <p className="text-lg font-mono text-white/40">€{specFreeShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
-                                                        <p className="text-[9px] italic opacity-50 text-white/40 leading-tight mb-2">Projeto Técnico</p>
-                                                        <ul className="space-y-1 pt-2 border-t border-white/5">
-                                                            {specRespFree.map((r, i) => (
-                                                                <li key={i} className="text-[9px] font-medium opacity-30 flex items-center gap-1.5 text-white">
-                                                                    <div className="w-1 h-1 rounded-full bg-white/20" /> {r}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
+                                                 {/* Cost Side */}
+                                                 <div className="space-y-3 text-right border-l border-white/10 pl-4">
+                                                     <div>
+                                                         <p className="text-[9px] uppercase font-bold text-white/30">Custos Colab.</p>
+                                                         <p className="text-xl font-mono text-white/40">€{execCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                     </div>
+                                                     <ul className="space-y-1 opacity-30 inline-block text-left">
+                                                        {respExecFree.map((r, i) => <li key={i} className="text-[8px] text-white flex items-center gap-1"><div className="w-0.5 h-0.5 bg-white/30" /> {r}</li>)}
+                                                     </ul>
                                                  </div>
                                             </div>
                                         </div>
-                                        )}
                                     </div>
                                 );
                             })()}
