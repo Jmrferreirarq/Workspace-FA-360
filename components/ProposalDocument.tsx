@@ -600,15 +600,17 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            const isSelected = data.scenario === item.scenario;
 
                            return (
-                              <div key={idx} className={`relative p-5 rounded-[2rem] border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
-                                 <h4 className="text-xs font-black uppercase tracking-widest mb-4 flex items-center gap-2 pr-16">
-                                    {item.pack?.labelPT || item.scenario}
-                                 </h4>
-                                 {isSelected && (
-                                    <span className="absolute top-5 right-5 text-[9px] font-bold bg-luxury-gold text-white px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
-                                       Selecionado
-                                    </span>
-                                 )}
+                              <div key={idx} className={`p-5 rounded-[2rem] border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
+                                 <div className="flex justify-between items-start mb-4">
+                                    <h4 className="text-xs font-black uppercase tracking-widest flex items-center gap-2">
+                                       {item.pack?.labelPT || item.scenario}
+                                    </h4>
+                                    {isSelected && (
+                                       <span className="text-[9px] font-bold bg-luxury-gold text-white px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm shrink-0 ml-2">
+                                          Selecionado
+                                       </span>
+                                    )}
+                                 </div>
 
                                  <div className="mb-6">
                                     <p className="text-2xl font-serif">€{item.result.feeTotal.toLocaleString()} + IVA</p>
