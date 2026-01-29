@@ -601,16 +601,17 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
                            return (
                               <div key={idx} className={`p-5 rounded-[2rem] border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
-                                 <div className="flex justify-between items-start mb-4">
-                                    <h4 className="text-xs font-black uppercase tracking-widest flex items-center gap-2">
-                                       {item.pack?.labelPT || item.scenario}
-                                    </h4>
-                                    {isSelected && (
-                                       <span className="text-[9px] font-bold bg-luxury-gold text-white px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm shrink-0 ml-2">
+                                 <h4 className="text-xs font-black uppercase tracking-widest mb-3 flex items-center gap-2">
+                                    {item.pack?.labelPT || item.scenario}
+                                 </h4>
+
+                                 {isSelected && (
+                                    <div className="mb-4">
+                                       <span className="text-[9px] font-bold bg-luxury-gold text-white px-3 py-0.5 rounded-full uppercase tracking-wider shadow-sm inline-block">
                                           Selecionado
                                        </span>
-                                    )}
-                                 </div>
+                                    </div>
+                                 )}
 
                                  <div className="mb-6">
                                     <p className="text-2xl font-serif">€{item.result.feeTotal.toLocaleString()} + IVA</p>
