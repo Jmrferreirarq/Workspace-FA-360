@@ -370,13 +370,13 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        <span className="text-[9px] font-light opacity-50">Design & Coordenação</span>
                                     </div>
                                     <div className="px-4 text-center font-serif italic bg-luxury-gold/[0.05] text-luxury-black/80 flex items-center justify-center">
-                                       €{archLic.toLocaleString()}
+                                       €{archLic.toLocaleString()} + IVA
                                     </div>
                                     <div className="px-4 text-center font-serif italic opacity-60 flex items-center justify-center">
-                                       €{archExec.toLocaleString()}
+                                       €{archExec.toLocaleString()} + IVA
                                     </div>
                                     <div className="px-4 text-right font-black flex items-center justify-end">
-                                       €{data.feeArch.toLocaleString()}
+                                       €{data.feeArch.toLocaleString()} + IVA
                                     </div>
                                  </div>
 
@@ -387,13 +387,13 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        <span className="text-[9px] font-light opacity-50">{data.activeSpecs.length} Disciplinas</span>
                                     </div>
                                     <div className="px-4 text-center font-serif italic bg-luxury-gold/[0.05] text-luxury-black/80 flex items-center justify-center">
-                                       €{specLic.toLocaleString()}
+                                       €{specLic.toLocaleString()} + IVA
                                     </div>
                                     <div className="px-4 text-center font-serif italic opacity-60 flex items-center justify-center">
-                                       €{specExec.toLocaleString()}
+                                       €{specExec.toLocaleString()} + IVA
                                     </div>
                                     <div className="px-4 text-right font-black flex items-center justify-end">
-                                       €{data.feeSpec.toLocaleString()}
+                                       €{data.feeSpec.toLocaleString()} + IVA
                                     </div>
                                  </div>
 
@@ -401,15 +401,15 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  <div className="grid grid-cols-4 py-3 bg-luxury-black/[0.02] border-t-2 border-luxury-black/5">
                                     <div className="px-6 text-[10px] uppercase font-black tracking-widest opacity-40 flex items-center">Total Fase</div>
                                     <div className="px-4 text-center font-black text-luxury-gold flex flex-col justify-center">
-                                       €{stages.licensing.value.toLocaleString()}
+                                       €{stages.licensing.value.toLocaleString()} + IVA
                                        <span className="text-[8px] text-black/40 font-mono font-normal normal-case">{formatWeeks(stages.licensing.weeks)}</span>
                                     </div>
                                     <div className="px-4 text-center font-bold opacity-60 flex flex-col justify-center">
-                                       €{stages.execution.value.toLocaleString()}
+                                       €{stages.execution.value.toLocaleString()} + IVA
                                        <span className="text-[8px] text-black/30 font-mono font-normal normal-case">{formatWeeks(stages.execution.weeks)}</span>
                                     </div>
                                     <div className="px-4 text-right font-black text-base flex items-center justify-end">
-                                       €{data.feeTotal.toLocaleString()}
+                                       €{data.feeTotal.toLocaleString()} + IVA
                                     </div>
                                  </div>
                               </div>
@@ -489,7 +489,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                              <tr key={i} className="hover:bg-luxury-gold/[0.02] transition-colors">
                                                 <td className="py-4 pl-2 italic font-light opacity-80 border-b border-luxury-black/5">{p.phase.triggerPT}</td>
                                                 <td className="py-4 text-right font-mono opacity-60 border-b border-luxury-black/5">{relativePercentage}%</td>
-                                                <td className="py-4 text-right font-mono font-bold border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}</td>
+                                                <td className="py-4 text-right font-mono font-bold border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })} + IVA</td>
                                              </tr>
                                           );
                                        })}
@@ -498,7 +498,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
                                           <td className="py-2 px-2 font-bold uppercase text-[10px]">Total de Adjudicação (Fase 1)</td>
                                           <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                          <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                          <td className="py-2 text-right font-mono font-bold text-[10px]">€{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + IVA</td>
                                        </tr>
                                     </tfoot>
                                  </table>
@@ -510,7 +510,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        <div className="text-[10px] opacity-50 italic">Total devido à adjudicação inicial desta proposta (+ IVA)</div>
                                     </div>
                                     <div className="text-4xl font-mono font-black">
-                                       €{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                       €{licensingTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + IVA
                                     </div>
                                  </div>
                               </div>
@@ -537,7 +537,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                                 <tr key={i} className="hover:bg-luxury-gold/[0.01] transition-colors">
                                                    <td className="py-4 pl-2 italic font-light opacity-50 border-b border-luxury-black/5">{p.phase.triggerPT}</td>
                                                    <td className="py-4 text-right font-mono opacity-30 border-b border-luxury-black/5">{relativePercentage}%</td>
-                                                   <td className="py-4 text-right font-mono border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}</td>
+                                                   <td className="py-4 text-right font-mono border-b border-luxury-black/5">€{p.value?.toLocaleString('pt-PT', { minimumFractionDigits: 2 })} + IVA</td>
                                                 </tr>
                                              );
                                           })}
@@ -546,7 +546,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                           <tr className="border-t-2 border-luxury-black/10 bg-luxury-black/5">
                                              <td className="py-2 px-2 font-bold uppercase text-[10px]">Valor Estimado Execução (Fase 2)</td>
                                              <td className="py-2 text-right font-bold text-[10px]">100%</td>
-                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                             <td className="py-2 text-right font-mono font-bold text-[10px]">€{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + IVA</td>
                                           </tr>
                                        </tfoot>
                                     </table>
@@ -558,7 +558,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                           <div className="text-[10px] opacity-50 italic">Valor condicionado à adjudicação futura pós-licenciamento (+ IVA)</div>
                                        </div>
                                        <div className="text-4xl font-mono font-black text-luxury-gold/60">
-                                          €{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                          €{executionTotal.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + IVA
                                        </div>
                                     </div>
                                  </div>
@@ -607,8 +607,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  </h4>
 
                                  <div className="mb-6">
-                                    <p className="text-2xl font-serif">€{item.result.feeTotal.toLocaleString()}</p>
-                                    <p className="text-[10px] font-mono opacity-50">s/IVA (€{Math.round(item.result.feeTotal / (data.area || 1))} /m²)</p>
+                                    <p className="text-2xl font-serif">€{item.result.feeTotal.toLocaleString()} + IVA</p>
+                                    <p className="text-[10px] font-mono opacity-50">(€{Math.round(item.result.feeTotal / (data.area || 1))} /m² + IVA)</p>
                                  </div>
 
                                  {/* Breakdown Mini-Matrix */}
@@ -616,11 +616,11 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                     <div className="flex justify-between items-end gap-2 text-[10px] bg-black/[0.02] px-4 py-2 rounded-lg border border-black/5">
                                        <div className="space-y-0.5">
                                           <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ARQ.</span>
-                                          <span className="font-bold block">€{(item.result.feeArch || 0).toLocaleString()}</span>
+                                          <span className="font-bold block">€{(item.result.feeArch || 0).toLocaleString()} + IVA</span>
                                        </div>
                                        <div className="space-y-0.5 text-right">
                                           <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ENG.</span>
-                                          <span className="font-bold block">€{(item.result.feeSpec || 0).toLocaleString()}</span>
+                                          <span className="font-bold block">€{(item.result.feeSpec || 0).toLocaleString()} + IVA</span>
                                        </div>
                                     </div>
                                     <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-2 rounded-lg border border-luxury-gold/20">
@@ -631,7 +631,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                                 (item.result.phasesBreakdown || [])
                                                    .filter(p => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)))
                                                    .reduce((acc, p) => acc + (p.value || 0), 0)
-                                             ).toLocaleString()}
+                                             ).toLocaleString()} + IVA
                                           </span>
                                        </div>
                                        <div className="space-y-0.5 text-right">
@@ -641,7 +641,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                                 (item.result.phasesBreakdown || [])
                                                    .filter(p => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)))
                                                    .reduce((acc, p) => acc + (p.value || 0), 0)
-                                             ).toLocaleString()}
+                                             ).toLocaleString()} + IVA
                                           </span>
                                        </div>
                                     </div>
