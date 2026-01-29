@@ -588,7 +588,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
             {/* PAGINA 2: COMPARACAO (NOVO) */}
             {
                data.comparisonData && data.comparisonData.length > 0 && (
-                  <div className="page-break" style={{ pageBreakBefore: 'always', minHeight: '1100px', display: 'block' }}>
+                  <div className="page-break p-8 md:p-24" style={{ pageBreakBefore: 'always', minHeight: '1100px', display: 'block' }}>
                      <header className="flex justify-between items-start border-b border-luxury-black pb-8 mb-12">
                         <h3 className="text-xs font-black uppercase tracking-[0.3em]">Opcoes de Investimento</h3>
                         <p className="text-[11px] font-mono opacity-50">REF: {data.internalRef} / COMPARATIVO</p>
