@@ -58,6 +58,45 @@ interface UIPhase {
   value?: number;
 }
 
+// --- CONFIGURAÇÃO DE RESPONSABILIDADES (Mine vs Freelancer) ---
+const RESPONSIBILITY_CONFIG = {
+  specs: {
+    lic: {
+      mine: ['Conceito Artístico', 'Dossier Licenciamento', 'Reuniões CM', 'Coord. Especialidades'],
+      free: []
+    },
+    exec: {
+      mine: ['Projeto de Execução', 'Pormenorização Técnica', 'Mapa de Acabamentos'],
+      free: []
+    }
+  },
+  prod: {
+    lic: {
+      mine: ['Conceito & Design', 'Direção Criativa', 'RP Cliente', 'TR Autor'],
+      free: ['Modelação BIM/CAD', 'Peças Desenhadas', 'Dossier Técnico']
+    },
+    exec: {
+      mine: ['Supervisão Técnica', 'Validação Detalhes'],
+      free: ['Pormenorização BIM', 'Mapas de Quantidades']
+    }
+  },
+  partner: {
+    lic: {
+      mine: ['Gestão Comercial', 'Acompanhamento Estratégico'],
+      free: ['Desenvolvimento Integral', 'Licenciamento Completo', 'TR de Arquitetura']
+    },
+    exec: {
+      mine: [],
+      free: ['Projeto de Execução Integral', 'Assistência Técnica à Obra']
+    }
+  }
+};
+
+const SPEC_RESPONSIBILITY = {
+  mine: ['Compatibilização', 'Validação de Interfaces'],
+  free: ['Cálculos Técnicos', 'Dimensionamento', 'PE Especialidade']
+};
+
 export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
   const { t, locale } = useLanguage();
   const navigate = useNavigate();
@@ -858,9 +897,15 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                             <span className="text-[10px] font-bold text-luxury-charcoal/80 dark:text-white/80 uppercase tracking-tighter block">{label}</span>
                           </td>
                           <td className="px-6 py-5 align-top">
-                            <p className="text-[11px] font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed max-w-sm">
+                            <p className="text-[11px] font-light italic text-luxury-charcoal/60 dark:text-white/60 leading-relaxed max-w-sm mb-3">
                               {description}
                             </p>
+                            {/* NEW: Scope Bullets (Derived from Phase ID) */}
+                            <ul className="space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                               {p.phaseId.startsWith('A0') && ['Levantamento de Requisitos', 'Análise PDM/RJUE', 'Estudo de Viabilidade'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
+                               {p.phaseId.startsWith('A1') && ['Desenvolvimento Conceptual', 'Maquete 3D Volumétrica', 'Refinamento da Solução'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
+                               {p.phaseId.startsWith('A2') && ['Peças Desenhadas 1:100', 'Coordenação Especialidades', 'Submissão Digital'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
+                            </ul>
                           </td>
                           <td className="px-6 py-5 align-top text-center">
                             <span className="text-[10px] font-mono text-luxury-charcoal/40 dark:text-white/40 uppercase whitespace-nowrap">
@@ -914,9 +959,14 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                 <span className="text-[10px] font-bold text-luxury-charcoal/60 dark:text-white/60 uppercase tracking-tighter block">{label}</span>
                               </td>
                               <td className="px-6 py-5 align-top">
-                                <p className="text-[11px] font-light italic text-luxury-charcoal/40 dark:text-white/40 leading-relaxed max-w-sm">
+                                <p className="text-[11px] font-light italic text-luxury-charcoal/40 dark:text-white/40 leading-relaxed max-w-sm mb-3">
                                   {description}
                                 </p>
+                                {/* NEW: Scope Bullets */}
+                                <ul className="space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                   {p.phaseId.startsWith('A3') && ['Plantas de Acabamentos', 'Pormenores 1:20 / 1:10', 'Caderno de Encargos'].map((s, idx) => <li key={idx} className="text-[9px] text-white/40 flex items-center gap-2"><div className="w-1 h-1 bg-white/20 rounded-full" /> {s}</li>)}
+                                   {p.phaseId.startsWith('A4') && ['Assistência Técnica à Obra', 'Validação de Materiais', 'Telas Finais'].map((s, idx) => <li key={idx} className="text-[9px] text-white/40 flex items-center gap-2"><div className="w-1 h-1 bg-white/20 rounded-full" /> {s}</li>)}
+                                </ul>
                               </td>
                               <td className="px-6 py-5 align-top text-center">
                                 <span className="text-[10px] font-mono text-luxury-charcoal/30 dark:text-white/30 uppercase whitespace-nowrap">
@@ -1681,33 +1731,25 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                 const EXEC_PCT = 0.40;
 
                                 // SCENARIO CONFIG
+                                const config = RESPONSIBILITY_CONFIG[marginScenario as keyof typeof RESPONSIBILITY_CONFIG];
                                 let archMyPct = 0;
-                                let respLicMine: string[] = [];
-                                let respLicFree: string[] = [];
-                                let respExecMine: string[] = [];
-                                let respExecFree: string[] = [];
+                                const respLicMine = config.lic.mine;
+                                const respLicFree = config.lic.free;
+                                const respExecMine = config.exec.mine;
+                                const respExecFree = config.exec.free;
                                 
                                 if (marginScenario === 'specs') {
                                     archMyPct = 1.0; 
-                                    respLicMine = ['Conceito Artistico', 'Dossier Licenciamento', 'Reuniões CM', 'Coord. Especialidades'];
-                                    respExecMine = ['Projeto de Execução', 'Pormenorização Técnica', 'Mapa de Acabamentos'];
                                 } else if (marginScenario === 'prod') {
                                     archMyPct = 0.60; 
-                                    respLicMine = ['Conceito & Design', 'Direção Criativa', 'RP Cliente', 'TR Autor'];
-                                    respLicFree = ['Modelação BIM/CAD', 'Peças Desenhadas', 'Dossier Técnico'];
-                                    respExecMine = ['Supervisão Técnica', 'Validação Detalhes'];
-                                    respExecFree = ['Pormenorização BIM', 'Mapas de Quantidades'];
                                 } else { // partner
                                     archMyPct = 0.25; 
-                                    respLicMine = ['Gestão Comercial', 'Acompanhamento Estratégico'];
-                                    respLicFree = ['Desenvolvimento Integral', 'Licenciamento Completo', 'TR de Arquitetura'];
-                                    respExecFree = ['Projeto de Execução Integral', 'Assistência Técnica à Obra'];
                                 }
 
                                 // SPEC CONFIG (Always 20/80 - Coordination Model)
                                 const specMyPct = 0.20;
-                                const specRespMine = ['Compatibilização', 'Validação de Interfaces'];
-                                const specRespFree = ['Cálculos Técnicos', 'Dimensionamento', 'PE Especialidade'];
+                                const specRespMine = SPEC_RESPONSIBILITY.mine;
+                                const specRespFree = SPEC_RESPONSIBILITY.free;
 
                                 // CALCULATE SHARES BY PHASE
                                 // 1. LICENSING (60%)
