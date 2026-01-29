@@ -56,6 +56,7 @@ export interface CalculationParams {
   area: number;
   complexity: Complexity;
   selectedSpecs: string[];
+  exemptSpecs?: string[]; // IDs of specs that are simple Exemption Terms
   scenario: Scenario;
 
   // Patch V1

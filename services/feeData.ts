@@ -228,12 +228,13 @@ export const disciplines: Discipline[] = [
 ];
 
 export const exclusionsPT = [
-  "Taxas camararias e de entidades externas",
-  "Levantamentos topograficos e de arquitetura pre-existente",
-  "Estudos geotecnicos, ensaios laboratoriais e sondagens",
-  "Fiscalizacao e Direcao de Obra (salvo contrato especifico)",
-  "Plano de Seguranca e Saude (PSS) e Coordenacao de Seguranca",
-  "Impressao de copias fisicas (entrega padrao em formato digital)",
+  "Taxas camarárias e de entidades externas",
+  "Levantamentos topográficos e de arquitetura pré-existente",
+  "Estudos geotécnicos, ensaios laboratoriais e sondagens",
+  "Fiscalização e Direção de Obra (salvo contrato específico)",
+  "Plano de Segurança e Saúde (PSS) e Coordenação de Segurança",
+  "Impressão de cópias físicas (entrega padrão em formato digital)",
+  "Cópias suplementares: 50€ + IVA / processo (ou sob consulta mediante o tamanho do processo)",
 ];
 
 import { ExtraService } from './types_extras';
@@ -258,6 +259,7 @@ export const catalogExtras: ExtraService[] = [
   { id: 'qty_map', label: 'Mapa de Quantidades', description: 'Levantamento exaustivo de medições para consulta', type: 'fixed', basePrice: 1500 },
   { id: 'budget_est', label: 'Estimativa Orçamental', description: 'Previsão de custos de construção baseada no projeto', type: 'fixed', basePrice: 750 },
   { id: 'use_permit', label: 'Pedido de Utilização', description: 'Instrução do processo final de licença de utilização', type: 'fixed', basePrice: 650 },
+  { id: 'municipal_consult', label: 'Consulta de Processo (Câmara)', description: 'Análise de antecedentes e consulta de arquivo municipal', type: 'fixed', basePrice: 100 },
   { id: 'site_supervision', label: 'Fiscalização de Obra (Mensal)', description: 'Acompanhamento regular e relatórios (Avença Mensal)', type: 'quantity', pricePerUnit: 750 },
 ];
 

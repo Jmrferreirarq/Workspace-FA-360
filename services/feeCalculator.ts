@@ -109,6 +109,7 @@ function calcArchitectureFee(template: FeeTemplate, area: number, compMult: numb
 }
 
 function calcSpecsFee(area: number, baseRateSpec: number, compMult: number, scenMult: number, specCount: number, units?: UnitsInput, template?: FeeTemplate) {
+  if (specCount <= 0) return 0;
   const safeArea = Math.max(0, Number(area || 0));
   const extraSpecs = Math.max(0, specCount - INCLUDED_SPECS);
   const specMult = 1 + extraSpecs * SPEC_FEE_EXTRA_PCT;
@@ -159,22 +160,13 @@ function estimatedInternalCost(effortMap: { hours: number; profile: string }[]) 
   return base * OVERHEAD_MULT;
 }
 
-function phasesBreakdown(feeTotal: number, scenario: Scenario, area: number, complexity: Complexity, template?: FeeTemplate) {
-  // 1. Determine base active phases by Scenario
-  // [MODIFIED] Always show full phases breakdown (A0-A4) to reflect the 60/40 split map.
+function phasesBreakdown(feeArch: number, feeSpecProject: number, feeSpecExempt: number, scenario: Scenario, area: number, complexity: Complexity) {
+  // 1. Determine base active phases
   const activePhases = ALL_PHASE_WEIGHTS;
-
-  // 2. Filter by Template Process Type (Typology)
-  // [MODIFIED] User requested explicit separation of Licensing vs Execution for ALL templates.
-  // We removed the 'lic' filter to ensure even "Licensing" templates show the full potential roadmap (A0-A4)
-  // with the new 60/40 split.
-  
-  if (template) {
-     // Previously filtered 'lic' to drop A3/A4. Now allowing full scope visibility.
-     // if (template.processType === 'lic') ... (Removed)
-  }
-
   const normalized = normalizeWeights(activePhases as unknown as { id: string; weight: number }[]);
+
+  // Licensing vs Execution weights for distribution of exemptions
+  const licWeightSum = normalized.filter(pw => ['A0', 'A1', 'A2'].includes(pw.id)).reduce((acc, pw) => acc + pw.weight, 0);
 
   // Base weeks per phase (Standard complexity, ~200m2)
   const baseWeeks: Record<string, number> = {
@@ -207,13 +199,21 @@ function phasesBreakdown(feeTotal: number, scenario: Scenario, area: number, com
        description += ` Inclui pacote de ${visitCount} visitas à obra.`;
     }
 
+    const isLicensing = ['A0', 'A1', 'A2'].includes(pw.id);
+    
+    // Standard split for Arch and Project Specs
+    const valueStandard = (feeArch + feeSpecProject) * pw.weight;
+    
+    // Special split for Exemptions: 100% goes to Licensing phases proportionally
+    const valueExempt = isLicensing ? (feeSpecExempt * (pw.weight / licWeightSum)) : 0;
+
     return {
       phaseId: pw.id,
       label: info?.labelPT || pw.id,
       labelEN: info?.labelEN || info?.labelPT || pw.id,
       description: description,
       descriptionEN: info?.shortEN || info?.shortPT || "",
-      value: round(feeTotal * pw.weight),
+      value: round(valueStandard + valueExempt),
       percentage: round(pw.weight * 100),
       weeks: weeks, // Raw value for UI translation
       duration: `${weeks} ${weeks === 1 ? 'Semana' : 'Semanas'}`
@@ -341,7 +341,7 @@ function riskEngine(input: {
 
 // ---------- MAIN ----------
 export const calculateFees = (params: CalculationParams & { clientName?: string, location?: string }) => {
-  const { templateId, area, complexity, selectedSpecs, scenario, discount, units } = params;
+  const { templateId, area, complexity, selectedSpecs, exemptSpecs = [], scenario, discount, units } = params;
 
   const template = templates.find(t => t.templateId === templateId);
   if (!template) return null;
@@ -362,9 +362,13 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
   const scenMult = scenarioPack.multiplier ?? 1.0;
 
   const baseRateSpec = 28;
+  const projectSpecs = selectedSpecs.filter(id => !exemptSpecs.includes(id));
+  const activeExemptSpecs = selectedSpecs.filter(id => exemptSpecs.includes(id));
 
   const feeArchRaw = calcArchitectureFee(template, safeArea, compMult, scenMult, units);
-  const feeSpecRaw = calcSpecsFee(safeArea, baseRateSpec, compMult, scenMult, specCount, units, template);
+  const feeSpecProject = calcSpecsFee(safeArea, baseRateSpec, compMult, scenMult, projectSpecs.length, units, template);
+  const feeSpecExempt = activeExemptSpecs.length * 250; // Fixed fee for exemption terms (€250)
+  const feeSpecRaw = feeSpecProject + feeSpecExempt;
 
   const subTotalRaw = feeArchRaw + feeSpecRaw;
 
@@ -487,7 +491,12 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
     template
   });
 
-  const phases = phasesBreakdown(feeTotal, scenario, safeArea, complexity, template);
+  // Ratio to adjust components after minFee or discounts
+  const ratio = subTotalRaw > 0 ? feeTotal / subTotalRaw : 1;
+  const feeSpecProjectAdjusted = feeSpecProject * ratio;
+  const feeSpecExemptAdjusted = feeSpecExempt * ratio;
+
+  const phases = phasesBreakdown(feeArch, feeSpecProjectAdjusted, feeSpecExemptAdjusted, scenario, safeArea, complexity);
   const paymentPlan = buildPaymentPlan(feeTotal, scenario).map(p => ({
     ...p,
     vat: round(p.value * vatRate)
@@ -594,6 +603,9 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
       appliedDiscount,
       discountAudit,
       specCount,
+      exemptSpecs,
+      feeSpecProject: round(feeSpecProjectAdjusted),
+      feeSpecExempt: round(feeSpecExemptAdjusted),
       compMult,
       scenMult,
       minFeeApplied,

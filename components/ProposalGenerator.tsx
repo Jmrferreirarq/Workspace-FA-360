@@ -209,6 +209,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
   }, [selectedTemplate, clientName, projectName]);
   const [complexity, setComplexity] = useState<Complexity>(1);
   const [activeSpecs, setActiveSpecs] = useState<string[]>([]);
+  const [exemptSpecs, setExemptSpecs] = useState<string[]>([]); // NEW: Specialties with simple Exemption Terms
   const [selectedExtras, setSelectedExtras] = useState<Record<string, number>>({});
   console.log('DEBUG: selectedExtras State:', selectedExtras);
 
@@ -304,6 +305,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           complexity,
           scenario: scen,
           selectedSpecs: activeSpecs,
+          exemptSpecs,
           units,
           discount: { type: discountType, value: discountValue, justification },
           userRole: (userRole || 'arquiteto') as UserRole,
@@ -321,7 +323,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         return { scenario: scen, pack: mergedPack, result: null };
       }
     });
-  }, [selectedTemplate, area, complexity, activeSpecs, units, discountType, discountValue, justification, userRole, clientName, location]);
+  }, [selectedTemplate, area, complexity, activeSpecs, exemptSpecs, units, discountType, discountValue, justification, userRole, clientName, location]);
 
   // --- SCENARIO MERGE LOGIC ---
 
@@ -347,6 +349,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
       complexity,
       scenario: selectedScenario,
       selectedSpecs: activeSpecs,
+      exemptSpecs,
       units,
       discount: { type: discountType, value: discountValue, justification },
       userRole: userRole || 'auto',
@@ -361,7 +364,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
       };
     }
     return res;
-  }, [selectedTemplate, area, complexity, activeSpecs, selectedScenario, units, discountType, discountValue, justification, userRole, clientName, location, currentScenarioPack]);
+  }, [selectedTemplate, area, complexity, activeSpecs, exemptSpecs, selectedScenario, units, discountType, discountValue, justification, userRole, clientName, location, currentScenarioPack]);
 
 
   // Compliance (Passo 8)
@@ -769,15 +772,35 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 {disciplines.map(d => {
                   const isReq = templateSpecialties.find(ts => ts.templateId === (selectedTemplate || '') && ts.disciplineId === d.disciplineId)?.required;
                   const isActive = activeSpecs.includes(d.disciplineId);
+                  const isLegalization = selectedTemplate?.includes('LEGAL');
+                  const isExempt = exemptSpecs.includes(d.disciplineId);
+
                   return (
-                    <button
-                      key={d.disciplineId}
-                      onClick={() => !isReq && setActiveSpecs(prev => prev.includes(d.disciplineId) ? prev.filter(i => i !== d.disciplineId) : [...prev, d.disciplineId])}
-                      className={`p-4 rounded-2xl border text-left transition-all ${isActive ? 'bg-luxury-gold/10 border-luxury-gold text-luxury-gold' : 'bg-black/5 dark:bg-white/5 border-black/5 dark:border-white/5 text-luxury-charcoal/20 dark:text-white/20'}`}
-                    >
-                      <span className="text-xs font-black uppercase tracking-widest truncate block mb-1">{d.labelPT}</span>
-                      {isReq && <span className="text-[7px] font-black uppercase opacity-60">Obrigatoria</span>}
-                    </button>
+                    <div key={d.disciplineId} className="relative group">
+                      <button
+                        onClick={() => !isReq && setActiveSpecs(prev => prev.includes(d.disciplineId) ? prev.filter(i => i !== d.disciplineId) : [...prev, d.disciplineId])}
+                        className={`w-full p-4 rounded-2xl border text-left transition-all ${isActive ? 'bg-luxury-gold/10 border-luxury-gold text-luxury-gold' : 'bg-black/5 dark:bg-white/5 border-black/5 dark:border-white/5 text-luxury-charcoal/20 dark:text-white/20'}`}
+                      >
+                        <span className="text-xs font-black uppercase tracking-widest truncate block mb-1">{d.labelPT}</span>
+                        <div className="flex justify-between items-center">
+                          {isReq && <span className="text-[7px] font-black uppercase opacity-60 italic">Obrigatória</span>}
+                          {isExempt && <span className="text-[7px] font-black uppercase bg-luxury-gold text-black px-1 rounded ml-auto">Isento</span>}
+                        </div>
+                      </button>
+
+                      {isActive && isLegalization && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExemptSpecs(prev => prev.includes(d.disciplineId) ? prev.filter(i => i !== d.disciplineId) : [...prev, d.disciplineId]);
+                          }}
+                          className={`absolute top-2 right-2 p-1.5 rounded-lg border text-[8px] font-black uppercase transition-all z-10 ${isExempt ? 'bg-luxury-gold text-black border-luxury-gold' : 'bg-white/10 text-white/40 border-white/5 hover:text-white hover:bg-white/20'}`}
+                          title="Alternar para Termo de Isenção"
+                        >
+                          Isenção
+                        </button>
+                      )}
+                    </div>
                   );
                 })}
               </div>
@@ -1071,20 +1094,59 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 <div className="flex justify-between items-end mb-4">
                   <span className="text-[10px] font-black uppercase tracking-widest text-luxury-gold">{t('calc_est_investment')}</span>
                 </div>
-                <div className="text-6xl font-thin tracking-tighter text-luxury-charcoal dark:text-white mb-2 flex flex-col md:flex-row items-baseline gap-4">
-                  €{currentResult?.feeTotal?.toLocaleString() || '0'}
-                  <div className="flex flex-col gap-1">
-                    {(currentResult?.deltaVsStandard?.net !== 0 && currentResult?.deltaVsStandard?.net !== undefined) && (
-                      <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${currentResult.deltaVsStandard.net > 0 ? 'bg-luxury-gold/20 text-luxury-gold' : 'bg-emerald-500/20 text-emerald-500'}`}>
-                        {currentResult.deltaVsStandard.net > 0 ? '+' : ''}€{currentResult.deltaVsStandard.net.toLocaleString()} Δ Std
-                      </span>
-                    )}
-                    {/* NEW: Margin Health indicator in Summary */}
-                    <div className="flex items-center gap-2">
-                       <div className={`w-1.5 h-1.5 rounded-full ${currentResult?.strategic?.isHealthy ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-red-500'}`} />
-                       <span className="text-[9px] font-black uppercase tracking-widest opacity-40">{currentResult?.strategic?.margin}% Margem Operacional</span>
-                    </div>
-                  </div>
+                <div className="flex flex-col gap-10 mt-8">
+                  {(() => {
+                    const licPhases = currentResult?.phasesBreakdown?.filter(p => ['A0', 'A1', 'A2', 'A5'].some(id => p.phaseId.startsWith(id))) || [];
+                    const licValue = licPhases.reduce((acc, p) => acc + (p.value || 0), 0);
+                    const execValue = (currentResult?.feeTotal || 0) - licValue;
+
+                    return (
+                      <>
+                        {/* Licensing Block */}
+                        <div className="space-y-3">
+                           <div className="flex items-center gap-3">
+                              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold">1. Licenciamento</span>
+                              <div className="h-px flex-1 bg-luxury-gold/20"></div>
+                           </div>
+                           <div className="flex items-baseline gap-2">
+                              <span className="text-5xl font-thin tracking-tighter text-luxury-charcoal dark:text-white">
+                                €{licValue.toLocaleString()}
+                              </span>
+                              <div className="flex flex-col">
+                                 <span className="text-[10px] font-black tracking-widest text-luxury-gold">+ IVA</span>
+                                 <div className="flex items-center gap-4">
+                                   {(currentResult?.deltaVsStandard?.net !== 0 && currentResult?.deltaVsStandard?.net !== undefined) && (
+                                     <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg ${currentResult.deltaVsStandard.net > 0 ? 'bg-luxury-gold/20 text-luxury-gold' : 'bg-emerald-500/20 text-emerald-500'}`}>
+                                       {currentResult.deltaVsStandard.net > 0 ? '+' : ''}€{currentResult.deltaVsStandard.net.toLocaleString()} Δ Std
+                                     </span>
+                                   )}
+                                   <div className="flex items-center gap-2">
+                                      <div className={`w-1.5 h-1.5 rounded-full ${currentResult?.strategic?.isHealthy ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-red-500'}`} />
+                                      <span className="text-[9px] font-black uppercase tracking-widest opacity-40">{currentResult?.strategic?.margin}% Margem</span>
+                                   </div>
+                                </div>
+                              </div>
+                           </div>
+                           <p className="text-[10px] uppercase font-bold tracking-widest opacity-30 italic">Comprometimento Técnico Inicial</p>
+                        </div>
+
+                        {/* Execution Block */}
+                        <div className="space-y-3 opacity-60 group">
+                           <div className="flex items-center gap-3">
+                              <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">2. Execução (Opcional)</span>
+                              <div className="h-px flex-1 bg-black/10 dark:bg-white/10"></div>
+                           </div>
+                           <div className="flex items-baseline gap-2">
+                              <span className="text-4xl font-thin tracking-tighter text-luxury-charcoal dark:text-white">
+                                €{execValue.toLocaleString()}
+                              </span>
+                              <span className="text-[10px] font-black tracking-widest opacity-30">+ IVA</span>
+                           </div>
+                           <p className="text-[10px] uppercase font-bold tracking-widest opacity-20 italic">Ativação sob Decisão Posterior</p>
+                        </div>
+                      </>
+                    );
+                  })()}
                 </div>
                 <p className="text-[11px] font-mono text-luxury-charcoal/60 dark:text-white/60 flex items-center gap-2">
                   <Zap size={14} /> {t('calc_vat_legal')} (€{currentResult?.vat?.toLocaleString() || '0'})
@@ -2008,6 +2070,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   vat: currentResult?.vat || 0,
                   totalWithVat: currentResult?.totalWithVat || 0,
                   activeSpecs,
+                  exemptSpecs,
                   selectedSpecs: currentResult?.selectedSpecs || [],
                   phases: currentResult?.phasesBreakdown || [],
                   effortMap: currentResult?.effortMap || [],
@@ -2015,7 +2078,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   comparisonData,
                   extras: extrasForDoc,
                   selectedExtras,
-                  catalogExtras
+                  catalogExtras,
+                  meta: currentResult?.meta
                 }}
                   includeAnnex={includeAnnex} />
               </div>
@@ -2413,7 +2477,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 comparisonData,
                 extras: extrasForDoc,
                 selectedExtras, // NEW
-                catalogExtras   // NEW
+                catalogExtras,
+                meta: currentResult?.meta
               }}
                 includeAnnex={includeAnnex} />
             </div>
@@ -2450,7 +2515,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             comparisonData,
             extras: extrasForDoc,
             selectedExtras, // NEW
-            catalogExtras   // NEW
+            catalogExtras,
+            meta: currentResult?.meta
           }} includeAnnex={includeAnnex} />
         </div>
       )}
@@ -2480,7 +2546,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           comparisonData,
           extras: extrasForDoc,
           selectedExtras, // NEW
-          catalogExtras   // NEW
+          catalogExtras,
+          meta: currentResult?.meta
         }} includeAnnex={includeAnnex} />
       </div>
     </div >

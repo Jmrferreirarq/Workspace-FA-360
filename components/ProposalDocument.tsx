@@ -56,6 +56,7 @@ interface ProposalDocumentProps {
       totalWithVat: number;
       activeSpecs: string[];
       selectedSpecs?: string[];
+      exemptSpecs?: string[]; // IDs of specs that are simple Exemption Terms
       phases: ProposalPhase[];
       effortMap: ProposalEffort[];
       units: unknown;
@@ -63,6 +64,11 @@ interface ProposalDocumentProps {
       extras?: { label: string; value: number; description?: string }[];
       selectedExtras?: Record<string, number>;
       catalogExtras?: ExtraService[];
+      meta?: {
+         feeSpecProject: number;
+         feeSpecExempt: number;
+         [key: string]: unknown;
+      };
    };
    includeAnnex: boolean;
 }
@@ -325,20 +331,53 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                   </section>
 
 
-                  {/* 5. Valor Global & Matriz de Investimento */}
-                  <section className="py-12 border-y-2 border-luxury-black flex flex-col items-center justify-center space-y-8 bg-luxury-black/[0.02]">
-                     <div className="text-center space-y-4">
-                        <p className="text-[11px] font-black uppercase tracking-[0.4em] opacity-40">Investimento Global Refletido</p>
-                        <h3 className="text-7xl font-serif italic tracking-tighter text-luxury-black">
-                           €{data.feeTotal.toLocaleString()}<span className="text-2xl font-sans not-italic text-luxury-gold ml-2">+ IVA</span>
-                        </h3>
-                        <div className="flex items-center justify-center gap-4 text-[10px] uppercase font-black tracking-widest text-luxury-black/60">
-                           <span>€{stages.licensing.value.toLocaleString()} Licenciamento</span>
-                           <span className="w-1 h-1 rounded-full bg-luxury-gold"></span>
-                           <span>€{stages.execution.value.toLocaleString()} Execução (Opcional)</span>
-                        </div>
-                        <p className="text-[10px] font-mono opacity-40 italic pt-2">Matriz de investimento detalhada por disciplina e etapa.</p>
-                     </div>
+                   <section className="py-12 border-y-2 border-luxury-black flex flex-col items-center justify-center space-y-12 bg-luxury-black/[0.02]">
+                      <div className="text-center space-y-10 w-full px-12">
+                         <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">Investimento por Etapa de Projeto</p>
+                         
+                         <div className="flex flex-row gap-12 items-start justify-center">
+                            {/* Phase 1: Licensing */}
+                            <div className="text-center space-y-4 flex-1 max-w-[280px]">
+                               <div className="space-y-1">
+                                  <span className="text-[10px] uppercase font-black tracking-[0.2em] text-luxury-gold">1. Licenciamento</span>
+                                  <div className="flex items-center justify-center gap-1">
+                                     <span className="text-5xl font-serif italic tracking-tighter text-luxury-black">
+                                       €{stages.licensing.value.toLocaleString()}
+                                     </span>
+                                     <span className="text-[11px] font-black tracking-widest text-luxury-gold mt-4">+ IVA</span>
+                                  </div>
+                               </div>
+                               <p className="text-[9px] uppercase font-bold tracking-widest opacity-40 leading-relaxed border-t border-luxury-black/5 pt-2">
+                                  Comprometimento Técnico Inicial
+                               </p>
+                            </div>
+
+                            {/* Divider Dot */}
+                            <div className="flex items-center self-center opacity-20">
+                               <div className="w-1.5 h-1.5 rounded-full bg-luxury-gold"></div>
+                            </div>
+
+                            {/* Phase 2: Execution */}
+                            <div className="text-center space-y-4 flex-1 max-w-[280px] opacity-60">
+                               <div className="space-y-1">
+                                  <span className="text-[10px] uppercase font-black tracking-[0.2em] opacity-50">2. Execução (Opcional)</span>
+                                  <div className="flex items-center justify-center gap-1">
+                                     <span className="text-4xl font-serif italic tracking-tighter text-luxury-black/80">
+                                       €{stages.execution.value.toLocaleString()}
+                                     </span>
+                                     <span className="text-[10px] font-black tracking-widest opacity-30 mt-3">+ IVA</span>
+                                  </div>
+                               </div>
+                               <p className="text-[9px] uppercase font-bold tracking-widest opacity-30 leading-relaxed border-t border-luxury-black/5 pt-2">
+                                  Ativação sob Decisão Posterior
+                               </p>
+                            </div>
+                         </div>
+
+                         <div className="pt-4">
+                            <p className="text-[10px] font-mono opacity-40 italic tracking-wider">Matriz de investimento detalhada por disciplina e etapa.</p>
+                         </div>
+                      </div>
 
                      {/* MATRIZ UNIFICADA - The "Holy Grid" of Fees */}
                      {(() => {
@@ -352,8 +391,15 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         const archLic = Math.round(data.feeArch * licRatio);
                         const archExec = data.feeArch - archLic; // Remainder to ensure exact sum
 
-                        const specLic = Math.round(data.feeSpec * licRatio);
-                        const specExec = data.feeSpec - specLic; // Remainder to ensure exact sum
+                        // Get granular spec fees from meta if available
+                        const feeSpecProject = data.meta?.feeSpecProject ?? data.feeSpec;
+                        const feeSpecExempt = data.meta?.feeSpecExempt ?? 0;
+
+                        const specProjectLic = Math.round(feeSpecProject * licRatio);
+                        const specProjectExec = feeSpecProject - specProjectLic;
+
+                        const specLic = specProjectLic + feeSpecExempt;
+                        const specExec = specProjectExec;
 
                         return (
                            <div className="w-full max-w-2xl bg-white rounded-2xl border border-luxury-black/10 overflow-hidden shadow-sm">
@@ -388,7 +434,10 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  <div className="grid grid-cols-4 py-4 hover:bg-black/[0.01]">
                                     <div className="px-6 font-bold text-luxury-black flex flex-col justify-center">
                                        Engenharias
-                                       <span className="text-[9px] font-light opacity-50">{data.activeSpecs.length} Disciplinas</span>
+                                       <span className="text-[9px] font-light opacity-50">
+                                          {data.activeSpecs?.length || 0} Disciplinas
+                                          {data.exemptSpecs && data.exemptSpecs.length > 0 && ` (${data.exemptSpecs.length} Isenções)`}
+                                       </span>
                                     </div>
                                     <div className="px-4 text-center font-serif italic bg-luxury-gold/[0.05] text-luxury-black/80 flex items-center justify-center">
                                        €{specLic.toLocaleString()} + IVA
@@ -829,42 +878,42 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        ],
                                        result: 'Processo de licenciamento submetido e aprovado pela Camara Municipal, com alvara de licenca de construcao emitido.'
                                     },
-                                    'A3': {
-                                       deliverables: [
-                                          'Pecas desenhadas de execucao (escala 1:50 e 1:20)',
-                                          'Plantas de acabamentos e revestimentos',
-                                          'Detalhes construtivos (pormenores 1:10, 1:5, 1:2)',
-                                          'Plantas de carpintarias (portas, janelas, armarios)',
-                                          'Especificacoes tecnicas de materiais e acabamentos',
-                                          'Caderno de encargos tecnico completo'
-                                       ],
-                                       processes: [
-                                          'Compatibilizacao 3D final (BIM clash detection)',
-                                          'Coordenacao interdisciplinar semanal',
-                                          'Validacao de solucoes construtivas com fornecedores',
-                                          'Otimizacao de custos e alternativas tecnicas',
-                                          'Revisao tecnica por coordenador de projeto'
-                                       ],
-                                       result: 'Projeto de Execucao completo e coordenado, pronto para consulta de empreiteiros e construcao sem ambiguidades.'
-                                    },
-                                    'A4': {
-                                       deliverables: [
-                                          'Esclarecimentos tecnicos por escrito',
-                                          'Relatorios de visitas a obra (5 visitas incluidas)',
-                                          'Pareceres sobre materiais e solucoes alternativas',
-                                          'Desenhos de alteracoes pontuais (se necessario)',
-                                          'Validacao de amostras de acabamentos',
-                                          'Telas finais (as-built) do projeto executado'
-                                       ],
-                                       processes: [
-                                          'Reunioes de esclarecimento com empreiteiro',
-                                          'Visitas tecnicas periodicas a obra',
-                                          'Analise de RFIs (Request for Information)',
-                                          'Validacao de materiais e fornecedores',
-                                          'Suporte tecnico remoto (email/telefone)'
-                                       ],
-                                       result: 'Obra executada em conformidade com o projeto aprovado, com registo documental de todas as decisoes tecnicas.'
-                                    }
+                                     'A3': {
+                                        deliverables: [
+                                           'Pecas desenhadas de execucao (escala 1:50 e 1:20)',
+                                           'Plantas de acabamentos e revestimentos',
+                                           'Detalhes construtivos (pormenores 1:10, 1:5, 1:2)',
+                                           'Plantas de carpintarias (portas, janelas, armarios)',
+                                           'Especificacoes tecnicas de materiais e acabamentos',
+                                           'Caderno de encargos tecnico completo'
+                                        ],
+                                        processes: [
+                                           'Compatibilizizacao 3D final (BIM clash detection)',
+                                           'Coordenacao interdisciplinar semanal',
+                                           'Validacao de solucoes construtivas com fornecedores',
+                                           'Otimizacao de custos e alternativas tecnicas',
+                                           'Revisao tecnica por coordenador de projeto'
+                                        ],
+                                        result: 'Projeto de Execução (Opcional): Documentação técnica de alta precisão para construção, permitindo orçamentação rigorosa e controlo de obra.'
+                                     },
+                                     'A4': {
+                                        deliverables: [
+                                           'Esclarecimentos tecnicos por escrito',
+                                           'Relatorios de visitas a obra (5 visitas incluidas)',
+                                           'Pareceres sobre materiais e solucoes alternativas',
+                                           'Desenhos de alteracoes pontuais (se necessario)',
+                                           'Validacao de amostras de acabamentos',
+                                           'Telas finais (as-built) do projeto executado'
+                                        ],
+                                        processes: [
+                                           'Reunioes de esclarecimento com empreiteiro',
+                                           'Visitas tecnicas periodicas a obra',
+                                           'Analise de RFIs (Request for Information)',
+                                           'Validacao de materiais e fornecedores',
+                                           'Suporte tecnico remoto (email/telefone)'
+                                        ],
+                                        result: 'Assistência Técnica (Opcional): Acompanhamento da execução rigorosa do projeto em obra, reduzindo erros de construção e variações de custo.'
+                                     }
                                  };
 
                                  const phaseId = p?.label?.split('.')[0] || '';
@@ -929,14 +978,23 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            <div className="grid grid-cols-3 gap-4 text-[11px] font-light italic opacity-60">
                               {(data.activeSpecs || []).map((specId, i) => {
                                  const spec = disciplines.find(d => d.disciplineId === specId);
+                                 const isExempt = data.exemptSpecs?.includes(specId);
                                  return (
                                     <div key={i} className="flex gap-2 items-center">
-                                       <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
-                                       <span>{spec?.labelPT || specId}</span>
+                                       <div className={`w-1 h-1 rounded-full ${isExempt ? 'bg-emerald-500' : 'bg-luxury-gold'}`}></div>
+                                       <span>{spec?.labelPT || specId} {isExempt ? '(Isenção)' : ''}</span>
                                     </div>
                                  );
                               })}
                            </div>
+                           {/* NEW: Safe Guard Note for Legalizations */}
+                           {(data.templateName.toLowerCase().includes('legaliza') || data.templateName.toLowerCase().includes('simplex')) && (
+                              <div className="mt-4 p-4 bg-red-50 border-l-2 border-red-400">
+                                 <p className="text-[10px] text-red-800 leading-relaxed">
+                                    <strong>Nota de Salvaguarda (Legalização/Simplex):</strong> A aceitação de Termos de Isenção é uma prerrogativa da Entidade Licenciadora (Câmara Municipal). Caso os serviços técnicos municipais entendam pela necessidade de apresentação de termos adicionais ou projetos completos de especialidades não orçamentados inicialmente, os mesmos serão objeto de proposta suplementar.
+                                 </p>
+                              </div>
+                           )}
                         </section>
 
                         {/* Mapa de Esforco Tecnico (DO PASSO 3) */}
@@ -970,20 +1028,41 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         {/* Notas Finais / Condicoes */}
                         <section className="grid grid-cols-1 md:grid-cols-2 gap-16 text-[11px]">
                            <div className="space-y-4">
-                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">Faturacao e Pagamentos</h4>
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">4. Faturacao e Pagamentos</h4>
                               <ul className="space-y-2 text-[11px] font-light italic opacity-60">
                                  <li>Adjudicacao: 20% do valor global de honorarios.</li>
                                  <li>Restantes 80%: Na entrega dos projetos às especialidades.</li>
+                                 <li>Fases de Execução (Opcionais): Facturadas apenas após adjudicação expressa pós-licenciamento.</li>
                                  <li>Pagamento: 2 a 3 dias úteis após a conclusão da entrega.</li>
                                  <li>Valores apresentados acrescem IVA à taxa legal.</li>
                               </ul>
                            </div>
                            <div className="space-y-4">
-                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Condicoes Gerais</h4>
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">5. Condicoes Gerais</h4>
                               <p className="text-[11px] font-light italic opacity-60 leading-relaxed">
                                  A Ferreira Arquitetos reserva o <b>Direito de Autor</b>. Após aprovação do Estudo Prévio, qualquer alteração substancial ao projeto inicial será devidamente orçamentada.
-                                 A proposta inclui submissão RJUE (DL 10/2024).
+                                 A proposta inclui submissão RJUE (DL 10/2024). A transição para a fase de execução é independente e opcional.
                               </p>
+                           </div>
+                        </section>
+
+                        {/* NOVO: ITENS 6 E 7 */}
+                        <section className="grid grid-cols-1 md:grid-cols-2 gap-16 text-[11px]">
+                           <div className="space-y-4">
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">6. Prazos e Metodologia</h4>
+                              <p className="text-[11px] font-light italic opacity-60 leading-relaxed">
+                                 Os prazos indicados referem-se à produção técnica interna. Atrasos decorrentes de aprovações camararias ou decisões de terceiros não são imputáveis à Ferreira Arquitetos. 
+                                 Utilizamos metodologia BIM para garantir a máxima coordenação técnica entre disciplinas.
+                              </p>
+                           </div>
+                           <div className="space-y-4">
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">7. Exclusões e Responsabilidades</h4>
+                              <ul className="space-y-1 text-[10px] font-light italic opacity-50">
+                                 <li>• Taxas de licenciamento e emolumentos municipais.</li>
+                                 <li>• Levantamentos topográficos e ensaios de solo.</li>
+                                 <li>• Qualquer serviço não discriminado expressamente neste anexo.</li>
+                                 <li>• Maquetes físicas ou impressões em grande formato além do estipulado.</li>
+                              </ul>
                            </div>
                         </section>
                      </div>
@@ -1004,25 +1083,37 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <div className="space-y-10">
                         {data.selectedSpecs?.map((specId: string) => {
                            const spec = disciplines.find(d => d.disciplineId === specId);
-                           if (!spec || !spec.phases) return null;
+                           if (!spec) return null;
+
+                           const isExempt = data.exemptSpecs?.includes(specId);
 
                            return (
                               <div key={specId} className="space-y-4">
                                  <div className="flex items-center gap-3">
-                                    <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
-                                    <h4 className="text-xs font-bold uppercase tracking-widest">{spec.labelPT}</h4>
+                                    <div className={`w-1.5 h-1.5 rounded-full ${isExempt ? 'bg-emerald-500' : 'bg-black'}`}></div>
+                                    <h4 className="text-xs font-bold uppercase tracking-widest">
+                                       {spec.labelPT} {isExempt && <span className="text-emerald-600 ml-2 font-black">(TERMO DE ISENÇÃO)</span>}
+                                    </h4>
                                  </div>
                                  <div className="grid grid-cols-1 gap-4 ml-4">
-                                    {spec.phases.map((ph) => (
-                                       <div key={ph.phaseId} className="space-y-1">
-                                          <p className="text-[10px] font-bold uppercase opacity-80">
-                                             {ph.phaseId} — {ph.labelPT}
-                                          </p>
+                                    {isExempt ? (
+                                       <div className="space-y-1">
                                           <p className="text-[11px] font-light italic leading-relaxed opacity-60">
-                                             {ph.shortPT}
+                                             Emissão de Termo de Responsabilidade técnico atestando a isenção de projeto para a presente disciplina, em conformidade com o regime Simplex Urbanístico. Inclui a verificação de pressupostos e conformidade normativa básica.
                                           </p>
                                        </div>
-                                    ))}
+                                    ) : (
+                                       spec.phases?.map((ph) => (
+                                          <div key={ph.phaseId} className="space-y-1">
+                                             <p className="text-[10px] font-bold uppercase opacity-80">
+                                                {ph.phaseId} — {ph.labelPT}
+                                             </p>
+                                             <p className="text-[11px] font-light italic leading-relaxed opacity-60">
+                                                {ph.shortPT}
+                                             </p>
+                                          </div>
+                                       ))
+                                    )}
                                  </div>
                               </div>
                            );
