@@ -26,6 +26,8 @@ import {
   StretchHorizontal,
   Star,
   Check,
+  Shield,
+  Building2,
   FileText,
   Download
 } from 'lucide-react';
@@ -221,7 +223,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
   const [strategy, setStrategy] = useState<'integrated' | 'phased'>('integrated');
   const [showPreview, setShowPreview] = useState(false);
-  const [viewMode, setViewMode] = useState<'summary' | 'document'>('summary'); // NEW: View Mode State
+  const [viewMode, setViewMode] = useState<'summary' | 'document' | 'matrix'>('summary'); // NEW: View Mode State
   const [selectedScenario, setSelectedScenario] = useState<Scenario>('standard');
   const [isPropagating, setIsPropagating] = useState(false);
   const [showJustification, setShowJustification] = useState(true);
@@ -1038,15 +1040,21 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-2xl border border-black/5 dark:border-white/5">
           <button
             onClick={() => setViewMode('summary')}
-            className={`flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all gap-2 flex items-center justify-center ${viewMode === 'summary' ? 'bg-white dark:bg-white/10 text-luxury-charcoal dark:text-white shadow-lg' : 'text-luxury-charcoal/40 dark:text-white/40 hover:text-luxury-charcoal dark:hover:text-white'}`}
+            className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all gap-2 flex items-center justify-center ${viewMode === 'summary' ? 'bg-white dark:bg-white/10 text-luxury-charcoal dark:text-white shadow-lg' : 'text-luxury-charcoal/40 dark:text-white/40 hover:text-luxury-charcoal dark:hover:text-white'}`}
           >
-            <TrendingUp size={14} /> Resumo Financeiro
+            <TrendingUp size={14} /> Resumo
+          </button>
+          <button
+            onClick={() => setViewMode('matrix')}
+            className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all gap-2 flex items-center justify-center ${viewMode === 'matrix' ? 'bg-luxury-gold text-black shadow-lg shadow-luxury-gold/20' : 'text-luxury-charcoal/40 dark:text-white/40 hover:text-luxury-charcoal dark:hover:text-white'}`}
+          >
+            <Shield size={14} /> Matriz
           </button>
           <button
             onClick={() => setViewMode('document')}
-            className={`flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all gap-2 flex items-center justify-center ${viewMode === 'document' ? 'bg-luxury-gold text-black shadow-lg shadow-luxury-gold/20' : 'text-luxury-charcoal/40 dark:text-white/40 hover:text-luxury-charcoal dark:hover:text-white'}`}
+            className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all gap-2 flex items-center justify-center ${viewMode === 'document' ? 'bg-white dark:bg-white/10 text-luxury-charcoal dark:text-white shadow-lg' : 'text-luxury-charcoal/40 dark:text-white/40 hover:text-luxury-charcoal dark:hover:text-white'}`}
           >
-            <FileText size={14} /> Proposta Digital
+            <FileText size={14} /> PDF
           </button>
         </div>
 
@@ -1063,13 +1071,20 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 <div className="flex justify-between items-end mb-4">
                   <span className="text-[10px] font-black uppercase tracking-widest text-luxury-gold">{t('calc_est_investment')}</span>
                 </div>
-                <div className="text-6xl font-thin tracking-tighter text-luxury-charcoal dark:text-white mb-2 flex items-baseline gap-4">
+                <div className="text-6xl font-thin tracking-tighter text-luxury-charcoal dark:text-white mb-2 flex flex-col md:flex-row items-baseline gap-4">
                   €{currentResult?.feeTotal?.toLocaleString() || '0'}
-                  {(currentResult?.deltaVsStandard?.net !== 0 && currentResult?.deltaVsStandard?.net !== undefined) && (
-                    <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${currentResult.deltaVsStandard.net > 0 ? 'bg-luxury-gold/20 text-luxury-gold' : 'bg-emerald-500/20 text-emerald-500'}`}>
-                      {currentResult.deltaVsStandard.net > 0 ? '+' : ''}€{currentResult.deltaVsStandard.net.toLocaleString()} Δ Std
-                    </span>
-                  )}
+                  <div className="flex flex-col gap-1">
+                    {(currentResult?.deltaVsStandard?.net !== 0 && currentResult?.deltaVsStandard?.net !== undefined) && (
+                      <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${currentResult.deltaVsStandard.net > 0 ? 'bg-luxury-gold/20 text-luxury-gold' : 'bg-emerald-500/20 text-emerald-500'}`}>
+                        {currentResult.deltaVsStandard.net > 0 ? '+' : ''}€{currentResult.deltaVsStandard.net.toLocaleString()} Δ Std
+                      </span>
+                    )}
+                    {/* NEW: Margin Health indicator in Summary */}
+                    <div className="flex items-center gap-2">
+                       <div className={`w-1.5 h-1.5 rounded-full ${currentResult?.strategic?.isHealthy ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-red-500'}`} />
+                       <span className="text-[9px] font-black uppercase tracking-widest opacity-40">{currentResult?.strategic?.margin}% Margem Operacional</span>
+                    </div>
+                  </div>
                 </div>
                 <p className="text-[11px] font-mono text-luxury-charcoal/60 dark:text-white/60 flex items-center gap-2">
                   <Zap size={14} /> {t('calc_vat_legal')} (€{currentResult?.vat?.toLocaleString() || '0'})
@@ -1880,6 +1895,90 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
             {/* Painel de Avisos - Removed as per user request to remove blocks */}
           </>
+        ) : viewMode === 'matrix' ? (
+          <div className="glass p-10 rounded-[2rem] bg-luxury-black/40 border-white/5 space-y-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+            <header className="flex justify-between items-center relative z-10">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-luxury-gold/20 text-luxury-gold rounded-2xl">
+                  <Shield size={20} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-serif text-white">Matriz de Responsabilidades</h3>
+                  <p className="text-[10px] text-white/40 uppercase tracking-widest">Divisão Operacional: Arquitetura e Engenharia</p>
+                </div>
+              </div>
+              <div className="bg-luxury-gold/10 border border-luxury-gold/30 px-4 py-1.5 rounded-full">
+                <span className="text-[10px] font-black text-luxury-gold uppercase tracking-widest">{currentResult?.scenarioPack?.labelPT}</span>
+              </div>
+            </header>
+
+            <div className="space-y-8 relative z-10">
+              {['Licenciamento', 'Execução'].map((areaLabel) => {
+                const isLic = areaLabel === 'Licenciamento';
+                const phases = currentResult?.phasesBreakdown?.filter(p => isLic ? ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)) : ['A3', 'A4'].some(id => p.phaseId.startsWith(id))) || [];
+                
+                if (phases.length === 0) return null;
+
+                return (
+                  <div key={areaLabel} className="space-y-4">
+                    <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-luxury-gold/60 border-b border-white/10 pb-2">{areaLabel}</h4>
+                    <div className="grid grid-cols-1 gap-1">
+                      {phases.map((p) => (
+                        <div key={p.phaseId} className="group flex flex-col md:flex-row gap-4 p-6 bg-white/5 rounded-2xl border border-white/5 hover:bg-white/10 transition-all">
+                          <div className="w-24 shrink-0">
+                            <span className="text-xl font-serif text-luxury-gold">{p.phaseId}</span>
+                            <span className="block text-[9px] font-black text-white/40 uppercase tracking-tighter mt-1">{p.label}</span>
+                          </div>
+                          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-3">
+                              <p className="text-[9px] uppercase font-black text-luxury-gold tracking-widest flex items-center gap-2">
+                                <Building2 size={10} /> Ferreira Arq. (Coordinação)
+                              </p>
+                              <ul className="space-y-2">
+                                {RESPONSIBILITY_CONFIG[marginScenario as keyof typeof RESPONSIBILITY_CONFIG][isLic ? 'lic' : 'exec'].mine.map((task, idx) => (
+                                  <li key={idx} className="text-[11px] text-white/70 flex items-start gap-2">
+                                    <Check size={12} className="text-luxury-gold/40 mt-0.5" />
+                                    <span>{task}</span>
+                                  </li>
+                                ))}
+                                {isLic && <li className="text-[11px] text-white/70 flex items-start gap-2"><Check size={12} className="text-luxury-gold/40 mt-0.5" /> <span>Coordenação de Especialidades</span></li>}
+                              </ul>
+                            </div>
+                            <div className="space-y-3 opacity-60">
+                              <p className="text-[9px] uppercase font-black text-white/40 tracking-widest flex items-center gap-2">
+                                <User size={10} /> Colaboradores / Técnicos
+                              </p>
+                              <ul className="space-y-2">
+                                {RESPONSIBILITY_CONFIG[marginScenario as keyof typeof RESPONSIBILITY_CONFIG][isLic ? 'lic' : 'exec'].free.map((task, idx) => (
+                                  <li key={idx} className="text-[11px] text-white/50 flex items-start gap-2">
+                                    <div className="w-1.5 h-1.5 border border-white/20 rounded-full mt-1 shrink-0" />
+                                    <span>{task}</span>
+                                  </li>
+                                ))}
+                                {!isLic && <li className="text-[11px] text-white/50 flex items-start gap-2"><div className="w-1.5 h-1.5 border border-white/20 rounded-full mt-1 shrink-0" /> <span>Peças Técnicas de Especialidade</span></li>}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            
+            <div className="p-8 bg-luxury-gold/10 border border-luxury-gold/20 rounded-3xl relative z-10">
+               <div className="flex gap-4 items-start">
+                  <div className="p-2 bg-luxury-gold text-black rounded-lg"><ShieldCheck size={16} /></div>
+                  <div className="space-y-1">
+                    <h5 className="text-[11px] font-black uppercase text-luxury-gold">Garantia de Qualidade Ferreira Arq.</h5>
+                    <p className="text-[10px] text-white/60 leading-relaxed italic">
+                      "Independentemente do cenário de subcontratação comercial, a Ferreira Arquitetos mantém a responsabilidade integral pela direção criativa, compatibilização técnica e interlocução com o cliente/entidades."
+                    </p>
+                  </div>
+               </div>
+            </div>
+          </div>
         ) : (
           /* MODO DOCUMENTO (Live Preview) */
           <div className="glass bg-white rounded-[2rem] shadow-2xl sticky top-32 overflow-hidden border border-black/5 min-h-[800px] flex flex-col">
