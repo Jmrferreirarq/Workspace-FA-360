@@ -24,6 +24,7 @@ export const SCENARIO_CATALOG: Record<Scenario, ScenarioPack> = {
       'Estudo Prévio (1 solução)',
       'Peças para licenciamento (mínimo necessário)',
       'Projeto de Execução (Peças Base)',
+      'Telas Finais (inc. pequenas alterações)', // Prioritized
       'Assistência Técnica (Standard)',
       'Plano de pagamento por marcos'
     ],
@@ -62,6 +63,7 @@ export const SCENARIO_CATALOG: Record<Scenario, ScenarioPack> = {
       'Estudo Prévio (1–2 opções quando aplicável)',
       'Licenciamento completo (peças desenhadas + escritas)',
       'Projeto de Execução (Completo p/ Obra)',
+      'Telas Finais (inc. pequenas alterações)', // Prioritized
       'Assistência Técnica (Standard c/ Visitas)',
       'Checklist legal e plano de pagamentos'
     ],
@@ -98,6 +100,7 @@ export const SCENARIO_CATALOG: Record<Scenario, ScenarioPack> = {
       'Estudo Prévio com validações (opções quando aplicável)',
       'Licenciamento + coordenação avançada',
       'Projeto de Execução (pormenorização + mapas)',
+      'Telas Finais (inc. pequenas alterações)', // Prioritized
       'Assistência técnica (escopo definido)',
       'Plano de entregas + controlo de alterações'
     ],

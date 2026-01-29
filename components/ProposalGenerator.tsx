@@ -30,7 +30,7 @@ import {
   Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { templates, disciplines, templateSpecialties, exclusionsPT } from '../services/feeData';
+import { templates, disciplines, templateSpecialties, exclusionsPT, catalogExtras } from '../services/feeData';
 import { calculateFees } from '../services/feeCalculator';
 import { Complexity, Scenario } from '../types';
 import ProposalDocument from './ProposalDocument';
@@ -168,6 +168,9 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
   }, [selectedTemplate, clientName, projectName]);
   const [complexity, setComplexity] = useState<Complexity>(1);
   const [activeSpecs, setActiveSpecs] = useState<string[]>([]);
+  const [selectedExtras, setSelectedExtras] = useState<Record<string, number>>({});
+  console.log('DEBUG: selectedExtras State:', selectedExtras);
+
 
 
   // Discount Policy State
@@ -190,6 +193,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
   const [showReverseCalc, setShowReverseCalc] = useState(false);
   const [reverseBudget, setReverseBudget] = useState(250000);
   const [reverseQuality, setReverseQuality] = useState<'economic' | 'standard' | 'luxury'>('standard');
+  
+  // --- INTERNAL MARGIN CALCULATOR STATE ---
+  const [showMarginCalc, setShowMarginCalc] = useState(false);
+  const [marginScenario, setMarginScenario] = useState<'specs' | 'prod' | 'partner'>('specs');
 
   const reverseResult = useMemo(() => {
     const rates = { economic: 1200, standard: 1600, luxury: 2200 };
@@ -400,6 +407,25 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
     }
   };
 
+  // Calculate Extras for Document
+  const extrasForDoc = useMemo(() => {
+    return catalogExtras
+      .filter(e => selectedExtras[e.id] > 0)
+      .map(e => {
+        const qty = selectedExtras[e.id];
+        let val = 0;
+        if (e.type === 'fixed') val = (e.basePrice || 0) * qty;
+        if (e.type === 'quantity') val = (e.pricePerUnit || 0) * qty;
+        if (e.type === 'area_based') val = (e.pricePerM2 || 0) * (area || 0);
+
+        return {
+          label: e.label,
+          description: e.description,
+          value: val
+        };
+      });
+  }, [selectedExtras, area]);
+
   if (!isOpen) return null;
 
   return (
@@ -572,40 +598,42 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 ))}
               </select>
             </div>
-            <div className="space-y-4">
-              <div className="flex justify-between px-2">
-                <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">{t('calc_gross_area')}</label>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    min="0"
-                    max="5000"
-                    value={area}
-                    onChange={(e) => setArea(Number(e.target.value))}
-                    disabled={!selectedTemplate}
-                    className={`w-24 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-2 py-1 text-right text-sm font-mono text-luxury-gold outline-none focus:border-luxury-gold transition-all ${!selectedTemplate ? 'opacity-30 cursor-not-allowed' : ''}`}
-                  />
-                  <span className="text-xs font-black text-luxury-charcoal/40 dark:text-white/40">m²</span>
-                  <button
-                    onClick={() => setShowReverseCalc(true)}
-                    className="p-2 hover:bg-luxury-gold/10 rounded-lg text-luxury-gold transition-colors group tooltip-trigger ml-1"
-                    title="Calculadora Inversa"
-                  >
-                    <Calculator size={16} />
-                  </button>
+            {currentTemplate?.pricingModel !== 'UNIT' && (
+              <div className="space-y-4">
+                <div className="flex justify-between px-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">{t('calc_gross_area')}</label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      min="0"
+                      max="5000"
+                      value={area}
+                      onChange={(e) => setArea(Number(e.target.value))}
+                      disabled={!selectedTemplate}
+                      className={`w-24 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-2 py-1 text-right text-sm font-mono text-luxury-gold outline-none focus:border-luxury-gold transition-all ${!selectedTemplate ? 'opacity-30 cursor-not-allowed' : ''}`}
+                    />
+                    <span className="text-xs font-black text-luxury-charcoal/40 dark:text-white/40">m²</span>
+                    <button
+                      onClick={() => setShowReverseCalc(true)}
+                      className="p-2 hover:bg-luxury-gold/10 rounded-lg text-luxury-gold transition-colors group tooltip-trigger ml-1"
+                      title="Calculadora Inversa"
+                    >
+                      <Calculator size={16} />
+                    </button>
+                  </div>
                 </div>
+                <input
+                  type="range"
+                  min="10"
+                  max="2500"
+                  step="5"
+                  value={area}
+                  onChange={(e) => setArea(Number(e.target.value))}
+                  disabled={!selectedTemplate}
+                  className={`w-full accent-luxury-gold h-1.5 ${!selectedTemplate ? 'opacity-30 cursor-not-allowed' : ''}`}
+                />
               </div>
-              <input
-                type="range"
-                min="10"
-                max="2500"
-                step="5"
-                value={area}
-                onChange={(e) => setArea(Number(e.target.value))}
-                disabled={!selectedTemplate}
-                className={`w-full accent-luxury-gold h-1.5 ${!selectedTemplate ? 'opacity-30 cursor-not-allowed' : ''}`}
-              />
-            </div>
+            )}
 
             {/* Unidades Dinamicas (Passo 9) */}
             {currentTemplate?.pricingModel === 'UNIT' && (
@@ -639,6 +667,18 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       type="number"
                       value={units.rooms}
                       onChange={e => setUnits(u => ({ ...u, rooms: Number(e.target.value) }))}
+                      className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-4 py-2 text-luxury-charcoal dark:text-white outline-none focus:border-luxury-gold"
+                    />
+                  </div>
+                )}
+                {/* NEW: Fraction Support for PH */}
+                {(currentTemplate?.unitPricing?.unitKind) === 'FRACTION' && (
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">N.º de Frações</label>
+                    <input
+                      type="number"
+                      value={units.apartments} // Reusing 'apartments' as generic unit slot
+                      onChange={e => setUnits(u => ({ ...u, apartments: Number(e.target.value) }))}
                       className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-4 py-2 text-luxury-charcoal dark:text-white outline-none focus:border-luxury-gold"
                     />
                   </div>
@@ -679,7 +719,6 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           </div>
 
 
-          {selectedTemplate && (
             <div className="space-y-8 pt-8 border-t border-black/5 dark:border-white/5">
               <div className="flex justify-between items-center px-2">
                 <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">{t('calc_disciplines_title')}</h3>
@@ -687,7 +726,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {disciplines.map(d => {
-                  const isReq = templateSpecialties.find(ts => ts.templateId === selectedTemplate && ts.disciplineId === d.disciplineId)?.required;
+                  const isReq = templateSpecialties.find(ts => ts.templateId === (selectedTemplate || '') && ts.disciplineId === d.disciplineId)?.required;
                   const isActive = activeSpecs.includes(d.disciplineId);
                   return (
                     <button
@@ -702,7 +741,71 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 })}
               </div>
             </div>
-          )}
+
+          {/* EXTRA SERVICES BLOCK */}
+          <div className="space-y-8 pt-8 border-t border-black/5 dark:border-white/5">
+            <div className="flex justify-between items-center px-2">
+              <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">Serviços Complementares</h3>
+              <span className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Opcionais</span>
+            </div>
+            <div className="space-y-4">
+              {catalogExtras.map((extra) => {
+                const qty = selectedExtras[extra.id] || 0;
+                const isActive = qty > 0;
+                
+                return (
+                  <div key={extra.id} className={`p-5 rounded-2xl border transition-all flex items-center justify-between group ${isActive ? 'bg-luxury-gold/5 border-luxury-gold' : 'bg-black/5 dark:bg-white/5 border-transparent'}`}>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={`text-xs font-black uppercase tracking-widest ${isActive ? 'text-luxury-charcoal dark:text-white' : 'text-luxury-charcoal/40 dark:text-white/40'}`}>{extra.label}</span>
+                        {isActive && <CheckCircle2 size={12} className="text-luxury-gold" />}
+                      </div>
+                      <p className="text-[10px] font-light italic opacity-60">{extra.description}</p>
+                    </div>
+
+                    <div className="flex items-center gap-4 pl-4 border-l border-black/5 dark:border-white/5 ml-4">
+                      <div className="text-right">
+                         <span className="block text-xs font-mono font-bold text-luxury-gold">
+                           {extra.type === 'fixed' 
+                             ? `€${extra.basePrice?.toLocaleString()}` 
+                             : extra.type === 'quantity' 
+                               ? `€${extra.pricePerUnit?.toLocaleString()}/un`
+                               : `€${extra.pricePerM2?.toLocaleString()}/m²`
+                           }
+                         </span>
+                         {isActive && extra.type === 'area_based' && (
+                           <span className="text-[9px] opacity-50 block">Estimado: €{((extra.pricePerM2 || 0) * (area || 0)).toLocaleString()}</span>
+                         )}
+                      </div>
+
+                      {/* Controls */}
+                      {extra.type === 'fixed' || extra.type === 'area_based' ? (
+                        <button
+                          onClick={() => setSelectedExtras(prev => ({ ...prev, [extra.id]: prev[extra.id] ? 0 : 1 }))}
+                          className={`w-10 h-6 rounded-full relative transition-colors ${isActive ? 'bg-luxury-gold' : 'bg-black/20 dark:bg-white/20'}`}
+                        >
+                          <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-all ${isActive ? 'left-5' : 'left-1'}`} />
+                        </button>
+                      ) : (
+                        <div className="flex items-center gap-2 bg-white dark:bg-black/20 rounded-lg p-1">
+                          <button 
+                            onClick={() => setSelectedExtras(prev => ({ ...prev, [extra.id]: Math.max(0, (prev[extra.id] || 0) - 1) }))}
+                            className="w-6 h-6 flex items-center justify-center hover:bg-black/5 rounded text-xs font-bold"
+                          >-</button>
+                          <span className="w-6 text-center text-xs font-mono">{qty}</span>
+                          <button 
+                             onClick={() => setSelectedExtras(prev => ({ ...prev, [extra.id]: (prev[extra.id] || 0) + 1 }))}
+                             className="w-6 h-6 flex items-center justify-center hover:bg-black/5 rounded text-xs font-bold"
+                          >+</button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
         </div>
 
         {/* Bloco 3: Memoria das Fases (Interface Live) */}
@@ -1520,6 +1623,224 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     <Zap size={14} className={isPropagating ? 'animate-spin' : ''} /> {isPropagating ? 'A Processar...' : t('calc_project_proposal')}
                   </button>
                 </div>
+
+                {/* MARGIN CALCULATOR TOGGLE */}
+                <button
+                    onClick={() => setShowMarginCalc(!showMarginCalc)}
+                    className="w-full py-4 mt-2 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-white/50 hover:text-white"
+                >
+                    <Calculator size={14} /> {showMarginCalc ? 'Ocultar Calculadora Margem' : 'Calculadora de Margem (Interno)'}
+                </button>
+
+                {/* MARGIN CALCULATOR PANEL */}
+                {showMarginCalc && (
+                    <div className="bg-luxury-black/40 border border-white/10 rounded-3xl p-6 space-y-6 mt-2 relative overflow-hidden backdrop-blur-md">
+                        {/* FALLBACK IF NO FEE */}
+                        {(!currentResult?.feeTotal || currentResult.feeTotal === 0) ? (
+                           <div className="text-center opacity-50 py-4">
+                              <p className="text-[10px] text-white">Calcule um honorário primeiro para ver a distribuição.</p>
+                           </div>
+                        ) : (
+                          <>
+                        <div className="absolute top-0 right-0 p-3 opacity-20">
+                            <Scale size={64} className="text-luxury-gold transform rotate-12" />
+                        </div>
+                        
+                        <header>
+                            <h4 className="text-xs font-black uppercase tracking-widest text-luxury-gold mb-1">Simulador Distribuição</h4>
+                            <p className="text-[10px] italic opacity-50 text-white">Cálculo de margem para subcontratação</p>
+                        </header>
+
+                        <div className="space-y-4">
+                            {/* Scenario Selector */}
+                            <div className="grid grid-cols-3 gap-1 bg-black/20 p-1 rounded-xl">
+                                <button 
+                                    onClick={() => setMarginScenario('specs')}
+                                    className={`py-2 text-[9px] font-bold uppercase rounded-lg transition-all ${marginScenario === 'specs' ? 'bg-luxury-gold text-black shadow-lg' : 'text-white/40 hover:text-white'}`}
+                                >Especialista</button>
+                                <button 
+                                    onClick={() => setMarginScenario('prod')}
+                                    className={`py-2 text-[9px] font-bold uppercase rounded-lg transition-all ${marginScenario === 'prod' ? 'bg-luxury-gold text-black shadow-lg' : 'text-white/40 hover:text-white'}`}
+                                >Produção</button>
+                                <button 
+                                    onClick={() => setMarginScenario('partner')}
+                                    className={`py-2 text-[9px] font-bold uppercase rounded-lg transition-all ${marginScenario === 'partner' ? 'bg-luxury-gold text-black shadow-lg' : 'text-white/40 hover:text-white'}`}
+                                >Parceria</button>
+                            </div>
+
+                            {/* Calculation Logic */}
+                            {(() => {
+                                const total = currentResult?.feeTotal || 0;
+                                const feeArch = currentResult?.feeArch || 0;
+                                const feeSpecs = (total - feeArch); // Derived
+
+                                // ARCHITECTURE LOGIC
+                                let archMyPct = 0;
+                                let archFreePct = 0;
+                                let archLabelMine = '';
+                                let archLabelFree = '';
+                                let archRespMine: string[] = [];
+                                let archRespFree: string[] = [];
+                                
+                                // Licensing vs Execution (Approx 40/60 split for display)
+                                const licValue = feeArch * 0.4;
+                                const execValue = feeArch * 0.6;
+
+                                if (marginScenario === 'specs') {
+                                    archMyPct = 1.0; 
+                                    archFreePct = 0.0;
+                                    archLabelMine = 'Produção Interna';
+                                    archRespMine = ['Conceito', 'Licenciamento', 'Execução', 'Coordenação'];
+                                    archRespFree = [];
+                                } else if (marginScenario === 'prod') {
+                                    archMyPct = 0.60; 
+                                    archFreePct = 0.40;
+                                    archLabelMine = 'Direção Criativa & Licenc.';
+                                    archLabelFree = 'Produção BIM / CAD';
+                                    archRespMine = ['Conceito & Design', 'Licenciamento', 'Reuniões Cliente', 'TR Autor'];
+                                    archRespFree = ['Modelagem 3D/BIM', 'Extração Peças Desenhadas', 'Apoio Backoffice'];
+                                } else { // partner
+                                    archMyPct = 0.25; 
+                                    archFreePct = 0.75;
+                                    archLabelMine = 'Comercial (Angariação)';
+                                    archLabelFree = 'Gestão Integral';
+                                    archRespMine = ['Lead Comercial', 'Contrato Inicial', 'Acompanhamento Pontual'];
+                                    archRespFree = ['Desenvolvimento Completo', 'Gestão Cliente', 'Todas as Fases', 'TR Completo'];
+                                }
+
+                                const archMyShare = feeArch * archMyPct;
+                                const archFreeShare = feeArch * archFreePct;
+
+                                // SPECIALTIES LOGIC (Standard Coordination Model)
+                                const specMyPct = 0.20;
+                                const specFreePct = 0.80;
+                                const specMyShare = feeSpecs * specMyPct;
+                                const specFreeShare = feeSpecs * specFreePct;
+                                const specRespMine = ['Compatibilização Geral', 'Gestão Interfaces', 'Validação'];
+                                const specRespFree = ['Cálculos e Dimensionamento', 'Peças Desenhadas', 'TR de Especialidade'];
+
+                                const totalMyShare = archMyShare + specMyShare;
+
+                                return (
+                                    <div className="space-y-6">
+                                        {/* SUMMARY HEADER */}
+                                        <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex justify-between items-end">
+                                            <div>
+                                                <p className="text-[9px] uppercase font-black tracking-widest opacity-40 text-white">Margem Total Estimada</p>
+                                                <p className="text-3xl font-mono text-luxury-gold pt-1">€{totalMyShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                            </div>
+                                            <div className="text-right">
+                                                 <p className="text-[9px] uppercase font-black tracking-widest opacity-40 text-white">Total Proposta</p>
+                                                 <p className="text-sm font-mono text-white/60">€{total.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                            </div>
+                                        </div>
+
+                                        {/* ARCHITECTURE BREAKDOWN */}
+                                        <div className="space-y-2">
+                                            <div className="flex justify-between items-center text-[10px] uppercase font-black tracking-widest text-white/60 px-1">
+                                                <span>1. Arquitetura</span>
+                                                <span>€{feeArch.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
+                                            </div>
+                                            
+                                            <div className="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-3 relative overflow-hidden">
+                                                 <div className="absolute top-0 right-0 p-2 opacity-5"><Layout size={40} /></div>
+                                                 
+                                                 {/* Split Display */}
+                                                 <div className="flex gap-4">
+                                                    <div className="flex-1 space-y-1">
+                                                        <p className="text-[9px] font-bold text-luxury-gold uppercase">Ferreira Arq. ({archMyPct*100}%)</p>
+                                                        <p className="text-lg font-mono text-white">€{archMyShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                        <p className="text-[9px] italic opacity-50 text-white leading-tight mb-2">{archLabelMine}</p>
+                                                        <ul className="space-y-1 pt-2 border-t border-white/5">
+                                                            {archRespMine.map((r, i) => (
+                                                                <li key={i} className="text-[9px] font-medium opacity-60 flex items-center gap-1.5 text-white">
+                                                                    <div className="w-1 h-1 rounded-full bg-luxury-gold/50" /> {r}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                    
+                                                    {archFreePct > 0 && (
+                                                    <>
+                                                        <div className="w-px bg-white/10"></div>
+                                                        <div className="flex-1 space-y-1">
+                                                            <p className="text-[9px] font-bold text-white/40 uppercase">Parceiro ({archFreePct*100}%)</p>
+                                                            <p className="text-lg font-mono text-white/40">€{archFreeShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                            <p className="text-[9px] italic opacity-30 text-white leading-tight mb-2">{archLabelFree}</p>
+                                                            <ul className="space-y-1 pt-2 border-t border-white/5">
+                                                                {archRespFree.map((r, i) => (
+                                                                    <li key={i} className="text-[9px] font-medium opacity-30 flex items-center gap-1.5 text-white">
+                                                                        <div className="w-1 h-1 rounded-full bg-white/20" /> {r}
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    </>
+                                                    )}
+                                                 </div>
+
+                                                 {/* Phase Context (Lic vs Exec) */}
+                                                 <div className="pt-2 border-t border-white/5 flex gap-2 overflow-hidden mt-2">
+                                                    <div className="h-1.5 flex-1 rounded-full bg-luxury-gold/50 flex items-center justify-center relative group">
+                                                         <span className="absolute -top-3 text-[8px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-black px-1 rounded">Lic: €{licValue.toLocaleString()}</span>
+                                                    </div>
+                                                    <div className="h-1.5 flex-1 rounded-full bg-white/20 flex items-center justify-center relative group">
+                                                         <span className="absolute -top-3 text-[8px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-black px-1 rounded">Exec: €{execValue.toLocaleString()}</span>
+                                                    </div>
+                                                 </div>
+                                                 <p className="text-[9px] text-center opacity-30 italic">Licenciamento (Est.) vs Execução</p>
+                                            </div>
+                                        </div>
+
+                                        {/* SPECIALTIES BREAKDOWN */}
+                                        {feeSpecs > 0 && (
+                                        <div className="space-y-2">
+                                            <div className="flex justify-between items-center text-[10px] uppercase font-black tracking-widest text-white/60 px-1">
+                                                <span>2. Especialidades</span>
+                                                <span>€{feeSpecs.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
+                                            </div>
+                                            
+                                            <div className="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-3 relative overflow-hidden hover:bg-white/10 transition-colors">
+                                                 <div className="absolute top-0 right-0 p-2 opacity-5"><Brain size={40} /></div>
+
+                                                 <div className="flex gap-4">
+                                                    <div className="flex-1 space-y-1">
+                                                        <p className="text-[9px] font-bold text-luxury-gold uppercase">Coordenação ({specMyPct*100}%)</p>
+                                                        <p className="text-lg font-mono text-white">€{specMyShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                        <p className="text-[9px] italic opacity-50 text-white leading-tight mb-2">Gestão & Compatibilização</p>
+                                                        <ul className="space-y-1 pt-2 border-t border-white/5">
+                                                            {specRespMine.map((r, i) => (
+                                                                <li key={i} className="text-[9px] font-medium opacity-60 flex items-center gap-1.5 text-white">
+                                                                    <div className="w-1 h-1 rounded-full bg-luxury-gold/50" /> {r}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                    <div className="w-px bg-white/10"></div>
+                                                    <div className="flex-1 space-y-1">
+                                                        <p className="text-[9px] font-bold text-white/40 uppercase">Engenheiros ({specFreePct*100}%)</p>
+                                                        <p className="text-lg font-mono text-white/40">€{specFreeShare.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                        <p className="text-[9px] italic opacity-50 text-white/40 leading-tight mb-2">Projeto Técnico</p>
+                                                        <ul className="space-y-1 pt-2 border-t border-white/5">
+                                                            {specRespFree.map((r, i) => (
+                                                                <li key={i} className="text-[9px] font-medium opacity-30 flex items-center gap-1.5 text-white">
+                                                                    <div className="w-1 h-1 rounded-full bg-white/20" /> {r}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                        )}
+                                    </div>
+                                );
+                            })()}
+                        </div>
+                        </>
+                        )}
+                    </div>
+                )}
               </div>
             </div>
 
@@ -1558,7 +1879,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   phases: currentResult?.phasesBreakdown || [],
                   effortMap: currentResult?.effortMap || [],
                   units: currentResult?.units || 'm2',
-                  comparisonData
+                  comparisonData,
+                  extras: extrasForDoc,
+                  selectedExtras,
+                  catalogExtras
                 }}
                   includeAnnex={includeAnnex} />
               </div>
@@ -1953,7 +2277,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 phases: currentResult?.phasesBreakdown || [],
                 effortMap: currentResult?.effortMap || [],
                 units: currentResult?.units || 'm2',
-                comparisonData
+                comparisonData,
+                extras: extrasForDoc,
+                selectedExtras, // NEW
+                catalogExtras   // NEW
               }}
                 includeAnnex={includeAnnex} />
             </div>
@@ -1987,7 +2314,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             phases: currentResult?.phasesBreakdown || [],
             effortMap: currentResult?.effortMap || [],
             units: currentResult?.units || 'm2',
-            comparisonData
+            comparisonData,
+            extras: extrasForDoc,
+            selectedExtras, // NEW
+            catalogExtras   // NEW
           }} includeAnnex={includeAnnex} />
         </div>
       )}
@@ -2014,7 +2344,10 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           phases: currentResult?.phasesBreakdown || [],
           effortMap: currentResult?.effortMap || [],
           units: currentResult?.units || 'm2',
-          comparisonData
+          comparisonData,
+          extras: extrasForDoc,
+          selectedExtras, // NEW
+          catalogExtras   // NEW
         }} includeAnnex={includeAnnex} />
       </div>
     </div >

@@ -50,6 +50,24 @@ export const templates: FeeTemplate[] = [
   { templateId: "TOURISM_RURAL", namePT: "Turismo Rural / Hotelaria", nameEN: "Rural Tourism / Hotel", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 13, rateArchPerM2: 80, minFeeTotal: 10000 },
   { templateId: "INDUSTRIAL", namePT: "Industrial / Armazém", nameEN: "Industrial / Warehouse", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 14, rateArchPerM2: 45, minFeeTotal: 6000 },
   { templateId: "LEGAL_GENERAL", namePT: "Legalização / Regularização (Geral)", nameEN: "Legalization (General)", processType: "lic", pricingModel: "EUR_PER_M2", legalProfile: "PT", sortOrder: 15, rateArchPerM2: 60, minFeeTotal: 3000 },
+  {
+    templateId: "PH_CHANGE",
+    namePT: "Alteração de Propriedade Horizontal",
+    nameEN: "Horizontal Property Alteration",
+    processType: "lic",
+    pricingModel: "UNIT",
+    legalProfile: "PT",
+    sortOrder: 16,
+    minFeeTotal: 1500,
+    unitPricing: {
+      unitKind: 'FRACTION',     // New unit type
+      baseFeeArch: 1250,        // Cabeça do processo
+      feePerUnitArch: 200,      // Valor por fração
+      feePerM2Arch: 0,
+      includedUnits: 0,         // Base não inclui frações, paga-se todas
+      extraUnitMultiplier: 1.0
+    }
+  },
 ];
 
 export const phaseCatalog: Phase[] = [
@@ -72,23 +90,51 @@ export const disciplines: Discipline[] = [
     ]
   },
   {
-    disciplineId: "WATER",
-    labelPT: "Redes de Aguas e Saneamento",
-    labelEN: "Water & Sewage",
+    disciplineId: "WATER_SUPPLY",
+    labelPT: "Rede de Abastecimento de Água",
+    labelEN: "Water Supply",
     phases: [
-      { phaseId: "A1", labelPT: "Tracados base", shortPT: "Definição de traçados e prumadas, localização de ramais de ligação e dimensionamento preliminar de sistemas de bombagem ou depósito." },
-      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto regulamentar de águas e esgotos (domésticos e pluviais) com memória descritiva e cálculo de caudais para aprovação." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Dimensionamento detalhado, pormenores de instalação de louças e equipamentos, esquemas de montagem e compatibilização de infraestruturas." },
+      { phaseId: "A1", labelPT: "Traçados base", shortPT: "Definição de traçados e prumadas, localização de ramais de ligação e dimensionamento preliminar." },
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto regulamentar de abastecimento de água (predial), cálculo de caudais e memória descritiva." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Dimensionamento detalhado, pormenores de instalação de tubagens, coletores e montagem de louças." },
     ]
   },
   {
-    disciplineId: "ELEC",
-    labelPT: "Instalacoes Eletricas",
-    labelEN: "Electrical",
+    disciplineId: "SEWAGE",
+    labelPT: "Rede de Águas Residuais",
+    labelEN: "Wastewater Drainage",
     phases: [
-      { phaseId: "A1", labelPT: "Estrategia e zonas tecnicas", shortPT: "Dimensionamento de potências, localização de quadros, definição de caminhos de cabos e coordenação de espaços técnicos principais." },
-      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto de instalações elétricas de baixa tensão, telecomunicações e segurança, conforme as normas em vigor para submissão." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Mapas de aparelhagem, esquemas unifilares detalhados, compatibilização de pontos de luz com tetos falsos e assistência técnica." },
+      { phaseId: "A1", labelPT: "Estratégia", shortPT: "Definição de rede de esgotos domésticos e caixas de visita." },
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto regulamentar de drenagem de águas residuais, ligação à rede pública ou fossa estanque." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenores de caixas de visita, ventilações primárias e secundárias, e sifonagem." },
+    ]
+  },
+  {
+    disciplineId: "RAINWATER",
+    labelPT: "Rede de Águas Pluviais",
+    labelEN: "Rainwater Drainage",
+    phases: [
+      { phaseId: "A1", labelPT: "Estratégia", shortPT: "Análise de áreas de recolha, caleiras e tubos de queda." },
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto de drenagem pluvial, cálculo de caudais de ponta e sistemas de retenção se exigido." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorização de caleiras, ralos, pormenores de impermeabilização e ligação ao coletor público." },
+    ]
+  },
+  {
+    disciplineId: "ELEC_SHEET",
+    labelPT: "Ficha Eletrotécnica",
+    labelEN: "Electrotechnical Sheet",
+    phases: [
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Ficha eletrotécnica simplificada para potências até 41.4kVA." },
+    ]
+  },
+  {
+    disciplineId: "ELEC_PROJECT",
+    labelPT: "Projeto Elétrico",
+    labelEN: "Electrical Project",
+    phases: [
+      { phaseId: "A1", labelPT: "Estudo Prévio", shortPT: "Dimensionamento de potências, localização de quadros e definição de caminhos de cabos." },
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto de instalações elétricas completo, telecomunicações e segurança, para potências superiores." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Mapas de aparelhagem, esquemas unifilares detalhados e compatibilização com tetos falsos." },
     ]
   },
   {
@@ -143,11 +189,40 @@ export const disciplines: Discipline[] = [
   },
   {
     disciplineId: "GAS",
-    labelPT: "Gas",
-    labelEN: "Gas",
+    labelPT: "Projeto de Rede de Gás Certificado",
+    labelEN: "Certified Gas Project",
     phases: [
       { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto de instalação de gás em conformidade com as normas de segurança, peças desenhadas e termos regulamentares." },
       { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorização de traçados, ventilações exigidas e compatibilização com as restantes redes técnicas." },
+    ]
+  },
+  {
+    disciplineId: "LANDSCAPE",
+    labelPT: "Arranjos Exteriores",
+    labelEN: "Landscape Arch.",
+    phases: [
+      { phaseId: "A1", labelPT: "Estudo previo", shortPT: "Definição de zonas verdes, pavimentos exteriores e integração paisagística com a arquitetura." },
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Peças desenhadas e escritas para aprovação de arranjos exteriores e modelação de terreno." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorização de plantações, rega, iluminação exterior e detalhes construtivos de pavimentos." },
+    ]
+  },
+  {
+    disciplineId: "ELECTROMECH",
+    labelPT: "Inst. Eletromecânicas",
+    labelEN: "Electromechanical",
+    phases: [
+      { phaseId: "A1", labelPT: "Estudo", shortPT: "Definição e dimensionamento preliminar de elevadores, monta-cargas ou outros equipamentos mecânicos." },
+      { phaseId: "A2", labelPT: "Projeto", shortPT: "Especificações técnicas e integração no projeto de licenciamento (se aplicável)." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Apoio à contratação, análise de fichas técnicas de equipamentos e coordenação de montagem." },
+    ]
+  },
+  {
+    disciplineId: "CERT_ENERGY",
+    labelPT: "Pré-Certificado Energético",
+    labelEN: "Pre-Energy Certificate",
+    phases: [
+      { phaseId: "A2", labelPT: "Pre-Certificado", shortPT: "Emissão de Pré-Certificado Energético (SCE) obrigatório para emissão de licença de construção." },
+      { phaseId: "A3", labelPT: "Certificado Final", shortPT: "Vistoria final e emissão do Certificado Energético (SCE) para licença de utilização." },
     ]
   }
 ];
@@ -161,12 +236,31 @@ export const exclusionsPT = [
   "Impressao de copias fisicas (entrega padrao em formato digital)",
 ];
 
-export const extrasPT = [
-  { label: "Revisao adicional (pos-validacao)", price: "85€/h" },
-  { label: "Visita extra a obra ou fornecedor", price: "125€/un" },
-  { label: "Telas Finais (as-built)", price: "Sob consulta" },
-  { label: "Coordenacao BIM (LOD 300+)", price: "+15% Honorarios" },
+import { ExtraService } from './types_extras';
+
+export const catalogExtras: ExtraService[] = [
+  // 3D Visualization
+  { id: 'pack_3d_basic', label: 'Pack 3D Essencial', description: '3 Imagens Fotorrealistas (Exteriores)', type: 'fixed', basePrice: 750 },
+  { id: 'pack_3d_standard', label: 'Pack 3D Standard', description: '5 Imagens (Ext + Int) + Esquemas 3D', type: 'fixed', basePrice: 1250 },
+  { id: 'pack_3d_premium', label: 'Pack 3D Premium', description: '8 Imagens + Video Curto + Maquete Virtual', type: 'fixed', basePrice: 2000 },
+
+  // Interior Design
+  { id: 'interior_design', label: 'Design de Interiores', description: 'Projeto de execução (layout, mobiliário fixo, iluminação decorativa)', type: 'area_based', pricePerM2: 25 },
+  
+  // Operational Extras
+  { id: 'extra_revision', label: 'Revisao adicional (pos-validacao)', description: 'Ciclo extra de revisoes alem do estipulado', type: 'quantity', pricePerUnit: 450 },
+  { id: 'extra_visit', label: 'Visita extra a obra', description: 'Deslocacao adicional a pedido do cliente', type: 'quantity', pricePerUnit: 125 },
+  // { id: 'as_built', label: 'Projeto de Alterações no Decurso de Obra', description: 'Atualizacao rigorosa dos desenhos finais', type: 'fixed', basePrice: 1500 }, // Moved to Standard Deliverables
+  { id: 'bim_coord', label: 'Coordenacao BIM (LOD 300+)', description: 'Gestao avancada de modelo federado', type: 'fixed', basePrice: 2500 },
+
+  // Engineering & Administrative
+  { id: 'specs_book', label: 'Caderno de Encargos', description: 'Especificações técnicas detalhadas de materiais e execução', type: 'fixed', basePrice: 1000 },
+  { id: 'qty_map', label: 'Mapa de Quantidades', description: 'Levantamento exaustivo de medições para consulta', type: 'fixed', basePrice: 1500 },
+  { id: 'budget_est', label: 'Estimativa Orçamental', description: 'Previsão de custos de construção baseada no projeto', type: 'fixed', basePrice: 750 },
+  { id: 'use_permit', label: 'Pedido de Utilização', description: 'Instrução do processo final de licença de utilização', type: 'fixed', basePrice: 650 },
+  { id: 'site_supervision', label: 'Fiscalização de Obra (Mensal)', description: 'Acompanhamento regular e relatórios (Avença Mensal)', type: 'quantity', pricePerUnit: 750 },
 ];
+
 
 export const templateSpecialties: TemplateSpecialty[] = [
   { templateId: "MORADIA_LICENSE", disciplineId: "STRUCT", required: true, defaultOn: true },

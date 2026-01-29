@@ -60,6 +60,7 @@ function getUnitCount(template: FeeTemplate, units?: UnitsInput) {
   const kind = template.unitPricing?.unitKind;
   if (!kind) return 0;
   if (kind === 'APARTMENT') return Math.max(0, Number(units?.apartments || 0));
+  if (kind === 'FRACTION') return Math.max(0, Number(units?.apartments || 0)); // Reusing apartments slot
   if (kind === 'LOT') return Math.max(0, Number(units?.lots || 0));
   if (kind === 'ROOM') return Math.max(0, Number(units?.rooms || 0));
   return 0;
@@ -75,6 +76,8 @@ function calcArchitectureFee(template: FeeTemplate, area: number, compMult: numb
       return base * compMult * scenMult;
     }
     case 'EUR_PER_M2': {
+       // ... existing code
+
       const rate = template.rateArchPerM2 ?? 65;
       return safeArea * rate * compMult * scenMult;
     }
@@ -372,8 +375,10 @@ export const calculateFees = (params: CalculationParams & { clientName?: string,
 
   // Guardrail 1: Min Fee by Scenario (also scaled or absolute?)
   // If MIN_FEES[scenario] is absolute floor, keep it.
+  // Guardrail 1: Min Fee by Scenario
+  // FIX: Don't force Scenario Min on UNIT pricing (usually smaller scope like PH)
   const scenarioMin = MIN_FEES[scenario];
-  if (scenarioMin) {
+  if (scenarioMin && template.pricingModel !== 'UNIT') {
     minFeeGuard = Math.max(minFeeGuard, scenarioMin);
   }
 

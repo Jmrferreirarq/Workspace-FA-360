@@ -1,7 +1,8 @@
 ﻿import React from 'react';
 // Heartbeat 2.0 - Final Build Fix
 
-import { disciplines } from '../services/feeData';
+import { disciplines, catalogExtras } from '../services/feeData';
+import { ExtraService } from '../services/types_extras';
 import { getPaymentModelForTemplate, calculatePaymentValues } from '../services/paymentModels';
 import { ShieldCheck, MapPin } from 'lucide-react';
 
@@ -59,6 +60,9 @@ interface ProposalDocumentProps {
       effortMap: ProposalEffort[];
       units: unknown;
       comparisonData?: ComparisonItem[]; // FIXED: Typed Array
+      extras?: { label: string; value: number; description?: string }[];
+      selectedExtras?: Record<string, number>;
+      catalogExtras?: ExtraService[];
    };
    includeAnnex: boolean;
 }
@@ -441,15 +445,86 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         </ul>
                      </div>
                      <div className="space-y-4">
-                        <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Exclusoes de Engenharias</h4>
+                        <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Exclusoes Gerais e Tecnicas</h4>
                         <ul className="space-y-2 opacity-50 italic font-light">
-                           <li>• Estudos geotecnicos, topograficos e levantamentos previos.</li>
-                           <li>• Ensaios laboratoriais e testes de materiais em obra.</li>
-                           <li>• Fiscalizacao tecnica de especialidades durante a execucao.</li>
-                           <li>• Certificacoes energeticas e auditorias pos-construcao.</li>
+                           <li>• Taxas de entidades (Camara, ANEPC, ADENE, Gás, Coletores).</li>
+                           <li>• Levantamentos topográficos, geológicos e geotécnicos.</li>
+                           <li>• Estudos de contenção periférica, sísmicos e acústicos especiais.</li>
+                           <li>• Medição de quantidades e orçamentação (mapas de trabalhos).</li>
+                           <li>• Correção de projetos pré-existentes ou obras de urbanização.</li>
+                           <li>• Ensaios, sondagens e peritagens.</li>
                         </ul>
                      </div>
                   </section>
+
+                  {/* SECCAO EXTRA: FORMATO DE ENTREGA */}
+                  <section className="mt-8 pt-8 border-t border-luxury-black/5 text-[11px]">
+                     <h4 className="font-black uppercase tracking-widest mb-2">Formato de Entrega</h4>
+                     <p className="font-light italic opacity-60">
+                        O processo será entregue em formato digital (DWFX e PDF) e **2 exemplares em papel**.
+                        Cópias suplementares: 50€ + IVA / processo.
+                     </p>
+                  </section>
+
+                  {/* 7. Investimento Complementar (EXTRAS) - ROBUST CALCULATION */}
+                  {(() => {
+                     // 1. Resolve Catalog: Prop > Direct Import > Empty
+                     const catalog = data.catalogExtras || catalogExtras || [];
+                     
+                     // 2. Resolve Selection: Prop > Empty
+                     const selection = data.selectedExtras || {};
+
+                     // 3. Calculate
+                     let finalExtras = data.extras || [];
+                     
+                     // If we have raw data, try to recalculate to be safe
+                     if (Object.keys(selection).length > 0 && catalog.length > 0) {
+                        try {
+                           const calculated = catalog
+                              .filter(e => (selection[e.id] || 0) > 0)
+                              .map(e => {
+                                 const qty = selection[e.id] || 0;
+                                 let val = 0;
+                                 if (e.type === 'fixed') val = (e.basePrice || 0) * qty;
+                                 else if (e.type === 'quantity') val = (e.pricePerUnit || 0) * qty;
+                                 else if (e.type === 'area_based') val = (e.pricePerM2 || 0) * (data.area || 0);
+                                 return { label: e.label, description: e.description, value: val };
+                              });
+                           if (calculated.length > 0) finalExtras = calculated;
+                        } catch (err) {
+                           console.error("Error calculating extras:", err);
+                        }
+                     }
+
+                     // 4. Force Render for Debugging if empty but selection exists
+                     // const hasSelection = Object.keys(selection).some(k => selection[k] > 0);
+                     
+                     return (
+                        <section className="py-8 border-t border-luxury-black/5 flex flex-col items-center justify-center space-y-6">
+                           <h4 className="font-black uppercase tracking-widest text-center">Investimento Complementar</h4>
+                           
+                           <div className="w-full max-w-xl bg-luxury-gold/[0.05] rounded-2xl border border-luxury-gold/20 overflow-hidden">
+                              <div className="grid grid-cols-[1fr_auto] bg-luxury-gold/10 text-[10px] uppercase font-black tracking-widest py-2 px-6 text-luxury-black/60">
+                                 <div>Serviço / Pack</div>
+                                 <div className="text-right">Valor</div>
+                              </div>
+                              <div className="divide-y divide-luxury-black/5">
+                                 {finalExtras.map((extra: { label: string; description?: string; value: number }, idx: number) => (
+                                    <div key={idx} className="grid grid-cols-[1fr_auto] py-3 px-6 text-xs">
+                                       <div>
+                                          <span className="font-bold text-luxury-black block">{extra.label}</span>
+                                          {extra.description && <span className="text-[10px] italic opacity-60 block">{extra.description}</span>}
+                                       </div>
+                                       <div className="font-mono font-bold text-luxury-black text-right flex items-center">
+                                          €{extra.value.toLocaleString()} + IVA
+                                       </div>
+                                    </div>
+                                 ))}
+                              </div>
+                           </div>
+                        </section>
+                     );
+                  })()}
 
                   {/* PLANO DE PAGAMENTOS */}
                   <section className="space-y-6 pt-8">
@@ -898,14 +973,16 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                               <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">Faturacao e Pagamentos</h4>
                               <ul className="space-y-2 text-[11px] font-light italic opacity-60">
                                  <li>Adjudicacao: 20% do valor global de honorarios.</li>
-                                 <li>Restantes 80%: Faturacao mensal conforme progresso das fases.</li>
-                                 <li>IVA nao incluido nos valores base (taxa legal em vigor).</li>
+                                 <li>Restantes 80%: Na entrega dos projetos às especialidades.</li>
+                                 <li>Pagamento: 2 a 3 dias úteis após a conclusão da entrega.</li>
+                                 <li>Valores apresentados acrescem IVA à taxa legal.</li>
                               </ul>
                            </div>
                            <div className="space-y-4">
-                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Suporte Camarario (RJUE)</h4>
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Condicoes Gerais</h4>
                               <p className="text-[11px] font-light italic opacity-60 leading-relaxed">
-                                 A presente proposta garante conformidade com o <b>Decreto-Lei 10/2024 (Simplex)</b>. A responsabilidade tecnica inclui submissao e acompanhamento processual ate decisao final.
+                                 A Ferreira Arquitetos reserva o <b>Direito de Autor</b>. Após aprovação do Estudo Prévio, qualquer alteração substancial ao projeto inicial será devidamente orçamentada.
+                                 A proposta inclui submissão RJUE (DL 10/2024).
                               </p>
                            </div>
                         </section>

@@ -21,7 +21,7 @@ export interface Project {
 
 export type Complexity = 1 | 2 | 3;
 export type Scenario = 'essential' | 'standard' | 'premium';
-export type UnitKind = 'APARTMENT' | 'LOT' | 'ROOM';
+export type UnitKind = 'APARTMENT' | 'LOT' | 'ROOM' | 'FRACTION';
 
 export interface UnitsInput {
   apartments?: number;
