@@ -66,9 +66,9 @@ export const disciplines: Discipline[] = [
     labelPT: "Estabilidade / Estruturas",
     labelEN: "Structure",
     phases: [
-      { phaseId: "A1", labelPT: "Pre-dimensionamento", shortPT: "Solucoes estruturais e condicionantes base." },
-      { phaseId: "A2", labelPT: "Projeto para licenciamento", shortPT: "Pecas e memorias para submissao." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Detalhe construtivo, pormenores, compatibilizacao." },
+      { phaseId: "A1", labelPT: "Pre-dimensionamento", shortPT: "Pre-dimensionamento estrutural, definição de materiais (betão, aço, madeira), análise de vãos críticos e coordenação de juntas de dilatação." },
+      { phaseId: "A2", labelPT: "Projeto para licenciamento", shortPT: "Memória descritiva e justificativa, plantas de fundações e infraestruturas, e cálculos de estabilidade regulamentares para submissão municipal." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorização de armaduras e ligações, mapas de quantidades, compatibilização final BIM (Clash Detection) e assistência técnica." },
     ]
   },
   {
@@ -76,9 +76,9 @@ export const disciplines: Discipline[] = [
     labelPT: "Redes de Aguas e Saneamento",
     labelEN: "Water & Sewage",
     phases: [
-      { phaseId: "A1", labelPT: "Tracados base", shortPT: "Prumadas, zonas tecnicas e condicionantes." },
-      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Pecas desenhadas e memoria descritiva." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Dimensionamentos finais e pormenores." },
+      { phaseId: "A1", labelPT: "Tracados base", shortPT: "Definição de traçados e prumadas, localização de ramais de ligação e dimensionamento preliminar de sistemas de bombagem ou depósito." },
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto regulamentar de águas e esgotos (domésticos e pluviais) com memória descritiva e cálculo de caudais para aprovação." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Dimensionamento detalhado, pormenores de instalação de louças e equipamentos, esquemas de montagem e compatibilização de infraestruturas." },
     ]
   },
   {
@@ -86,9 +86,9 @@ export const disciplines: Discipline[] = [
     labelPT: "Instalacoes Eletricas",
     labelEN: "Electrical",
     phases: [
-      { phaseId: "A1", labelPT: "Estrategia e zonas tecnicas", shortPT: "Quadros, shafts, acessos e cargas." },
-      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto regulamentar para submissao." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Mapas finais, compatibilizacao e detalhes." },
+      { phaseId: "A1", labelPT: "Estrategia e zonas tecnicas", shortPT: "Dimensionamento de potências, localização de quadros, definição de caminhos de cabos e coordenação de espaços técnicos principais." },
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto de instalações elétricas de baixa tensão, telecomunicações e segurança, conforme as normas em vigor para submissão." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Mapas de aparelhagem, esquemas unifilares detalhados, compatibilização de pontos de luz com tetos falsos e assistência técnica." },
     ]
   },
   {
@@ -96,9 +96,9 @@ export const disciplines: Discipline[] = [
     labelPT: "Seguranca Contra Incendio (SCIE)",
     labelEN: "Fire Safety",
     phases: [
-      { phaseId: "A1", labelPT: "Estrategia SCIE", shortPT: "Compartimentacao, evacuacao e risco." },
-      { phaseId: "A2", labelPT: "Projeto SCIE", shortPT: "Pecas e medidas de autoprotecao base." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorizacao e compatibilizacao em obra." },
+      { phaseId: "A1", labelPT: "Estrategia SCIE", shortPT: "Definição de compartimentação, caminhos de evacuação e análise de risco preliminar para validação do conceito." },
+      { phaseId: "A2", labelPT: "Projeto SCIE", shortPT: "Memória de segurança, plantas de implantação de medidas de autoproteção e sinalética para aprovação na ANEPC." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorização de sistemas ativos (extinção, deteção) e compatibilização de infraestruturas de segurança em obra." },
     ]
   },
   {
@@ -106,9 +106,9 @@ export const disciplines: Discipline[] = [
     labelPT: "Termica (REH / RECS)",
     labelEN: "Thermal",
     phases: [
-      { phaseId: "A1", labelPT: "Pre-avaliacao", shortPT: "Estrategia de desempenho e envolvente." },
-      { phaseId: "A2", labelPT: "Projeto termico", shortPT: "Calculos e documentacao regulamentar." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Ajustes finais, compatibilizacao e materiais." },
+      { phaseId: "A1", labelPT: "Pre-avaliacao", shortPT: "Pré-avaliação do desempenho térmico da envolvente, análise de pontes térmicas e orientação solar passiva." },
+      { phaseId: "A2", labelPT: "Projeto termico", shortPT: "Cálculos regulamentares (REH/RECS), definição de isolamentos e vãos envidraçados, e emissão de pré-certificado energético." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorização de isolamentos térmicos, compatibilização com outros sistemas e apoio à escolha de materiais em obra." },
     ]
   },
   {
@@ -116,9 +116,9 @@ export const disciplines: Discipline[] = [
     labelPT: "Acustica",
     labelEN: "Acoustics",
     phases: [
-      { phaseId: "A1", labelPT: "Definicao de solucoes", shortPT: "Criterios e solucoes tipo por zona." },
-      { phaseId: "A2", labelPT: "Projeto acustico", shortPT: "Pecas e relatorio regulamentar." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Detalhes e validacoes para obra." },
+      { phaseId: "A1", labelPT: "Definicao de solucoes", shortPT: "Definição de critérios de isolamento sonoro e análise de soluções tipo para pavimentos, paredes e coberturas." },
+      { phaseId: "A2", labelPT: "Projeto acustico", shortPT: "Relatório de ensaios e cálculos regulamentares de isolamento acústico e controle de ruído de equipamentos." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Detalhes de execução de juntas, cortes acústicos e compatibilização de passagens de tubagens em obra." },
     ]
   },
   {
@@ -126,9 +126,9 @@ export const disciplines: Discipline[] = [
     labelPT: "ITED",
     labelEN: "Telecom (ITED)",
     phases: [
-      { phaseId: "A1", labelPT: "Estrategia ITED", shortPT: "Risers, caminhos de cabos e pontos." },
-      { phaseId: "A2", labelPT: "Projeto ITED", shortPT: "Pecas regulamentares e termos." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorizacao e compatibilizacao." },
+      { phaseId: "A1", labelPT: "Estrategia ITED", shortPT: "Estratégia de rede, localização de ATI e caminhos de cabos principais articulados com o projeto de arquitetura." },
+      { phaseId: "A2", labelPT: "Projeto ITED", shortPT: "Projeto regulamentar ITED com dimensionamento de redes, termos de responsabilidade e peças desenhadas para submissão." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorização de tomadas, armários e compatibilização final de infraestruturas tecnológicas." },
     ]
   },
   {
@@ -136,9 +136,9 @@ export const disciplines: Discipline[] = [
     labelPT: "AVAC / Ventilacao",
     labelEN: "HVAC",
     phases: [
-      { phaseId: "A1", labelPT: "Estrategia AVAC", shortPT: "Zonas tecnicas e opcoes de sistema." },
-      { phaseId: "A2", labelPT: "Projeto", shortPT: "Calculos, dimensionamentos e pecas." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Detalhes e compatibilizacao." },
+      { phaseId: "A1", labelPT: "Estrategia AVAC", shortPT: "Estudo de estratégia de climatização e ventilação, definição de áreas técnicas e espaços para condutas." },
+      { phaseId: "A2", labelPT: "Projeto", shortPT: "Dimensionamento de cargas térmicas, seleção de sistemas e rede de condutas para licenciamento ambiental." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Planos de montagem detalhados, compatibilização BIM (clash detection) e assistência técnica na obra." },
     ]
   },
   {
@@ -146,8 +146,8 @@ export const disciplines: Discipline[] = [
     labelPT: "Gas",
     labelEN: "Gas",
     phases: [
-      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto de gas regulamentar." },
-      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorizacao de tracados." },
+      { phaseId: "A2", labelPT: "Licenciamento", shortPT: "Projeto de instalação de gás em conformidade com as normas de segurança, peças desenhadas e termos regulamentares." },
+      { phaseId: "A3", labelPT: "Execucao", shortPT: "Pormenorização de traçados, ventilações exigidas e compatibilização com as restantes redes técnicas." },
     ]
   }
 ];
