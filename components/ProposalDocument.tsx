@@ -112,8 +112,27 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
         @media print {
           @page { size: A4; margin: 0; }
           
+          /* FORCE WHITE BACKGROUND EVERYWHERE */
+          * {
+             background: white !important;
+             background-color: white !important;
+          }
+          
+          html, body, #root { 
+             background: white !important;
+             background-color: white !important;
+             overflow: visible !important; 
+             height: auto !important; 
+             width: auto !important;
+             -webkit-print-color-adjust: exact !important;
+             print-color-adjust: exact !important;
+          }
+          
           /* RESET GLOBAL VISIBILITY */
-          body { visibility: hidden; }
+          body { 
+             visibility: hidden;
+             background: white !important;
+          }
           
           /* TARGET DEDICATED PRINT MOUNT */
           #print-mount-point {
@@ -124,6 +143,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
              left: 0 !important;
              width: 210mm !important;
              z-index: 2147483647 !important;
+             background: white !important;
           }
 
           /* SHOW PROPOSAL INSIDE PRINT MOUNT */
@@ -133,7 +153,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
             position: absolute !important;
             top: 0 !important;
             left: 0 !important;
-            width: 100% !important; /* Relative to mount point */
+            width: 100% !important;
             background: white !important;
             margin: 0 !important;
             padding: 0 !important;
@@ -145,6 +165,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
              color: #000000 !important;
              text-shadow: none !important;
              box-shadow: none !important;
+             background: white !important;
           }
 
           /* IMAGES */
@@ -153,37 +174,31 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
              display: block !important;
           }
 
-          /* HIDE EVERYTHING ELSE (To be sure) */
+          /* HIDE EVERYTHING ELSE */
           body > *:not(#root) { display: none !important; }
-          
-          /* RESET ROOTS */
-          html, body, #root { 
-             overflow: visible !important; 
-             height: auto !important; 
-             width: auto !important;
-          }
 
-          /* PAGE BREAKS */
+          /* PAGE BREAKS - STRENGTHENED */
           .page-break-after-always { 
              page-break-after: always !important; 
              break-after: page !important;
-             display: block; 
-             height: 1px; 
-             content: "";
-             margin-bottom: 0 !important;
+             display: block !important; 
+             position: relative !important;
+             overflow: hidden !important;
+             page-break-inside: avoid !important;
+             clear: both !important;
           }
         }
       `}</style>
          <div className="proposal-to-print bg-white text-luxury-black shadow-none min-h-[1100px] w-full max-w-[900px] mx-auto flex flex-col font-sans">
             {/* CAPA (Com Margem) */}
-            <div className="w-full h-[1123px] relative page-break-after-always p-0 bg-white flex flex-col items-center justify-center">
+            <div className="w-full h-[280mm] max-h-[280mm] relative page-break-after-always p-0 bg-white flex flex-col items-center justify-center overflow-hidden">
                <div className="w-[90%] h-[90%] relative overflow-hidden">
                   <img src="/assets/cover-front.jpg" alt="Capa" className="w-full h-full object-contain" />
                </div>
             </div>
 
             {/* Pág. 1: CONTEÚDO (Com Padding) */}
-            <div className="p-8 md:p-24 flex-1 flex flex-col page-break-after-always">
+            <div className="p-8 md:p-24 flex-1 flex flex-col page-break-after-always bg-white overflow-hidden">
                {/* Estacionario Premium */}
                <header className="flex justify-between items-start border-b-2 border-luxury-black pb-12 mb-12">
 

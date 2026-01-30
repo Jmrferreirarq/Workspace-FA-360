@@ -1669,7 +1669,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
                   <button
                     onClick={() => {
-                      const content = document.getElementById('proposal-capture-zone')?.innerHTML;
+                      const content = document.querySelector('.proposal-to-print')?.outerHTML;
                       const win = window.open('', '_blank');
                       if (win && content) {
                         win.document.write(`
