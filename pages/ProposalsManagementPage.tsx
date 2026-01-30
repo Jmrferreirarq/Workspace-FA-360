@@ -21,6 +21,7 @@ import {
   FileCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AdjudicateModal } from '../components/project/AdjudicateModal';
 
 const MOCK_PROPOSALS: any[] = [];
 
@@ -28,6 +29,7 @@ export default function ProposalsManagementPage() {
   const [filter, setFilter] = useState('All');
   const [proposals, setProposals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [adjudicatingProposal, setAdjudicatingProposal] = useState<any | null>(null);
   const { t } = useLanguage();
   const Motion = motion as any;
 
@@ -36,6 +38,43 @@ export default function ProposalsManagementPage() {
     const data = await fa360.listProposals();
     setProposals(data);
     setLoading(false);
+  };
+
+  const handleAdjudicate = async () => {
+    if (!adjudicatingProposal) return;
+
+    // 1. Create Project
+    await fa360.saveProject({
+        id: Math.random().toString(36).substr(2, 9),
+        name: adjudicatingProposal.project, // In proposal object, 'project' is the name
+        client: adjudicatingProposal.client,
+        status: 'planning',
+        budget: parseFloat(adjudicatingProposal.total),
+        progress: 0,
+        image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&q=80&w=2787&ixlib=rb-4.0.3', // Placeholder
+        nextAction: 'Kick-off Meeting',
+        nextActionDate: new Date(Date.now() + 86400000).toISOString(), // Tomorrow
+        lastUpdate: Date.now(),
+        status_key: 'status_planning',
+        type_key: 'proj_type_housing' // Default
+    });
+
+    // 2. Update Proposal Status
+    // @ts-ignore
+    await fa360.updateProposal(adjudicatingProposal.id, { status: 'Adjudicada' });
+
+    // 3. Create Initial Task
+    await fa360.saveTask({
+      id: Math.random().toString(36).substr(2, 9),
+      title: `Kick-off: ${adjudicatingProposal.project}`,
+      deadline: new Date(Date.now() + 86400000 * 2).toISOString(),
+      priority: 'High',
+      projectKey: adjudicatingProposal.project.substring(0, 3).toUpperCase(),
+      completed: false
+    });
+
+    setAdjudicatingProposal(null);
+    loadData();
   };
 
   React.useEffect(() => {
@@ -133,6 +172,14 @@ export default function ProposalsManagementPage() {
                       </div>
                       <div className="flex gap-2">
                         <button className="p-3 glass rounded-xl border-black/10 dark:border-white/10 hover:text-luxury-gold transition-colors text-luxury-charcoal dark:text-white"><Download size={16} /></button>
+                        {prop.status !== 'Adjudicada' && (
+                          <button
+                            onClick={() => setAdjudicatingProposal(prop)}
+                            className="px-6 py-3 bg-black text-luxury-gold border border-luxury-gold/30 rounded-xl text-[11px] font-black uppercase tracking-widest hover:bg-luxury-gold hover:text-black transition-all"
+                          >
+                            Adjudicar
+                          </button>
+                        )}
                         <button className="px-6 py-3 bg-luxury-gold text-black rounded-xl text-[11px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-luxury-gold/10">{t('prop_send_portal')}</button>
                       </div>
                     </div>
@@ -221,6 +268,13 @@ export default function ProposalsManagementPage() {
           </div>
         </aside>
       </div>
+
+      <AdjudicateModal
+        open={!!adjudicatingProposal}
+        onClose={() => setAdjudicatingProposal(null)}
+        onConfirm={handleAdjudicate}
+        proposal={adjudicatingProposal}
+      />
     </div>
   );
 }
