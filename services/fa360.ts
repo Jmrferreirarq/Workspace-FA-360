@@ -170,6 +170,14 @@ const fa360 = {
     return { success: true, status: pushResult.status || (pushResult.success ? 'dispatched' : 'no_hook') };
   },
 
+  updateProposal: async (proposalId: string, updates: any) => {
+    const proposals = await fa360.listProposals();
+    const updated = proposals.map((p: any) => p.id === proposalId ? { ...p, ...updates } : p);
+    await NeuralStorage.save(STORAGE_KEYS.PROPOSALS, updated);
+    fa360.log(`CORE: Proposta ${proposalId} atualizada.`);
+    return { success: true };
+  },
+
   listExpenses: async () => {
     return await NeuralStorage.load(STORAGE_KEYS.EXPENSES) || [];
   },
