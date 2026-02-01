@@ -41,7 +41,7 @@ export default function StudioInboxPage() {
             <button
               key={msg.id}
               onClick={() => setSelectedMsg(msg)}
-              className={`p-6 rounded-[2.5rem] border transition-all text-left relative group ${selectedMsg?.id === msg.id ? 'bg-luxury-gold border-luxury-gold shadow-xl shadow-luxury-gold/20' : 'glass border-white/5 hover:border-white/20'
+              className={`p-6 rounded-xl border transition-all text-left relative group ${selectedMsg?.id === msg.id ? 'bg-luxury-gold border-luxury-gold shadow-xl shadow-luxury-gold/20' : 'glass border-white/5 hover:border-white/20'
                 }`}
             >
               <div className="flex justify-between items-start mb-4">
@@ -59,7 +59,7 @@ export default function StudioInboxPage() {
         </aside>
 
         {/* Detail: Message Content */}
-        <main className="flex-1 glass rounded-[2rem] border-white/5 overflow-hidden flex flex-col shadow-2xl relative">
+        <main className="flex-1 glass rounded-xl border-white/5 overflow-hidden flex flex-col shadow-strong relative">
           <AnimatePresence mode="wait">
             {selectedMsg ? (
               <Motion
@@ -106,7 +106,7 @@ export default function StudioInboxPage() {
                       value={reply}
                       onChange={(e) => setReply(e.target.value)}
                       placeholder="Escrever resposta de prestigio..."
-                      className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] p-8 h-40 focus:border-luxury-gold/50 outline-none transition-all text-sm font-light italic text-luxury-charcoal dark:text-white"
+                      className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl p-8 h-40 focus:border-luxury-gold/50 outline-none transition-all text-sm font-light italic text-luxury-charcoal dark:text-white"
                     />
                     <div className="absolute top-4 right-4 flex gap-2">
                       <button

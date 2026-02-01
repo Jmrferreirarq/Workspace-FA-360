@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState } from 'react';
 import { Search, ChevronRight, Info, Book, ArrowLeft, ToggleLeft, ToggleRight, X } from 'lucide-react';
 import { rjueStructure, LawArticle, LawStructure } from '../../data/laws/rjue_structure';
@@ -34,7 +34,7 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
     );
 
     return (
-        <div className="flex flex-col h-[700px] bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
+        <div className="flex flex-col h-[700px] bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-strong overflow-hidden">
             {/* Header */}
             <div className="bg-slate-900 text-white p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -153,7 +153,7 @@ export const InteractiveLawReader: React.FC<InteractiveLawReaderProps> = ({ onCl
 
             {/* Footer */}
             <div className="p-3 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-[11px] text-slate-500">
-                <div>Ferreira Arquitetos - Inteligencia JurA­dica v1.0</div>
+                <div>Ferreira Arquitetos - Inteligencia JurA�dica v1.0</div>
                 <div className="flex gap-4">
                     <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> RJUE Atualizado</span>
                     <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span> Simplex 2024</span>

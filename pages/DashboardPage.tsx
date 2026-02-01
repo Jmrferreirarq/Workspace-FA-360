@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShieldAlert, ArrowRight, LayoutGrid, Clock } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import fa360 from '../services/fa360';
 import { dashboardDataService } from '../services/dashboardData.service'; // NEW Service
@@ -9,12 +9,7 @@ import TodayOpsWidget from '../components/dashboard/TodayOpsWidget';
 import DayPanel from '../components/dashboard/DayPanel';
 import CriticalAlertsWidget from '../components/dashboard/CriticalAlertsWidget';
 import HealthIndexWidget from '../components/dashboard/HealthIndexWidget';
-import PipelineFunnelWidget from '../components/dashboard/PipelineFunnelWidget';
 import CashflowWidget from '../components/dashboard/CashflowWidget';
-import NeuralSyncWidget from '../components/dashboard/NeuralSyncWidget';
-import ProductionWidget from '../components/dashboard/ProductionWidget';
-import { HoursWeekCard } from '../components/dashboard/HoursWeekCard';
-import { ActiveProjectsCard } from '../components/dashboard/ActiveProjectsCard';
 import PageHeader from '../components/common/PageHeader';
 import SkeletonCard from '../components/common/SkeletonCard';
 import { DashboardMetrics } from '../types';
@@ -102,42 +97,15 @@ export default function Dashboard() {
          <DayPanel data={vm.dailyHighlights} />
       </div>
 
-      {/* 3. Grid Operacional Secundario (KPIs) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto">
+      {/* Core Metrics Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
          <TodayOpsWidget data={vm.todayOps} />
          <CashflowWidget data={vm.cash30d} />
-         <PipelineFunnelWidget funnel={vm.funnel} /> 
+         <HealthIndexWidget score={vm.health.score} breakdown={vm.health.breakdown} reason={vm.projects.length > 0 ? (vm.health.score === 100 ? t('op_stable') : t('op_threat')) : t('op_neutral')} />
+         <div className="lg:col-span-1">
+            <CriticalAlertsWidget alerts={vm.criticalAlerts} />
+         </div>
       </div>
-
-       {/* 3. Grid Acao & Risco (Linha 2) */}
-       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-           <div className="lg:col-span-1">
-              <HealthIndexWidget score={vm.health.score} breakdown={vm.health.breakdown} reason={vm.projects.length > 0 ? (vm.health.score === 100 ? t('op_stable') : t('op_threat')) : t('op_neutral')} />
-           </div>
-           <div className="lg:col-span-2">
-              <CriticalAlertsWidget alerts={vm.criticalAlerts} />
-           </div>
-           <div className="lg:col-span-1">
-              <NeuralSyncWidget status={vm.syncStatus} />
-           </div>
-       </div>
-
-       {/* 4. Grid Producao & Projetos (Linha 3 - Nova) */}
-       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-12">
-           <div className="lg:col-span-6">
-              <HoursWeekCard 
-                data={vm.hoursByOwner} 
-                onOpen={() => navigate('/tasks')} 
-              />
-           </div>
-           <div className="lg:col-span-6">
-              <ActiveProjectsCard 
-                projects={vm.activeProjects || []} 
-                onOpenAll={() => navigate('/projects')}
-                onOpenProject={(id) => navigate(`/projects/${id}`)}
-              />
-           </div>
-       </div>
     
       {/* 4. Active Projects List from VM */}
       <div className="space-y-6 pt-6">
@@ -152,13 +120,13 @@ export default function Dashboard() {
               </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {vm.projects.length > 0 ? (
                   vm.projects.map((project: any) => (
                       <motion.div 
                           key={project.id}
                           whileHover={{ y: -5 }}
-                          className="glass p-8 rounded-[2rem] border-black/5 dark:border-white/5 group hover:border-luxury-gold/30 transition-all cursor-pointer relative overflow-hidden"
+                          className="glass p-6 rounded-xl border-black/5 dark:border-white/5 group hover:border-luxury-gold/30 transition-all cursor-pointer relative overflow-hidden"
                           onClick={() => navigate(`/projects/${project.id}`)}
                       >
                           <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">

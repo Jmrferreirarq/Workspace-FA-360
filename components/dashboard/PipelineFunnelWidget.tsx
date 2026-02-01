@@ -1,4 +1,4 @@
-ï»¿import React from 'react';
+import React from 'react';
 import { Wallet, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { FunnelStats } from '../../types';
@@ -13,11 +13,11 @@ export default function PipelineFunnelWidget({ funnel }: PipelineProps) {
   const { t } = useLanguage();
 
   return (
-    <div className="md:col-span-1 glass p-6 rounded-[2rem] border-black/5 dark:border-white/5 bg-luxury-white/50 dark:bg-black/20 flex flex-col justify-between h-full group hover:border-black/10 dark:hover:border-white/10 transition-all">
+    <div className="md:col-span-1 glass p-6 rounded-xl border-black/5 dark:border-white/5 bg-luxury-white/50 dark:bg-black/20 flex flex-col justify-between h-full group hover:border-black/10 dark:hover:border-white/10 transition-all">
        <div className="flex justify-between items-start mb-4">
         <div>
            <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-luxury-charcoal/50 dark:text-white/50 mb-1">{t('pipeline_global')}</h3>
-           <p className="text-2xl font-serif italic text-luxury-charcoal dark:text-white">aâ€šÂ¬{(funnel.activeValue / 1000).toFixed(1)}k <span className="text-sm not-italic font-sans opacity-60 text-luxury-charcoal/60 dark:text-white/60">{t('potential')}</span></p>
+           <p className="text-2xl font-serif italic text-luxury-charcoal dark:text-white">a‚¬{(funnel.activeValue / 1000).toFixed(1)}k <span className="text-sm not-italic font-sans opacity-60 text-luxury-charcoal/60 dark:text-white/60">{t('potential')}</span></p>
         </div>
         <button onClick={() => navigate('/calculator')} className="w-8 h-8 rounded-full bg-luxury-gold flex items-center justify-center text-black hover:scale-110 transition-transform shadow-[0_0_15px_#D4AF3740]">
             <ArrowRight size={14} />

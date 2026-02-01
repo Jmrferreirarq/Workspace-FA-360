@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, Check, X } from 'lucide-react';
 
@@ -33,7 +33,7 @@ export const CopyModal: React.FC<{
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-2xl glass p-8 md:p-12 rounded-[2rem] border-white/10 shadow-2xl overflow-hidden bg-black/60"
+          className="relative w-full max-w-2xl glass p-8 md:p-6 rounded-xl border-white/10 shadow-strong overflow-hidden bg-black/60"
         >
           <div className="flex items-center justify-between mb-8">
             <div className="text-[11px] font-black uppercase tracking-[0.35em] text-luxury-gold">

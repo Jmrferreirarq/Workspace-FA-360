@@ -1,4 +1,4 @@
-Ôªøimport React from 'react';
+import React from 'react';
 // Heartbeat 2.0 - Final Build Fix
 
 import { disciplines, catalogExtras } from '../services/feeData';
@@ -183,22 +183,46 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
              break-after: page !important;
              display: block !important; 
              position: relative !important;
-             overflow: hidden !important;
+             overflow: visible !important;
              page-break-inside: avoid !important;
+             break-inside: avoid !important;
              clear: both !important;
+             min-height: 297mm !important;
+             height: auto !important;
+          }
+          
+          .page-break-before-always {
+             page-break-before: always !important;
+             break-before: page !important;
+             display: block !important;
+             position: relative !important;
+             overflow: visible !important;
+             page-break-inside: avoid !important;
+             break-inside: avoid !important;
+             clear: both !important;
+             min-height: 297mm !important;
+             height: auto !important;
+          }
+          
+          /* Ensure all pages are visible */
+          .proposal-to-print > div {
+             page-break-inside: avoid !important;
+             break-inside: avoid !important;
+             orphans: 3 !important;
+             widows: 3 !important;
           }
         }
       `}</style>
-         <div className="proposal-to-print bg-white text-luxury-black shadow-none min-h-[1100px] w-full max-w-[900px] mx-auto flex flex-col font-sans">
+         <div className="proposal-to-print bg-white text-luxury-black shadow-none w-full max-w-[900px] mx-auto flex flex-col font-sans">
             {/* CAPA (Com Margem) */}
-            <div className="w-full h-[280mm] max-h-[280mm] relative page-break-after-always p-0 bg-white flex flex-col items-center justify-center overflow-hidden">
+            <div className="w-full min-h-[297mm] relative page-break-after-always p-0 bg-white flex flex-col items-center justify-center overflow-hidden">
                <div className="w-[90%] h-[90%] relative overflow-hidden">
                   <img src="/assets/cover-front.jpg" alt="Capa" className="w-full h-full object-contain" />
                </div>
             </div>
 
-            {/* P√°g. 1: CONTE√öDO (Com Padding) */}
-            <div className="p-8 md:p-24 flex-1 flex flex-col page-break-after-always bg-white overflow-hidden">
+            {/* P·g. 1: CONTE⁄DO (Com Padding) */}
+            <div className="p-8 md:p-8 min-h-[297mm] flex flex-col page-break-after-always bg-white overflow-hidden">
                {/* Estacionario Premium */}
                <header className="flex justify-between items-start border-b-2 border-luxury-black pb-12 mb-12">
 
@@ -220,13 +244,13 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <p className="text-xs font-serif italic leading-tight">{data.projectName || data.templateName || 'Tipologia Selecionada'}</p>
                   </div>
                   <div className="space-y-1">
-                     <p className="text-[9px] font-black uppercase tracking-widest opacity-40">Localiza√ß√£o</p>
+                     <p className="text-[9px] font-black uppercase tracking-widest opacity-40">LocalizaÁ„o</p>
                      <p className="text-xs font-serif italic leading-tight">{data.location || 'Portugal'}</p>
                      {data.municipality && <p className="text-[10px] opacity-60 mt-1">{data.municipality}</p>}
                   </div>
                   <div className="space-y-1">
-                     <p className="text-[9px] font-black uppercase tracking-widest opacity-40">√Årea</p>
-                     <p className="text-xs font-serif italic leading-tight whitespace-nowrap">{data.area} m¬≤</p>
+                     <p className="text-[9px] font-black uppercase tracking-widest opacity-40">¡rea</p>
+                     <p className="text-xs font-serif italic leading-tight whitespace-nowrap">{data.area} m≤</p>
                   </div>
                   {data.address && (
                      <div className="space-y-1">
@@ -244,17 +268,17 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                {/* Identificacao do Projeto */}
                {/* PAGINA 1: PROPOSTA EXECUTIVA */}
                <div className="flex-1 space-y-16">
-                  {/* 2. Enquadramento Institucional & T√©cnico */}
+                  {/* 2. Enquadramento Institucional & TÈcnico */}
                   <section className="space-y-4">
                      <h4 className="text-[11px] font-black uppercase tracking-widest text-luxury-black opacity-30">Quem Somos</h4>
                      <p className="text-xs font-light italic leading-relaxed opacity-60 text-luxury-black text-justify">
-                        Fundada em 2017 pelo arquiteto Jos√© Ferreira, a Ferreirarquitetos √© uma refer√™ncia no setor de arquitetura em Portugal,
-                        especialmente na regi√£o de Aveiro. Com uma combina√ß√£o √∫nica de precis√£o e criatividade, a nossa equipa dedica-se a
-                        transformar vis√µes em realidade, abordagem reconhecida por diversos pr√©mios, incluindo a Medalha de Prata nos Pr√©mios
-                        Lus√≥fonos de Arquitetura.
+                        Fundada em 2017 pelo arquiteto JosÈ Ferreira, a Ferreirarquitetos È uma referÍncia no setor de arquitetura em Portugal,
+                        especialmente na regi„o de Aveiro. Com uma combinaÁ„o ˙nica de precis„o e criatividade, a nossa equipa dedica-se a
+                        transformar visıes em realidade, abordagem reconhecida por diversos prÈmios, incluindo a Medalha de Prata nos PrÈmios
+                        LusÛfonos de Arquitetura.
                      </p>
                      <p className="text-xs font-light italic leading-relaxed opacity-60 text-luxury-black text-justify">
-                        Nesse sentido, a presente proposta reflete o nosso compromisso com a excel√™ncia, apresentando uma metodologia de trabalho
+                        Nesse sentido, a presente proposta reflete o nosso compromisso com a excelÍncia, apresentando uma metodologia de trabalho
                         rigorosa para o desenvolvimento do seu projeto, assegurando um processo tecnicamente consistente e em total cumprimento
                         legal com o RJUE.
                      </p>
@@ -268,12 +292,12 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         <p className="text-[11px] font-black uppercase tracking-widest">Estrategia & Timeline</p>
                      </div>
 
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Decision Mode */}
                         <div className="space-y-6">
-                           <div className="bg-luxury-black/5 p-8 rounded-[2rem] border border-luxury-black/5 h-full flex flex-col justify-center">
+                           <div className="bg-luxury-black/5 p-8 rounded-xl border border-luxury-black/5 h-full flex flex-col justify-center">
                               <h4 className="text-sm font-black uppercase tracking-widest mb-2 text-luxury-black">
-                                 {data.scenario === 'essential' ? 'ü•â Modo Essencial' : data.scenario === 'standard' ? 'ü•à Modo Profissional' : 'üíé Modo Executivo'}
+                                 {data.scenario === 'essential' ? '?? Modo Essencial' : data.scenario === 'standard' ? '?? Modo Profissional' : '?? Modo Executivo'}
                               </h4>
                               <p className="text-[11px] font-light italic opacity-60 leading-relaxed mb-6">
                                  {data.scenario === 'essential' ? 'Foco no cumprimento legal estrito. Ideal para investimentos contidos.' :
@@ -299,7 +323,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         {/* Visual Gantt Chart */}
                         <div className="space-y-6">
                            <div className="flex justify-between items-end">
-                              <h4 className="text-[11px] font-black uppercase tracking-widest opacity-40">Cronograma de Produ√ß√£o</h4>
+                              <h4 className="text-[11px] font-black uppercase tracking-widest opacity-40">Cronograma de ProduÁ„o</h4>
                               <span className="text-[10px] font-mono opacity-40">
                                  Total Ativo: {formatWeeks(data.phases.reduce((acc, p) => acc + (p.weeks || 4), 0))}
                               </span>
@@ -336,7 +360,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                           <div className="py-4 relative flex items-center justify-center">
                                              <div className="absolute w-full border-t-2 border-dashed border-luxury-black/10"></div>
                                              <span className="text-[9px] font-black uppercase tracking-widest bg-white px-2 z-10 text-luxury-charcoal/40">
-                                                ‚è∏Ô∏è Aprova√ß√£o & Consultas (Tempo Externo)
+                                                ?? AprovaÁ„o & Consultas (Tempo Externo)
                                              </span>
                                           </div>
                                        )}
@@ -353,20 +377,20 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                       <div className="text-center space-y-10 w-full px-12">
                          <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">Investimento por Etapa de Projeto</p>
                          
-                         <div className="flex flex-row gap-12 items-start justify-center">
+                         <div className="flex flex-row gap-6 items-start justify-center">
                             {/* Phase 1: Licensing */}
                             <div className="text-center space-y-4 flex-1 max-w-[280px]">
                                <div className="space-y-1">
                                   <span className="text-[10px] uppercase font-black tracking-[0.2em] text-luxury-gold">1. Licenciamento</span>
                                   <div className="flex items-center justify-center gap-1">
                                      <span className="text-5xl font-serif italic tracking-tighter text-luxury-black">
-                                       ‚Ç¨{stages.licensing.value.toLocaleString()}
+                                       Ä{stages.licensing.value.toLocaleString()}
                                      </span>
                                      <span className="text-[11px] font-black tracking-widest text-luxury-gold mt-4">+ IVA</span>
                                   </div>
                                </div>
                                <p className="text-[9px] uppercase font-bold tracking-widest opacity-40 leading-relaxed border-t border-luxury-black/5 pt-2">
-                                  Comprometimento T√©cnico Inicial
+                                  Comprometimento TÈcnico Inicial
                                </p>
                             </div>
 
@@ -378,16 +402,16 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                             {/* Phase 2: Execution */}
                             <div className="text-center space-y-4 flex-1 max-w-[280px] opacity-60">
                                <div className="space-y-1">
-                                  <span className="text-[10px] uppercase font-black tracking-[0.2em] opacity-50">2. Execu√ß√£o (Opcional)</span>
+                                  <span className="text-[10px] uppercase font-black tracking-[0.2em] opacity-50">2. ExecuÁ„o (Opcional)</span>
                                   <div className="flex items-center justify-center gap-1">
                                      <span className="text-4xl font-serif italic tracking-tighter text-luxury-black/80">
-                                       ‚Ç¨{stages.execution.value.toLocaleString()}
+                                       Ä{stages.execution.value.toLocaleString()}
                                      </span>
                                      <span className="text-[10px] font-black tracking-widest opacity-30 mt-3">+ IVA</span>
                                   </div>
                                </div>
                                <p className="text-[9px] uppercase font-bold tracking-widest opacity-30 leading-relaxed border-t border-luxury-black/5 pt-2">
-                                  Ativa√ß√£o sob Decis√£o Posterior
+                                  AtivaÁ„o sob Decis„o Posterior
                                </p>
                             </div>
                          </div>
@@ -425,7 +449,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                               <div className="grid grid-cols-4 bg-luxury-black text-white text-[10px] uppercase font-black tracking-widest py-3">
                                  <div className="px-6 flex items-center">Disciplina</div>
                                  <div className="px-4 text-center border-l border-white/10 bg-luxury-gold/20 text-luxury-gold">1. Licenciamento</div>
-                                 <div className="px-4 text-center border-l border-white/10">2. Execu√ß√£o (Opt.)</div>
+                                 <div className="px-4 text-center border-l border-white/10">2. ExecuÁ„o (Opt.)</div>
                                  <div className="px-4 text-right border-l border-white/10">Total</div>
                               </div>
 
@@ -435,16 +459,16 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  <div className="grid grid-cols-4 py-4 hover:bg-black/[0.01]">
                                     <div className="px-6 font-bold text-luxury-black flex flex-col justify-center">
                                        Arquitetura
-                                       <span className="text-[9px] font-light opacity-50">Design & Coordena√ß√£o</span>
+                                       <span className="text-[9px] font-light opacity-50">Design & CoordenaÁ„o</span>
                                     </div>
                                     <div className="px-4 text-center font-serif italic bg-luxury-gold/[0.05] text-luxury-black/80 flex items-center justify-center">
-                                       ‚Ç¨{archLic.toLocaleString()} + IVA
+                                       Ä{archLic.toLocaleString()} + IVA
                                     </div>
                                     <div className="px-4 text-center font-serif italic opacity-60 flex items-center justify-center">
-                                       ‚Ç¨{archExec.toLocaleString()} + IVA
+                                       Ä{archExec.toLocaleString()} + IVA
                                     </div>
                                     <div className="px-4 text-right font-black flex items-center justify-end">
-                                       ‚Ç¨{data.feeArch.toLocaleString()} + IVA
+                                       Ä{data.feeArch.toLocaleString()} + IVA
                                     </div>
                                  </div>
 
@@ -454,17 +478,17 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        Engenharias
                                        <span className="text-[9px] font-light opacity-50">
                                           {data.activeSpecs?.length || 0} Disciplinas
-                                          {data.exemptSpecs && data.exemptSpecs.length > 0 && ` (${data.exemptSpecs.length} Isen√ß√µes)`}
+                                          {data.exemptSpecs && data.exemptSpecs.length > 0 && ` (${data.exemptSpecs.length} IsenÁıes)`}
                                        </span>
                                     </div>
                                     <div className="px-4 text-center font-serif italic bg-luxury-gold/[0.05] text-luxury-black/80 flex items-center justify-center">
-                                       ‚Ç¨{specLic.toLocaleString()} + IVA
+                                       Ä{specLic.toLocaleString()} + IVA
                                     </div>
                                     <div className="px-4 text-center font-serif italic opacity-60 flex items-center justify-center">
-                                       ‚Ç¨{specExec.toLocaleString()} + IVA
+                                       Ä{specExec.toLocaleString()} + IVA
                                     </div>
                                     <div className="px-4 text-right font-black flex items-center justify-end">
-                                       ‚Ç¨{data.feeSpec.toLocaleString()} + IVA
+                                       Ä{data.feeSpec.toLocaleString()} + IVA
                                     </div>
                                  </div>
 
@@ -472,15 +496,15 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  <div className="grid grid-cols-4 py-3 bg-luxury-black/[0.02] border-t-2 border-luxury-black/5">
                                     <div className="px-6 text-[10px] uppercase font-black tracking-widest opacity-40 flex items-center">Total Fase</div>
                                     <div className="px-4 text-center font-black text-luxury-gold flex flex-col justify-center">
-                                       ‚Ç¨{stages.licensing.value.toLocaleString()} + IVA
+                                       Ä{stages.licensing.value.toLocaleString()} + IVA
                                        <span className="text-[8px] text-black/40 font-mono font-normal normal-case">{formatWeeks(stages.licensing.weeks)}</span>
                                     </div>
                                     <div className="px-4 text-center font-bold opacity-60 flex flex-col justify-center">
-                                       ‚Ç¨{stages.execution.value.toLocaleString()} + IVA
+                                       Ä{stages.execution.value.toLocaleString()} + IVA
                                        <span className="text-[8px] text-black/30 font-mono font-normal normal-case">{formatWeeks(stages.execution.weeks)}</span>
                                     </div>
                                     <div className="px-4 text-right font-black text-base flex items-center justify-end">
-                                       ‚Ç¨{data.feeTotal.toLocaleString()} + IVA
+                                       Ä{data.feeTotal.toLocaleString()} + IVA
                                     </div>
                                  </div>
                               </div>
@@ -489,12 +513,12 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      })()}
 
                      <p className="text-[9px] italic opacity-50 max-w-sm text-center leading-relaxed">
-                        Nota: A fase de **Execu√ß√£o** ({(getPaymentModelForTemplate(data.templateId).baseSplit?.execution || 0) * 100}%) √© facultativa e s√≥ avan√ßa por decis√£o do cliente ap√≥s a aprova√ß√£o do licenciamento, garantindo total controlo sobre o investimento.
+                        Nota: A fase de **ExecuÁ„o** ({(getPaymentModelForTemplate(data.templateId).baseSplit?.execution || 0) * 100}%) È facultativa e sÛ avanÁa por decis„o do cliente apÛs a aprovaÁ„o do licenciamento, garantindo total controlo sobre o investimento.
                      </p>
                   </section>
 
                   {/* 6. Prazo e Exclusoes: Mantendo */}
-                  <section className="grid grid-cols-1 md:grid-cols-2 gap-16 text-[11px]">
+                  <section className="grid grid-cols-1 md:grid-cols-2 gap-8 text-[11px]">
                      <div className="space-y-4">
                         <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Prazo de Execucao</h4>
                         <p className="italic opacity-60 font-light leading-relaxed">
@@ -505,21 +529,21 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                      <div className="space-y-4">
                         <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Exclusoes de Arquitetura</h4>
                         <ul className="space-y-2 opacity-50 italic font-light">
-                           <li>‚Ä¢ Taxas camararias e licenciamento de entidades externas.</li>
-                           <li>‚Ä¢ Alteracoes substanciais ao programa aprovado nesta fase.</li>
-                           <li>‚Ä¢ Acompanhamento de obra e direcao de fiscalizacao.</li>
-                           <li>‚Ä¢ Design de interiores decorativo (mobiliario e acabamentos).</li>
+                           <li>ï Taxas camararias e licenciamento de entidades externas.</li>
+                           <li>ï Alteracoes substanciais ao programa aprovado nesta fase.</li>
+                           <li>ï Acompanhamento de obra e direcao de fiscalizacao.</li>
+                           <li>ï Design de interiores decorativo (mobiliario e acabamentos).</li>
                         </ul>
                      </div>
                      <div className="space-y-4">
                         <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">Exclusoes Gerais e Tecnicas</h4>
                         <ul className="space-y-2 opacity-50 italic font-light">
-                           <li>‚Ä¢ Taxas de entidades (Camara, ANEPC, ADENE, G√°s, Coletores).</li>
-                           <li>‚Ä¢ Levantamentos topogr√°ficos, geol√≥gicos e geot√©cnicos.</li>
-                           <li>‚Ä¢ Estudos de conten√ß√£o perif√©rica, s√≠smicos e ac√∫sticos especiais.</li>
-                           <li>‚Ä¢ Medi√ß√£o de quantidades e or√ßamenta√ß√£o (mapas de trabalhos).</li>
-                           <li>‚Ä¢ Corre√ß√£o de projetos pr√©-existentes ou obras de urbaniza√ß√£o.</li>
-                           <li>‚Ä¢ Ensaios, sondagens e peritagens.</li>
+                           <li>ï Taxas de entidades (Camara, ANEPC, ADENE, G·s, Coletores).</li>
+                           <li>ï Levantamentos topogr·ficos, geolÛgicos e geotÈcnicos.</li>
+                           <li>ï Estudos de contenÁ„o perifÈrica, sÌsmicos e ac˙sticos especiais.</li>
+                           <li>ï MediÁ„o de quantidades e orÁamentaÁ„o (mapas de trabalhos).</li>
+                           <li>ï CorreÁ„o de projetos prÈ-existentes ou obras de urbanizaÁ„o.</li>
+                           <li>ï Ensaios, sondagens e peritagens.</li>
                         </ul>
                      </div>
                   </section>
@@ -528,8 +552,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                   <section className="mt-8 pt-8 border-t border-luxury-black/5 text-[11px]">
                      <h4 className="font-black uppercase tracking-widest mb-2">Formato de Entrega</h4>
                      <p className="font-light italic opacity-60">
-                        O processo ser√° entregue em formato digital (DWFX e PDF) e **2 exemplares em papel**.
-                        C√≥pias suplementares: 50‚Ç¨ + IVA / processo. Caso o custo de reprodu√ß√£o supere este valor, ser√° solicitada cota√ß√£o pr√©via.
+                        O processo ser· entregue em formato digital (DWFX e PDF) e **2 exemplares em papel**.
+                        CÛpias suplementares: 50Ä + IVA / processo. Caso o custo de reproduÁ„o supere este valor, ser· solicitada cotaÁ„o prÈvia.
                      </p>
                   </section>
 
@@ -572,7 +596,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            
                            <div className="w-full max-w-xl bg-luxury-gold/[0.05] rounded-2xl border border-luxury-gold/20 overflow-hidden">
                               <div className="grid grid-cols-[1fr_auto] bg-luxury-gold/10 text-[10px] uppercase font-black tracking-widest py-2 px-6 text-luxury-black/60">
-                                 <div>Servi√ßo / Pack</div>
+                                 <div>ServiÁo / Pack</div>
                                  <div className="text-right">Valor</div>
                               </div>
                               <div className="divide-y divide-luxury-black/5">
@@ -583,7 +607,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                           {extra.description && <span className="text-[10px] italic opacity-60 block">{extra.description}</span>}
                                        </div>
                                        <div className="font-mono font-bold text-luxury-black text-right flex items-center">
-                                          ‚Ç¨{extra.value.toLocaleString()} + IVA
+                                          Ä{extra.value.toLocaleString()} + IVA
                                        </div>
                                     </div>
                                  ))}
@@ -617,9 +641,9 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                               specLic = [{
                                  phase: {
                                     phaseNumber: 1,
-                                    labelPT: "Pagamento √önico",
+                                    labelPT: "Pagamento ⁄nico",
                                     labelEN: "Single Payment",
-                                    triggerPT: "Aquando da entrega para Submiss√£o",
+                                    triggerPT: "Aquando da entrega para Submiss„o",
                                     triggerEN: "Upon submission",
                                     percentage: 100,
                                     activatesPhases: [],
@@ -643,7 +667,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        {title}
                                        {isOptional && <span className="text-[9px] bg-black/5 px-2 py-0.5 rounded text-black/50">Opcional / Fase 2</span>}
                                     </h5>
-                                    <span className="font-mono font-bold text-sm">‚Ç¨{total.toLocaleString()} + IVA</span>
+                                    <span className="font-mono font-bold text-sm">Ä{total.toLocaleString()} + IVA</span>
                                  </div>
                                  <div className="space-y-2"> {/* Row Spacing */}
                                     {items.map((item, idx) => (
@@ -653,7 +677,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                              <span className="text-[10px] italic opacity-60 block">{item.phase.triggerPT}</span>
                                           </div>
                                           <div className="w-12 text-right opacity-50 font-mono">{item.phase.percentage}%</div>
-                                          <div className="font-mono font-bold text-black min-w-[80px] text-right">‚Ç¨{item.value.toLocaleString()}</div>
+                                          <div className="font-mono font-bold text-black min-w-[80px] text-right">Ä{item.value.toLocaleString()}</div>
                                        </div>
                                     ))}
                                  </div>
@@ -664,16 +688,16 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         return (
                            <div className="space-y-12">
                               {/* 1. ARQUITETURA - LICENCIAMENTO */}
-                              {renderTable("1. Licenciamento ‚Äî Arquitetura", archLic, archLic.reduce((a, b) => a + b.value, 0))}
+                              {renderTable("1. Licenciamento ó Arquitetura", archLic, archLic.reduce((a, b) => a + b.value, 0))}
 
                               {/* 2. ESPECIALIDADES - LICENCIAMENTO */}
-                              {renderTable("2. Licenciamento ‚Äî Especialidades", specLic, specLic.reduce((a, b) => a + b.value, 0))}
+                              {renderTable("2. Licenciamento ó Especialidades", specLic, specLic.reduce((a, b) => a + b.value, 0))}
 
-                              {/* 3. ARQUITETURA - EXECU√á√ÉO */}
-                              {renderTable("3. Execu√ß√£o ‚Äî Arquitetura", archExec, archExec.reduce((a, b) => a + b.value, 0), true)}
+                              {/* 3. ARQUITETURA - EXECU«√O */}
+                              {renderTable("3. ExecuÁ„o ó Arquitetura", archExec, archExec.reduce((a, b) => a + b.value, 0), true)}
 
-                              {/* 4. ESPECIALIDADES - EXECU√á√ÉO */}
-                              {renderTable("4. Execu√ß√£o ‚Äî Especialidades", specExec, specExec.reduce((a, b) => a + b.value, 0), true)}
+                              {/* 4. ESPECIALIDADES - EXECU«√O */}
+                              {renderTable("4. ExecuÁ„o ó Especialidades", specExec, specExec.reduce((a, b) => a + b.value, 0), true)}
                            </div>
                         );
                      })()}
@@ -682,7 +706,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
                   {/* 8. Call to Action */}
                   <section className="pt-12 border-t border-luxury-black/5">
-                     <div className="flex flex-col items-center py-10 bg-white border border-luxury-black text-luxury-black rounded-[3rem] space-y-6 shadow-sm">
+                     <div className="flex flex-col items-center py-10 bg-white border border-luxury-black text-luxury-black rounded-2xl space-y-6 shadow-sm">
                         <p className="text-[11px] font-black uppercase tracking-[0.3em]">Instrucoes de Adjudicacao</p>
                         <p className="text-xs font-light italic max-w-md text-center opacity-60">Para avancar, confirme por escrito a adjudicacao e proceda ao pagamento do sinal de processamento indicado nas condicoes financeiras.</p>
                         <div className="flex items-center gap-4 text-xs font-black uppercase tracking-widest border border-luxury-black/20 px-8 py-3 rounded-full">
@@ -691,7 +715,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         </div>
                      </div>
                      <p className="text-[10px] text-center mt-6 italic opacity-40">
-                        ‚ÄúA presente proposta reflete uma abordagem tecnica responsavel, orientada para a reducao de risco, controlo de custos e fluidez do processo ate a aprovacao.‚Äù
+                        ìA presente proposta reflete uma abordagem tecnica responsavel, orientada para a reducao de risco, controlo de custos e fluidez do processo ate a aprovacao.î
                      </p>
                   </section>
                </div>
@@ -700,7 +724,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
             {/* PAGINA 2: COMPARACAO (NOVO) */}
             {
                data.comparisonData && data.comparisonData.length > 0 && (
-                  <div className="page-break p-8 md:p-24" style={{ pageBreakBefore: 'always', minHeight: '1100px', display: 'block' }}>
+                  <div className="page-break-before-always p-8 md:p-8" style={{ minHeight: '1100px', display: 'block' }}>
                      <header className="flex justify-between items-start border-b border-luxury-black pb-8 mb-12">
                         <h3 className="text-xs font-black uppercase tracking-[0.3em]">Opcoes de Investimento</h3>
                         <p className="text-[11px] font-mono opacity-50">REF: {data.internalRef} / COMPARATIVO</p>
@@ -712,7 +736,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            const isSelected = data.scenario === item.scenario;
 
                            return (
-                              <div key={idx} className={`p-5 rounded-[2rem] border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
+                              <div key={idx} className={`p-5 rounded-xl border ${isSelected ? 'border-luxury-gold bg-luxury-gold/[0.05]' : 'border-luxury-black/10'}`}>
                                  <h4 className="text-xs font-black uppercase tracking-widest mb-3 flex items-center gap-2">
                                     {item.pack?.labelPT || item.scenario}
                                  </h4>
@@ -726,8 +750,8 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  )}
 
                                  <div className="mb-6">
-                                    <p className="text-2xl font-serif">‚Ç¨{item.result.feeTotal.toLocaleString()} + IVA</p>
-                                    <p className="text-[10px] font-mono opacity-50">(‚Ç¨{Math.round(item.result.feeTotal / (data.area || 1))} /m¬≤ + IVA)</p>
+                                    <p className="text-2xl font-serif">Ä{item.result.feeTotal.toLocaleString()} + IVA</p>
+                                    <p className="text-[10px] font-mono opacity-50">(Ä{Math.round(item.result.feeTotal / (data.area || 1))} /m≤ + IVA)</p>
                                  </div>
 
                                  {/* Breakdown Mini-Matrix */}
@@ -735,18 +759,18 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                     <div className="flex justify-between items-end gap-2 text-[10px] bg-black/[0.02] px-4 py-2 rounded-lg border border-black/5">
                                        <div className="space-y-0.5">
                                           <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ARQ.</span>
-                                          <span className="font-bold block">‚Ç¨{(item.result.feeArch || 0).toLocaleString()} + IVA</span>
+                                          <span className="font-bold block">Ä{(item.result.feeArch || 0).toLocaleString()} + IVA</span>
                                        </div>
                                        <div className="space-y-0.5 text-right">
                                           <span className="block uppercase font-black opacity-40 text-[8px] tracking-tight">ENG.</span>
-                                          <span className="font-bold block">‚Ç¨{(item.result.feeSpec || 0).toLocaleString()} + IVA</span>
+                                          <span className="font-bold block">Ä{(item.result.feeSpec || 0).toLocaleString()} + IVA</span>
                                        </div>
                                     </div>
                                     <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-2 rounded-lg border border-luxury-gold/20">
                                        <div className="space-y-0.5">
                                           <span className="block uppercase font-black opacity-60 text-luxury-gold text-[8px] tracking-tight">LIC.</span>
                                           <span className="font-bold text-luxury-black/80 block">
-                                             ‚Ç¨{(
+                                             Ä{(
                                                 (item.result.phasesBreakdown || [])
                                                    .filter(p => ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)))
                                                    .reduce((acc, p) => acc + (p.value || 0), 0)
@@ -756,7 +780,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        <div className="space-y-0.5 text-right">
                                           <span className="block uppercase font-black opacity-60 text-luxury-gold text-[8px] tracking-tight">EXEC.</span>
                                           <span className="font-bold text-luxury-black/80 block">
-                                             ‚Ç¨{(
+                                             Ä{(
                                                 (item.result.phasesBreakdown || [])
                                                    .filter(p => ['A3', 'A4'].some(id => p.phaseId.startsWith(id)))
                                                    .reduce((acc, p) => acc + (p.value || 0), 0)
@@ -772,7 +796,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                        <ul className="space-y-2">
                                           {item.pack?.deliverablesPT?.slice(0, 5).map((d: string, i: number) => (
                                              <li key={i} className="text-[10px] font-light leading-tight opacity-70 flex items-start gap-2">
-                                                <span className="text-luxury-gold mt-1">‚óè</span> {d}
+                                                <span className="text-luxury-gold mt-1">?</span> {d}
                                              </li>
                                           ))}
                                        </ul>
@@ -800,7 +824,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
             {/* QUEBRA DE PAGINA PARA ANEXO TECNICO */}
             {
                includeAnnex && (
-                  <div className="page-break p-8 md:p-24" style={{ pageBreakBefore: 'always', marginTop: '4rem' }}>
+                  <div className="page-break-before-always p-8 md:p-8" style={{ marginTop: '4rem' }}>
                      <header className="flex justify-between items-start border-b border-luxury-black pb-8 mb-16">
                         <h3 className="text-xs font-black uppercase tracking-[0.3em]">Anexo Tecnico de Validacao</h3>
                         <p className="text-[11px] font-mono opacity-50">REF: {data.internalRef} / ANEXO</p>
@@ -810,9 +834,9 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         {/* Memoria Descritiva das Fases */}
                         <section className="space-y-8">
                            <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-8">1. Detalhe do Ambito por Fase</h3>
-                           <div className="grid grid-cols-1 gap-12">
+                           <div className="grid grid-cols-1 gap-6">
                               {(data.phases || []).map((p, i) => {
-                                 // Mapeamento de descri√ß√µes expandidas por fase
+                                 // Mapeamento de descriÁıes expandidas por fase
                                  const phaseDetails: Record<string, { deliverables: string[], processes: string[], result: string }> = {
                                     'A0': {
                                        deliverables: [
@@ -882,7 +906,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                            'Otimizacao de custos e alternativas tecnicas',
                                            'Revisao tecnica por coordenador de projeto'
                                         ],
-                                        result: 'Projeto de Execu√ß√£o (Opcional): Documenta√ß√£o t√©cnica de alta precis√£o para constru√ß√£o, permitindo or√ßamenta√ß√£o rigorosa e controlo de obra.'
+                                        result: 'Projeto de ExecuÁ„o (Opcional): DocumentaÁ„o tÈcnica de alta precis„o para construÁ„o, permitindo orÁamentaÁ„o rigorosa e controlo de obra.'
                                      },
                                      'A4': {
                                         deliverables: [
@@ -900,7 +924,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                            'Validacao de materiais e fornecedores',
                                            'Suporte tecnico remoto (email/telefone)'
                                         ],
-                                        result: 'Assist√™ncia T√©cnica (Opcional): Acompanhamento da execu√ß√£o rigorosa do projeto em obra, reduzindo erros de constru√ß√£o e varia√ß√µes de custo.'
+                                        result: 'AssistÍncia TÈcnica (Opcional): Acompanhamento da execuÁ„o rigorosa do projeto em obra, reduzindo erros de construÁ„o e variaÁıes de custo.'
                                      }
                                  };
 
@@ -922,11 +946,11 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                              <>
                                                 {/* Entregaveis */}
                                                 <div className="bg-luxury-black/[0.02] rounded-xl p-6 border border-luxury-black/5">
-                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-3">üì¶ Entregaveis</h5>
+                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-3">?? Entregaveis</h5>
                                                    <ul className="space-y-2">
                                                       {details.deliverables.map((item, idx) => (
                                                          <li key={idx} className="text-[11px] font-light leading-relaxed opacity-70 flex items-start gap-2">
-                                                            <span className="text-luxury-gold mt-0.5">‚Ä¢</span>
+                                                            <span className="text-luxury-gold mt-0.5">ï</span>
                                                             <span>{item}</span>
                                                          </li>
                                                       ))}
@@ -935,11 +959,11 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
                                                 {/* Processos */}
                                                 <div className="bg-luxury-black/[0.02] rounded-xl p-6 border border-luxury-black/5">
-                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-black/60 mb-3">‚öôÔ∏è Processos</h5>
+                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-black/60 mb-3">?? Processos</h5>
                                                    <ul className="space-y-2">
                                                       {details.processes.map((item, idx) => (
                                                          <li key={idx} className="text-[11px] font-light leading-relaxed opacity-70 flex items-start gap-2">
-                                                            <span className="text-luxury-black/40 mt-0.5">‚ñ∏</span>
+                                                            <span className="text-luxury-black/40 mt-0.5">?</span>
                                                             <span>{item}</span>
                                                          </li>
                                                       ))}
@@ -948,7 +972,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
 
                                                 {/* Resultado Final */}
                                                 <div className="border-l-2 border-luxury-gold pl-4">
-                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-2">‚úÖ Resultado Final</h5>
+                                                   <h5 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-2">? Resultado Final</h5>
                                                    <p className="text-[11px] font-light italic opacity-70 leading-relaxed">{details.result}</p>
                                                 </div>
                                              </>
@@ -970,7 +994,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  return (
                                     <div key={i} className="flex gap-2 items-center">
                                        <div className={`w-1 h-1 rounded-full ${isExempt ? 'bg-emerald-500' : 'bg-luxury-gold'}`}></div>
-                                       <span>{spec?.labelPT || specId} {isExempt ? '(Isen√ß√£o)' : ''}</span>
+                                       <span>{spec?.labelPT || specId} {isExempt ? '(IsenÁ„o)' : ''}</span>
                                     </div>
                                  );
                               })}
@@ -979,7 +1003,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                            {(data.templateName.toLowerCase().includes('legaliza') || data.templateName.toLowerCase().includes('simplex')) && (
                               <div className="mt-4 p-4 bg-red-50 border-l-2 border-red-400">
                                  <p className="text-[10px] text-red-800 leading-relaxed">
-                                    <strong>Nota de Salvaguarda (Legaliza√ß√£o/Simplex):</strong> A aceita√ß√£o de Termos de Isen√ß√£o √© uma prerrogativa da Entidade Licenciadora (C√¢mara Municipal). Caso os servi√ßos t√©cnicos municipais entendam pela necessidade de apresenta√ß√£o de termos adicionais ou projetos completos de especialidades n√£o or√ßamentados inicialmente, os mesmos ser√£o objeto de proposta suplementar.
+                                    <strong>Nota de Salvaguarda (LegalizaÁ„o/Simplex):</strong> A aceitaÁ„o de Termos de IsenÁ„o È uma prerrogativa da Entidade Licenciadora (C‚mara Municipal). Caso os serviÁos tÈcnicos municipais entendam pela necessidade de apresentaÁ„o de termos adicionais ou projetos completos de especialidades n„o orÁamentados inicialmente, os mesmos ser„o objeto de proposta suplementar.
                                  </p>
                               </div>
                            )}
@@ -1014,42 +1038,42 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                         </section>
 
                         {/* Notas Finais / Condicoes */}
-                        <section className="grid grid-cols-1 md:grid-cols-2 gap-16 text-[11px]">
+                        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 text-[11px]">
                            <div className="space-y-4">
                               <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">4. Faturacao e Pagamentos</h4>
                               <ul className="space-y-2 text-[11px] font-light italic opacity-60">
                                  <li>Adjudicacao: 20% do valor global de honorarios.</li>
-                                 <li>Restantes 80%: Na entrega dos projetos √†s especialidades.</li>
-                                 <li>Fases de Execu√ß√£o (Opcionais): Facturadas apenas ap√≥s adjudica√ß√£o expressa p√≥s-licenciamento.</li>
-                                 <li>Pagamento: 2 a 3 dias √∫teis ap√≥s a conclus√£o da entrega.</li>
-                                 <li>Valores apresentados acrescem IVA √† taxa legal.</li>
+                                 <li>Restantes 80%: Na entrega dos projetos ‡s especialidades.</li>
+                                 <li>Fases de ExecuÁ„o (Opcionais): Facturadas apenas apÛs adjudicaÁ„o expressa pÛs-licenciamento.</li>
+                                 <li>Pagamento: 2 a 3 dias ˙teis apÛs a conclus„o da entrega.</li>
+                                 <li>Valores apresentados acrescem IVA ‡ taxa legal.</li>
                               </ul>
                            </div>
                            <div className="space-y-4">
                               <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2">5. Condicoes Gerais</h4>
                               <p className="text-[11px] font-light italic opacity-60 leading-relaxed">
-                                 A Ferreira Arquitetos reserva o <b>Direito de Autor</b>. Ap√≥s aprova√ß√£o do Estudo Pr√©vio, qualquer altera√ß√£o substancial ao projeto inicial ser√° devidamente or√ßamentada.
-                                 A proposta inclui submiss√£o RJUE (DL 10/2024). A transi√ß√£o para a fase de execu√ß√£o √© independente e opcional.
+                                 A Ferreira Arquitetos reserva o <b>Direito de Autor</b>. ApÛs aprovaÁ„o do Estudo PrÈvio, qualquer alteraÁ„o substancial ao projeto inicial ser· devidamente orÁamentada.
+                                 A proposta inclui submiss„o RJUE (DL 10/2024). A transiÁ„o para a fase de execuÁ„o È independente e opcional.
                               </p>
                            </div>
                         </section>
 
                         {/* NOVO: ITENS 6 E 7 */}
-                        <section className="grid grid-cols-1 md:grid-cols-2 gap-16 text-[11px]">
+                        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 text-[11px]">
                            <div className="space-y-4">
                               <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">6. Prazos e Entregas</h4>
                               <p className="text-[11px] font-light italic opacity-60 leading-relaxed">
-                                 Os prazos indicados referem-se √† produ√ß√£o t√©cnica interna. Atrasos decorrentes de aprova√ß√µes camararias ou decis√µes de terceiros n√£o s√£o imput√°veis √† Ferreira Arquitetos. 
-                                 O processo ser√° entregue em formato digital (DWFX e PDF) e 2 exemplares em papel. C√≥pias suplementares: 50‚Ç¨ + IVA / processo. Caso o custo de reprodu√ß√£o supere este valor, ser√° solicitada cota√ß√£o pr√©via.
+                                 Os prazos indicados referem-se ‡ produÁ„o tÈcnica interna. Atrasos decorrentes de aprovaÁıes camararias ou decisıes de terceiros n„o s„o imput·veis ‡ Ferreira Arquitetos. 
+                                 O processo ser· entregue em formato digital (DWFX e PDF) e 2 exemplares em papel. CÛpias suplementares: 50Ä + IVA / processo. Caso o custo de reproduÁ„o supere este valor, ser· solicitada cotaÁ„o prÈvia.
                               </p>
                            </div>
                            <div className="space-y-4">
-                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">7. Exclus√µes e Responsabilidades</h4>
+                              <h4 className="font-black uppercase tracking-widest border-b border-luxury-black/5 pb-2 text-luxury-gold">7. Exclusıes e Responsabilidades</h4>
                               <ul className="space-y-1 text-[10px] font-light italic opacity-50">
-                                 <li>‚Ä¢ Taxas de licenciamento e emolumentos municipais.</li>
-                                 <li>‚Ä¢ Levantamentos topogr√°ficos e ensaios de solo.</li>
-                                 <li>‚Ä¢ Qualquer servi√ßo n√£o discriminado expressamente neste anexo.</li>
-                                 <li>‚Ä¢ Maquetes f√≠sicas ou impress√µes em grande formato al√©m do estipulado.</li>
+                                 <li>ï Taxas de licenciamento e emolumentos municipais.</li>
+                                 <li>ï Levantamentos topogr·ficos e ensaios de solo.</li>
+                                 <li>ï Qualquer serviÁo n„o discriminado expressamente neste anexo.</li>
+                                 <li>ï Maquetes fÌsicas ou impressıes em grande formato alÈm do estipulado.</li>
                               </ul>
                            </div>
                         </section>
@@ -1061,7 +1085,7 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
             {/* Anexo Tecnico (Passo 9) */}
             {
                includeAnnex && (
-                  <div className="mt-20 pt-10 border-t border-black/10 page-break pb-10 p-8 md:p-24">
+                  <div className="mt-20 pt-10 border-t border-black/10 page-break pb-10 p-8 md:p-8">
                      <h3 className="text-xl font-serif italic mb-6">III. Ambito Tecnico por Especialidade</h3>
                      <p className="text-[11px] opacity-60 mb-8 italic uppercase tracking-widest leading-relaxed">
                         Detalhamento dos servicos de engenharia integrados na proposta,
@@ -1080,21 +1104,21 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                                  <div className="flex items-center gap-3">
                                     <div className={`w-1.5 h-1.5 rounded-full ${isExempt ? 'bg-emerald-500' : 'bg-black'}`}></div>
                                     <h4 className="text-xs font-bold uppercase tracking-widest">
-                                       {spec.labelPT} {isExempt && <span className="text-emerald-600 ml-2 font-black">(TERMO DE ISEN√á√ÉO)</span>}
+                                       {spec.labelPT} {isExempt && <span className="text-emerald-600 ml-2 font-black">(TERMO DE ISEN«√O)</span>}
                                     </h4>
                                  </div>
                                  <div className="grid grid-cols-1 gap-4 ml-4">
                                     {isExempt ? (
                                        <div className="space-y-1">
                                           <p className="text-[11px] font-light italic leading-relaxed opacity-60">
-                                             Emiss√£o de Termo de Responsabilidade t√©cnico atestando a isen√ß√£o de projeto para a presente disciplina, em conformidade com o regime Simplex Urban√≠stico. Inclui a verifica√ß√£o de pressupostos e conformidade normativa b√°sica.
+                                             Emiss„o de Termo de Responsabilidade tÈcnico atestando a isenÁ„o de projeto para a presente disciplina, em conformidade com o regime Simplex UrbanÌstico. Inclui a verificaÁ„o de pressupostos e conformidade normativa b·sica.
                                           </p>
                                        </div>
                                     ) : (
                                        spec.phases?.map((ph) => (
                                           <div key={ph.phaseId} className="space-y-1">
                                              <p className="text-[10px] font-bold uppercase opacity-80">
-                                                {ph.phaseId} ‚Äî {ph.labelPT}
+                                                {ph.phaseId} ó {ph.labelPT}
                                              </p>
                                              <p className="text-[11px] font-light italic leading-relaxed opacity-60">
                                                 {ph.shortPT}
@@ -1119,11 +1143,11 @@ export default function ProposalDocument({ data, includeAnnex }: ProposalDocumen
                   <p className="text-xs font-black uppercase tracking-[0.3em] opacity-50">Jose Miguel Rebelo Ferreira, Arquitetos</p>
                </div>
                <div className="text-right text-[10px] opacity-50 font-light italic">
-                  FERREIRARQUITETOS ‚Ä¢ Aveiro ‚Ä¢ https://ferreira-arquitetos.pt/
+                  FERREIRARQUITETOS ï Aveiro ï https://ferreira-arquitetos.pt/
                </div>
             </footer>
 
-            {/* P√°g. Final: CONTRA-CAPA */}
+            {/* P·g. Final: CONTRA-CAPA */}
             <div className="w-full h-[1123px] relative page-break-before-always p-0 bg-white flex flex-col items-center justify-center">
                <div className="w-[90%] h-[90%] relative overflow-hidden">
                   <img src="/assets/cover-back.jpg" alt="Contra-Capa" className="w-full h-full object-contain" />

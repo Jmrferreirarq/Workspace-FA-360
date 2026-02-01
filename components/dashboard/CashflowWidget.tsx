@@ -1,4 +1,4 @@
-ï»¿import React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatEur } from '../../utils/vat';
 import { useLanguage } from '../../context/LanguageContext';
@@ -25,7 +25,7 @@ export default function CashflowWidget({ data }: CashflowProps) {
           onClick={() => navigate('/financial')}
           className="text-[11px] font-black uppercase tracking-[0.25em] text-luxury-charcoal/50 dark:text-white/50 hover:text-luxury-charcoal dark:hover:text-white transition-all"
         >
-          {t('view_all')} aâ€ â€™
+          {t('view_all')} a†’
         </button>
       </div>
 
@@ -34,7 +34,7 @@ export default function CashflowWidget({ data }: CashflowProps) {
           {formatEur(data.next7Net || 0)}
         </div>
         <div className="mt-2 text-[9px] sm:text-[10px] text-luxury-charcoal/30 dark:text-white/30 font-black uppercase tracking-[0.2em] sm:tracking-[0.35em]">
-          NET â€¢ + IVA Ã€ {data.vatRateHint || 'taxa legal'}
+          NET • + IVA À {data.vatRateHint || 'taxa legal'}
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-Ôªøimport React from 'react';
+import React from 'react';
 import SpotlightCard from '../ui/SpotlightCard';
 
 const Row = ({ label, data }: { label: string; data: any }) => {
@@ -37,9 +37,9 @@ const Row = ({ label, data }: { label: string; data: any }) => {
 
       <div className="mt-3 text-xs text-white/35 italic">
         {data.status === 'over'
-          ? 'Acima do alvo a‚Ç¨‚Äù risco de sobrecarga.'
+          ? 'Acima do alvo aÄî risco de sobrecarga.'
           : data.status === 'low'
-          ? 'Abaixo do alvo a‚Ç¨‚Äù pode haver capacidade livre.'
+          ? 'Abaixo do alvo aÄî pode haver capacidade livre.'
           : 'Dentro do alvo semanal.'}
       </div>
     </div>
@@ -51,19 +51,19 @@ export const HoursWeekCard: React.FC<{ data: any; onOpen?: () => void }> = ({ da
     <SpotlightCard className="p-8 rounded-[0.5rem] bg-white/[0.02] border-white/5 h-full">
       <div className="flex items-center justify-between mb-6">
         <div className="text-[10px] font-black uppercase tracking-[0.45em] text-white/20">
-          PRODUA‚Ä°A∆íO a‚Ç¨¬¢ HORAS (SEMANA)
+          PRODUAáAÉO aÄ¢ HORAS (SEMANA)
         </div>
         <button
           onClick={onOpen}
           className="text-[11px] font-black uppercase tracking-[0.25em] text-white/50 hover:text-white transition-colors"
         >
-          Detalhe a‚Ä†‚Äô
+          Detalhe aÜí
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Row label="CEO" data={data?.CEO || { hours: 0, target: 40, pct: 0, status: 'low' }} />
-        <Row label="JA‚Ä∞SSICA" data={data?.JESSICA || { hours: 0, target: 40, pct: 0, status: 'low' }} />
+        <Row label="JAâSSICA" data={data?.JESSICA || { hours: 0, target: 40, pct: 0, status: 'low' }} />
         <Row label="SOFIA" data={data?.SOFIA || { hours: 0, target: 40, pct: 0, status: 'low' }} />
       </div>
 

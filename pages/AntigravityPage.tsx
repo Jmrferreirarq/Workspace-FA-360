@@ -90,7 +90,7 @@ export default function AntigravityPage() {
         title={<>Anti<span className="text-luxury-gold drop-shadow-[0_0_50px_rgba(212,175,55,0.2)]">gravity.</span></>}
         statusIndicator={true}
         customStatus={
-          <div className="flex items-center gap-8 glass px-6 py-3 rounded-[2.5rem] border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/[0.02]">
+          <div className="flex items-center gap-8 glass px-6 py-3 rounded-xl border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/[0.02]">
              <div className="flex flex-col gap-1">
                 <span className="text-[9px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Neural Memory</span>
                 <div className="flex items-center gap-2">
@@ -111,7 +111,7 @@ export default function AntigravityPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-12">
           
-          <section className={`glass p-8 md:p-16 rounded-[2rem] border-luxury-gold/30 space-y-12 shadow-2xl relative overflow-hidden transition-all duration-1000 ${isBrainOnline ? 'bg-emerald-500/[0.03] border-emerald-500/40' : 'bg-luxury-gold/[0.02]'}`}>
+          <section className={`glass p-8 md:p-8 rounded-xl border-luxury-gold/30 space-y-12 shadow-strong relative overflow-hidden transition-all duration-1000 ${isBrainOnline ? 'bg-emerald-500/[0.03] border-emerald-500/40' : 'bg-luxury-gold/[0.02]'}`}>
              <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
                 <Brain size={300} className={isBrainOnline ? 'text-emerald-500' : 'text-luxury-gold'} />
              </div>
@@ -138,7 +138,7 @@ export default function AntigravityPage() {
              </div>
 
              <div className="space-y-6 relative z-10">
-                <div className={`flex gap-4 p-2 bg-black/5 dark:bg-black/40 rounded-[2.5rem] border transition-all ${isBrainOnline ? 'border-emerald-500/20' : 'border-luxury-gold/20'}`}>
+                <div className={`flex gap-4 p-2 bg-black/5 dark:bg-black/40 rounded-xl border transition-all ${isBrainOnline ? 'border-emerald-500/20' : 'border-luxury-gold/20'}`}>
                    <input 
                     value={brainHook}
                     disabled={isBrainOnline}
@@ -150,13 +150,13 @@ export default function AntigravityPage() {
                      <button 
                       onClick={handleBrainLink}
                       disabled={isLinkingBrain || !brainHook}
-                      className="px-12 py-5 bg-luxury-gold text-black rounded-[2rem] font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-2xl shadow-luxury-gold/30 flex items-center gap-3"
+                      className="px-12 py-5 bg-luxury-gold text-black rounded-xl font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-strong shadow-luxury-gold/30 flex items-center gap-3"
                      >
                        {isLinkingBrain ? <RefreshCw className="animate-spin" size={14}/> : <Zap size={14}/>} 
                        Initialize Link
                      </button>
                    ) : (
-                     <div className="px-12 py-5 bg-emerald-500/20 text-emerald-500 border border-emerald-500/30 rounded-[2rem] font-black text-[10px] uppercase tracking-widest flex items-center gap-3">
+                     <div className="px-12 py-5 bg-emerald-500/20 text-emerald-500 border border-emerald-500/30 rounded-xl font-black text-[10px] uppercase tracking-widest flex items-center gap-3">
                         <CheckCircle2 size={14}/> Node Verified
                      </div>
                    )}
@@ -165,7 +165,7 @@ export default function AntigravityPage() {
           </section>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-             <div className="glass p-8 rounded-[2rem] border-black/5 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] space-y-8">
+             <div className="glass p-8 rounded-xl border-black/5 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] space-y-8">
                 <div className="flex items-center gap-4">
                    <ShieldCheck className="text-luxury-gold" size={20} />
                    <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">Security Status</h3>
@@ -185,7 +185,7 @@ export default function AntigravityPage() {
                 </button>
              </div>
 
-             <div className="glass p-8 rounded-[2rem] border-black/5 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] space-y-8 flex flex-col justify-center items-center text-center">
+             <div className="glass p-8 rounded-xl border-black/5 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] space-y-8 flex flex-col justify-center items-center text-center">
                 <Database className="text-luxury-gold mb-4" size={40} />
                 <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">Memory Core</h3>
                 <p className="text-[10px] font-light text-luxury-charcoal/60 dark:text-white/60 uppercase tracking-widest leading-loose">
@@ -201,7 +201,7 @@ export default function AntigravityPage() {
         </div>
 
         <aside className="lg:col-span-4 space-y-8">
-           <div className="glass rounded-[2rem] border-black/5 dark:border-white/5 bg-black/5 dark:bg-black/90 shadow-2xl h-[600px] flex flex-col overflow-hidden">
+           <div className="glass rounded-xl border-black/5 dark:border-white/5 bg-black/5 dark:bg-black/90 shadow-strong h-[600px] flex flex-col overflow-hidden">
               <div className="p-6 border-b border-black/10 dark:border-white/10 flex justify-between bg-black/5 dark:bg-white/[0.02]">
                 <div className="flex items-center gap-3 text-luxury-gold">
                    <Terminal size={18} />

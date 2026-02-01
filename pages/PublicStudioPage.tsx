@@ -34,7 +34,7 @@ export default function PublicStudioPage() {
           <Motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="aspect-[4/5] rounded-[2rem] overflow-hidden"
+            className="aspect-[4/5] rounded-xl overflow-hidden"
           >
             <img src="https://images.unsplash.com/photo-1574950578143-858c6fc58922?auto=format&fit=crop&w=1200" alt="Studio" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
           </Motion.div>
@@ -79,7 +79,7 @@ function AboutStat({ num, label }: any) {
 function TeamMember({ name, role, img }: any) {
   return (
     <div className="space-y-6 group cursor-pointer">
-      <div className="aspect-square rounded-[3rem] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
+      <div className="aspect-square rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
         <img src={img} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
       </div>
       <div className="text-center">

@@ -1,4 +1,4 @@
-﻿
+
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { ShieldAlert, RefreshCw, Home } from 'lucide-react';
 
@@ -36,7 +36,7 @@ export class RescueNode extends React.Component<Props, State> {
     public render() {
         if (this.state.hasError) {
             return (
-                <div className="min-h-[400px] flex flex-col items-center justify-center p-8 glass rounded-[3rem] border-red-500/20 bg-red-500/[0.02] text-center space-y-8 animate-in fade-in">
+                <div className="min-h-[400px] flex flex-col items-center justify-center p-8 glass rounded-2xl border-red-500/20 bg-red-500/[0.02] text-center space-y-8 animate-in fade-in">
                     <div className="p-6 bg-red-500/10 rounded-full text-red-500 animate-pulse">
                         <ShieldAlert size={48} />
                     </div>
@@ -58,7 +58,7 @@ export class RescueNode extends React.Component<Props, State> {
                             onClick={() => window.location.hash = '#/'}
                             className="px-8 py-4 bg-white/5 border border-white/10 rounded-full text-[11px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-white/10 transition-all text-white"
                         >
-                            <Home size={14} /> Voltar ao InA­cio
+                            <Home size={14} /> Voltar ao InA�cio
                         </button>
                     </div>
                 </div>

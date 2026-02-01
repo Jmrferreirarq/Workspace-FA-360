@@ -1,4 +1,4 @@
-Ôªø
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -36,6 +36,7 @@ import { templates, disciplines, templateSpecialties, exclusionsPT, catalogExtra
 import { calculateFees } from '../services/feeCalculator';
 import { Complexity, Scenario } from '../types';
 import ProposalDocument from './ProposalDocument';
+import { generatePDF } from '../utils/generatePDF';
 import fa360 from '../services/fa360';
 import { geminiService } from '../services/geminiService';
 import { useLanguage } from '../context/LanguageContext';
@@ -60,43 +61,43 @@ interface UIPhase {
   value?: number;
 }
 
-// --- CONFIGURA√á√ÉO DE RESPONSABILIDADES (Mine vs Freelancer) ---
+// --- CONFIGURA«√O DE RESPONSABILIDADES (Mine vs Freelancer) ---
 const RESPONSIBILITY_CONFIG = {
   specs: {
     lic: {
-      mine: ['Conceito Art√≠stico', 'Dossier Licenciamento', 'Reuni√µes CM', 'Coord. Especialidades'],
+      mine: ['Conceito ArtÌstico', 'Dossier Licenciamento', 'Reuniıes CM', 'Coord. Especialidades'],
       free: []
     },
     exec: {
-      mine: ['Projeto de Execu√ß√£o', 'Pormenoriza√ß√£o T√©cnica', 'Mapa de Acabamentos'],
+      mine: ['Projeto de ExecuÁ„o', 'PormenorizaÁ„o TÈcnica', 'Mapa de Acabamentos'],
       free: []
     }
   },
   prod: {
     lic: {
-      mine: ['Conceito & Design', 'Dire√ß√£o Criativa', 'RP Cliente', 'TR Autor'],
-      free: ['Modela√ß√£o BIM/CAD', 'Pe√ßas Desenhadas', 'Dossier T√©cnico']
+      mine: ['Conceito & Design', 'DireÁ„o Criativa', 'RP Cliente', 'TR Autor'],
+      free: ['ModelaÁ„o BIM/CAD', 'PeÁas Desenhadas', 'Dossier TÈcnico']
     },
     exec: {
-      mine: ['Supervis√£o T√©cnica', 'Valida√ß√£o Detalhes'],
-      free: ['Pormenoriza√ß√£o BIM', 'Mapas de Quantidades']
+      mine: ['Supervis„o TÈcnica', 'ValidaÁ„o Detalhes'],
+      free: ['PormenorizaÁ„o BIM', 'Mapas de Quantidades']
     }
   },
   partner: {
     lic: {
-      mine: ['Gest√£o Comercial', 'Acompanhamento Estrat√©gico'],
+      mine: ['Gest„o Comercial', 'Acompanhamento EstratÈgico'],
       free: ['Desenvolvimento Integral', 'Licenciamento Completo', 'TR de Arquitetura']
     },
     exec: {
       mine: [],
-      free: ['Projeto de Execu√ß√£o Integral', 'Assist√™ncia T√©cnica √† Obra']
+      free: ['Projeto de ExecuÁ„o Integral', 'AssistÍncia TÈcnica ‡ Obra']
     }
   }
 };
 
 const SPEC_RESPONSIBILITY = {
-  mine: ['Compatibiliza√ß√£o', 'Valida√ß√£o de Interfaces'],
-  free: ['C√°lculos T√©cnicos', 'Dimensionamento', 'PE Especialidade']
+  mine: ['CompatibilizaÁ„o', 'ValidaÁ„o de Interfaces'],
+  free: ['C·lculos TÈcnicos', 'Dimensionamento', 'PE Especialidade']
 };
 
 export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
@@ -193,15 +194,15 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
     let prefix = 'Projeto';
     const tid = selectedTemplate;
 
-    if (tid === 'LEGAL' || tid === 'LEGAL_GENERAL') prefix = 'Legaliza√ß√£o';
+    if (tid === 'LEGAL' || tid === 'LEGAL_GENERAL') prefix = 'LegalizaÁ„o';
     else if (tid.includes('MORADIA')) prefix = 'Casa';
-    else if (tid === 'MULTIFAMILY') prefix = 'Edif√≠cio';
+    else if (tid === 'MULTIFAMILY') prefix = 'EdifÌcio';
     else if (tid === 'LOTEAMENTO') prefix = 'Loteamento';
     else if (tid === 'RESTAURANT') prefix = 'Restaurante';
     else if (tid === 'RETAIL_SHOP') prefix = 'Loja';
     else if (tid === 'OFFICE_HQ') prefix = 'Sede';
     else if (tid === 'TOURISM_RURAL') prefix = 'Turismo';
-    else if (tid === 'INDUSTRIAL') prefix = 'Instala√ß√£o';
+    else if (tid === 'INDUSTRIAL') prefix = 'InstalaÁ„o';
     else if (tid === 'INTERIOR_DESIGN') prefix = 'Interiores';
 
     // 3. Set Name
@@ -442,7 +443,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
       const run = await automationBridgeService.execute(currentResult?.automationPayload, level, 'CEO', htmlContent);
 
-      fa360.log(`AUTO: Execucao NA¬≠vel ${level} concluA¬≠da com sucesso. Projeto: ${run.createdIds.projectId}`);
+      fa360.log(`AUTO: Execucao NA≠vel ${level} concluA≠da com sucesso. Projeto: ${run.createdIds.projectId}`);
 
       // Delay for effect and then navigate
       setTimeout(() => {
@@ -483,7 +484,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
         return {
           label: e.label,
-          description: e.description + (dist > 0 && travelExtras.includes(e.id) ? ` (+${dist}km desloca√ß√£o)` : ''),
+          description: e.description + (dist > 0 && travelExtras.includes(e.id) ? ` (+${dist}km deslocaÁ„o)` : ''),
           value: val || 0 // Ensure no NaN
         };
       });
@@ -497,7 +498,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
       <div className="lg:col-span-7 space-y-8">
 
         {/* Bloco 1: Identidade da Proposta */}
-        <div className="glass p-10 md:p-14 rounded-[2rem] border-black/5 dark:border-white/5 space-y-10 shadow-2xl relative overflow-hidden bg-black/[0.01] dark:bg-white/[0.01]">
+        <div className="glass p-10 md:p-14 rounded-xl border-black/5 dark:border-white/5 space-y-10 shadow-strong relative overflow-hidden bg-black/[0.01] dark:bg-white/[0.01]">
           <header className="flex items-center gap-4 border-b border-black/5 dark:border-white/5 pb-6">
             <div className="p-3 bg-luxury-gold/10 text-luxury-gold rounded-2xl"><User size={20} /></div>
             <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">{t('calc_identity_title')}</h3>
@@ -539,7 +540,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Dist√¢ncia (Km)</label>
+                <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Dist‚ncia (Km)</label>
                 <div className="relative">
                   <span className="absolute left-5 top-1/2 -translate-y-1/2 text-luxury-gold opacity-60 text-xs font-black">KM</span>
                   <input
@@ -554,7 +555,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             </div>
 
             <div className="space-y-3">
-              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">Refer√™ncia Interna</label>
+              <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50 px-2">ReferÍncia Interna</label>
               <input
                 value={internalRef}
                 onChange={e => setInternalRef(e.target.value)}
@@ -585,14 +586,14 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         </div>
 
         {/* Bloco: Enquadramento (Digital Twin Parity) */}
-        <div className="glass p-8 md:p-10 rounded-[2rem] border-black/5 dark:border-white/5 space-y-4 shadow-sm relative overflow-hidden bg-black/[0.01] dark:bg-white/[0.01]">
+        <div className="glass p-8 md:p-10 rounded-xl border-black/5 dark:border-white/5 space-y-4 shadow-sm relative overflow-hidden bg-black/[0.01] dark:bg-white/[0.01]">
           <p className="text-xs font-light italic leading-relaxed opacity-60 text-luxury-charcoal dark:text-white text-justify">
             {t('calc_context_text')}
           </p>
         </div>
 
         {/* Bloco 2: Parametros Tecnicos */}
-        <div className="glass p-10 md:p-14 rounded-[2rem] space-y-12 shadow-2xl relative overflow-hidden">
+        <div className="glass p-10 md:p-14 rounded-xl space-y-12 shadow-strong relative overflow-hidden">
           <header className="flex justify-between items-center border-b border-black/5 dark:border-white/5 pb-8">
             <div className="flex gap-4 items-center">
               <div className="p-3 bg-luxury-gold/10 text-luxury-gold rounded-2xl"><Calculator size={20} /></div>
@@ -619,11 +620,11 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     key={m.id}
                     onClick={() => setSelectedScenario(m.id as Scenario)}
                     className={`
-                        p-6 rounded-[2rem] border text-left transition-all relative overflow-hidden group
+                        p-6 rounded-xl border text-left transition-all relative overflow-hidden group
                         ${isActive
-                        ? m.id === 'essential' ? 'bg-emerald-500/10 border-emerald-500/50 shadow-2xl' :
-                          m.id === 'standard' ? 'bg-blue-500/10 border-blue-500/50 shadow-2xl' :
-                            'bg-purple-500/10 border-purple-500/50 shadow-2xl'
+                        ? m.id === 'essential' ? 'bg-emerald-500/10 border-emerald-500/50 shadow-strong' :
+                          m.id === 'standard' ? 'bg-blue-500/10 border-blue-500/50 shadow-strong' :
+                            'bg-purple-500/10 border-purple-500/50 shadow-strong'
                         : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:border-luxury-gold/30 dark:hover:border-white/20'
                       }
                       `}
@@ -650,7 +651,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     {isActive && (
                       <motion.div
                         layoutId="mode-active"
-                        className={`absolute inset-0 border-2 rounded-[2rem] pointer-events-none ${m.id === 'essential' ? 'border-emerald-500/30' :
+                        className={`absolute inset-0 border-2 rounded-xl pointer-events-none ${m.id === 'essential' ? 'border-emerald-500/30' :
                           m.id === 'standard' ? 'border-blue-500/30' :
                             'border-purple-500/30'
                           }`}
@@ -692,7 +693,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       disabled={!selectedTemplate}
                       className={`w-24 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-2 py-1 text-right text-sm font-mono text-luxury-gold outline-none focus:border-luxury-gold transition-all ${!selectedTemplate ? 'opacity-30 cursor-not-allowed' : ''}`}
                     />
-                    <span className="text-xs font-black text-luxury-charcoal/40 dark:text-white/40">m¬≤</span>
+                    <span className="text-xs font-black text-luxury-charcoal/40 dark:text-white/40">m≤</span>
                     <button
                       onClick={() => setShowReverseCalc(true)}
                       className="p-2 hover:bg-luxury-gold/10 rounded-lg text-luxury-gold transition-colors group tooltip-trigger ml-1"
@@ -754,7 +755,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 {/* NEW: Fraction Support for PH */}
                 {(currentTemplate?.unitPricing?.unitKind) === 'FRACTION' && (
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">N.¬∫ de Fra√ß√µes</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">N.∫ de FraÁıes</label>
                     <input
                       type="number"
                       value={units.apartments} // Reusing 'apartments' as generic unit slot
@@ -793,7 +794,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 className="flex items-center gap-2 px-6 py-3 bg-luxury-gold/10 text-luxury-gold rounded-full hover:bg-luxury-gold hover:text-black transition-all disabled:opacity-30 disabled:cursor-not-allowed group"
               >
                 <StretchHorizontal size={16} />
-                <span className="text-xs font-black uppercase tracking-widest">Comparar Op√ß√µes</span>
+                <span className="text-xs font-black uppercase tracking-widest">Comparar OpÁıes</span>
               </button>
             </div>
           </div>
@@ -819,7 +820,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       >
                         <span className="text-xs font-black uppercase tracking-widest truncate block mb-1">{d.labelPT}</span>
                         <div className="flex justify-between items-center">
-                          {isReq && <span className="text-[7px] font-black uppercase opacity-60 italic">Obrigat√≥ria</span>}
+                          {isReq && <span className="text-[7px] font-black uppercase opacity-60 italic">ObrigatÛria</span>}
                           {isExempt && <span className="text-[7px] font-black uppercase bg-luxury-gold text-black px-1 rounded ml-auto">Isento</span>}
                         </div>
                       </button>
@@ -831,9 +832,9 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                             setExemptSpecs(prev => prev.includes(d.disciplineId) ? prev.filter(i => i !== d.disciplineId) : [...prev, d.disciplineId]);
                           }}
                           className={`absolute top-2 right-2 p-1.5 rounded-lg border text-[8px] font-black uppercase transition-all z-10 ${isExempt ? 'bg-luxury-gold text-black border-luxury-gold' : 'bg-white/10 text-white/40 border-white/5 hover:text-white hover:bg-white/20'}`}
-                          title="Alternar para Termo de Isen√ß√£o"
+                          title="Alternar para Termo de IsenÁ„o"
                         >
-                          Isen√ß√£o
+                          IsenÁ„o
                         </button>
                       )}
                     </div>
@@ -845,7 +846,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           {/* EXTRA SERVICES BLOCK */}
           <div className="space-y-8 pt-8 border-t border-black/5 dark:border-white/5">
             <div className="flex justify-between items-center px-2">
-              <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">Servi√ßos Complementares</h3>
+              <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">ServiÁos Complementares</h3>
               <span className="text-xs font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Opcionais</span>
             </div>
             <div className="space-y-4">
@@ -867,14 +868,14 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       <div className="text-right">
                          <span className="block text-xs font-mono font-bold text-luxury-gold">
                            {extra.type === 'fixed' 
-                             ? `‚Ç¨${extra.basePrice?.toLocaleString()}` 
+                             ? `Ä${extra.basePrice?.toLocaleString()}` 
                              : extra.type === 'quantity' 
-                               ? `‚Ç¨${extra.pricePerUnit?.toLocaleString()}/un`
-                               : `‚Ç¨${extra.pricePerM2?.toLocaleString()}/m¬≤`
+                               ? `Ä${extra.pricePerUnit?.toLocaleString()}/un`
+                               : `Ä${extra.pricePerM2?.toLocaleString()}/m≤`
                            }
                          </span>
                          {isActive && extra.type === 'area_based' && (
-                           <span className="text-[9px] opacity-50 block">Estimado: ‚Ç¨{((extra.pricePerM2 || 0) * (area || 0)).toLocaleString()}</span>
+                           <span className="text-[9px] opacity-50 block">Estimado: Ä{((extra.pricePerM2 || 0) * (area || 0)).toLocaleString()}</span>
                          )}
                       </div>
 
@@ -909,7 +910,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         </div>
 
         {/* Bloco 3: Memoria das Fases (Interface Live) */}
-        <div className="glass p-10 md:p-14 rounded-[2rem] space-y-10 shadow-2xl">
+        <div className="glass p-10 md:p-14 rounded-xl space-y-10 shadow-strong">
           <header className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-luxury-gold/20 text-luxury-gold rounded-2xl"><Box size={20} /></div>
@@ -929,7 +930,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   <tr className="bg-black/5 dark:bg-white/5 text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">
                     <th className="px-6 py-5 border-b border-black/5 dark:border-white/5">Fase</th>
                     <th className="px-6 py-5 border-b border-black/5 dark:border-white/5">Descritivo</th>
-                    <th className="px-6 py-5 border-b border-black/5 dark:border-white/5 text-center">Esfor√ßo</th>
+                    <th className="px-6 py-5 border-b border-black/5 dark:border-white/5 text-center">EsforÁo</th>
                     <th className="px-6 py-5 border-b border-black/5 dark:border-white/5 text-center">%</th>
                     <th className="px-6 py-5 border-b border-black/5 dark:border-white/5 text-right">Valor</th>
                   </tr>
@@ -963,9 +964,9 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                             </p>
                             {/* NEW: Scope Bullets (Derived from Phase ID) */}
                             <ul className="space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                               {p.phaseId.startsWith('A0') && ['Levantamento de Requisitos', 'An√°lise PDM/RJUE', 'Estudo de Viabilidade'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
-                               {p.phaseId.startsWith('A1') && ['Desenvolvimento Conceptual', 'Maquete 3D Volum√©trica', 'Refinamento da Solu√ß√£o'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
-                               {p.phaseId.startsWith('A2') && ['Pe√ßas Desenhadas 1:100', 'Coordena√ß√£o Especialidades', 'Submiss√£o Digital'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
+                               {p.phaseId.startsWith('A0') && ['Levantamento de Requisitos', 'An·lise PDM/RJUE', 'Estudo de Viabilidade'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
+                               {p.phaseId.startsWith('A1') && ['Desenvolvimento Conceptual', 'Maquete 3D VolumÈtrica', 'Refinamento da SoluÁ„o'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
+                               {p.phaseId.startsWith('A2') && ['PeÁas Desenhadas 1:100', 'CoordenaÁ„o Especialidades', 'Submiss„o Digital'].map((s, idx) => <li key={idx} className="text-[9px] text-luxury-gold/60 flex items-center gap-2"><div className="w-1 h-1 bg-luxury-gold/40 rounded-full" /> {s}</li>)}
                             </ul>
                           </td>
                           <td className="px-6 py-5 align-top text-center">
@@ -980,7 +981,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           </td>
                           <td className="px-6 py-5 align-top text-right">
                             <span className="text-xs font-mono font-bold text-luxury-charcoal dark:text-white">
-                              ‚Ç¨{p.value.toLocaleString()}
+                              Ä{p.value.toLocaleString()}
                             </span>
                           </td>
                         </tr>
@@ -1001,7 +1002,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           <td colSpan={5} className="px-6 py-3 bg-luxury-gold/5">
                             <div className="flex justify-between items-center">
                               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-luxury-gold/60">
-                                2. Projeto de Execu√ß√£o & Assist√™ncia (Total Estimado: 100%)
+                                2. Projeto de ExecuÁ„o & AssistÍncia (Total Estimado: 100%)
                               </span>
                               <span className="bg-luxury-gold/10 text-luxury-gold px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">Opcional</span>
                             </div>
@@ -1026,7 +1027,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                 {/* NEW: Scope Bullets */}
                                 <ul className="space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                    {p.phaseId.startsWith('A3') && ['Plantas de Acabamentos', 'Pormenores 1:20 / 1:10', 'Caderno de Encargos'].map((s, idx) => <li key={idx} className="text-[9px] text-white/40 flex items-center gap-2"><div className="w-1 h-1 bg-white/20 rounded-full" /> {s}</li>)}
-                                   {p.phaseId.startsWith('A4') && ['Assist√™ncia T√©cnica √† Obra', 'Valida√ß√£o de Materiais', 'Telas Finais'].map((s, idx) => <li key={idx} className="text-[9px] text-white/40 flex items-center gap-2"><div className="w-1 h-1 bg-white/20 rounded-full" /> {s}</li>)}
+                                   {p.phaseId.startsWith('A4') && ['AssistÍncia TÈcnica ‡ Obra', 'ValidaÁ„o de Materiais', 'Telas Finais'].map((s, idx) => <li key={idx} className="text-[9px] text-white/40 flex items-center gap-2"><div className="w-1 h-1 bg-white/20 rounded-full" /> {s}</li>)}
                                 </ul>
                               </td>
                               <td className="px-6 py-5 align-top text-center">
@@ -1041,7 +1042,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                               </td>
                               <td className="px-6 py-5 align-top text-right">
                                 <span className="text-xs font-mono font-bold text-luxury-charcoal/60 dark:text-white/60">
-                                  ‚Ç¨{p.value.toLocaleString()}
+                                  Ä{p.value.toLocaleString()}
                                 </span>
                               </td>
                             </tr>
@@ -1057,8 +1058,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         </div>
 
 
-        {/* Bloco 4: Condi√ß√µes & Exclus√µes (Digital Twin Parity) */}
-        <div className="glass p-10 md:p-14 rounded-[2rem] space-y-10 shadow-2xl relative overflow-hidden">
+        {/* Bloco 4: CondiÁıes & Exclusıes (Digital Twin Parity) */}
+        <div className="glass p-10 md:p-14 rounded-xl space-y-10 shadow-strong relative overflow-hidden">
           <header className="flex items-center gap-4">
             <div className="p-3 bg-black/5 dark:bg-white/5 text-luxury-gold rounded-2xl"><ShieldAlert size={20} /></div>
             <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">{t('calc_cond_excl')}</h3>
@@ -1070,21 +1071,21 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
               <h4 className="text-xs font-black uppercase tracking-widest border-b border-black/5 dark:border-white/5 pb-2 text-luxury-gold">{t('calc_scope_phase')} ({currentResult?.scenarioPack?.labelPT})</h4>
               <ul className="space-y-2 opacity-70 italic font-light text-[11px] text-luxury-charcoal dark:text-white">
                 {(currentResult?.scenarioPack?.deliverablesPT || []).map((del: string, i: number) => (
-                  <li key={i}>‚Ä¢ {del}</li>
+                  <li key={i}>ï {del}</li>
                 ))}
               </ul>
             </div>
 
-            {/* Exclu√µes do Cenario (Dynamic) */}
+            {/* Excluıes do Cenario (Dynamic) */}
             <div className="space-y-4">
               <h4 className="text-xs font-black uppercase tracking-widest border-b border-black/5 dark:border-white/5 pb-2 text-luxury-charcoal dark:text-white">{t('calc_excl_support')}</h4>
               <ul className="space-y-2 opacity-50 italic font-light text-[11px] text-luxury-charcoal dark:text-white">
                 {(currentResult?.scenarioPack?.exclusionsPT || []).length > 0
                   ? currentResult.scenarioPack.exclusionsPT.map((ex: string, i: number) => (
-                    <li key={i}>‚Ä¢ {ex}</li>
+                    <li key={i}>ï {ex}</li>
                   ))
                   : exclusionsPT.map((ex, i) => (
-                    <li key={i}>‚Ä¢ {ex}</li>
+                    <li key={i}>ï {ex}</li>
                   ))
                 }
               </ul>
@@ -1120,8 +1121,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         {/* PAINEL NORMAL COM RESULTADOS - UNLOCKED BY USER REQUEST */}
         {viewMode === 'summary' ? (
           <>
-            <div className="glass p-8 rounded-[2rem] border-luxury-gold/30 bg-luxury-gold/[0.04] space-y-12 shadow-2xl sticky top-32 overflow-hidden">
-              <div className="absolute top-0 right-0 p-16 opacity-[0.05] pointer-events-none">
+            <div className="glass p-8 rounded-xl border-luxury-gold/30 bg-luxury-gold/[0.04] space-y-12 shadow-strong sticky top-32 overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-[0.05] pointer-events-none">
                 <TrendingUp size={180} className="text-luxury-gold" />
               </div>
 
@@ -1146,14 +1147,14 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                            </div>
                            <div className="flex items-baseline gap-2">
                               <span className="text-5xl font-thin tracking-tighter text-luxury-charcoal dark:text-white">
-                                ‚Ç¨{licValue.toLocaleString()}
+                                Ä{licValue.toLocaleString()}
                               </span>
                               <div className="flex flex-col">
                                  <span className="text-[10px] font-black tracking-widest text-luxury-gold">+ IVA</span>
                                  <div className="flex items-center gap-4">
                                    {(currentResult?.deltaVsStandard?.net !== 0 && currentResult?.deltaVsStandard?.net !== undefined) && (
                                      <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg ${currentResult.deltaVsStandard.net > 0 ? 'bg-luxury-gold/20 text-luxury-gold' : 'bg-emerald-500/20 text-emerald-500'}`}>
-                                       {currentResult.deltaVsStandard.net > 0 ? '+' : ''}‚Ç¨{currentResult.deltaVsStandard.net.toLocaleString()} Œî Std
+                                       {currentResult.deltaVsStandard.net > 0 ? '+' : ''}Ä{currentResult.deltaVsStandard.net.toLocaleString()} ? Std
                                      </span>
                                    )}
                                    <div className="flex items-center gap-2">
@@ -1163,29 +1164,29 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                 </div>
                               </div>
                            </div>
-                           <p className="text-[10px] uppercase font-bold tracking-widest opacity-30 italic">Comprometimento T√©cnico Inicial</p>
+                           <p className="text-[10px] uppercase font-bold tracking-widest opacity-30 italic">Comprometimento TÈcnico Inicial</p>
                         </div>
 
                         {/* Execution Block */}
                         <div className="space-y-3 opacity-60 group">
                            <div className="flex items-center gap-3">
-                              <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">2. Execu√ß√£o (Opcional)</span>
+                              <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">2. ExecuÁ„o (Opcional)</span>
                               <div className="h-px flex-1 bg-black/10 dark:bg-white/10"></div>
                            </div>
                            <div className="flex items-baseline gap-2">
                               <span className="text-4xl font-thin tracking-tighter text-luxury-charcoal dark:text-white">
-                                ‚Ç¨{execValue.toLocaleString()}
+                                Ä{execValue.toLocaleString()}
                               </span>
                               <span className="text-[10px] font-black tracking-widest opacity-30">+ IVA</span>
                            </div>
-                           <p className="text-[10px] uppercase font-bold tracking-widest opacity-20 italic">Ativa√ß√£o sob Decis√£o Posterior</p>
+                           <p className="text-[10px] uppercase font-bold tracking-widest opacity-20 italic">AtivaÁ„o sob Decis„o Posterior</p>
                         </div>
                       </>
                     );
                   })()}
                 </div>
                 <p className="text-[11px] font-mono text-luxury-charcoal/60 dark:text-white/60 flex items-center gap-2">
-                  <Zap size={14} /> {t('calc_vat_legal')} (‚Ç¨{currentResult?.vat?.toLocaleString() || '0'})
+                  <Zap size={14} /> {t('calc_vat_legal')} (Ä{currentResult?.vat?.toLocaleString() || '0'})
                 </p>
 
 
@@ -1233,13 +1234,13 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                               Arquitetura
                             </div>
                             <div className="px-1 text-center font-mono opacity-80 flex items-center justify-center text-luxury-gold">
-                              ‚Ç¨{archLic.toLocaleString()}
+                              Ä{archLic.toLocaleString()}
                             </div>
                             <div className="px-1 text-center font-mono opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
-                              ‚Ç¨{archExec.toLocaleString()}
+                              Ä{archExec.toLocaleString()}
                             </div>
                             <div className="px-2 text-right font-bold flex items-center justify-end text-luxury-charcoal dark:text-white">
-                              ‚Ç¨{feeArch.toLocaleString()}
+                              Ä{feeArch.toLocaleString()}
                             </div>
                           </div>
 
@@ -1249,13 +1250,13 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                               Especialidades
                             </div>
                             <div className="px-1 text-center font-mono opacity-80 flex items-center justify-center text-luxury-gold">
-                              ‚Ç¨{specLic.toLocaleString()}
+                              Ä{specLic.toLocaleString()}
                             </div>
                             <div className="px-1 text-center font-mono opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
-                              ‚Ç¨{specExec.toLocaleString()}
+                              Ä{specExec.toLocaleString()}
                             </div>
                             <div className="px-2 text-right font-bold flex items-center justify-end text-luxury-charcoal dark:text-white">
-                              ‚Ç¨{feeSpec.toLocaleString()}
+                              Ä{feeSpec.toLocaleString()}
                             </div>
                           </div>
 
@@ -1263,13 +1264,13 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           <div className="grid grid-cols-4 py-2 bg-black/5 dark:bg-white/5 font-bold">
                             <div className="px-3 uppercase opacity-50 flex items-center text-luxury-charcoal dark:text-white">Total</div>
                             <div className="px-1 text-center text-luxury-gold flex items-center justify-center">
-                              ‚Ç¨{licValue.toLocaleString()}
+                              Ä{licValue.toLocaleString()}
                             </div>
                             <div className="px-1 text-center opacity-60 flex items-center justify-center text-luxury-charcoal dark:text-white">
-                              ‚Ç¨{execValue.toLocaleString()}
+                              Ä{execValue.toLocaleString()}
                             </div>
                             <div className="px-2 text-right flex items-center justify-end text-luxury-charcoal dark:text-white">
-                              ‚Ç¨{total.toLocaleString()}
+                              Ä{total.toLocaleString()}
                             </div>
                           </div>
                         </div>
@@ -1279,7 +1280,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   return null;
                 })()}
 
-                {/* Descontos & PolA¬≠tica Comercial */}
+                {/* Descontos & PolA≠tica Comercial */}
                 <div className="pt-8 border-t border-black/5 dark:border-white/5 space-y-6">
 
                   {/* Controlo de Role (Simulacao) */}
@@ -1387,7 +1388,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
               {/* Bloco de Justificacao Narrativa: "Porque este valor?" */}
               <div className="relative z-10 pt-4">
-                <div className="glass bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 rounded-[2rem] overflow-hidden">
+                <div className="glass bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 rounded-xl overflow-hidden">
                   <button
                     onClick={() => setShowJustification(!showJustification)}
                     className="w-full p-8 flex justify-between items-center hover:bg-black/5 dark:hover:bg-white/5 transition-all"
@@ -1448,7 +1449,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
               </div>
 
               {/* Radar Estrategico Evolution (Passo 8: Precision Tuning) */}
-              <div className="p-8 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] space-y-8 relative overflow-hidden group">
+              <div className="p-8 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl space-y-8 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-all">
                   <TrendingUp size={80} className="text-luxury-charcoal dark:text-white" />
                 </div>
@@ -1489,7 +1490,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     {area > 0 && currentResult?.feeTotal > 0 && (
                       <div className="flex items-center gap-2 pt-1">
                         <div className="px-2 py-1 bg-white/5 rounded text-[10px] uppercase font-mono tracking-widest text-luxury-gold/60 border border-white/5">
-                          ‚Ç¨{Math.round(currentResult.feeTotal / area).toLocaleString()} / m¬≤
+                          Ä{Math.round(currentResult.feeTotal / area).toLocaleString()} / m≤
                         </div>
                       </div>
                     )}
@@ -1522,18 +1523,18 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   </div>
                 </div>
 
-                {/* Alertas & Recomendacoes CrA¬≠ticas */}
+                {/* Alertas & Recomendacoes CrA≠ticas */}
                 {((currentResult?.strategic?.alerts?.length || 0) > 0 || (currentResult?.strategic?.recommendations?.length || 0) > 0) && (
                   <div className="pt-4 border-t border-white/5 space-y-4 relative z-10">
                     {currentResult?.strategic?.alerts?.map((alert, i) => (
                       <div key={`alert-${i}`} className="flex gap-3 items-start group/alert">
                         <div className={`mt-1 w-1.5 h-1.5 rounded-full shrink-0 ${alert.includes('BLOQUEIO') ? 'bg-red-500' :
-                          alert.includes('√∞≈∏≈°¬©') ? 'bg-purple-500' :
-                            alert.includes('a≈° √Ø¬∏¬è') ? 'bg-yellow-500' : 'bg-luxury-gold'
+                          alert.includes('üö©') ? 'bg-purple-500' :
+                            alert.includes('aö Ô∏è') ? 'bg-yellow-500' : 'bg-luxury-gold'
                           }`}></div>
                         <p className={`text-[11px] leading-relaxed italic ${alert.includes('BLOQUEIO') ? 'text-red-400 font-bold' :
-                          alert.includes('√∞≈∏≈°¬©') ? 'text-purple-400' :
-                            alert.includes('a≈° √Ø¬∏¬è') ? 'text-yellow-400' : 'opacity-60 text-white'
+                          alert.includes('üö©') ? 'text-purple-400' :
+                            alert.includes('aö Ô∏è') ? 'text-yellow-400' : 'opacity-60 text-white'
                           }`}>
                           {alert}
                         </p>
@@ -1557,7 +1558,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
               {/* Passo 3: Mapa de Esforco Tecnico */}
               <div className="relative z-10 pt-4">
-                <div className="glass bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 rounded-[2rem] p-10 space-y-8">
+                <div className="glass bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 rounded-xl p-10 space-y-8">
                   <header className="space-y-2">
                     <div className="flex items-center gap-3 text-luxury-gold">
                       <Clock size={16} />
@@ -1588,7 +1589,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           <td className="px-6 py-4 text-luxury-gold font-mono">
                             ~{currentResult?.effortMap?.reduce((acc: number, curr: { hours: number }) => acc + curr.hours, 0) || 0} h
                           </td>
-                          <td className="px-6 py-4 text-luxury-gold/40">a‚Ç¨‚Äù</td>
+                          <td className="px-6 py-4 text-luxury-gold/40">aÄî</td>
                         </tr>
                       </tbody>
                     </table>
@@ -1606,7 +1607,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       </div>
                     </div>
                     <p className="text-xs font-light italic opacity-40 leading-relaxed text-white">
-                      a‚Ç¨≈ìEsta estimativa reflete o esforco tecnico necessario para desenvolver o projeto de forma consistente, reduzir revisoes e garantir um processo fluido ate A  aprovacao e execucao.a‚Ç¨¬ù
+                      aÄúEsta estimativa reflete o esforco tecnico necessario para desenvolver o projeto de forma consistente, reduzir revisoes e garantir um processo fluido ate A  aprovacao e execucao.aÄù
                     </p>
                   </div>
                 </div>
@@ -1614,7 +1615,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
               {/* Passo 4: Opcoes de Adjudicacao / PDF */}
               <div className="space-y-6 relative z-10 pt-4">
-                <label className="text-xs font-black uppercase tracking-widest opacity-60 px-2 text-white text-white">Configuracoes de SaA¬≠da (PDF)</label>
+                <label className="text-xs font-black uppercase tracking-widest opacity-60 px-2 text-white text-white">Configuracoes de SaA≠da (PDF)</label>
                 <div className="flex gap-4">
                   <div className="flex-1 glass bg-white/5 p-6 rounded-2xl flex items-center justify-between border border-white/5 opacity-60">
                     <div className="flex items-center gap-3">
@@ -1644,8 +1645,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* NEW: Direct PDF Export Button */}
                   <button
-                    onClick={() => window.print()}
-                    className="col-span-1 md:col-span-2 py-7 bg-luxury-gold text-black rounded-[2.5rem] text-xs font-black uppercase tracking-widest hover:brightness-110 transition-all shadow-2xl flex items-center justify-center gap-4 group"
+                    onClick={() => generatePDF()}
+                    className="col-span-1 md:col-span-2 py-7 bg-luxury-gold text-black rounded-xl text-xs font-black uppercase tracking-widest hover:brightness-110 transition-all shadow-strong flex items-center justify-center gap-4 group"
                   >
                     <Download size={18} className="group-hover:translate-y-1 transition-transform" />
                     Exportar PDF Completo (com Comparador)
@@ -1653,15 +1654,15 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
                   <button
                     onClick={() => setViewMode('document')} // Changed to switch tab instead of modal
-                    className="col-span-1 md:col-span-2 py-7 bg-white text-black rounded-[2.5rem] text-xs font-black uppercase tracking-widest hover:bg-luxury-gold transition-all shadow-2xl flex items-center justify-center gap-4 group"
+                    className="col-span-1 md:col-span-2 py-7 bg-white text-black rounded-xl text-xs font-black uppercase tracking-widest hover:bg-luxury-gold transition-all shadow-strong flex items-center justify-center gap-4 group"
                   >
                     <Eye size={18} /> Visualizar & Validar Proposta
                   </button>
 
                   <button
-                    onClick={() => window.print()}
+                    onClick={() => generatePDF()}
                     disabled={false}
-                    className="py-5 bg-white/5 border border-white/10 text-white rounded-[2rem] text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 disabled:opacity-20 disabled:cursor-not-allowed group relative"
+                    className="py-5 bg-white/5 border border-white/10 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 disabled:opacity-20 disabled:cursor-not-allowed group relative"
                   >
                     <Clock size={16} className="text-luxury-gold" />
                     Imprimir / PDF
@@ -1720,7 +1721,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           <div class="w-full max-w-[900px]">
                             ${content}
                             <p style="text-align:center; font-family: sans-serif; font-size: 10px; opacity: 0.3; margin-top: 60px; text-transform: uppercase; letter-spacing: 2px;">
-                              Documento Estrategico Ferreira Arquitetos a‚Ç¨¬¢ e ? 2026
+                              Documento Estrategico Ferreira Arquitetos aÄ¢ e ? 2026
                             </p>
                           </div>
                         </body>
@@ -1730,7 +1731,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       }
                     }}
                     disabled={false}
-                    className="py-5 bg-white/5 border border-white/10 text-white rounded-[2rem] text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 disabled:opacity-20 disabled:cursor-not-allowed group relative"
+                    className="py-5 bg-white/5 border border-white/10 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 disabled:opacity-20 disabled:cursor-not-allowed group relative"
                   >
                     <Layout size={16} className="text-luxury-gold" />
                     Web-Proposal (HTML)
@@ -1741,7 +1742,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                       navigator.clipboard.writeText(`https://fa360.design/proposal/${internalRef}`);
                       alert("Link HTML copiado para o clipboard!");
                     }}
-                    className="py-5 bg-white/5 border border-white/10 text-white rounded-[2rem] text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3"
+                    className="py-5 bg-white/5 border border-white/10 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3"
                   >
                     <Layers size={16} className="text-luxury-gold" /> {t('calc_share_link')}
                   </button>
@@ -1765,7 +1766,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 <button
                   onClick={handlePropagate}
                   disabled={isPropagating}
-                  className="w-full py-6 bg-luxury-gold/10 border border-luxury-gold/30 text-luxury-gold rounded-[2rem] text-xs font-black uppercase tracking-widest hover:bg-luxury-gold hover:text-black transition-all flex items-center justify-center gap-4 disabled:opacity-20"
+                  className="w-full py-6 bg-luxury-gold/10 border border-luxury-gold/30 text-luxury-gold rounded-xl text-xs font-black uppercase tracking-widest hover:bg-luxury-gold hover:text-black transition-all flex items-center justify-center gap-4 disabled:opacity-20"
                 >
                   {isPropagating ? <Loader2 className="animate-spin" size={18} /> : <Brain size={18} />} {t('calc_propagate_antigravity')}
                 </button>
@@ -1801,7 +1802,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                         {/* FALLBACK IF NO FEE */}
                         {(!currentResult?.feeTotal || currentResult.feeTotal === 0) ? (
                            <div className="text-center opacity-50 py-4">
-                              <p className="text-[10px] text-white">Calcule um honor√°rio primeiro para ver a distribui√ß√£o.</p>
+                              <p className="text-[10px] text-white">Calcule um honor·rio primeiro para ver a distribuiÁ„o.</p>
                            </div>
                         ) : (
                           <>
@@ -1810,8 +1811,8 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                         </div>
                         
                         <header>
-                            <h4 className="text-xs font-black uppercase tracking-widest text-luxury-gold mb-1">Simulador Distribui√ß√£o</h4>
-                            <p className="text-[10px] italic opacity-50 text-white">C√°lculo de margem para subcontrata√ß√£o</p>
+                            <h4 className="text-xs font-black uppercase tracking-widest text-luxury-gold mb-1">Simulador DistribuiÁ„o</h4>
+                            <p className="text-[10px] italic opacity-50 text-white">C·lculo de margem para subcontrataÁ„o</p>
                         </header>
 
                         <div className="space-y-4">
@@ -1824,7 +1825,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                 <button 
                                     onClick={() => setMarginScenario('prod')}
                                     className={`py-2 text-[9px] font-bold uppercase rounded-lg transition-all ${marginScenario === 'prod' ? 'bg-luxury-gold text-black shadow-lg' : 'text-white/40 hover:text-white'}`}
-                                >Produ√ß√£o</button>
+                                >ProduÁ„o</button>
                                 <button 
                                     onClick={() => setMarginScenario('partner')}
                                     className={`py-2 text-[9px] font-bold uppercase rounded-lg transition-all ${marginScenario === 'partner' ? 'bg-luxury-gold text-black shadow-lg' : 'text-white/40 hover:text-white'}`}
@@ -1900,13 +1901,13 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                         <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex justify-between items-end">
                                             <div>
                                                 <p className="text-[9px] uppercase font-black tracking-widest opacity-40 text-white">Margem Potencial Total</p>
-                                                <p className="text-3xl font-mono text-luxury-gold pt-1">‚Ç¨{totalNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
-                                                <p className="text-[9px] text-white/30 italic">L√≠quido Global (Lic + Exec)</p>
+                                                <p className="text-3xl font-mono text-luxury-gold pt-1">Ä{totalNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                <p className="text-[9px] text-white/30 italic">LÌquido Global (Lic + Exec)</p>
                                             </div>
                                             <div className="text-right">
                                                  <p className="text-[9px] uppercase font-black tracking-widest opacity-40 text-white">Custo Externo Total</p>
-                                                 <p className="text-lg font-mono text-white/60">‚Ç¨{totalCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
-                                                 <p className="text-[9px] text-white/30 italic">Colabora√ß√£o & Especialidades</p>
+                                                 <p className="text-lg font-mono text-white/60">Ä{totalCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                 <p className="text-[9px] text-white/30 italic">ColaboraÁ„o & Especialidades</p>
                                             </div>
                                         </div>
 
@@ -1917,7 +1918,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                                 <span className="text-[10px] uppercase font-black tracking-widest text-green-400 flex items-center gap-2">
                                                     <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div> 1. Licenciamento
                                                 </span>
-                                                <span className="text-[10px] uppercase font-bold text-white/40">Fatura√ß√£o: ‚Ç¨{licTotal.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
+                                                <span className="text-[10px] uppercase font-bold text-white/40">FaturaÁ„o: Ä{licTotal.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
                                             </div>
                                             
                                             <div className="p-4 bg-gradient-to-br from-green-900/20 to-black rounded-2xl border border-green-500/20 grid grid-cols-2 gap-4 relative overflow-hidden">
@@ -1925,7 +1926,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                                  <div className="space-y-3">
                                                      <div>
                                                          <p className="text-[9px] uppercase font-bold text-green-400 opacity-70">A sua Margem</p>
-                                                         <p className="text-2xl font-mono text-white">‚Ç¨{licNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                         <p className="text-2xl font-mono text-white">Ä{licNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
                                                      </div>
                                                      <ul className="space-y-1 opacity-60">
                                                         {respLicMine.map((r, i) => <li key={i} className="text-[8px] text-white flex items-center gap-1"><div className="w-1 h-1 bg-green-400" /> {r}</li>)}
@@ -1937,7 +1938,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                                  <div className="space-y-3 text-right border-l border-white/10 pl-4">
                                                      <div>
                                                          <p className="text-[9px] uppercase font-bold text-red-300 opacity-50">Custos Colab.</p>
-                                                         <p className="text-xl font-mono text-white/60">‚Ç¨{licCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                         <p className="text-xl font-mono text-white/60">Ä{licCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
                                                      </div>
                                                      <ul className="space-y-1 opacity-40 inline-block text-left">
                                                         {respLicFree.map((r, i) => <li key={i} className="text-[8px] text-white flex items-center gap-1"><div className="w-1 h-1 bg-red-400/50" /> {r}</li>)}
@@ -1951,9 +1952,9 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                         <div className="space-y-2 opacity-60 hover:opacity-100 transition-opacity">
                                             <div className="flex justify-between items-center px-1">
                                                 <span className="text-[10px] uppercase font-black tracking-widest text-white/60 flex items-center gap-2">
-                                                    <div className="w-2 h-2 rounded-full border border-white/30"></div> 2. Execu√ß√£o
+                                                    <div className="w-2 h-2 rounded-full border border-white/30"></div> 2. ExecuÁ„o
                                                 </span>
-                                                <span className="text-[10px] uppercase font-bold text-white/30">Fatura√ß√£o: ‚Ç¨{execTotal.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
+                                                <span className="text-[10px] uppercase font-bold text-white/30">FaturaÁ„o: Ä{execTotal.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</span>
                                             </div>
                                             
                                             <div className="p-4 bg-white/5 rounded-2xl border border-white/5 grid grid-cols-2 gap-4">
@@ -1961,7 +1962,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                                  <div className="space-y-3">
                                                      <div>
                                                          <p className="text-[9px] uppercase font-bold text-white/50">A sua Margem</p>
-                                                         <p className="text-2xl font-mono text-white">‚Ç¨{execNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                         <p className="text-2xl font-mono text-white">Ä{execNet.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
                                                      </div>
                                                      <ul className="space-y-1 opacity-40">
                                                         {respExecMine.map((r, i) => <li key={i} className="text-[8px] text-white flex items-center gap-1"><div className="w-0.5 h-0.5 bg-white/50" /> {r}</li>)}
@@ -1972,7 +1973,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                                  <div className="space-y-3 text-right border-l border-white/10 pl-4">
                                                      <div>
                                                          <p className="text-[9px] uppercase font-bold text-white/30">Custos Colab.</p>
-                                                         <p className="text-xl font-mono text-white/40">‚Ç¨{execCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
+                                                         <p className="text-xl font-mono text-white/40">Ä{execCost.toLocaleString('pt-PT', { maximumFractionDigits: 0 })}</p>
                                                      </div>
                                                      <ul className="space-y-1 opacity-30 inline-block text-left">
                                                         {respExecFree.map((r, i) => <li key={i} className="text-[8px] text-white flex items-center gap-1"><div className="w-0.5 h-0.5 bg-white/30" /> {r}</li>)}
@@ -1994,7 +1995,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             {/* Painel de Avisos - Removed as per user request to remove blocks */}
           </>
         ) : viewMode === 'matrix' ? (
-          <div className="glass p-10 rounded-[2rem] bg-luxury-black/40 border-white/5 space-y-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+          <div className="glass p-10 rounded-xl bg-luxury-black/40 border-white/5 space-y-10 shadow-strong relative overflow-hidden backdrop-blur-xl">
             <header className="flex justify-between items-center relative z-10">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-luxury-gold/20 text-luxury-gold rounded-2xl">
@@ -2002,7 +2003,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 </div>
                 <div>
                   <h3 className="text-xl font-serif text-white">Matriz de Responsabilidades</h3>
-                  <p className="text-[10px] text-white/40 uppercase tracking-widest">Divis√£o Operacional: Arquitetura e Engenharia</p>
+                  <p className="text-[10px] text-white/40 uppercase tracking-widest">Divis„o Operacional: Arquitetura e Engenharia</p>
                 </div>
               </div>
               <div className="bg-luxury-gold/10 border border-luxury-gold/30 px-4 py-1.5 rounded-full">
@@ -2011,7 +2012,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             </header>
 
             <div className="space-y-8 relative z-10">
-              {['Licenciamento', 'Execu√ß√£o'].map((areaLabel) => {
+              {['Licenciamento', 'ExecuÁ„o'].map((areaLabel) => {
                 const isLic = areaLabel === 'Licenciamento';
                 const phases = currentResult?.phasesBreakdown?.filter(p => isLic ? ['A0', 'A1', 'A2'].some(id => p.phaseId.startsWith(id)) : ['A3', 'A4'].some(id => p.phaseId.startsWith(id))) || [];
                 
@@ -2030,7 +2031,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-3">
                               <p className="text-[9px] uppercase font-black text-luxury-gold tracking-widest flex items-center gap-2">
-                                <Building2 size={10} /> Ferreira Arq. (Coordina√ß√£o)
+                                <Building2 size={10} /> Ferreira Arq. (CoordinaÁ„o)
                               </p>
                               <ul className="space-y-2">
                                 {RESPONSIBILITY_CONFIG[marginScenario as keyof typeof RESPONSIBILITY_CONFIG][isLic ? 'lic' : 'exec'].mine.map((task, idx) => (
@@ -2039,12 +2040,12 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                     <span>{task}</span>
                                   </li>
                                 ))}
-                                {isLic && <li className="text-[11px] text-white/70 flex items-start gap-2"><Check size={12} className="text-luxury-gold/40 mt-0.5" /> <span>Coordena√ß√£o de Especialidades</span></li>}
+                                {isLic && <li className="text-[11px] text-white/70 flex items-start gap-2"><Check size={12} className="text-luxury-gold/40 mt-0.5" /> <span>CoordenaÁ„o de Especialidades</span></li>}
                               </ul>
                             </div>
                             <div className="space-y-3 opacity-60">
                               <p className="text-[9px] uppercase font-black text-white/40 tracking-widest flex items-center gap-2">
-                                <User size={10} /> Colaboradores / T√©cnicos
+                                <User size={10} /> Colaboradores / TÈcnicos
                               </p>
                               <ul className="space-y-2">
                                 {RESPONSIBILITY_CONFIG[marginScenario as keyof typeof RESPONSIBILITY_CONFIG][isLic ? 'lic' : 'exec'].free.map((task, idx) => (
@@ -2053,7 +2054,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                                     <span>{task}</span>
                                   </li>
                                 ))}
-                                {!isLic && <li className="text-[11px] text-white/50 flex items-start gap-2"><div className="w-1.5 h-1.5 border border-white/20 rounded-full mt-1 shrink-0" /> <span>Pe√ßas T√©cnicas de Especialidade</span></li>}
+                                {!isLic && <li className="text-[11px] text-white/50 flex items-start gap-2"><div className="w-1.5 h-1.5 border border-white/20 rounded-full mt-1 shrink-0" /> <span>PeÁas TÈcnicas de Especialidade</span></li>}
                               </ul>
                             </div>
                           </div>
@@ -2071,7 +2072,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   <div className="space-y-1">
                     <h5 className="text-[11px] font-black uppercase text-luxury-gold">Garantia de Qualidade Ferreira Arq.</h5>
                     <p className="text-[10px] text-white/60 leading-relaxed italic">
-                      "Independentemente do cen√°rio de subcontrata√ß√£o comercial, a Ferreira Arquitetos mant√©m a responsabilidade integral pela dire√ß√£o criativa, compatibiliza√ß√£o t√©cnica e interlocu√ß√£o com o cliente/entidades."
+                      "Independentemente do cen·rio de subcontrataÁ„o comercial, a Ferreira Arquitetos mantÈm a responsabilidade integral pela direÁ„o criativa, compatibilizaÁ„o tÈcnica e interlocuÁ„o com o cliente/entidades."
                     </p>
                   </div>
                </div>
@@ -2079,13 +2080,13 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
           </div>
         ) : (
           /* MODO DOCUMENTO (Live Preview) */
-          <div className="glass bg-white rounded-[2rem] shadow-2xl sticky top-32 overflow-hidden border border-black/5 min-h-[800px] flex flex-col">
+          <div className="glass bg-white rounded-xl shadow-strong sticky top-32 overflow-hidden border border-black/5 min-h-[800px] flex flex-col">
             <div className="p-4 border-b border-black/5 flex justify-between items-center bg-gray-50">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
                 <span className="text-[10px] font-black uppercase tracking-widest text-black/50">Live Preview</span>
               </div>
-              <button onClick={() => window.print()} className="p-2 hover:bg-black/5 rounded-full text-black/40 hover:text-black transition-colors">
+              <button onClick={() => generatePDF()} className="p-2 hover:bg-black/5 rounded-full text-black/40 hover:text-black transition-colors">
                 <Clock size={14} />
               </button>
             </div>
@@ -2137,16 +2138,16 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-black/80 backdrop-blur-md"
           >
-            <div className="w-full max-w-7xl bg-[#0f0f0f] border border-white/10 rounded-[2rem] overflow-hidden flex flex-col max-h-full shadow-2xl">
+            <div className="w-full max-w-7xl bg-[#0f0f0f] border border-white/10 rounded-xl overflow-hidden flex flex-col max-h-full shadow-strong">
               <div className="p-8 border-b border-white/5 flex justify-between items-center bg-black/40">
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 bg-luxury-gold/10 rounded-lg text-luxury-gold">
                       <StretchHorizontal size={20} />
                     </div>
-                    <h3 className="text-xl font-serif text-white">Comparador de Cen√°rios</h3>
+                    <h3 className="text-xl font-serif text-white">Comparador de Cen·rios</h3>
                   </div>
-                  <p className="text-xs text-white/40 uppercase tracking-widest pl-12">An√°lise Lado-a-Lado de Investimento e Valor</p>
+                  <p className="text-xs text-white/40 uppercase tracking-widest pl-12">An·lise Lado-a-Lado de Investimento e Valor</p>
                 </div>
                 <button onClick={() => setShowComparator(false)} className="p-2 hover:bg-white/10 rounded-full text-white/40 hover:text-white transition-all">
                   <X size={24} />
@@ -2193,17 +2194,17 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
                           <div className="space-y-1">
                             <div className="flex items-baseline gap-1">
-                              <span className="text-4xl font-serif">‚Ç¨{item.result.feeTotal}</span>
+                              <span className="text-4xl font-serif">Ä{item.result.feeTotal}</span>
                               <span className="text-xs text-white/40 font-light uppercase tracking-widest">s/IVA</span>
                             </div>
                             <p className="text-xs text-white/20 font-mono">
-                              {Math.round(item.result.feeTotal / (area || 1))} ‚Ç¨/m¬≤
+                              {Math.round(item.result.feeTotal / (area || 1))} Ä/m≤
                             </p>
                           </div>
                         </div>
 
                         <div className="space-y-4 flex-1">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">Entreg√°veis Inclu√≠dos</p>
+                          <p className="text-[10px] font-black uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">Entreg·veis IncluÌdos</p>
                           <ul className="space-y-3">
                             {item.pack?.deliverablesPT?.slice(0, 6).map((d, idx) => (
                               <li key={idx} className="flex gap-3 items-start text-xs text-white/70">
@@ -2216,7 +2217,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
                         <div className="grid grid-cols-2 gap-4 py-4 border-t border-white/5">
                           <div>
-                            <p className="text-[9px] uppercase tracking-widest text-white/30 mb-1">Revis√µes</p>
+                            <p className="text-[9px] uppercase tracking-widest text-white/30 mb-1">Revisıes</p>
                             <p className="text-lg font-serif">{item.pack?.revisionsIncluded || 2}</p>
                           </div>
                           <div>
@@ -2231,7 +2232,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                             ? 'bg-luxury-gold text-black shadow-lg shadow-luxury-gold/20'
                             : 'bg-white/10 text-white group-hover:bg-white/20'}
                                     `}>
-                          {isSelected ? 'Selecionado' : 'Selecionar Op√ß√£o'}
+                          {isSelected ? 'Selecionado' : 'Selecionar OpÁ„o'}
                         </button>
                       </div>
                     );
@@ -2252,7 +2253,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
           >
-            <div className="w-full max-w-md bg-[#111] border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl relative">
+            <div className="w-full max-w-md bg-[#111] border border-white/10 rounded-xl overflow-hidden shadow-strong relative">
               <button
                 onClick={() => setShowReverseCalc(false)}
                 className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-white/40 hover:text-white transition-all"
@@ -2266,12 +2267,12 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     <Calculator size={24} />
                   </div>
                   <h2 className="text-xl font-serif">Calculadora Inversa</h2>
-                  <p className="text-xs text-white/50 uppercase tracking-widest">Defina o or√ßamento, n√≥s calculamos a √°rea.</p>
+                  <p className="text-xs text-white/50 uppercase tracking-widest">Defina o orÁamento, nÛs calculamos a ·rea.</p>
                 </div>
 
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-black tracking-widest text-white/40">Or√ßamento Dispon√≠vel (‚Ç¨)</label>
+                    <label className="text-[10px] uppercase font-black tracking-widest text-white/40">OrÁamento DisponÌvel (Ä)</label>
                     <input
                       type="number"
                       value={reverseBudget}
@@ -2281,7 +2282,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-black tracking-widest text-white/40">N√≠vel de Acabamentos</label>
+                    <label className="text-[10px] uppercase font-black tracking-widest text-white/40">NÌvel de Acabamentos</label>
                     <div className="grid grid-cols-3 gap-2">
                       {(['economic', 'standard', 'luxury'] as const).map(q => (
                         <button
@@ -2289,7 +2290,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           onClick={() => setReverseQuality(q)}
                           className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${reverseQuality === q ? 'bg-white text-black border-white' : 'bg-transparent border-white/10 text-white/40 hover:bg-white/5'}`}
                         >
-                          {{ economic: 'Econ.', standard: 'M√©dio', luxury: 'Luxo' }[q]}
+                          {{ economic: 'Econ.', standard: 'MÈdio', luxury: 'Luxo' }[q]}
                         </button>
                       ))}
                     </div>
@@ -2297,9 +2298,9 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                 </div>
 
                 <div className="bg-luxury-gold/10 border border-luxury-gold/20 rounded-2xl p-6 text-center space-y-2">
-                  <p className="text-[10px] uppercase font-black tracking-widest text-luxury-gold/60">√Årea Estimada de Constru√ß√£o</p>
-                  <p className="text-4xl font-serif text-luxury-gold">{reverseResult.area} <span className="text-lg opacity-50">m¬≤</span></p>
-                  <p className="text-[10px] opacity-40">Baseado em custo de ‚Ç¨{reverseResult.rate}/m¬≤</p>
+                  <p className="text-[10px] uppercase font-black tracking-widest text-luxury-gold/60">¡rea Estimada de ConstruÁ„o</p>
+                  <p className="text-4xl font-serif text-luxury-gold">{reverseResult.area} <span className="text-lg opacity-50">m≤</span></p>
+                  <p className="text-[10px] opacity-40">Baseado em custo de Ä{reverseResult.rate}/m≤</p>
                 </div>
 
                 <button
@@ -2309,7 +2310,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                   }}
                   className="w-full py-4 bg-luxury-gold text-black rounded-xl text-xs font-black uppercase tracking-widest hover:scale-[1.02] transition-all shadow-lg shadow-luxury-gold/20"
                 >
-                  Aplicar √Årea ao Simulador
+                  Aplicar ¡rea ao Simulador
                 </button>
               </div>
             </div>
@@ -2329,13 +2330,13 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-black/80 backdrop-blur-md"
           >
-            <div className="w-full max-w-7xl bg-[#0f0f0f] border border-white/10 rounded-[2rem] overflow-hidden flex flex-col max-h-full shadow-2xl">
+            <div className="w-full max-w-7xl bg-[#0f0f0f] border border-white/10 rounded-xl overflow-hidden flex flex-col max-h-full shadow-strong">
               <div className="p-8 border-b border-white/5 flex justify-between items-center bg-black/40">
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-luxury-gold/10 rounded-xl text-luxury-gold"><StretchHorizontal size={24} /></div>
                   <div>
-                    <h2 className="text-xl font-serif text-white">Comparador de Cen√°rios</h2>
-                    <p className="text-xs font-light text-white/40 uppercase tracking-widest">An√°lise Lado-a-Lado de Investimento e Valor</p>
+                    <h2 className="text-xl font-serif text-white">Comparador de Cen·rios</h2>
+                    <p className="text-xs font-light text-white/40 uppercase tracking-widest">An·lise Lado-a-Lado de Investimento e Valor</p>
                   </div>
                 </div>
                 <button onClick={() => setShowComparator(false)} className="p-4 hover:bg-white/5 rounded-full text-white/40 hover:text-white transition-all">
@@ -2349,7 +2350,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                     const isSelected = selectedScenario === item.scenario;
 
                     return (
-                      <div key={item.scenario} className={`relative flex flex-col rounded-[2rem] border transition-all duration-300 group hover:border-luxury-gold/30 ${isSelected ? 'bg-luxury-gold/5 border-luxury-gold ring-1 ring-luxury-gold/50' : 'bg-white/5 border-white/5 hover:bg-white/[0.07]'}`}>
+                      <div key={item.scenario} className={`relative flex flex-col rounded-xl border transition-all duration-300 group hover:border-luxury-gold/30 ${isSelected ? 'bg-luxury-gold/5 border-luxury-gold ring-1 ring-luxury-gold/50' : 'bg-white/5 border-white/5 hover:bg-white/[0.07]'}`}>
                         {/* Header */}
                         <div className="p-8 border-b border-white/5 space-y-4">
                           <div className="flex justify-between items-start">
@@ -2361,13 +2362,13 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
 
                           <div className="pt-4">
                             <span className="text-4xl md:text-5xl font-serif text-white">
-                              {item.result?.feeTotal ? `‚Ç¨${(item.result.feeTotal).toLocaleString('pt-PT')}` : 'N/A'}
+                              {item.result?.feeTotal ? `Ä${(item.result.feeTotal).toLocaleString('pt-PT')}` : 'N/A'}
                             </span>
                             <span className="text-sm opacity-40 ml-2 relative -top-4 font-light">s/IVA</span>
                           </div>
 
                           {area > 0 && <div className="text-[10px] uppercase font-mono tracking-widest text-luxury-gold/60">
-                            ‚Ç¨{item.result ? Math.round(item.result.feeTotal / area) : 0} / m¬≤
+                            Ä{item.result ? Math.round(item.result.feeTotal / area) : 0} / m≤
                           </div>}
                         </div>
 
@@ -2376,18 +2377,18 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           <div className="flex justify-between items-end gap-2 text-[10px] bg-white/[0.03] px-4 py-3 rounded-lg border border-white/5">
                             <div className="space-y-1">
                               <span className="block uppercase font-black opacity-40 text-[9px] tracking-tight">ARQ. Total</span>
-                              <span className="font-bold block text-sm">‚Ç¨{(item.result?.feeArch || 0).toLocaleString()}</span>
+                              <span className="font-bold block text-sm">Ä{(item.result?.feeArch || 0).toLocaleString()}</span>
                             </div>
                             <div className="space-y-1 text-right">
                               <span className="block uppercase font-black opacity-40 text-[9px] tracking-tight">ENG. Total</span>
-                              <span className="font-bold block text-sm">‚Ç¨{(item.result?.feeSpec || 0).toLocaleString()}</span>
+                              <span className="font-bold block text-sm">Ä{(item.result?.feeSpec || 0).toLocaleString()}</span>
                             </div>
                           </div>
                           <div className="flex justify-between items-end gap-2 text-[10px] bg-luxury-gold/[0.05] px-4 py-3 rounded-lg border border-luxury-gold/20">
                             <div className="space-y-1">
                               <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px] tracking-tight">LIC. (Fases)</span>
                               <span className="font-bold text-white/90 block text-sm">
-                                ‚Ç¨{(
+                                Ä{(
                                   (item.result?.phasesBreakdown || [])
                                     .filter((p: { phaseId: string }) => ['A0', 'A1', 'A2'].some((id: string) => p.phaseId.startsWith(id)))
                                     .reduce((acc: number, p: { value: number }) => acc + (p.value || 0), 0)
@@ -2397,7 +2398,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                             <div className="space-y-1 text-right">
                               <span className="block uppercase font-black opacity-60 text-luxury-gold text-[9px] tracking-tight">EXEC. (Fases)</span>
                               <span className="font-bold text-white/90 block text-sm">
-                                ‚Ç¨{(
+                                Ä{(
                                   (item.result?.phasesBreakdown || [])
                                     .filter((p: { phaseId: string }) => ['A3', 'A4'].some((id: string) => p.phaseId.startsWith(id)))
                                     .reduce((acc: number, p: { value: number }) => acc + (p.value || 0), 0)
@@ -2411,11 +2412,11 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                         <div className="p-8 space-y-8 flex-1">
                           {/* Deliverables */}
                           <div className="space-y-4">
-                            <p className="text-[10px] font-black uppercase tracking-widest opacity-40">Entreg√°veis incluidos</p>
+                            <p className="text-[10px] font-black uppercase tracking-widest opacity-40">Entreg·veis incluidos</p>
                             <ul className="space-y-3">
                               {(item.pack?.deliverablesPT || []).map((del, i) => {
                                 let displayLabel = del;
-                                if (del.includes('Assist√™ncia T√©cnica')) {
+                                if (del.includes('AssistÍncia TÈcnica')) {
                                   const visitCount = complexity === 3 ? 15 : complexity === 2 ? 10 : 5;
                                   displayLabel = `${del} (${visitCount} visitas)`;
                                 }
@@ -2432,7 +2433,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                           {/* Efforts */}
                           <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
                             <div className="space-y-1">
-                              <p className="text-[9px] uppercase font-black opacity-30">Revis√µes</p>
+                              <p className="text-[9px] uppercase font-black opacity-30">Revisıes</p>
                               <p className="text-lg font-serif">{item.pack?.revisionsIncluded === 99 ? 'Ilimitadas' : item.pack?.revisionsIncluded}</p>
                             </div>
                             <div className="space-y-1">
@@ -2452,7 +2453,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
                             className={`w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${isSelected ? 'bg-luxury-gold text-black cursor-default' : 'bg-white/10 hover:bg-white/20 text-white'}`}
                           >
                             {isSelected ? <Check size={16} /> : <Zap size={16} />}
-                            {isSelected ? 'Selecionado' : 'Selecionar Op√ß√£o'}
+                            {isSelected ? 'Selecionado' : 'Selecionar OpÁ„o'}
                           </button>
                         </div>
                       </div>
@@ -2561,7 +2562,7 @@ export default function ProposalGenerator({ isOpen }: { isOpen: boolean }) {
         </div>
       )}
 
-      {/* Zona de Captura (InvisA¬≠vel) para Exportacao HTML */}
+      {/* Zona de Captura (InvisA≠vel) para Exportacao HTML */}
       <div id="proposal-capture-zone" className="fixed -left-[2000px] -top-[2000px] pointer-events-none opacity-0">
         <ProposalDocument data={{
           templateId: selectedTemplate || 'MORADIA_LICENSE',

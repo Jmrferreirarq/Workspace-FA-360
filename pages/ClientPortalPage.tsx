@@ -192,8 +192,8 @@ function HomeTab({ project, insight }: any) {
           <PortalStat icon={<Layers />} label="Decisoes Tecnicas" value={isApproved ? "25 / 28" : "24 / 28"} />
         </div>
 
-        <div className="glass p-8 md:p-16 rounded-[2.5rem] md:rounded-[2rem] border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 md:space-y-12 group relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 p-8 md:p-16 opacity-5 group-hover:opacity-10 transition-opacity">
+        <div className="glass p-8 md:p-8 rounded-xl md:rounded-xl border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 md:space-y-12 group relative overflow-hidden shadow-strong">
+          <div className="absolute top-0 right-0 p-8 md:p-8 opacity-5 group-hover:opacity-10 transition-opacity">
             <Zap size={100} className="text-luxury-gold" />
           </div>
           <div className="space-y-3 md:space-y-4">
@@ -202,7 +202,7 @@ function HomeTab({ project, insight }: any) {
           </div>
 
           <div className="space-y-6 md:space-y-8">
-            <div className={`p-6 md:p-8 bg-white/5 rounded-[2rem] md:rounded-3xl border border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 group/item transition-all ${isApproved ? 'opacity-50 border-emerald-500/30' : 'hover:border-luxury-gold/30'}`}>
+            <div className={`p-6 md:p-8 bg-white/5 rounded-xl md:rounded-3xl border border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 group/item transition-all ${isApproved ? 'opacity-50 border-emerald-500/30' : 'hover:border-luxury-gold/30'}`}>
               <div className="flex gap-5 md:gap-6 items-center w-full md:w-auto">
                 <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center transition-transform shrink-0 ${isApproved ? 'bg-emerald-500/10 text-emerald-500' : 'bg-luxury-gold/10 text-luxury-gold group-hover/item:scale-110'}`}>
                   {isApproved ? <CheckCircle2 size={22} /> : <Palette size={22} />}
@@ -247,12 +247,12 @@ function HomeTab({ project, insight }: any) {
       </div>
 
       <aside className="lg:col-span-4 space-y-10 md:space-y-12">
-        <div className="glass p-8 md:p-8 rounded-[3rem] md:rounded-[2rem] space-y-8 md:space-y-10 border-luxury-gold/10 bg-white/[0.01] shadow-2xl relative overflow-hidden">
+        <div className="glass p-8 md:p-8 rounded-2xl md:rounded-xl space-y-8 md:space-y-10 border-luxury-gold/10 bg-white/[0.01] shadow-strong relative overflow-hidden">
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-luxury-gold/5 blur-3xl rounded-full"></div>
           <h4 className="text-[11px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] opacity-50 text-luxury-gold">Diretor de Projeto</h4>
           <div className="flex items-center gap-5 md:gap-6">
             <div className="relative">
-              <img src="https://i.pravatar.cc/120?u=miguel" className="w-20 h-20 md:w-24 md:h-24 rounded-[2rem] md:rounded-[2.5rem] object-cover border border-luxury-gold/30 p-1 bg-black shadow-2xl" alt="Director" />
+              <img src="https://i.pravatar.cc/120?u=miguel" className="w-20 h-20 md:w-24 md:h-24 rounded-xl md:rounded-xl object-cover border border-luxury-gold/30 p-1 bg-black shadow-strong" alt="Director" />
               <div className="absolute -bottom-1 -right-1 w-5 h-5 md:w-6 md:h-6 bg-emerald-500 rounded-full border-[3px] md:border-[4px] border-[#050505] shadow-lg shadow-emerald-500/20"></div>
             </div>
             <div>
@@ -260,17 +260,17 @@ function HomeTab({ project, insight }: any) {
               <p className="text-[11px] md:text-[10px] font-black uppercase tracking-widest text-luxury-gold mt-1">Lead Architect</p>
             </div>
           </div>
-          <div className="p-6 md:p-8 bg-white/5 rounded-[2rem] md:rounded-3xl border border-white/5 shadow-inner">
+          <div className="p-6 md:p-8 bg-white/5 rounded-xl md:rounded-3xl border border-white/5 shadow-inner">
             <p className="text-xs md:text-sm italic opacity-60 font-light leading-relaxed">"{insight}"</p>
           </div>
-          <button className="w-full py-5 md:py-6 bg-luxury-gold/5 border border-luxury-gold/20 rounded-[2rem] md:rounded-3xl flex items-center justify-center gap-3 text-[11px] md:text-[10px] font-black uppercase tracking-widest text-luxury-gold hover:bg-luxury-gold hover:text-black transition-all shadow-xl shadow-luxury-gold/5">
+          <button className="w-full py-5 md:py-6 bg-luxury-gold/5 border border-luxury-gold/20 rounded-xl md:rounded-3xl flex items-center justify-center gap-3 text-[11px] md:text-[10px] font-black uppercase tracking-widest text-luxury-gold hover:bg-luxury-gold hover:text-black transition-all shadow-xl shadow-luxury-gold/5">
             <MessageCircle size={18} /> Canal Direto VIP
           </button>
         </div>
 
-        <div className="p-8 md:p-8 glass rounded-[3rem] md:rounded-[4.5rem] border-white/5 flex flex-col items-center text-center gap-6 md:gap-8 group relative overflow-hidden">
+        <div className="p-8 md:p-8 glass rounded-2xl md:rounded-[4.5rem] border-white/5 flex flex-col items-center text-center gap-6 md:gap-8 group relative overflow-hidden">
           <div className="absolute inset-0 bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div className="w-16 h-16 md:w-20 md:h-20 bg-white/5 rounded-[2rem] flex items-center justify-center text-luxury-gold group-hover:scale-110 group-hover:bg-luxury-gold/10 transition-all duration-700">
+          <div className="w-16 h-16 md:w-20 md:h-20 bg-white/5 rounded-xl flex items-center justify-center text-luxury-gold group-hover:scale-110 group-hover:bg-luxury-gold/10 transition-all duration-700">
             <Camera size={32} />
           </div>
           <div className="space-y-1 md:space-y-2">
@@ -286,7 +286,7 @@ function HomeTab({ project, insight }: any) {
 
 function PortalStat({ icon, label, value }: any) {
   return (
-    <div className="glass p-8 md:p-14 rounded-[2.5rem] md:rounded-[2rem] space-y-6 md:space-y-8 hover:border-luxury-gold/30 transition-all group shadow-2xl bg-white/[0.01]">
+    <div className="glass p-8 md:p-14 rounded-xl md:rounded-xl space-y-6 md:space-y-8 hover:border-luxury-gold/30 transition-all group shadow-strong bg-white/[0.01]">
       <div className="text-luxury-gold group-hover:scale-110 transition-transform duration-700 bg-luxury-gold/5 w-fit p-3 md:p-4 rounded-xl md:rounded-2xl border border-luxury-gold/10 shrink-0">{icon}</div>
       <div>
         <p className="text-[11px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.2em] opacity-50 mb-2 md:mb-3 text-white tracking-widest">{label}</p>
@@ -298,7 +298,7 @@ function PortalStat({ icon, label, value }: any) {
 
 function LogItem({ date, title, status }: any) {
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10 p-6 md:p-10 glass rounded-[2rem] md:rounded-[3rem] border-white/5 group hover:bg-white/[0.04] transition-all border-l-4 border-l-transparent hover:border-l-luxury-gold shadow-xl">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10 p-6 md:p-10 glass rounded-xl md:rounded-2xl border-white/5 group hover:bg-white/[0.04] transition-all border-l-4 border-l-transparent hover:border-l-luxury-gold shadow-xl">
       <div className="flex flex-col items-start sm:items-center shrink-0">
         <span className="text-[11px] md:text-[10px] font-mono text-luxury-gold opacity-60 tracking-widest uppercase">{date}</span>
       </div>
@@ -314,7 +314,7 @@ function LogItem({ date, title, status }: any) {
 // Fixed missing components definitions
 function ThreeDViewTab() {
   return (
-    <div className="glass p-8 md:p-16 rounded-[2.5rem] md:rounded-[2rem] border-white/5 space-y-8 flex flex-col items-center justify-center min-h-[500px]">
+    <div className="glass p-8 md:p-8 rounded-xl md:rounded-xl border-white/5 space-y-8 flex flex-col items-center justify-center min-h-[500px]">
       <Box size={64} className="text-luxury-gold opacity-20" />
       <h3 className="text-3xl font-serif italic text-white">Experiencia Imersiva</h3>
       <p className="text-lg font-light opacity-50 max-w-md text-center">
@@ -338,7 +338,7 @@ function ChronologyTab() {
         ].map((item, i) => (
           <div key={i} className="relative pl-24 group">
             <div className="absolute left-6 top-2 w-4 h-4 rounded-full bg-luxury-gold shadow-[0_0_15px_rgba(212,175,55,0.6)] group-hover:scale-125 transition-transform"></div>
-            <div className="glass p-8 rounded-[2rem] border-white/5 space-y-2 group-hover:border-luxury-gold/20 transition-all">
+            <div className="glass p-8 rounded-xl border-white/5 space-y-2 group-hover:border-luxury-gold/20 transition-all">
               <span className="text-[10px] font-mono text-luxury-gold opacity-60 uppercase tracking-widest">{item.date}</span>
               <h4 className="text-2xl font-serif italic text-white">{item.title}</h4>
               <p className="text-base font-light opacity-60 italic">{item.desc}</p>
@@ -358,7 +358,7 @@ function DocsTab({ project }: any) {
         { name: 'Mapa_Acabamentos_Final.pdf', size: '1.8 MB', category: 'Interiores' },
         { name: 'Contrato_Prestacao_Servicos.pdf', size: '2.5 MB', category: 'Legal' },
       ].map((doc, i) => (
-        <div key={i} className="glass p-8 rounded-[2.5rem] border-white/5 flex items-center justify-between group hover:border-luxury-gold/20 transition-all">
+        <div key={i} className="glass p-8 rounded-xl border-white/5 flex items-center justify-between group hover:border-luxury-gold/20 transition-all">
           <div className="flex items-center gap-6">
             <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-luxury-gold group-hover:scale-110 transition-transform">
               <FileText size={24} />
@@ -386,7 +386,7 @@ function MoodboardTab() {
         'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=400',
         'https://images.unsplash.com/photo-1600607687940-477a284395e5?auto=format&fit=crop&w=400',
       ].map((img, i) => (
-        <div key={i} className="aspect-square rounded-[2rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 group">
+        <div key={i} className="aspect-square rounded-xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 group">
           <img src={img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
         </div>
       ))}

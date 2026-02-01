@@ -1,4 +1,4 @@
-ï»¿import React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, AlertTriangle, Trash2 } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -66,9 +66,9 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
         <div
             onClick={() => navigate(`/projects/${project.id}`)}
             className={`
-        glass p-8 rounded-[2rem] cursor-pointer
+        glass p-6 rounded-xl cursor-pointer
         border-l-4 ${config.border} ${config.bg}
-        card-interactive shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-none hover:shadow-[0_4px_25px_rgba(0,0,0,0.06)] transition-all
+        card-interactive shadow-soft hover:shadow-medium transition-all
         bg-white dark:bg-transparent
       `}
         >
@@ -81,13 +81,13 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
             </div>
 
             {/* Title */}
-            <h3 className="text-2xl font-black italic text-luxury-charcoal dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-luxury-charcoal dark:text-white mb-2">
                 {project.name}
             </h3>
 
             {/* Meta */}
             <p className="text-xs text-luxury-charcoal/50 dark:text-white/50 mb-6">
-                {project.type_key} {project.area && `aâ‚¬Â¢ ${project.area}`}
+                {project.type_key} {project.area && `a€¢ ${project.area}`}
             </p>
 
             {/* Progress bar */}

@@ -1,4 +1,4 @@
-ï»¿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import fa360 from '../../services/fa360';
@@ -65,7 +65,7 @@ export default function CriticalAlertsWidget({ alerts }: CriticalAlertsProps) {
           onClick={() => navigate('/tasks')} // Generalize to 'Resolve' center later
           className="text-[11px] font-black uppercase tracking-[0.25em] text-luxury-charcoal/50 dark:text-white/50 hover:text-luxury-charcoal dark:hover:text-white transition-all"
         >
-          {t('resolve')} aâ€ â€™
+          {t('resolve')} a†’
         </button>
       </div>
 

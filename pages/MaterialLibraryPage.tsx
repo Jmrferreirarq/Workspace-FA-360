@@ -107,7 +107,7 @@ export default function MaterialLibraryPage() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     onClick={() => setSelectedMaterial(material)}
-                    className="glass rounded-[3rem] overflow-hidden group border-white/5 hover:border-luxury-gold/30 transition-all shadow-2xl cursor-pointer relative"
+                    className="glass rounded-2xl overflow-hidden group border-white/5 hover:border-luxury-gold/30 transition-all shadow-strong cursor-pointer relative"
                   >
                     <div className="h-64 relative overflow-hidden">
                       <img src={material.image} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2s]" />
@@ -145,7 +145,7 @@ export default function MaterialLibraryPage() {
 
         <aside className="lg:col-span-3 space-y-10">
           {/* AI Advisor */}
-          <div className="glass p-10 rounded-[2rem] border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-2xl relative overflow-hidden group">
+          <div className="glass p-10 rounded-xl border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-strong relative overflow-hidden group">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-luxury-gold/5 rounded-full blur-3xl group-hover:bg-luxury-gold/10 transition-all"></div>
             <div className="flex items-center gap-3">
               <Sparkles size={20} className="text-luxury-gold" />
@@ -168,7 +168,7 @@ export default function MaterialLibraryPage() {
           </div>
 
           {/* Inventario Tracker */}
-          <div className="glass p-10 rounded-[3rem] border-white/5 space-y-8">
+          <div className="glass p-10 rounded-2xl border-white/5 space-y-8">
             <h4 className="text-[10px] font-black uppercase tracking-widest opacity-50 text-white">Rastreio de Amostras</h4>
             <div className="space-y-4">
               <div className="py-10 text-center glass rounded-2xl border-dashed border-white/5 opacity-20">
@@ -179,7 +179,7 @@ export default function MaterialLibraryPage() {
           </div>
 
           {/* Pegada de Carbono Global */}
-          <div className="p-8 bg-emerald-500/5 rounded-[3rem] border border-emerald-500/10 flex flex-col items-center text-center gap-4">
+          <div className="p-8 bg-emerald-500/5 rounded-2xl border border-emerald-500/10 flex flex-col items-center text-center gap-4">
             <Droplets size={32} className="text-emerald-400" />
             <h4 className="text-sm font-serif italic text-emerald-100">{t('material_dna_carbon')}</h4>
             <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
@@ -203,7 +203,7 @@ export default function MaterialLibraryPage() {
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-5xl glass rounded-[2rem] border-white/10 overflow-hidden shadow-2xl grid grid-cols-1 md:grid-cols-2"
+              className="relative w-full max-w-5xl glass rounded-xl border-white/10 overflow-hidden shadow-strong grid grid-cols-1 md:grid-cols-2"
             >
               <div className="h-[40vh] md:h-auto relative">
                 <img src={selectedMaterial.image} className="w-full h-full object-cover" />

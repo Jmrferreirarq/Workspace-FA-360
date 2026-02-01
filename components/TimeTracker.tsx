@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Save, X, RotateCcw } from 'lucide-react';
@@ -66,7 +66,7 @@ export default function TimeTracker({ projectId, projectPhase, onLogAdded }: Tim
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="bg-[#0A0A0A] border border-white/10 rounded-[2rem] p-8 w-full max-w-md relative z-10 shadow-2xl overflow-hidden"
+                            className="bg-[#0A0A0A] border border-white/10 rounded-xl p-8 w-full max-w-md relative z-10 shadow-strong overflow-hidden"
                         >
                             {/* Background Glow */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-luxury-gold/5 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none"></div>

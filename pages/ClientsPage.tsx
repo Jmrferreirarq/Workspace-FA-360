@@ -97,7 +97,7 @@ export default function ClientsPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 onClick={() => navigate(`/clients/${client.id}`)}
-                className="glass p-10 rounded-[3rem] border-black/5 dark:border-white/5 group hover:border-luxury-gold/30 transition-all relative overflow-hidden cursor-pointer shadow-xl text-luxury-charcoal dark:text-white"
+                className="glass p-10 rounded-2xl border-black/5 dark:border-white/5 group hover:border-luxury-gold/30 transition-all relative overflow-hidden cursor-pointer shadow-xl text-luxury-charcoal dark:text-white"
               >
                 <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity flex gap-4">
                   <ArrowUpRight size={20} className="text-luxury-gold" />
@@ -139,7 +139,7 @@ export default function ClientsPage() {
           </AnimatePresence>
         </div>
       ) : (
-        <div className="py-40 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">
+        <div className="py-40 glass rounded-2xl border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">
           <div className="p-10 bg-black/5 dark:bg-white/5 rounded-full border border-black/5 dark:border-white/5 text-luxury-charcoal dark:text-white">
             <User size={48} className="opacity-20" />
           </div>
@@ -164,7 +164,7 @@ export default function ClientsPage() {
               initial={{ scale: 0.9, y: 20, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.9, y: 20, opacity: 0 }}
-              className="relative w-full max-w-2xl glass rounded-[2rem] border-white/10 p-8 md:p-16 shadow-[0_50px_100px_rgba(0,0,0,0.5)] space-y-12"
+              className="relative w-full max-w-2xl glass rounded-xl border-white/10 p-8 md:p-8 shadow-[0_50px_100px_rgba(0,0,0,0.5)] space-y-12"
             >
               <div className="flex justify-between items-center">
                 <div className="space-y-2">
@@ -220,7 +220,7 @@ export default function ClientsPage() {
 
                 <button
                   disabled={saving}
-                  className="w-full py-7 bg-luxury-gold text-black rounded-full font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:scale-105 transition-all shadow-2xl shadow-luxury-gold/30 disabled:opacity-50"
+                  className="w-full py-7 bg-luxury-gold text-black rounded-full font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:scale-105 transition-all shadow-strong shadow-luxury-gold/30 disabled:opacity-50"
                 >
                   {saving ? <Loader2 className="animate-spin" size={20} /> : <Brain size={20} />}
                   {saving ? t('clients_btn_saving') : t('clients_btn_save')}

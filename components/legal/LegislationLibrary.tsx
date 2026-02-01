@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState } from 'react';
 import { Search, ExternalLink, BookOpen, Filter, ArrowRight, Activity } from 'lucide-react';
 import { legislationDatabase, Legislation } from '../../data/legislation_database';
@@ -52,7 +52,7 @@ export const LegislationLibrary: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            <div className="bg-white/70 dark:bg-slate-950/40 backdrop-blur-xl rounded-[2rem] border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xl">
+            <div className="bg-white/70 dark:bg-slate-950/40 backdrop-blur-xl rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-strong">
                 <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900/50 dark:to-slate-950/50">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                         <div>
@@ -149,7 +149,7 @@ export const LegislationLibrary: React.FC = () => {
                             {/* Search Results from Index if searching */}
                             {searchTerm && filteredArticles.length > 0 && (
                                 <div className="space-y-6">
-                                    <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-luxury-gold">Resultados no Andice Municipal ({filteredArticles.length})</h3>
+                                    <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-luxury-gold">Resultados no A�ndice Municipal ({filteredArticles.length})</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {filteredArticles.map(entry => (
                                             <div key={entry.entryId} className="glass p-6 rounded-2xl border-black/5 dark:border-white/5 border-l-2 border-l-luxury-gold">
@@ -312,7 +312,7 @@ const NationalLawCard = ({ leg, supportedLawIds, onRead }: { leg: any, supported
 );
 
 const EmptyState = () => (
-    <div className="p-24 text-center text-slate-400">
+    <div className="p-8 text-center text-slate-400">
         <div className="w-20 h-20 mx-auto mb-6 bg-slate-100 dark:bg-white/5 rounded-3xl flex items-center justify-center opacity-50">
             <Filter className="w-10 h-10" />
         </div>

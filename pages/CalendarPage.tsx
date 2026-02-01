@@ -67,7 +67,7 @@ export default function CalendarPage() {
             </div>
           </div>
 
-          <div className="glass rounded-[3rem] p-8 border-white/5 shadow-2xl overflow-hidden">
+          <div className="glass rounded-2xl p-8 border-white/5 shadow-strong overflow-hidden">
             <div className="grid grid-cols-7 gap-px opacity-50 text-[11px] font-black uppercase tracking-[0.3em] mb-8 text-center">
               <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sab</span><span>Dom</span>
             </div>
@@ -95,7 +95,7 @@ export default function CalendarPage() {
 
         {/* Daily Schedule & AI Sidebar */}
         <aside className="lg:col-span-4 space-y-8">
-          <div className="glass p-10 rounded-[3rem] border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8">
+          <div className="glass p-10 rounded-2xl border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8">
             <div className="flex items-center gap-3">
               <Sparkles size={20} className="text-luxury-gold" />
               <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold">AI Schedule Assistant</h4>

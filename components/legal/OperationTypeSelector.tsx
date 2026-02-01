@@ -1,4 +1,4 @@
-﻿
+
 import React from 'react';
 import { Hammer, Home, ArrowUpRight, Trash2, Repeat, Grid, ShieldCheck } from 'lucide-react';
 import { UrbanOperationType, legalFrameworks } from '../../data/legal_framework';
@@ -22,7 +22,7 @@ export const OperationTypeSelector: React.FC<OperationTypeSelectorProps> = ({ se
     return (
         <div className="mb-8">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
-                Tipo de Operacao UrbanA­stica
+                Tipo de Operacao UrbanA�stica
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {Object.values(legalFrameworks).map((op) => {

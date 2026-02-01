@@ -146,7 +146,7 @@ export default function TasksPage() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Main Interface */}
         <div className="lg:col-span-9 space-y-12">
           {activeTab === 'CATALOG' ? (
@@ -187,7 +187,7 @@ export default function TasksPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="glass p-10 rounded-[2.5rem] border-black/5 dark:border-white/5 group hover:border-luxury-gold/30 transition-all flex flex-col md:flex-row gap-10 items-start md:items-center relative"
+                      className="glass p-10 rounded-xl border-black/5 dark:border-white/5 group hover:border-luxury-gold/30 transition-all flex flex-col md:flex-row gap-10 items-start md:items-center relative"
                     >
                       <div className="flex-1 space-y-4">
                         <div className="flex items-center gap-4">
@@ -240,7 +240,7 @@ export default function TasksPage() {
             <div className="space-y-4">
               {tasks.length > 0 ? (
                 tasks.map(task => (
-                  <div key={task.id} className={`glass p-8 rounded-[2rem] border-black/5 dark:border-white/5 group hover:border-luxury-gold/30 transition-all flex items-center gap-8 ${task.completed ? 'opacity-40' : ''} ${activeMenuId === task.id ? 'z-[100] relative' : 'z-auto'}`}>
+                  <div key={task.id} className={`glass p-8 rounded-xl border-black/5 dark:border-white/5 group hover:border-luxury-gold/30 transition-all flex items-center gap-8 ${task.completed ? 'opacity-40' : ''} ${activeMenuId === task.id ? 'z-[100] relative' : 'z-auto'}`}>
                     <button
                       onClick={() => toggleTask(task.id, task.completed)}
                       className={`transition-colors shrink-0 ${task.completed ? 'text-emerald-500' : 'text-luxury-charcoal/20 dark:text-white/20 hover:text-luxury-gold'}`}
@@ -299,7 +299,7 @@ export default function TasksPage() {
                             initial={{ opacity: 0, scale: 0.95, y: 10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                            className="absolute right-0 top-full mt-4 w-56 glass border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden"
+                            className="absolute right-0 top-full mt-4 w-56 glass border-white/10 rounded-2xl shadow-strong z-50 overflow-hidden"
                           >
                             <div className="p-2 space-y-1">
                               <button
@@ -329,8 +329,8 @@ export default function TasksPage() {
                   </div>
                 ))
               ) : (
-                <div className="glass p-24 rounded-[3rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center text-center space-y-10">
-                  <div className="p-12 bg-luxury-gold/5 rounded-full border border-luxury-gold/10">
+                <div className="glass p-8 rounded-2xl border-dashed border-black/10 dark:border-white/10 flex flex-col items-center text-center space-y-10">
+                  <div className="p-6 bg-luxury-gold/5 rounded-full border border-luxury-gold/10">
                     <Sparkles size={64} className="text-luxury-gold animate-pulse" />
                   </div>
                   <div className="space-y-4">
@@ -339,7 +339,7 @@ export default function TasksPage() {
                       {t('tasks_empty_desc')}
                     </p>
                   </div>
-                  <button onClick={() => setActiveTab('CATALOG')} className="px-12 py-5 bg-luxury-gold text-black rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-2xl shadow-luxury-gold/20">
+                  <button onClick={() => setActiveTab('CATALOG')} className="px-12 py-5 bg-luxury-gold text-black rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-strong shadow-luxury-gold/20">
                     {t('tasks_catalog_explore')}
                   </button>
                 </div>
@@ -363,7 +363,7 @@ export default function TasksPage() {
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="relative w-full max-w-2xl glass p-12 rounded-[4rem] border-white/10 shadow-2xl overflow-hidden"
+                className="relative w-full max-w-2xl glass p-6 rounded-2xl border-white/10 shadow-strong overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent" />
                 <div className="space-y-10">
@@ -375,7 +375,7 @@ export default function TasksPage() {
                   <div className="grid grid-cols-1 gap-4 max-h-[400px] overflow-y-auto pr-4 no-scrollbar">
                     <button
                       onClick={() => handleImportTask()}
-                      className="p-8 rounded-[2rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:border-luxury-gold/40 hover:bg-luxury-gold/5 transition-all text-left flex items-center justify-between group"
+                      className="p-8 rounded-xl border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:border-luxury-gold/40 hover:bg-luxury-gold/5 transition-all text-left flex items-center justify-between group"
                     >
                       <span className="text-sm font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40 group-hover:opacity-100 group-hover:text-luxury-gold transition-all">Geral / Atelier</span>
                       <Target size={18} className="opacity-10 group-hover:opacity-100 group-hover:text-luxury-gold transition-all" />
@@ -385,7 +385,7 @@ export default function TasksPage() {
                       <button
                         key={p.id}
                         onClick={() => handleImportTask(p.id)}
-                        className="p-8 rounded-[2rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:border-luxury-gold/40 hover:bg-luxury-gold/5 transition-all text-left flex items-center justify-between group"
+                        className="p-8 rounded-xl border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:border-luxury-gold/40 hover:bg-luxury-gold/5 transition-all text-left flex items-center justify-between group"
                       >
                         <div>
                           <p className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-2">{p.client}</p>
@@ -423,9 +423,9 @@ export default function TasksPage() {
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 100 }}
-                className="relative w-full max-w-4xl glass p-16 rounded-[4rem] border-white/10 shadow-2xl overflow-hidden"
+                className="relative w-full max-w-4xl glass p-8 rounded-2xl border-white/10 shadow-strong overflow-hidden"
               >
-                <div className="absolute top-0 right-0 p-12 opacity-5">
+                <div className="absolute top-0 right-0 p-6 opacity-5">
                   <Layers size={300} />
                 </div>
 
@@ -441,7 +441,7 @@ export default function TasksPage() {
                     </h2>
                   </header>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-10">
                       <div className="space-y-6">
                         <h4 className="text-[10px] font-black uppercase tracking-widest opacity-40">{t('tasks_detail_metrics')}</h4>
@@ -525,7 +525,7 @@ export default function TasksPage() {
 
         {/* Sidebar Insights */}
         <aside className="lg:col-span-3 space-y-10">
-          <div className="glass p-10 rounded-[3.5rem] border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] space-y-10">
+          <div className="glass p-10 rounded-2xl border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] space-y-10">
             <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold text-center">Status Operacional</h3>
             <div className="space-y-12">
               <div className="text-center group cursor-default">
@@ -552,7 +552,7 @@ export default function TasksPage() {
             </div>
           </div>
 
-          <div className="p-10 bg-luxury-gold/5 rounded-[3.5rem] border border-luxury-gold/10 space-y-8 relative overflow-hidden group">
+          <div className="p-10 bg-luxury-gold/5 rounded-2xl border border-luxury-gold/10 space-y-8 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
               <Zap size={60} />
             </div>

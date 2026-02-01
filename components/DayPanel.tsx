@@ -1,4 +1,4 @@
-ï»¿
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, CheckSquare, Clock, MapPin, AlertTriangle, ArrowRight, Play, CheckCircle2 } from 'lucide-react';
@@ -17,7 +17,7 @@ export default function DayPanel({ data }: DayPanelProps) {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
             {/* Coluna 1: Agenda / Reunioes */}
-            <div className="glass p-8 rounded-[2.5rem] border-white/5 relative overflow-hidden group hover:border-luxury-gold/20 transition-all">
+            <div className="glass p-8 rounded-xl border-white/5 relative overflow-hidden group hover:border-luxury-gold/20 transition-all">
                 <div className="absolute top-0 right-0 p-8 opacity-10 text-white font-serif italic text-9xl leading-none -mr-4 -mt-4 pointer-events-none">
                     {new Date().getDate()}
                 </div>
@@ -51,7 +51,7 @@ export default function DayPanel({ data }: DayPanelProps) {
             </div>
 
             {/* Coluna 2: Tarefas Prioritarias */}
-            <div className="glass p-8 rounded-[2.5rem] border-white/5 relative overflow-hidden group hover:border-luxury-gold/20 transition-all">
+            <div className="glass p-8 rounded-xl border-white/5 relative overflow-hidden group hover:border-luxury-gold/20 transition-all">
                 <div className="flex items-center gap-3 mb-6">
                     <div className="p-2 bg-luxury-gold/10 rounded-xl text-luxury-gold">
                         <CheckSquare size={18} />
@@ -69,7 +69,7 @@ export default function DayPanel({ data }: DayPanelProps) {
                                 <div>
                                     <p className="text-sm font-medium text-white">{task.title}</p>
                                     <p className="text-xs uppercase tracking-wider opacity-60 text-white mt-0.5 flex items-center gap-2">
-                                        {task.projectKey} aâ‚¬Â¢ <span className="text-red-400 flex items-center gap-1"><Clock size={8} /> {task.deadline}</span>
+                                        {task.projectKey} a€¢ <span className="text-red-400 flex items-center gap-1"><Clock size={8} /> {task.deadline}</span>
                                     </p>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@ export default function DayPanel({ data }: DayPanelProps) {
             </div>
 
             {/* Coluna 3: Alertas e Metricas de Risco */}
-            <div className="glass p-8 rounded-[2.5rem] border-white/5 relative overflow-hidden group hover:border-red-500/20 transition-all bg-red-500/[0.02]">
+            <div className="glass p-8 rounded-xl border-white/5 relative overflow-hidden group hover:border-red-500/20 transition-all bg-red-500/[0.02]">
                 <div className="flex items-center gap-3 mb-6">
                     <div className="p-2 bg-red-500/10 rounded-xl text-red-500">
                         <AlertTriangle size={18} />

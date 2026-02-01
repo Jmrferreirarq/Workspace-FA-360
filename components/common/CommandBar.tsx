@@ -1,4 +1,4 @@
-ï»¿
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Command, ArrowRight, Briefcase, User, Box, FileText, Zap, Sparkles, Globe, Layout, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -43,11 +43,11 @@ export default function CommandBar() {
   const results = [
     { id: '1', title: 'Villa Alentejo', category: 'Projectos', icon: <Briefcase size={14} />, path: '/projects/1' },
     { id: '2', title: 'Joao Silva', category: 'Clientes', icon: <User size={14} />, path: '/clients/1' },
-    { id: '3', title: 'MÃ¡rmore de Estremoz', category: 'Material DNA', icon: <Box size={14} />, path: '/dna' },
-    { id: 'site1', title: 'Home Portfolio', category: 'Site PÃºblico', icon: <Globe size={14} className="text-luxury-gold" />, path: '/public' },
-    { id: 'site2', title: 'PÃ¡gina do EstÃºdio', category: 'Site PÃºblico', icon: <Layout size={14} className="text-luxury-gold" />, path: '/public/studio' },
-    { id: 'cmd1', title: 'Nova Proposta', category: 'AcÃ§Ãµes', icon: <Zap size={14} className="text-luxury-gold" />, path: '/calculator' },
-    { id: 'cmd2', title: 'Gerar Caption IA', category: 'AcÃ§Ãµes', icon: <Sparkles size={14} className="text-luxury-gold" />, path: '/marketing' },
+    { id: '3', title: 'Mármore de Estremoz', category: 'Material DNA', icon: <Box size={14} />, path: '/dna' },
+    { id: 'site1', title: 'Home Portfolio', category: 'Site Público', icon: <Globe size={14} className="text-luxury-gold" />, path: '/public' },
+    { id: 'site2', title: 'Página do Estúdio', category: 'Site Público', icon: <Layout size={14} className="text-luxury-gold" />, path: '/public/studio' },
+    { id: 'cmd1', title: 'Nova Proposta', category: 'Acções', icon: <Zap size={14} className="text-luxury-gold" />, path: '/calculator' },
+    { id: 'cmd2', title: 'Gerar Caption IA', category: 'Acções', icon: <Sparkles size={14} className="text-luxury-gold" />, path: '/marketing' },
   ].filter(item =>
     item.title.toLowerCase().includes(query.toLowerCase()) ||
     item.category.toLowerCase().includes(query.toLowerCase())
@@ -75,7 +75,7 @@ export default function CommandBar() {
             initial={{ opacity: 0, scale: 0.95, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            className="relative w-full max-w-2xl glass rounded-[2rem] md:rounded-[2.5rem] border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] overflow-hidden"
+            className="relative w-full max-w-2xl glass rounded-xl md:rounded-xl border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] overflow-hidden"
           >
             <div className="p-6 md:p-8 border-b border-white/5 flex items-center gap-4 bg-white/[0.02]">
               <Search size={20} className="text-luxury-gold opacity-50" />
@@ -83,7 +83,7 @@ export default function CommandBar() {
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Pesquisar ou Site PÃºblico..."
+                placeholder="Pesquisar ou Site Público..."
                 className="flex-1 bg-transparent border-none outline-none text-lg md:text-xl font-serif italic placeholder:opacity-20 text-white"
               />
               <button onClick={() => setIsOpen(false)} className="md:hidden p-2 opacity-60">
@@ -127,8 +127,8 @@ export default function CommandBar() {
 
             <div className="p-4 bg-black/40 border-t border-white/5 flex justify-between items-center px-8">
               <div className="hidden md:flex gap-6">
-                <Kbd label="â†‘â†“" desc="Navegar" />
-                <Kbd label="â†µ" desc="Seleccionar" />
+                <Kbd label="??" desc="Navegar" />
+                <Kbd label="?" desc="Seleccionar" />
               </div>
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.3em] opacity-50 text-white">
                 <Sparkles size={10} className="text-luxury-gold" />

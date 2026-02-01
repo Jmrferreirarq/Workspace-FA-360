@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 interface MetricCardProps {
@@ -37,7 +37,7 @@ export default function MetricCard({
 
     return (
         <div className={`
-      glass p-8 rounded-[2rem] border-white/10 
+      glass p-6 rounded-xl border-white/10 
       card-interactive group
       ${variants[variant]}
     `}>

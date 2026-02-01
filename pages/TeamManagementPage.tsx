@@ -72,7 +72,7 @@ export default function TeamManagementPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="glass p-8 rounded-[3rem] border-black/5 dark:border-white/5 group hover:border-luxury-gold/20 transition-all shadow-2xl relative overflow-hidden text-luxury-charcoal dark:text-white"
+                    className="glass p-8 rounded-2xl border-black/5 dark:border-white/5 group hover:border-luxury-gold/20 transition-all shadow-strong relative overflow-hidden text-luxury-charcoal dark:text-white"
                   >
                     <div className="flex items-center gap-6 mb-10">
                       <img src={member.avatar} className="w-20 h-20 rounded-3xl object-cover border border-black/10 dark:border-white/10 grayscale group-hover:grayscale-0 transition-all duration-700" alt={member.name} />
@@ -102,7 +102,7 @@ export default function TeamManagementPage() {
                   </motion.div>
                 ))
               ) : (
-                <div className="col-span-full py-40 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">
+                <div className="col-span-full py-40 glass rounded-2xl border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">
                   <div className="p-10 bg-black/5 dark:bg-white/5 rounded-full border border-black/5 dark:border-white/5 text-luxury-charcoal dark:text-white">
                     <Users size={48} className="opacity-20" />
                   </div>
@@ -115,7 +115,7 @@ export default function TeamManagementPage() {
               )}
             </div>
           ) : (
-            <div className="glass rounded-[3rem] border-black/5 dark:border-white/5 overflow-hidden">
+            <div className="glass rounded-2xl border-black/5 dark:border-white/5 overflow-hidden">
               <table className="w-full text-left">
                 <thead className="bg-black/5 dark:bg-white/5 text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">
                   <tr>
@@ -141,7 +141,7 @@ export default function TeamManagementPage() {
 
         {/* AI & Analytics Sidebar */}
         <aside className="lg:col-span-4 space-y-10">
-          <div className="glass p-10 rounded-[2rem] border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-2xl relative overflow-hidden">
+          <div className="glass p-10 rounded-xl border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-strong relative overflow-hidden">
             <div className="flex items-center gap-3">
               <Zap size={20} className="text-luxury-gold" />
               <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold uppercase">Team AI Coach</h4>
@@ -155,7 +155,7 @@ export default function TeamManagementPage() {
             </div>
           </div>
 
-          <div className="glass p-10 rounded-[3rem] border-black/5 dark:border-white/5 space-y-8 text-luxury-charcoal dark:text-white">
+          <div className="glass p-10 rounded-2xl border-black/5 dark:border-white/5 space-y-8 text-luxury-charcoal dark:text-white">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">Metricas de Equipa</h4>
             <div className="space-y-6">
               <div className="flex justify-between items-center">

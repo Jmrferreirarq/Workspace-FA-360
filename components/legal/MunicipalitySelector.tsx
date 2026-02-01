@@ -1,4 +1,4 @@
-ï»¿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { municipalities, Municipality } from '../../data/municipalities';
 import { Search, CheckCircle2 } from 'lucide-react';
 
@@ -18,7 +18,7 @@ export const MunicipalitySelector: React.FC<MunicipalitySelectorProps> = ({ onSe
     return (
         <div className="relative w-full max-w-md">
             <label className="block text-sm font-medium text-slate-400 mb-2">
-                MunicAÂ­pio
+                MunicA­pio
             </label>
 
             <div className="relative">
@@ -30,7 +30,7 @@ export const MunicipalitySelector: React.FC<MunicipalitySelectorProps> = ({ onSe
                     <input
                         type="text"
                         className="bg-transparent border-none outline-none text-slate-100 w-full placeholder-slate-500 cursor-pointer"
-                        placeholder="Pesquisar municAÂ­pio..."
+                        placeholder="Pesquisar municA­pio..."
                         value={searchTerm || (selectedMunicipality?.name ?? '')}
                         onChange={(e) => {
                             setSearchTerm(e.target.value);
@@ -62,12 +62,12 @@ export const MunicipalitySelector: React.FC<MunicipalitySelectorProps> = ({ onSe
                                             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                                         )}
                                     </div>
-                                    <div className="text-xs text-slate-500">{municipality.district} aâ‚¬Â¢ {municipality.region}</div>
+                                    <div className="text-xs text-slate-500">{municipality.district} a€¢ {municipality.region}</div>
                                 </div>
                             ))
                         ) : (
                             <div className="px-4 py-3 text-slate-500 text-center">
-                                Nenhum municAÂ­pio encontrado
+                                Nenhum municA­pio encontrado
                             </div>
                         )}
                     </div>

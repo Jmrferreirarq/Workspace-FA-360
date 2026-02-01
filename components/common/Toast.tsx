@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CheckCircle2, AlertTriangle, XCircle, X, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -69,7 +69,7 @@ export default function Toast({
                     className={`
             fixed bottom-32 right-6 z-[400]
             flex items-center gap-4 p-4 rounded-2xl border backdrop-blur-xl
-            max-w-sm shadow-2xl
+            max-w-sm shadow-strong
             ${bg}
           `}
                 >

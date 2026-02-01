@@ -88,7 +88,7 @@ const LegalReportPage: React.FC = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 50, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        className="w-full max-w-6xl shadow-2xl relative"
+                        className="w-full max-w-6xl shadow-strong relative"
                     >
                         <InteractiveLawReader
                             onClose={() => setViewerOpen(false)}

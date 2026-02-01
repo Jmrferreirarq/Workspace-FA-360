@@ -1,4 +1,4 @@
-ï»¿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, Check, AlertTriangle, FileText, ExternalLink, Calculator } from 'lucide-react';
 import { legalEngine, LegalInput, LegalResult } from '../../services/legalEngine';
@@ -32,7 +32,7 @@ export const LegalWizard: React.FC = () => {
   const municipalities = municipalSources.municipalities;
 
   return (
-    <div className="bg-white/70 dark:bg-slate-950/40 backdrop-blur-xl rounded-[2.5rem] border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xl min-h-[600px] flex flex-col">
+    <div className="bg-white/70 dark:bg-slate-950/40 backdrop-blur-xl rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-strong min-h-[600px] flex flex-col">
       {/* Progress Bar */}
       <div className="flex h-1 bg-black/5 dark:bg-white/5">
         {[1, 2, 3, 4].map(s => (
@@ -50,7 +50,7 @@ export const LegalWizard: React.FC = () => {
             >
               <div>
                 <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Escopo Territorial</h3>
-                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Selecione o MunicAÂ­pio para carregar o motor de regras PDM.</p>
+                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Selecione o MunicA­pio para carregar o motor de regras PDM.</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {municipalities.map(m => (
@@ -121,11 +121,11 @@ export const LegalWizard: React.FC = () => {
             >
               <div>
                 <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Metricas de Dimensionamento</h3>
-                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Insira os dados brutos para calculo de areas e AÂ­ndices obrigatorios.</p>
+                <p className="text-sm text-luxury-charcoal/50 dark:text-white/40">Insira os dados brutos para calculo de areas e A­ndices obrigatorios.</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">AÂrea Bruta de Construcao (mAÂ²)</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Area Bruta de Construcao (mA²)</label>
                   <input 
                     type="number" 
                     value={inputs.areaGross} 
@@ -143,7 +143,7 @@ export const LegalWizard: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">AÂrea do Lote (mAÂ²)</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Area do Lote (mA²)</label>
                   <input 
                     type="number" 
                     value={inputs.areaPlot} 
@@ -152,7 +152,7 @@ export const LegalWizard: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">AÂrea de Implantacao (mAÂ²)</label>
+                  <label className="text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Area de Implantacao (mA²)</label>
                   <input 
                     type="number" 
                     value={inputs.areaFootprint} 
@@ -173,7 +173,7 @@ export const LegalWizard: React.FC = () => {
               <div className="flex justify-between items-end">
                 <div>
                   <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white mb-2">Output Legislativo</h3>
-                  <p className="text-xs font-black uppercase tracking-widest text-luxury-gold">{inputs.municipalityId} aâ‚¬Â¢ Deterministic Engine v1.0</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-luxury-gold">{inputs.municipalityId} a€¢ Deterministic Engine v1.0</p>
                 </div>
                 <button onClick={() => window.print()} className="p-3 bg-white/5 border border-white/10 rounded-full hover:bg-luxury-gold hover:text-black transition-all">
                   <Calculator size={18} />

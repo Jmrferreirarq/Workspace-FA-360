@@ -138,7 +138,7 @@ export default function FinancialPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Main Chart Area */}
         <div className="lg:col-span-8 space-y-12">
-          <section className="glass p-8 rounded-[2rem] border-white/5 space-y-12 shadow-2xl relative overflow-hidden">
+          <section className="glass p-8 rounded-xl border-white/5 space-y-12 shadow-strong relative overflow-hidden">
             <div className="flex justify-between items-end">
               <div className="space-y-2">
                 <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white">Cashflow <span className="text-luxury-charcoal/20 dark:text-white/20">Real vs Projecao</span></h3>
@@ -186,7 +186,7 @@ export default function FinancialPage() {
               {projects.length > 0 ? projects.map((proj) => (
                 <ProjectProfitCard key={proj.id} project={proj} />
               )) : (
-                <div className="glass p-20 rounded-[3rem] text-center opacity-20 border-black/5 dark:border-white/5">
+                <div className="glass p-20 rounded-2xl text-center opacity-20 border-black/5 dark:border-white/5">
                   <p className="text-[10px] uppercase font-black tracking-widest text-luxury-charcoal dark:text-white">Zero projetos ativos para analise de margem.</p>
                 </div>
               )}
@@ -196,7 +196,7 @@ export default function FinancialPage() {
 
         {/* AI Financial Strategy Sidebar */}
         <aside className="lg:col-span-4 space-y-12">
-          <div className="glass p-10 rounded-[2rem] border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-2xl relative overflow-hidden group">
+          <div className="glass p-10 rounded-xl border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-strong relative overflow-hidden group">
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-luxury-gold/5 blur-3xl rounded-full"></div>
             <div className="flex items-center gap-3">
               <Sparkles size={20} className="text-luxury-gold" />
@@ -212,7 +212,7 @@ export default function FinancialPage() {
             </div>
           </div>
 
-          <div className="glass p-10 rounded-[2rem] border-white/5 space-y-10 shadow-2xl">
+          <div className="glass p-10 rounded-xl border-white/5 space-y-10 shadow-strong">
             <h4 className="text-[10px] font-black uppercase tracking-widest opacity-50 text-white">Ledger de Despesas (30d)</h4>
             <div className="space-y-6">
               <div className="flex flex-col items-center justify-center py-10 opacity-20 text-center space-y-4">
@@ -238,7 +238,7 @@ export default function FinancialPage() {
               initial={{ scale: 0.9, y: 20, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.9, y: 20, opacity: 0 }}
-              className="relative w-full max-w-2xl glass rounded-[2rem] border-white/10 p-8 md:p-16 shadow-2xl space-y-10"
+              className="relative w-full max-w-2xl glass rounded-xl border-white/10 p-8 md:p-8 shadow-strong space-y-10"
             >
               <div className="flex justify-between items-center">
                 <div className="space-y-2">
@@ -288,7 +288,7 @@ export default function FinancialPage() {
                 </div>
                 <button
                   disabled={saving}
-                  className="w-full py-7 bg-red-500 text-white rounded-full font-black text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:scale-105 transition-all shadow-2xl shadow-red-500/20 disabled:opacity-20"
+                  className="w-full py-7 bg-red-500 text-white rounded-full font-black text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:scale-105 transition-all shadow-strong shadow-red-500/20 disabled:opacity-20"
                 >
                   {saving ? <Loader2 className="animate-spin" size={18} /> : <Briefcase size={18} />}
                   {saving ? 'A Sincronizar...' : 'Finalizar Registo de Custo'}
@@ -305,7 +305,7 @@ export default function FinancialPage() {
 function ProjectProfitCard({ project }: ProjectProfitCardProps) {
   const margin = Math.round(((project.fee_adjudicated - project.costs_recorded) / project.fee_adjudicated) * 100);
   return (
-    <div className="glass p-10 rounded-[3rem] border-black/5 dark:border-white/5 flex flex-col md:flex-row items-center gap-8 group hover:border-luxury-gold/30 transition-all shadow-xl">
+    <div className="glass p-10 rounded-2xl border-black/5 dark:border-white/5 flex flex-col md:flex-row items-center gap-8 group hover:border-luxury-gold/30 transition-all shadow-xl">
       <div className="flex-1 space-y-6 w-full">
         <div className="flex justify-between items-start">
           <div className="space-y-1">
@@ -348,7 +348,7 @@ function ProjectProfitCard({ project }: ProjectProfitCardProps) {
 
 function FinanceStat({ label, value, trend, up, icon, isGold }: FinanceStatProps) {
   return (
-    <div className={`glass p-10 rounded-[3rem] border-black/5 dark:border-white/5 space-y-6 group transition-all duration-700 hover:border-luxury-gold/20 shadow-xl ${isGold ? 'bg-luxury-gold/[0.02]' : ''}`}>
+    <div className={`glass p-10 rounded-2xl border-black/5 dark:border-white/5 space-y-6 group transition-all duration-700 hover:border-luxury-gold/20 shadow-xl ${isGold ? 'bg-luxury-gold/[0.02]' : ''}`}>
       <div className="flex justify-between items-start">
         <div className={`p-4 rounded-2xl ${isGold ? 'bg-luxury-gold text-black shadow-lg shadow-luxury-gold/30' : 'bg-black/5 dark:bg-white/5 text-luxury-gold'}`}>
           {icon}

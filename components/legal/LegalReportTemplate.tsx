@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Municipality } from '../../data/municipalities';
 import { UrbanOperationType, legalFrameworks } from '../../data/legal_framework';
 import { legislationDatabase } from '../../data/legislation_database';
@@ -22,7 +22,7 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
         <div id="legal-report-template" className="bg-white text-black p-8 pt-12 max-w-[210mm] mx-auto min-h-[297mm] shadow-lg print:shadow-none print:w-full flex flex-col">
             {/* Header */}
             <div className="border-b-2 border-black pb-4 mb-8 text-center">
-                <h1 className="text-2xl font-bold uppercase tracking-wider mb-2">Relatorio Tecnico de Conformidade UrbanA­stica</h1>
+                <h1 className="text-2xl font-bold uppercase tracking-wider mb-2">Relatorio Tecnico de Conformidade UrbanA�stica</h1>
                 <div className="text-sm font-light uppercase tracking-widest text-gray-600">Ferreira Arquitetos {new Date().getFullYear()}</div>
             </div>
 
@@ -31,7 +31,7 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
                 <div className="grid grid-cols-2 gap-4 text-sm mb-4">
                     <div><strong>PROJECTO:</strong> {projectData?.name || '[Nome do Projecto]'}</div>
                     <div className="text-right"><strong>DATA:</strong> {currentDate}</div>
-                    <div><strong>LOCALIZAA‡AƒO:</strong> {projectData?.location || '[Morada]'}, {municipality.name}</div>
+                    <div><strong>LOCALIZAA�A�O:</strong> {projectData?.location || '[Morada]'}, {municipality.name}</div>
                     <div className="text-right"><strong>REF:</strong> FA-{new Date().getFullYear()}-XXX</div>
                 </div>
                 <hr className="border-gray-300" />
@@ -39,9 +39,9 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
 
             {/* Section 1: Identification */}
             <div className="mb-8">
-                <h2 className="text-lg font-bold border-b-2 border-gray-800 mb-4 pb-1">1. IDENTIFICAA‡AƒO DO PRA‰DIO</h2>
+                <h2 className="text-lg font-bold border-b-2 border-gray-800 mb-4 pb-1">1. IDENTIFICAA�A�O DO PRA�DIO</h2>
                 <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div><span className="font-semibold">MunicA­pio:</span> {municipality.name}</div>
+                    <div><span className="font-semibold">MunicA�pio:</span> {municipality.name}</div>
                     <div><span className="font-semibold">Distrito:</span> {municipality.district}</div>
                     <div><span className="font-semibold">Regiao:</span> {municipality.region}</div>
                 </div>
@@ -61,17 +61,17 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {municipality.pdm_links.regulation_pdf && (
                                 <a href={municipality.pdm_links.regulation_pdf} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                                    ðŸ“„ Regulamento do PDM (PDF)
+                                    📄 Regulamento do PDM (PDF)
                                 </a>
                             )}
                             {municipality.pdm_links.geoportal && (
                                 <a href={municipality.pdm_links.geoportal} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                                    ðŸŒ Geoportal Municipal (SIG)
+                                    🌍 Geoportal Municipal (SIG)
                                 </a>
                             )}
                             {municipality.pdm_links.landing_page && (
                                 <a href={municipality.pdm_links.landing_page} target="_blank" rel="noreferrer" className="col-span-2 text-gray-500 text-xs hover:underline mt-1">
-                                    ðŸ”— Pagina Oficial do MunicA­pio
+                                    🔗 Pagina Oficial do MunicA�pio
                                 </a>
                             )}
                         </div>
@@ -89,17 +89,17 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
                 <table className="w-full text-sm border-collapse border border-gray-300 mb-4">
                     <thead>
                         <tr className="bg-gray-200">
-                            <th className="border border-gray-300 p-2 text-left">Parametro UrbanA­stico (Exemplo)</th>
+                            <th className="border border-gray-300 p-2 text-left">Parametro UrbanA�stico (Exemplo)</th>
                             <th className="border border-gray-300 p-2 text-left">Valor Maximo</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td className="border border-gray-300 p-2">Andice de Utilizacao (Iu)</td>
+                            <td className="border border-gray-300 p-2">A�ndice de Utilizacao (Iu)</td>
                             <td className="border border-gray-300 p-2">1.2 (Simulado)</td>
                         </tr>
                         <tr>
-                            <td className="border border-gray-300 p-2">Andice de Ocupacao (Io)</td>
+                            <td className="border border-gray-300 p-2">A�ndice de Ocupacao (Io)</td>
                             <td className="border border-gray-300 p-2">60% (Simulado)</td>
                         </tr>
                         <tr>
@@ -112,7 +112,7 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
 
             {/* Section 3: Legal Framework */}
             <div className="mb-8">
-                <h2 className="text-lg font-bold border-b-2 border-gray-800 mb-4 pb-1">3. ENQUADRAMENTO LEGAL DA OPERAA‡AƒO</h2>
+                <h2 className="text-lg font-bold border-b-2 border-gray-800 mb-4 pb-1">3. ENQUADRAMENTO LEGAL DA OPERAA�A�O</h2>
 
                 {framework ? (
                     <div className="space-y-6">
@@ -142,7 +142,7 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
                                                         <div className="flex items-center gap-2">
                                                             {onOpenLaw && leg.legislation_id && (
                                                                 <span className="text-xs font-black uppercase tracking-tighter bg-gold/10 text-gold px-1.5 py-0.5 rounded opacity-0 group-hover/item:opacity-100 transition-opacity">
-                                                                    Ler no FA-360 a†—
+                                                                    Ler no FA-360 a��
                                                                 </span>
                                                             )}
                                                             {dbLeg?.official_link && (
@@ -153,7 +153,7 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
                                                                     className="text-[11px] text-blue-500 hover:underline"
                                                                     onClick={(e) => e.stopPropagation()}
                                                                 >
-                                                                    DRE ðŸ”—
+                                                                    DRE 🔗
                                                                 </a>
                                                             )}
                                                         </div>
@@ -184,7 +184,7 @@ export const LegalReportTemplate: React.FC<LegalReportTemplateProps> = ({ munici
                                 <ul className="grid grid-cols-1 gap-1">
                                     {framework.required_elements.map((el, i) => (
                                         <li key={i} className="text-sm flex items-start gap-2">
-                                            <span className="text-gray-400">a˜</span>
+                                            <span className="text-gray-400">a��</span>
                                             {el}
                                         </li>
                                     ))}

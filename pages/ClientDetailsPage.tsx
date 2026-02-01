@@ -49,7 +49,7 @@ export default function ClientDetailsPage() {
             <ArrowLeft size={14} /> Voltar a Listagem
           </button>
           <div className="flex items-center gap-8">
-            <div className="w-24 h-24 bg-luxury-gold/10 rounded-[2rem] flex items-center justify-center text-luxury-gold border border-luxury-gold/20 relative group">
+            <div className="w-24 h-24 bg-luxury-gold/10 rounded-xl flex items-center justify-center text-luxury-gold border border-luxury-gold/20 relative group">
               <User size={48} />
               <div className="absolute -top-2 -right-2 p-2 bg-luxury-gold rounded-full text-black shadow-lg">
                 <Star size={12} fill="currentColor" />
@@ -78,7 +78,7 @@ export default function ClientDetailsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Sidebar: Contact & IA Persona */}
         <aside className="lg:col-span-4 space-y-10">
-          <div className="glass p-10 rounded-[3rem] border-white/5 space-y-8">
+          <div className="glass p-10 rounded-2xl border-white/5 space-y-8">
             <h4 className="text-[10px] font-black uppercase tracking-widest opacity-50">Contacto Direto</h4>
             <div className="space-y-6">
                <ContactRow icon={<Mail size={16}/>} label="Email" value={client.email} />
@@ -87,7 +87,7 @@ export default function ClientDetailsPage() {
             </div>
           </div>
 
-          <div className="glass p-10 rounded-[3rem] border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-2xl relative overflow-hidden group">
+          <div className="glass p-10 rounded-2xl border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-strong relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
                <Sparkles size={100} className="text-luxury-gold" />
             </div>
@@ -136,7 +136,7 @@ export default function ClientDetailsPage() {
                 <div className="space-y-6">
                    <ProjectMiniCard title="Villa Alentejo" status="Em Curso" value="€1.2M" />
                    <ProjectMiniCard title="Apartamento Chiado" status="Finalizado" value="€450k" />
-                   <button className="w-full py-8 rounded-[2.5rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center gap-4 text-white/20 hover:border-luxury-gold/30 hover:text-luxury-gold transition-all group">
+                   <button className="w-full py-8 rounded-xl border-2 border-dashed border-white/5 flex flex-col items-center justify-center gap-4 text-white/20 hover:border-luxury-gold/30 hover:text-luxury-gold transition-all group">
                       <Plus size={24} className="group-hover:scale-110 transition-transform" />
                       <span className="text-[10px] font-black uppercase tracking-[0.3em]">Iniciar Novo Projeto</span>
                    </button>
@@ -145,12 +145,12 @@ export default function ClientDetailsPage() {
 
               {activeTab === 'FINANCEIRO' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                   <div className="glass p-10 rounded-[3rem] border-white/5 text-center space-y-4">
+                   <div className="glass p-10 rounded-2xl border-white/5 text-center space-y-4">
                       <p className="text-[10px] font-black uppercase tracking-widest opacity-50">Investimento Total</p>
                       <p className="text-4xl font-serif text-luxury-gold italic">€1.650.000</p>
                       <p className="text-[11px] font-mono opacity-20">LTV Acumulado</p>
                    </div>
-                   <div className="glass p-10 rounded-[3rem] border-white/5 text-center space-y-4">
+                   <div className="glass p-10 rounded-2xl border-white/5 text-center space-y-4">
                       <p className="text-[10px] font-black uppercase tracking-widest opacity-50">Pendente de Pagamento</p>
                       <p className="text-4xl font-serif">€24.500</p>
                       <p className="text-emerald-500 text-[11px] font-black uppercase tracking-widest">Atraso: 0 Dias</p>
@@ -187,7 +187,7 @@ function ContactRow({ icon, label, value }: any) {
 
 function ProjectMiniCard({ title, status, value }: any) {
   return (
-    <div className="glass p-8 rounded-[3rem] border-white/5 flex justify-between items-center group hover:border-luxury-gold/20 transition-all">
+    <div className="glass p-8 rounded-2xl border-white/5 flex justify-between items-center group hover:border-luxury-gold/20 transition-all">
        <div className="flex items-center gap-6">
           <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-luxury-gold">
              <Briefcase size={24} />

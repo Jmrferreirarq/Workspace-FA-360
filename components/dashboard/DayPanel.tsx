@@ -1,4 +1,4 @@
-ï»¿import React from 'react';
+import React from 'react';
 import { AlertCircle, CreditCard, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
@@ -59,7 +59,7 @@ export default function DayPanel({ data }: DayPanelProps) {
 
   if (!hasHighlights) {
     return (
-      <div className="glass p-12 rounded-[2.5rem] flex flex-col items-center justify-center text-center border-black/5 dark:border-white/5 bg-emerald-500/5">
+      <div className="glass p-6 rounded-xl flex flex-col items-center justify-center text-center border-black/5 dark:border-white/5 bg-emerald-500/5">
         <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mb-6">
           <Clock className="text-emerald-500" size={32} />
         </div>
@@ -70,122 +70,128 @@ export default function DayPanel({ data }: DayPanelProps) {
   }
 
   return (
-    <div className="glass overflow-hidden rounded-[2.5rem] border-black/5 dark:border-white/5 bg-white/40 dark:bg-black/40 backdrop-blur-2xl shadow-2xl">
+    <div className="glass overflow-hidden rounded-xl border-black/5 dark:border-white/5 bg-white/40 dark:bg-black/40 backdrop-blur-2xl shadow-strong">
       <div className="p-8 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-black/[0.02] dark:bg-white/[0.02]">
         <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white flex items-center gap-3">
           <span className="w-8 h-[1px] bg-luxury-gold"></span>
           {t('day_panel_title')}
         </h3>
         <button onClick={() => navigate('/tasks')} className="text-[11px] font-black uppercase tracking-[0.3em] text-luxury-gold hover:opacity-70 transition-opacity">
-          {t('view_all')} aâ€ â€™
+          {t('view_all')} a†’
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-black/5 dark:divide-white/5">
+      <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black/5 dark:divide-white/5">
 
-        {/* SECTION: URGENTE */}
+        {/* LEFT COLUMN: URGENTE + AGENDA */}
         <div className="p-8 space-y-6">
-          <div className="flex items-center gap-3 mb-2">
-            <AlertCircle size={16} className="text-rose-500" />
-            <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-rose-500">{t('day_panel_urgent')}</h4>
-          </div>
+          {/* SECTION: URGENTE */}
           <div className="space-y-4">
-            {data.urgentTasks.length > 0 ? data.urgentTasks.map((task) => (
-              <div
-                key={task.id}
-                onClick={() => navigate('/tasks')}
-                className="group cursor-pointer"
-              >
-                <div className="flex justify-between items-start mb-1">
-                  <span className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1">{task.title}</span>
-                  <span className="text-[10px] font-black text-rose-500 uppercase tracking-tighter whitespace-nowrap ml-2">{t('day_panel_due_today')}</span>
+            <div className="flex items-center gap-3 mb-2">
+              <AlertCircle size={16} className="text-rose-500" />
+              <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-rose-500">{t('day_panel_urgent')}</h4>
+            </div>
+            <div className="space-y-4">
+              {data.urgentTasks.length > 0 ? data.urgentTasks.map((task) => (
+                <div
+                  key={task.id}
+                  onClick={() => navigate('/tasks')}
+                  className="group cursor-pointer"
+                >
+                  <div className="flex justify-between items-start mb-1">
+                    <span className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1">{task.title}</span>
+                    <span className="text-[10px] font-black text-rose-500 uppercase tracking-tighter whitespace-nowrap ml-2">{t('day_panel_due_today')}</span>
+                  </div>
+                  {task.projectKey && <p className="text-[10px] font-bold text-luxury-charcoal/40 dark:text-white/40 uppercase tracking-widest">{task.projectKey}</p>}
                 </div>
-                {task.projectKey && <p className="text-[10px] font-bold text-luxury-charcoal/40 dark:text-white/40 uppercase tracking-widest">{task.projectKey}</p>}
-              </div>
-            )) : (
-              <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
-            )}
+              )) : (
+                <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
+              )}
+            </div>
+          </div>
+
+          {/* SECTION: AGENDA */}
+          <div className="space-y-4 pt-6 border-t border-black/5 dark:border-white/5">
+            <div className="flex items-center gap-3 mb-2">
+              <Clock size={16} className="text-blue-500" />
+              <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-blue-500">{t('day_panel_today_meetings')}</h4>
+            </div>
+            <div className="space-y-4">
+              {data.todayMeetings && data.todayMeetings.length > 0 ? data.todayMeetings.map((meet) => (
+                <div
+                  key={meet.id}
+                  onClick={() => navigate('/calendar')}
+                  className="group cursor-pointer"
+                >
+                  <div className="flex justify-between items-start mb-1">
+                    <span className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1">{meet.title}</span>
+                    <span className="text-[10px] font-black text-blue-500 uppercase tracking-tighter whitespace-nowrap ml-2">
+                      {new Date(meet.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
+                  <p className="text-[10px] font-bold text-luxury-charcoal/40 dark:text-white/40 uppercase tracking-widest">{meet.location}</p>
+                </div>
+              )) : (
+                <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* SECTION: AGENDA */}
-        <div className="p-8 space-y-6 bg-black/[0.01] dark:bg-white/[0.01]">
-          <div className="flex items-center gap-3 mb-2">
-            <Clock size={16} className="text-blue-500" />
-            <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-blue-500">{t('day_panel_today_meetings')}</h4>
-          </div>
-          <div className="space-y-4">
-            {data.todayMeetings && data.todayMeetings.length > 0 ? data.todayMeetings.map((meet) => (
-              <div
-                key={meet.id}
-                onClick={() => navigate('/calendar')}
-                className="group cursor-pointer"
-              >
-                <div className="flex justify-between items-start mb-1">
-                  <span className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1">{meet.title}</span>
-                  <span className="text-[10px] font-black text-blue-500 uppercase tracking-tighter whitespace-nowrap ml-2">
-                    {new Date(meet.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </span>
-                </div>
-                <p className="text-[10px] font-bold text-luxury-charcoal/40 dark:text-white/40 uppercase tracking-widest">{meet.location}</p>
-              </div>
-            )) : (
-              <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
-            )}
-          </div>
-        </div>
-
-        {/* SECTION: FINANCEIRO */}
+        {/* RIGHT COLUMN: FINANCEIRO + ATENÇÃO */}
         <div className="p-8 space-y-6">
-          <div className="flex items-center gap-3 mb-2">
-            <CreditCard size={16} className="text-luxury-gold" />
-            <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-luxury-gold">{t('day_panel_financial')}</h4>
-          </div>
+          {/* SECTION: FINANCEIRO */}
           <div className="space-y-4">
-            {data.urgentPayments.length > 0 ? data.urgentPayments.map((pay) => (
-              <div
-                key={pay.id}
-                onClick={() => navigate('/financial')}
-                className="group cursor-pointer"
-              >
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1">{pay.title}</span>
-                  <span className="text-[11px] font-serif italic text-luxury-gold">{Math.round(pay.amountNet).toLocaleString()}aâ€šÂ¬</span>
+            <div className="flex items-center gap-3 mb-2">
+              <CreditCard size={16} className="text-luxury-gold" />
+              <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-luxury-gold">{t('day_panel_financial')}</h4>
+            </div>
+            <div className="space-y-4">
+              {data.urgentPayments.length > 0 ? data.urgentPayments.map((pay) => (
+                <div
+                  key={pay.id}
+                  onClick={() => navigate('/financial')}
+                  className="group cursor-pointer"
+                >
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1">{pay.title}</span>
+                    <span className="text-[11px] font-serif italic text-luxury-gold">{Math.round(pay.amountNet).toLocaleString()}€</span>
+                  </div>
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-tighter text-luxury-charcoal/40 dark:text-white/40">
+                    <span className={(new Date(pay.date).getTime()) < (now - 30 * 86400000) ? "text-rose-500 font-black animate-pulse" : ""}>
+                      {(new Date(pay.date).getTime()) < (now - 30 * 86400000) ? t('day_panel_overdue_alert') : pay.status}
+                    </span>
+                    <span>{new Date(pay.date).toLocaleDateString()}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-tighter text-luxury-charcoal/40 dark:text-white/40">
-                  <span className={(new Date(pay.date).getTime()) < (now - 30 * 86400000) ? "text-rose-500 font-black animate-pulse" : ""}>
-                    {(new Date(pay.date).getTime()) < (now - 30 * 86400000) ? t('day_panel_overdue_alert') : pay.status}
-                  </span>
-                  <span>{new Date(pay.date).toLocaleDateString()}</span>
-                </div>
-              </div>
-            )) : (
-              <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
-            )}
+              )) : (
+                <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* SECTION: STANDBY */}
-        <div className="p-8 space-y-6">
-          <div className="flex items-center gap-3 mb-2">
-            <Clock size={16} className="text-luxury-charcoal/40 dark:text-white/40" />
-            <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-luxury-charcoal/40 dark:text-white/40">{t('day_panel_attention')}</h4>
-          </div>
-          <div className="space-y-4">
-            {data.idleProjects.length > 0 ? data.idleProjects.map((proj) => (
-              <div
-                key={proj.id}
-                onClick={() => navigate(`/projects/${proj.id}`)}
-                className="group cursor-pointer"
-              >
-                <h5 className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1 mb-1">{proj.name || proj.title}</h5>
-                <p className="text-[10px] font-black text-rose-500/70 uppercase tracking-tighter">
-                  {t('day_panel_idle_desc')} {Math.floor((now - new Date(proj.nextActionDate || now).getTime()) / (1000 * 3600 * 24))} {t('day_panel_days')}
-                </p>
-              </div>
-            )) : (
-              <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
-            )}
+          {/* SECTION: ATENÇÃO */}
+          <div className="space-y-4 pt-6 border-t border-black/5 dark:border-white/5">
+            <div className="flex items-center gap-3 mb-2">
+              <Clock size={16} className="text-luxury-charcoal/40 dark:text-white/40" />
+              <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-luxury-charcoal/40 dark:text-white/40">{t('day_panel_attention')}</h4>
+            </div>
+            <div className="space-y-4">
+              {data.idleProjects.length > 0 ? data.idleProjects.map((proj) => (
+                <div
+                  key={proj.id}
+                  onClick={() => navigate(`/projects/${proj.id}`)}
+                  className="group cursor-pointer"
+                >
+                  <h5 className="text-xs font-bold text-luxury-charcoal dark:text-white group-hover:text-luxury-gold transition-colors line-clamp-1 mb-1">{proj.name || proj.title}</h5>
+                  <p className="text-[10px] font-black text-rose-500/70 uppercase tracking-tighter">
+                    {t('day_panel_idle_desc')} {Math.floor((now - new Date(proj.nextActionDate || now).getTime()) / (1000 * 3600 * 24))} {t('day_panel_days')}
+                  </p>
+                </div>
+              )) : (
+                <p className="text-[11px] font-bold text-luxury-charcoal/30 dark:text-white/30 italic">{t('day_panel_no_urgent')}</p>
+              )}
+            </div>
           </div>
         </div>
 

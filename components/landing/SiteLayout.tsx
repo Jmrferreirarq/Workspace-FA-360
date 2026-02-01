@@ -1,4 +1,4 @@
-ï»¿
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -30,7 +30,7 @@ export default function SiteLayout({ children }: { children?: React.ReactNode })
 
   return (
     <div className="bg-luxury-black text-luxury-white font-sans selection:bg-luxury-gold selection:text-black min-h-screen flex flex-col overflow-x-hidden">
-      <header className={`fixed top-0 left-0 right-0 z-[150] transition-all duration-1000 px-8 md:px-16 py-8 ${isScrolled ? 'bg-luxury-black/90 backdrop-blur-3xl border-b border-white/5 py-6 shadow-2xl' : 'bg-transparent'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-[150] transition-all duration-1000 px-8 md:px-16 py-8 ${isScrolled ? 'bg-luxury-black/90 backdrop-blur-3xl border-b border-white/5 py-6 shadow-strong' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link to="/public" className="group">
             <BrandLogo size={40} animated={true} light={true} />
@@ -59,7 +59,7 @@ export default function SiteLayout({ children }: { children?: React.ReactNode })
 
             <button 
               onClick={() => navigate('/')}
-              className="flex items-center gap-3 text-luxury-gold bg-luxury-gold/5 border border-luxury-gold/20 px-8 py-3 rounded-full hover:bg-luxury-gold hover:text-black transition-all shadow-2xl shadow-luxury-gold/5 group"
+              className="flex items-center gap-3 text-luxury-gold bg-luxury-gold/5 border border-luxury-gold/20 px-8 py-3 rounded-full hover:bg-luxury-gold hover:text-black transition-all shadow-strong shadow-luxury-gold/5 group"
             >
               <LayoutDashboard size={14} className="group-hover:rotate-12 transition-transform" /> 
               <span className="text-xs">{t('accessManagement')}</span>
@@ -129,7 +129,7 @@ export default function SiteLayout({ children }: { children?: React.ReactNode })
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-40 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 opacity-20 text-xs font-black uppercase tracking-[0.3em]">
-           <p>e 2024 Ferreira Arquitetos aâ‚¬Â¢ FA-360 Ecosystem</p>
+           <p>e 2024 Ferreira Arquitetos a€¢ FA-360 Ecosystem</p>
            <div className="flex gap-8">
               <a href="#">{t('footerPrivacy')}</a>
               <a href="#">{t('footerCookies')}</a>

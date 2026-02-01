@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 interface SkeletonCardProps {
     variant?: 'metric' | 'project' | 'client';
@@ -7,7 +7,7 @@ interface SkeletonCardProps {
 export default function SkeletonCard({ variant = 'metric' }: SkeletonCardProps) {
     if (variant === 'metric') {
         return (
-            <div className="glass p-8 rounded-[2rem]">
+            <div className="glass p-8 rounded-xl">
                 <div className="h-12 w-12 skeleton rounded-xl mb-6" />
                 <div className="h-4 w-1/3 skeleton mb-3" />
                 <div className="h-10 w-2/3 skeleton" />
@@ -17,7 +17,7 @@ export default function SkeletonCard({ variant = 'metric' }: SkeletonCardProps) 
 
     if (variant === 'project') {
         return (
-            <div className="glass p-8 rounded-[2rem]">
+            <div className="glass p-8 rounded-xl">
                 <div className="flex items-center gap-2 mb-4">
                     <div className="h-2 w-2 skeleton rounded-full" />
                     <div className="h-3 w-20 skeleton" />

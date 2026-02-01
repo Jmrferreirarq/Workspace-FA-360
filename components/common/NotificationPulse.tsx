@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Zap, Bell, MessageSquare, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react';

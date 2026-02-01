@@ -1,4 +1,4 @@
-Ôªøimport SpotlightCard from '../ui/SpotlightCard';
+import SpotlightCard from '../ui/SpotlightCard';
 import { Play, MoreVertical, Plus, DollarSign, Activity, Clock } from 'lucide-react';
 import { useTimer } from '../../context/TimeContext';
 import { useState } from 'react';
@@ -35,7 +35,7 @@ export const ActiveProjectsCard: React.FC<{
           onClick={onOpenAll}
           className="text-[11px] font-black uppercase tracking-[0.25em] text-luxury-gold hover:brightness-110 transition-all"
         >
-          Ver todos a‚Ä†‚Äô
+          Ver todos aÜí
         </button>
       </div>
 
@@ -71,7 +71,7 @@ export const ActiveProjectsCard: React.FC<{
                         <span className="text-[9px] font-black text-luxury-gold/60">{p.progress}%</span>
                       </div>
                       <div className="text-[11px] text-white/35 truncate mt-1">
-                        {p.client ? `Cliente: ${p.client}` : 'Cliente: a‚Ç¨‚Äù'}
+                        {p.client ? `Cliente: ${p.client}` : 'Cliente: aÄî'}
                       </div>
                     </div>
 
@@ -104,7 +104,7 @@ export const ActiveProjectsCard: React.FC<{
                             </button>
 
                             {openMenu === p.projectId && (
-                                <div className="absolute right-0 top-10 w-48 glass rounded-2xl border border-white/10 shadow-2xl z-50 py-2 animate-in fade-in slide-in-from-top-2">
+                                <div className="absolute right-0 top-10 w-48 glass rounded-2xl border border-white/10 shadow-strong z-50 py-2 animate-in fade-in slide-in-from-top-2">
                                     <button className="w-full px-4 py-2 text-left text-[11px] font-black uppercase tracking-widest text-white/60 hover:text-luxury-gold hover:bg-white/5 flex items-center gap-3">
                                         <Plus size={12} /> Adicionar Tarefa
                                     </button>

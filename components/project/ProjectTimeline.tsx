@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, Clock, Play, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -85,7 +85,7 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ currentPhaseId
               )}
 
               {phase.status === 'completed' && (
-                <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-tighter">ConcluA­do</span>
+                <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-tighter">ConcluA�do</span>
               )}
 
               {phase.status === 'upcoming' && (

@@ -69,7 +69,7 @@ export default function PublicServicesPage() {
                   <li className="flex items-center gap-3"><Lightbulb size={16} className="text-luxury-gold" /> 3D Modeling</li>
                 </ul>
               </div>
-              <div className="flex-1 aspect-video rounded-[2rem] overflow-hidden group">
+              <div className="flex-1 aspect-video rounded-xl overflow-hidden group">
                 <img src={s.img} alt={s.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" />
               </div>
             </Motion.div>

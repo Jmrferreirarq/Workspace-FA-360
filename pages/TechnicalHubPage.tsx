@@ -122,7 +122,7 @@ export default function TechnicalHubPage() {
             </div>
           </div>
 
-          <div className="p-8 bg-luxury-gold/5 rounded-[2.5rem] border border-luxury-gold/10 space-y-4">
+          <div className="p-8 bg-luxury-gold/5 rounded-xl border border-luxury-gold/10 space-y-4">
             <div className="flex items-center gap-2 text-luxury-gold">
               <AlertCircle size={16} />
               <span className="text-[10px] font-black uppercase tracking-widest text-luxury-gold">AI Integrity Check</span>
@@ -157,7 +157,7 @@ export default function TechnicalHubPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ delay: i * 0.1 }}
-                    className="glass p-8 rounded-[3rem] border-black/5 dark:border-white/5 group hover:border-luxury-gold/20 transition-all shadow-2xl relative overflow-hidden text-luxury-charcoal dark:text-white"
+                    className="glass p-8 rounded-2xl border-black/5 dark:border-white/5 group hover:border-luxury-gold/20 transition-all shadow-strong relative overflow-hidden text-luxury-charcoal dark:text-white"
                   >
                     <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                       <button className="p-2 text-luxury-charcoal/20 dark:text-white/20 hover:text-luxury-gold"><History size={20} /></button>
@@ -196,7 +196,7 @@ export default function TechnicalHubPage() {
                   </motion.div>
                 ))
               ) : (
-                <div className="col-span-full py-40 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">
+                <div className="col-span-full py-40 glass rounded-2xl border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 text-center bg-black/5 dark:bg-white/[0.02]">
                   <div className="p-10 bg-black/5 dark:bg-white/5 rounded-full border border-black/5 dark:border-white/5 text-luxury-charcoal dark:text-white">
                     <FolderOpen size={48} className="opacity-20" />
                   </div>
@@ -216,7 +216,7 @@ export default function TechnicalHubPage() {
               <h3 className="text-3xl font-serif italic text-luxury-charcoal dark:text-white">{t('tech_log_title')}</h3>
               {transmittals.length > 0 && <button className="text-[10px] font-black uppercase tracking-widest border-b border-luxury-gold pb-1 text-luxury-gold">{t('tech_log_export')}</button>}
             </div>
-            <div className="glass rounded-[3rem] overflow-hidden border-black/5 dark:border-white/5">
+            <div className="glass rounded-2xl overflow-hidden border-black/5 dark:border-white/5">
               <table className="w-full text-left">
                 <thead className="bg-black/5 dark:bg-white/5 text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">
                   <tr>

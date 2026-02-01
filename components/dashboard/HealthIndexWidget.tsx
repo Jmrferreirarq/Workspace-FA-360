@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Activity, HelpCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
@@ -29,7 +29,7 @@ export default function HealthIndexWidget({ score, breakdown, reason }: HealthIn
   const bgColor = colorClass.split(' ')[1];
 
   return (
-    <div className="md:col-span-1 glass p-6 rounded-[2rem] border-black/5 dark:border-white/5 bg-luxury-white/50 dark:bg-black/20 flex flex-col justify-between h-full relative overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-none hover:shadow-[0_4px_25px_rgba(0,0,0,0.05)] transition-all">
+    <div className="md:col-span-1 glass p-6 rounded-xl border-black/5 dark:border-white/5 bg-luxury-white/50 dark:bg-black/20 flex flex-col justify-between h-full relative overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-none hover:shadow-[0_4px_25px_rgba(0,0,0,0.05)] transition-all">
       
       <div className="flex justify-between items-start">
         <div>

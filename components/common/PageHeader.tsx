@@ -1,5 +1,4 @@
-﻿import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import React from 'react';
 
 interface PageHeaderProps {
   kicker?: string;
@@ -23,7 +22,7 @@ export default function PageHeader({
       <div>
          {kicker && (
            <div className="flex items-center gap-3 mb-2">
-              {statusIndicator && <div className="w-2 h-2 rounded-full bg-luxury-gold animate-pulse"></div>}
+              {statusIndicator && <div className="w-2 h-2 rounded-full bg-luxury-gold"></div>}
               <p className="text-[11px] font-black uppercase tracking-[0.3em] text-luxury-charcoal/40 dark:text-white/40">{kicker}</p>
            </div>
          )}

@@ -70,7 +70,7 @@ export default function ProjectsPage() {
       />
 
       {projects.length === 0 && !loading ? (
-        <div className="py-40 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 opacity-40 text-center bg-luxury-white/30 dark:bg-white/[0.02]">
+        <div className="py-40 glass rounded-2xl border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-8 opacity-40 text-center bg-luxury-white/30 dark:bg-white/[0.02]">
           <div className="p-10 bg-luxury-gold/5 dark:bg-white/5 rounded-full border border-luxury-gold/10 dark:border-white/5 text-luxury-gold dark:text-white">
             <Layers size={48} className="opacity-20" />
           </div>
@@ -107,7 +107,7 @@ export default function ProjectsPage() {
                     />
                   ))
                 )}
-                <button className="w-full py-4 rounded-[2rem] border border-dashed border-black/5 dark:border-white/5 text-luxury-charcoal/20 dark:text-white/20 hover:text-luxury-gold text-xs font-bold uppercase tracking-widest transition-all">
+                <button className="w-full py-4 rounded-xl border border-dashed border-black/5 dark:border-white/5 text-luxury-charcoal/20 dark:text-white/20 hover:text-luxury-gold text-xs font-bold uppercase tracking-widest transition-all">
                   + {t('calc_add')}
                 </button>
               </div>

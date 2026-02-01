@@ -1,4 +1,4 @@
-ï»¿
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -32,7 +32,7 @@ export default function BrandLogo({
           xmlns="http://www.w3.org/2000/svg"
           className="overflow-visible"
         >
-          {/* AÂcone Geometrico Minimalista - Baseado em angulos retos de arquitetura */}
+          {/* Acone Geometrico Minimalista - Baseado em angulos retos de arquitetura */}
           <motion.path
             d="M20 80V20H50"
             stroke={light ? "#FFF" : "#D4AF37"}
@@ -53,7 +53,7 @@ export default function BrandLogo({
       )}
       
       <div className="flex flex-col items-center">
-        {/* Bloco Superior: FERREIRA AÂ® */}
+        {/* Bloco Superior: FERREIRA A® */}
         <div className="relative flex items-start">
           <motion.span 
             initial={animated ? { opacity: 0, y: 5 } : { opacity: 1, y: 0 }}

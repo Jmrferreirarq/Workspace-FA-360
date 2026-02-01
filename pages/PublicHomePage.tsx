@@ -76,7 +76,7 @@ export default function PublicHomePage() {
             </Motion.h1>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-16 pt-10">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 pt-10">
             <Motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.4 }}
@@ -135,7 +135,7 @@ export default function PublicHomePage() {
             >
               <img src="https://images.unsplash.com/photo-1600607687940-477a284395e5?auto=format&fit=crop&w=1200" className="w-full h-full object-cover" />
             </Motion.div>
-            <div className="absolute -bottom-16 -left-16 glass p-16 rounded-[2rem] border-luxury-gold/20 shadow-2xl max-w-sm bg-white">
+            <div className="absolute -bottom-16 -left-16 glass p-8 rounded-xl border-luxury-gold/20 shadow-strong max-w-sm bg-white">
               <p className="text-6xl font-serif italic text-luxury-gold mb-4">01.</p>
               <p className="text-lg font-light text-luxury-black/60 italic leading-relaxed">"{t('aboutQuote')}"</p>
             </div>
@@ -151,7 +151,7 @@ export default function PublicHomePage() {
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              className="absolute bottom-28 right-0 w-[400px] md:w-[500px] glass rounded-[2rem] border-white/10 shadow-[0_50px_150px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col bg-luxury-black/90"
+              className="absolute bottom-28 right-0 w-[400px] md:w-[500px] glass rounded-xl border-white/10 shadow-[0_50px_150px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col bg-luxury-black/90"
             >
               <div className="p-10 border-b border-white/5 bg-luxury-gold text-black flex justify-between items-center">
                 <div>
@@ -162,14 +162,14 @@ export default function PublicHomePage() {
               </div>
               
               <div className="h-[450px] overflow-y-auto p-10 space-y-8 scrollbar-hide">
-                <div className="bg-white/5 p-8 rounded-[3rem] rounded-tl-none border border-white/5">
+                <div className="bg-white/5 p-8 rounded-2xl rounded-tl-none border border-white/5">
                    <p className="text-base font-light italic opacity-90 leading-relaxed text-white">
                      {t('aiGreeting')}
                    </p>
                 </div>
                 {chatHistory.map((msg, i) => (
                   <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`p-8 rounded-[3rem] max-w-[90%] border shadow-2xl ${
+                    <div className={`p-8 rounded-2xl max-w-[90%] border shadow-strong ${
                       msg.role === 'user' 
                         ? 'bg-luxury-gold text-black rounded-tr-none' 
                         : 'bg-white/5 border-white/5 rounded-tl-none text-white/90'
@@ -216,7 +216,7 @@ export default function PublicHomePage() {
       </div>
 
       <section id="portfolio" className="py-60 px-6 max-w-[1600px] mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-40 gap-16 px-10">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-40 gap-8 px-10">
           <div className="space-y-8">
             <h2 className="text-8xl md:text-[10rem] font-sans font-black italic tracking-tighter leading-[0.8] text-luxury-black uppercase">{t('prestigeWorks')}</h2>
             <p className="text-2xl font-light opacity-50 max-w-lg italic">{t('portfolioSubtitle')}</p>
@@ -224,7 +224,7 @@ export default function PublicHomePage() {
           <button className="text-luxury-gold font-black text-[12px] uppercase tracking-[0.6em] border-b border-luxury-gold/30 pb-4 hover:border-luxury-gold transition-all">{t('fullArchive')}</button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((p, i) => (
             <Motion.div 
               key={p.id}
@@ -234,7 +234,7 @@ export default function PublicHomePage() {
               className="group cursor-pointer"
             >
               <Link to={`/public/project/${p.id}`}>
-                <div className="relative aspect-[4/5.5] rounded-[3rem] overflow-hidden mb-12 shadow-[0_50px_120px_rgba(0,0,0,0.15)] border border-white/5">
+                <div className="relative aspect-[4/5.5] rounded-2xl overflow-hidden mb-12 shadow-[0_50px_120px_rgba(0,0,0,0.15)] border border-white/5">
                   <img src={p.image} alt={p.name} className="absolute inset-0 w-full h-full object-cover grayscale brightness-90 transition-all duration-[3s] group-hover:scale-110 group-hover:grayscale-0 group-hover:brightness-100" />
                   <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/90 via-transparent to-transparent opacity-60 group-hover:opacity-20 transition-opacity"></div>
                   <div className="absolute bottom-16 left-16 opacity-0 group-hover:opacity-100 transition-all translate-y-8 group-hover:translate-y-0 duration-700">

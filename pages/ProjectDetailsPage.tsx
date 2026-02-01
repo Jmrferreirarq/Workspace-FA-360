@@ -181,7 +181,7 @@ export default function ProjectDetailsPage() {
       </header>
 
       {/* 1.5 Timeline de Projeto (Step 29) */}
-      <div className="glass p-6 rounded-[2.5rem] border-black/5 dark:border-white/5 bg-black/[0.01] dark:bg-white/[0.01]">
+      <div className="glass p-6 rounded-xl border-black/5 dark:border-white/5 bg-black/[0.01] dark:bg-white/[0.01]">
         <ProjectTimeline
           currentPhaseId={
             project?.status === 'planning' ? 'LIC' :
@@ -192,7 +192,7 @@ export default function ProjectDetailsPage() {
       </div>
 
       {aiAnalysis && (
-        <div className="p-6 bg-luxury-gold/5 border border-luxury-gold/10 rounded-[2.5rem] flex items-center gap-4 animate-in slide-up">
+        <div className="p-6 bg-luxury-gold/5 border border-luxury-gold/10 rounded-xl flex items-center gap-4 animate-in slide-up">
           <div className="p-3 bg-luxury-gold text-black rounded-2xl">
             <Sparkles size={18} />
           </div>
@@ -228,7 +228,7 @@ function TasksView({ t }: { project: ProjectData | null, t: (key: string) => str
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div className="lg:col-span-2 space-y-6">
-        <div className="glass p-8 rounded-[2.5rem] space-y-6">
+        <div className="glass p-8 rounded-xl space-y-6">
           <div className="flex justify-between items-center">
             <h3 className="text-xl font-serif italic text-luxury-charcoal dark:text-white">{t('proj_pending_ops')}</h3>
             <Tooltip content={t('add_task') || "Adicionar Tarefa"} position="top">
@@ -251,7 +251,7 @@ function TasksView({ t }: { project: ProjectData | null, t: (key: string) => str
           </div>
         </div>
       </div>
-      <div className="glass p-8 rounded-[2.5rem] border-luxury-gold/10 space-y-6 h-fit">
+      <div className="glass p-8 rounded-xl border-luxury-gold/10 space-y-6 h-fit">
         <h3 className="text-[11px] font-black uppercase tracking-widest text-luxury-gold">{t('proj_exec_panel')}</h3>
         <div className="grid grid-cols-2 gap-4">
           {['3D View', 'Portal', 'Chat', 'Docs'].map(l => (
@@ -295,7 +295,7 @@ function PaymentsView({ payments, client, projectName, t }: { payments: ProjectP
   };
 
   return (
-    <div className="glass rounded-[3rem] overflow-hidden border-black/5 dark:border-white/5 shadow-2xl">
+    <div className="glass rounded-2xl overflow-hidden border-black/5 dark:border-white/5 shadow-strong">
       <table className="w-full text-left">
         <thead className="bg-black/5 dark:bg-white/5 text-[11px] font-black uppercase tracking-widest text-luxury-charcoal/50 dark:text-white/50">
           <tr>
@@ -342,7 +342,7 @@ function DiaryView({ diary, t }: { diary: ProjectDiaryItem[], t: (key: string) =
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       {diary?.map((item) => (
-        <div key={item.id} className="glass p-8 rounded-[3rem] border-black/5 dark:border-white/5 space-y-6 group hover:border-luxury-gold/30 transition-all">
+        <div key={item.id} className="glass p-8 rounded-2xl border-black/5 dark:border-white/5 space-y-6 group hover:border-luxury-gold/30 transition-all">
           <div className="flex justify-between items-start">
             <div>
               <p className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-1">{item.date}</p>
@@ -386,7 +386,7 @@ function TimeLogsView({ projectId }: { projectId: string }) {
   }, [projectId]);
 
   return (
-    <div className="glass rounded-[3rem] overflow-hidden border-black/5 dark:border-white/5 shadow-2xl">
+    <div className="glass rounded-2xl overflow-hidden border-black/5 dark:border-white/5 shadow-strong">
       {logs.length === 0 ? (
         <div className="p-8 text-center text-luxury-charcoal/60 dark:text-white/60 italic">Sem registos de horas neste projeto.</div>
       ) : (

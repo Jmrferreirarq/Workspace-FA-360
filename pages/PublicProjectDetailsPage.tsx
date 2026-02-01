@@ -144,7 +144,7 @@ export default function PublicProjectDetailsPage() {
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold">Continuar Exploracao</p>
           <h2 className="text-4xl md:text-7xl font-serif italic">Pronto para materializar a sua <br/> <span className="text-luxury-gold underline underline-offset-8 decoration-1">propria visao?</span></h2>
           <div className="flex gap-8 pt-6">
-            <Link to="/public/contact" className="px-12 py-6 bg-luxury-gold text-black rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
+            <Link to="/public/contact" className="px-12 py-6 bg-luxury-gold text-black rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-strong">
               Agendar Consultoria
             </Link>
             <Link to="/public#portfolio" className="px-12 py-6 glass border-white/10 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all">
@@ -168,7 +168,7 @@ function ProjectSpec({ label, value }: any) {
 
 function GalleryItem({ src, className, label }: any) {
   return (
-    <div className={`relative group overflow-hidden rounded-[3rem] shadow-2xl ${className}`}>
+    <div className={`relative group overflow-hidden rounded-2xl shadow-strong ${className}`}>
       <img 
         src={src} 
         alt={label} 

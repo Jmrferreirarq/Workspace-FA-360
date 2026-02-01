@@ -1,4 +1,4 @@
-ï»¿import React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -22,7 +22,7 @@ export default function TodayOpsWidget({ data }: TodayOpsProps) {
           onClick={() => navigate('/tasks')}
           className="text-[11px] font-black uppercase tracking-[0.25em] text-luxury-gold hover:brightness-110 transition-all"
         >
-          {t('open_day')} aâ€ â€™
+          {t('open_day')} a†’
         </button>
       </div>
 

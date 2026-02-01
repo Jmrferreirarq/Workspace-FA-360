@@ -40,7 +40,7 @@ export default function PublicContactPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
           <div className="lg:col-span-7">
-            <form onSubmit={handleSubmit} className="glass p-8 rounded-[2rem] border-white/5 space-y-10 shadow-2xl">
+            <form onSubmit={handleSubmit} className="glass p-8 rounded-xl border-white/5 space-y-10 shadow-strong">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-4">
                   <label className="text-[10px] font-black uppercase tracking-widest opacity-50">{t('cont_form_name')}</label>
@@ -86,7 +86,7 @@ export default function PublicContactPage() {
               </div>
             </div>
 
-            <div className="h-64 rounded-[3rem] overflow-hidden grayscale relative border border-white/5 group">
+            <div className="h-64 rounded-2xl overflow-hidden grayscale relative border border-white/5 group">
               <img src="https://images.unsplash.com/photo-1524813685485-3de3967b9c62?auto=format&fit=crop&w=800" className="w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform duration-1000" />
               <div className="absolute inset-0 bg-luxury-gold/10" />
               <div className="absolute inset-0 flex items-center justify-center">

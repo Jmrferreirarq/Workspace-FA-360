@@ -123,7 +123,7 @@ export default function MediaHubPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ delay: i * 0.05 }}
-                  className={`glass rounded-[3rem] overflow-hidden group border-white/5 hover:border-luxury-gold/30 transition-all shadow-2xl relative ${viewMode === 'list' ? 'flex items-center gap-8' : ''}`}
+                  className={`glass rounded-2xl overflow-hidden group border-white/5 hover:border-luxury-gold/30 transition-all shadow-strong relative ${viewMode === 'list' ? 'flex items-center gap-8' : ''}`}
                 >
                   {/* Image Container */}
                   <div className={`${viewMode === 'list' ? 'w-64 h-40' : 'aspect-[4/5]'} relative overflow-hidden`}>
@@ -149,7 +149,7 @@ export default function MediaHubPage() {
 
                     {asset.type === 'Video' && (
                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:scale-110 transition-transform">
-                        <div className="w-16 h-16 bg-luxury-gold/80 backdrop-blur-xl rounded-full flex items-center justify-center text-black shadow-2xl">
+                        <div className="w-16 h-16 bg-luxury-gold/80 backdrop-blur-xl rounded-full flex items-center justify-center text-black shadow-strong">
                           <Play size={24} fill="currentColor" />
                         </div>
                       </div>
@@ -192,7 +192,7 @@ export default function MediaHubPage() {
 
             {/* Empty State */}
             {filteredAssets.length === 0 && (
-              <div className="col-span-full py-40 text-center glass rounded-[2rem] border-dashed border-white/10">
+              <div className="col-span-full py-40 text-center glass rounded-xl border-dashed border-white/10">
                 <ImageIcon size={48} className="mx-auto opacity-10 mb-6" />
                 <h3 className="text-2xl font-serif italic opacity-50">Nenhum ativo visual encontrado.</h3>
                 <p className="text-sm font-light opacity-20 mt-2">Tente ajustar os filtros ou a sua pesquisa.</p>
@@ -203,7 +203,7 @@ export default function MediaHubPage() {
 
         {/* AI Creative Director Sidebar */}
         <aside className="lg:col-span-3 space-y-10">
-          <div className="glass p-10 rounded-[2rem] border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-2xl relative overflow-hidden">
+          <div className="glass p-10 rounded-xl border-luxury-gold/20 bg-luxury-gold/[0.02] space-y-8 shadow-strong relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-luxury-gold/5 rounded-full blur-3xl"></div>
             <div className="flex items-center gap-3">
               <Sparkles size={20} className="text-luxury-gold" />
@@ -239,7 +239,7 @@ export default function MediaHubPage() {
             </div>
           </div>
 
-          <div className="glass p-10 rounded-[3rem] border-white/5 space-y-10">
+          <div className="glass p-10 rounded-2xl border-white/5 space-y-10">
             <h4 className="text-[10px] font-black uppercase tracking-widest opacity-50">Status do Armazenamento</h4>
             <div className="space-y-8">
               <div className="space-y-3">
@@ -270,7 +270,7 @@ export default function MediaHubPage() {
             </div>
           </div>
 
-          <div className="p-10 bg-indigo-500/5 rounded-[3rem] border border-indigo-500/10 flex flex-col items-center text-center gap-6 relative overflow-hidden group">
+          <div className="p-10 bg-indigo-500/5 rounded-2xl border border-indigo-500/10 flex flex-col items-center text-center gap-6 relative overflow-hidden group">
             <div className="absolute inset-0 bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <Camera size={40} className="text-indigo-400 group-hover:scale-110 transition-transform duration-700" />
             <div>

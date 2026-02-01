@@ -91,7 +91,7 @@ export default function NeuralStudioPage() {
           !isBrainOnline ? (
             <button
               onClick={() => navigate('/antigravity')}
-              className="glass px-6 py-3 rounded-[2.5rem] border-red-500/30 bg-red-500/5 backdrop-blur-3xl flex items-center gap-4 hover:border-luxury-gold/50 transition-all group"
+              className="glass px-6 py-3 rounded-xl border-red-500/30 bg-red-500/5 backdrop-blur-3xl flex items-center gap-4 hover:border-luxury-gold/50 transition-all group"
             >
               <div className="p-2 bg-red-500/20 text-red-500 rounded-xl group-hover:text-luxury-gold transition-colors"><Link2 size={18} /></div>
               <div className="text-left">
@@ -101,7 +101,7 @@ export default function NeuralStudioPage() {
               <ArrowRight size={16} className="text-red-500 group-hover:translate-x-2 transition-transform" />
             </button>
           ) : (
-            <div className="glass px-6 py-3 rounded-[2.5rem] border-black/5 dark:border-white/10 bg-indigo-500/[0.05] backdrop-blur-3xl flex items-center gap-6 shadow-[0_0_50px_rgba(99,102,241,0.1)]">
+            <div className="glass px-6 py-3 rounded-xl border-black/5 dark:border-white/10 bg-indigo-500/[0.05] backdrop-blur-3xl flex items-center gap-6 shadow-[0_0_50px_rgba(99,102,241,0.1)]">
               <div className="flex flex-col gap-1">
                 <span className="text-[9px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Synaptic Load</span>
                 <div className="flex items-center gap-3">
@@ -134,7 +134,7 @@ export default function NeuralStudioPage() {
             <button
               key={agent.id}
               onClick={() => setActiveAgent(agent.id)}
-              className={`w-full p-8 rounded-[2.5rem] border transition-all text-left group relative overflow-hidden ${activeAgent === agent.id
+              className={`w-full p-8 rounded-xl border transition-all text-left group relative overflow-hidden ${activeAgent === agent.id
                 ? 'bg-indigo-500/[0.03] border-indigo-500/50 shadow-[0_20px_50px_rgba(99,102,241,0.1)]'
                 : 'bg-black/5 dark:bg-transparent border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20'
                 }`}
@@ -162,9 +162,9 @@ export default function NeuralStudioPage() {
               <motion.section
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="glass p-8 md:p-16 rounded-[2rem] border-indigo-500/20 bg-indigo-500/[0.02] shadow-2xl relative overflow-hidden"
+                className="glass p-8 md:p-8 rounded-xl border-indigo-500/20 bg-indigo-500/[0.02] shadow-strong relative overflow-hidden"
               >
-                <div className="absolute top-0 right-0 p-16 opacity-[0.02] pointer-events-none">
+                <div className="absolute top-0 right-0 p-8 opacity-[0.02] pointer-events-none">
                   <Cpu size={300} className="text-indigo-400" />
                 </div>
 
@@ -202,8 +202,8 @@ export default function NeuralStudioPage() {
             )}
           </AnimatePresence>
 
-          <section className="glass p-8 md:p-16 rounded-[2rem] border-black/5 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-16 opacity-[0.02] pointer-events-none">
+          <section className="glass p-8 md:p-8 rounded-xl border-black/5 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] shadow-strong relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-8 opacity-[0.02] pointer-events-none">
               <Brain size={300} className="text-luxury-charcoal dark:text-white" />
             </div>
 
@@ -230,12 +230,12 @@ export default function NeuralStudioPage() {
                   <Terminal className="absolute top-6 left-6 text-indigo-500/40" size={18} />
                   <textarea
                     disabled={!isBrainOnline}
-                    className="w-full bg-black/40 border border-white/10 rounded-[2.5rem] p-10 pl-16 h-80 text-sm font-light italic text-white/70 focus:border-indigo-500 outline-none transition-all leading-relaxed font-mono disabled:opacity-20 scrollbar-hide"
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-10 pl-16 h-80 text-sm font-light italic text-white/70 focus:border-indigo-500 outline-none transition-all leading-relaxed font-mono disabled:opacity-20 scrollbar-hide"
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                   />
                   {!isBrainOnline && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-[2.5rem]">
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-xl">
                       <div className="text-center space-y-4">
                         <AlertTriangle className="mx-auto text-luxury-gold" size={32} />
                         <p className="text-[10px] font-black uppercase tracking-widest text-white">Neural Bridge Inactive</p>
@@ -250,7 +250,7 @@ export default function NeuralStudioPage() {
                 <button
                   onClick={handleSyncNeural}
                   disabled={isSyncing}
-                  className={`flex-1 py-7 rounded-[2rem] font-black text-[11px] uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-2xl group flex items-center justify-center gap-3 ${isBrainOnline
+                  className={`flex-1 py-7 rounded-xl font-black text-[11px] uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-strong group flex items-center justify-center gap-3 ${isBrainOnline
                     ? 'bg-indigo-500 text-white shadow-indigo-500/30'
                     : 'bg-white/5 text-white/20 border border-white/10'
                     }`}
@@ -264,7 +264,7 @@ export default function NeuralStudioPage() {
         </main>
 
         <aside className="lg:col-span-3 space-y-8">
-          <div className="glass p-10 rounded-[2rem] border-black/5 dark:border-white/5 bg-black/5 dark:bg-black/40 shadow-2xl space-y-10">
+          <div className="glass p-10 rounded-xl border-black/5 dark:border-white/5 bg-black/5 dark:bg-black/40 shadow-strong space-y-10">
             <div className="flex items-center gap-3">
               <Sparkles size={16} className="text-indigo-400" />
               <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-charcoal/40 dark:text-white/40">Neural Insights</h4>
@@ -289,7 +289,7 @@ export default function NeuralStudioPage() {
             </div>
           </div>
 
-          <div className="p-10 bg-indigo-500/5 rounded-[2rem] border border-indigo-500/10 flex flex-col items-center text-center gap-6 group">
+          <div className="p-10 bg-indigo-500/5 rounded-xl border border-indigo-500/10 flex flex-col items-center text-center gap-6 group">
             <Database size={32} className="text-indigo-400 group-hover:scale-110 transition-transform duration-700" />
             <h5 className="text-sm font-serif italic text-luxury-charcoal/60 dark:text-white/60">Dataset de Treino Ativo</h5>
             <div className="flex gap-1">

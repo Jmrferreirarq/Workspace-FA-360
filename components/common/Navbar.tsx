@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -6,22 +6,14 @@ import {
   Briefcase,
   Users,
   CheckSquare,
-  Box,
-  Mail,
   Bell,
   Search,
   FileText,
   TrendingUp,
   Calendar,
-  Layers,
-  ImageIcon,
   Calculator,
-  Shield,
-  Zap,
-  Brain,
-  Scale
+  Brain
 } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import NotificationPulse from './NotificationPulse';
 import BrandLogo from './BrandLogo';
@@ -29,7 +21,7 @@ import { Tooltip } from '../ui/Tooltip';
 
 interface NavItemProps {
   to: string;
-  icon: any;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
   label: string;
   specialColor?: string;
   statusDot?: boolean;
@@ -58,8 +50,7 @@ const NavItem = ({ to, icon: Icon, label, specialColor, statusDot, neuralOnline 
 };
 
 export default function Navbar() {
-  const { theme, toggleTheme } = useTheme();
-  const { locale, toggleLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const [pulseOpen, setPulseOpen] = useState(false);
   const [neuralOnline, setNeuralOnline] = useState(localStorage.getItem('fa-brain-status') === 'ONLINE');
 
@@ -102,13 +93,13 @@ export default function Navbar() {
       <NotificationPulse isOpen={pulseOpen} onClose={() => setPulseOpen(false)} />
 
       <div className="fixed top-6 left-6 z-[200] hidden lg:block print:hidden group">
-        <Link to="/" className="glass p-4 pr-10 rounded-[1.8rem] border-black/5 dark:border-white/5 flex items-center hover:border-luxury-gold/40 transition-all shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-luxury-white/50 dark:bg-black/20 backdrop-blur-xl">
+        <Link to="/" className="glass p-4 pr-10 rounded-xl border-black/5 dark:border-white/5 flex items-center hover:border-luxury-gold/40 transition-all shadow-lg bg-luxury-white/50 dark:bg-black/20">
           <BrandLogo animated={false} />
         </Link>
       </div>
 
       <nav className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-[300] w-[96vw] md:w-auto max-w-[98vw] print:hidden">
-        <div className="glass rounded-[2.5rem] md:rounded-[2rem] p-3 md:p-3.5 flex items-center gap-2 md:gap-3 shadow-[0_30px_70px_rgba(0,0,0,0.2)] dark:shadow-[0_30px_70px_rgba(0,0,0,0.6)] border-black/5 dark:border-white/10 lg:overflow-visible overflow-x-auto md:overflow-x-visible no-scrollbar md:no-scrollbar-off scroll-smooth snap-x">
+        <div className="glass rounded-xl md:rounded-lg p-3 md:p-3.5 flex items-center gap-2 md:gap-3 shadow-strong border-black/5 dark:border-white/10 lg:overflow-visible overflow-x-auto md:overflow-x-visible no-scrollbar md:no-scrollbar-off scroll-smooth snap-x">
 
           <div className="flex items-center px-2 border-r border-black/5 dark:border-white/5 gap-2 shrink-0 snap-start">
             <Tooltip content={t('sys_search')} position="top">
@@ -130,30 +121,20 @@ export default function Navbar() {
 
           <div className="flex items-center px-2 border-r border-black/5 dark:border-white/5 gap-2 shrink-0 snap-start">
             <NavItem to="/proposals" icon={FileText} label={t('proposals')} />
-            <NavItem to="/legal" icon={Scale} label="Legal" />
             <NavItem to="/financial" icon={TrendingUp} label={t('financial')} />
             <NavItem to="/calendar" icon={Calendar} label={t('calendar')} />
-            <NavItem to="/inbox" icon={Mail} label={t('inbox')} />
-          </div>
-
-          <div className="flex items-center px-2 border-r border-black/5 dark:border-white/5 gap-2 shrink-0 snap-start">
-            <NavItem to="/media" icon={ImageIcon} label={t('media')} />
-            <NavItem to="/dna" icon={Box} label={t('dna')} />
-            <NavItem to="/technical" icon={Layers} label={t('technical')} />
           </div>
 
           <div className="flex items-center pl-2 gap-1.5 shrink-0 pr-3 snap-start">
             <NavItem to="/calculator" icon={Calculator} label={t('calculator')} />
-            <NavItem to="/brand" icon={Shield} label={t('brand')} />
             <NavItem to="/neural" icon={Brain} label="Neural Studio" specialColor="bg-indigo-500 text-white shadow-[0_0_25px_#6366f1]" statusDot neuralOnline={neuralOnline} />
-            <NavItem to="/antigravity" icon={Zap} label={t('sys_antigravity')} />
 
             <div className="w-[1px] h-8 bg-black/10 dark:bg-white/10 mx-2"></div>
 
             <Tooltip content={t('notifications')} position="top">
               <button onClick={() => setPulseOpen(true)} className="p-3.5 rounded-xl opacity-50 hover:opacity-100 transition-all shrink-0 relative text-luxury-charcoal dark:text-white flex items-center justify-center">
                 <Bell size={22} />
-                {hasNotifications && <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-luxury-gold rounded-full animate-pulse shadow-[0_0_10px_#D4AF37]"></div>}
+                {hasNotifications && <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-luxury-gold rounded-full shadow-[0_0_10px_#D4AF37]"></div>}
               </button>
             </Tooltip>
           </div>

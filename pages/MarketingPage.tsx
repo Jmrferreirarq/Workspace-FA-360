@@ -1,10 +1,7 @@
 
 import React, { useState } from 'react';
 import {
-  Instagram,
-  Send,
   Image as ImageIcon,
-  Layout,
   Calendar as CalendarIcon,
   Sparkles,
   BarChart3,
@@ -28,156 +25,132 @@ export default function MarketingPage() {
   };
 
   return (
-    <div className="space-y-16 animate-in fade-in duration-1000 pb-32">
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-b border-luxury-charcoal/5 dark:border-white/5 pb-12">
-        <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <div className="h-[1px] w-12 bg-luxury-gold"></div>
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-luxury-gold">Estudio Criativo • Marketing Hub</p>
-          </div>
-          <h1 className="text-6xl md:text-8xl font-serif leading-none tracking-tighter italic">Comunicacao <span className="text-luxury-gold">Visual.</span></h1>
-          <p className="text-xl font-light opacity-50 max-w-2xl leading-relaxed">Gerencie a identidade digital do estudio, planeie publicacoes e utilize IA para gerar legendas e conteudos de prestigio.</p>
+    <div className="space-y-12 animate-in fade-in duration-1000 pb-32">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-white/10 pb-8">
+        <div className="space-y-4">
+          <h1 className="text-5xl font-serif italic leading-tight">Marketing <span className="text-luxury-gold">Hub</span></h1>
+          <p className="text-sm opacity-60 max-w-2xl">Gerencie conteúdo digital e métricas com IA</p>
         </div>
-        <div className="flex bg-white/5 p-1 rounded-full border border-white/10">
+        <div className="flex gap-2 bg-white/5 p-1 rounded-lg">
           <button
             onClick={() => setActiveView('CALENDAR')}
-            className={`px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${activeView === 'CALENDAR' ? 'bg-luxury-gold text-black' : 'opacity-60 hover:opacity-100'}`}
+            className={`px-6 py-2 rounded-md text-xs font-bold uppercase tracking-wider transition-all ${activeView === 'CALENDAR' ? 'bg-luxury-gold text-black' : 'opacity-60 hover:opacity-100'}`}
           >
             Calendario
           </button>
           <button
             onClick={() => setActiveView('ANALYTICS')}
-            className={`px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${activeView === 'ANALYTICS' ? 'bg-luxury-gold text-black' : 'opacity-60 hover:opacity-100'}`}
+            className={`px-6 py-2 rounded-md text-xs font-bold uppercase tracking-wider transition-all ${activeView === 'ANALYTICS' ? 'bg-luxury-gold text-black' : 'opacity-60 hover:opacity-100'}`}
           >
             Metricas
           </button>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8 space-y-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-8 space-y-8">
           {/* Content Creation Tool */}
-          <div className="glass p-10 rounded-[3rem] border-luxury-gold/20 space-y-8 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Sparkles size={120} className="text-luxury-gold" />
+          <div className="glass p-6 rounded-2xl border-luxury-gold/20 space-y-6 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+              <Sparkles size={80} className="text-luxury-gold" />
             </div>
             <div className="flex justify-between items-center">
-              <h3 className="text-3xl font-serif">Gerador de Conteudo IA</h3>
-              <span className="px-3 py-1 bg-luxury-gold/10 text-luxury-gold text-[11px] font-black uppercase tracking-widest rounded-full">Beta v2.4</span>
+              <h3 className="text-2xl font-serif">Gerador de Conteúdo IA</h3>
+              <span className="px-3 py-1 bg-luxury-gold/10 text-luxury-gold text-xs font-bold uppercase tracking-wider rounded-full">Beta</span>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-4">
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-[2rem] p-8 h-48 focus:ring-1 focus:ring-luxury-gold outline-none transition-all font-light text-lg italic"
-                placeholder="Descreva o projeto ou o tom da publicacao... Ex: 'Fotos da Villa Alentejo focadas na luz natural e minimalismo mediterranico.'"
+                className="w-full bg-white/5 border border-white/10 rounded-xl p-6 h-40 focus:ring-1 focus:ring-luxury-gold outline-none transition-all text-base"
+                placeholder="Descreva o projeto... Ex: 'Fotos da Villa Alentejo focadas na luz natural'"
               ></textarea>
 
               {aiResponse && (
-                <div className="p-8 bg-luxury-gold/5 border border-luxury-gold/10 rounded-[2rem] animate-in fade-in">
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold mb-4">Sugestoes de Legenda (IA)</h4>
+                <div className="p-6 bg-luxury-gold/5 border border-luxury-gold/10 rounded-xl animate-in fade-in">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-luxury-gold mb-3">Sugestões IA</h4>
                   <div className="whitespace-pre-wrap text-sm leading-relaxed opacity-80">{aiResponse}</div>
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3">
                 <button
                   onClick={handleGenerate}
                   disabled={isGenerating || !prompt}
-                  className="px-10 py-5 bg-luxury-gold text-black rounded-full font-black text-[10px] uppercase tracking-[0.2em] flex items-center gap-3 hover:scale-105 transition-all shadow-xl disabled:opacity-50 disabled:scale-100"
+                  className="px-6 py-3 bg-luxury-gold text-black rounded-lg font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:scale-105 transition-all shadow-lg disabled:opacity-50 disabled:scale-100"
                 >
                   {isGenerating ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
-                  Gerar Legendas de Luxo
+                  Gerar Conteúdo
                 </button>
-                <button className="px-10 py-5 bg-white/5 border border-white/10 rounded-full font-black text-[10px] uppercase tracking-[0.2em] flex items-center gap-3 hover:bg-white/10 transition-all">
-                  <ImageIcon size={16} /> Carregar Media
+                <button className="px-6 py-3 bg-white/5 border border-white/10 rounded-lg font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:bg-white/10 transition-all">
+                  <ImageIcon size={16} /> Upload
                 </button>
               </div>
             </div>
           </div>
 
-          <div className="space-y-8">
-            <div className="flex justify-between items-end">
-              <h3 className="text-3xl font-serif italic">Feed Planeado</h3>
-              <button className="text-[10px] font-black uppercase tracking-widest border-b border-white/10 pb-1 opacity-60 hover:opacity-100 transition-opacity">Abrir Instagram Hub</button>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-2xl font-serif">Feed Planeado</h3>
+              <button className="text-xs font-bold uppercase tracking-wider opacity-60 hover:opacity-100 transition-opacity">Instagram →</button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="col-span-full py-20 text-center glass rounded-[2rem] border-dashed border-white/10 opacity-30">
-                <p className="text-[10px] uppercase font-black tracking-widest leading-relaxed italic">Nenhum post agendado.</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="col-span-full py-12 text-center glass rounded-xl border-dashed border-white/10 opacity-30">
+                <p className="text-xs uppercase font-bold tracking-wider">Nenhum post agendado</p>
               </div>
             </div>
           </div>
         </div>
 
-        <aside className="lg:col-span-4 space-y-8">
-          <div className="glass p-10 rounded-[3rem] space-y-10 border-white/5">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-50">Alcance Digital</h4>
-            <div className="space-y-8">
-              <div className="flex justify-between items-end border-b border-white/5 pb-6">
+        <aside className="lg:col-span-4 space-y-6">
+          <div className="glass p-6 rounded-2xl space-y-6 border-white/5">
+            <h4 className="text-xs font-bold uppercase tracking-wider opacity-50">Alcance Digital</h4>
+            <div className="space-y-4">
+              <div className="flex justify-between items-end border-b border-white/5 pb-4">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest opacity-60 mb-2">Seguidores</p>
-                  <p className="text-3xl font-serif italic">18.4K</p>
+                  <p className="text-xs uppercase tracking-wider opacity-60 mb-1">Seguidores</p>
+                  <p className="text-2xl font-serif">18.4K</p>
                 </div>
-                <span className="text-emerald-500 text-[10px] font-black uppercase tracking-widest">+2.4%</span>
+                <span className="text-emerald-500 text-xs font-bold">+2.4%</span>
               </div>
-              <div className="flex justify-between items-end border-b border-white/5 pb-6">
+              <div className="flex justify-between items-end border-b border-white/5 pb-4">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest opacity-60 mb-2">Impressoes</p>
-                  <p className="text-3xl font-serif italic">145K</p>
+                  <p className="text-xs uppercase tracking-wider opacity-60 mb-1">Impressões</p>
+                  <p className="text-2xl font-serif">145K</p>
                 </div>
-                <span className="text-emerald-500 text-[10px] font-black uppercase tracking-widest">+12.8%</span>
+                <span className="text-emerald-500 text-xs font-bold">+12.8%</span>
               </div>
               <div className="flex justify-between items-end">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest opacity-60 mb-2">Interacao</p>
-                  <p className="text-3xl font-serif italic">4.2%</p>
+                  <p className="text-xs uppercase tracking-wider opacity-60 mb-1">Interação</p>
+                  <p className="text-2xl font-serif">4.2%</p>
                 </div>
-                <span className="text-red-500 text-[10px] font-black uppercase tracking-widest">-0.4%</span>
+                <span className="text-red-500 text-xs font-bold">-0.4%</span>
               </div>
             </div>
           </div>
 
-          <div className="glass p-10 rounded-[3rem] space-y-8 border-luxury-gold/10 bg-luxury-gold/[0.01]">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-50">Datas Criticas</h4>
-            <div className="space-y-6">
-              <div className="flex items-start gap-4 p-5 bg-luxury-gold/5 rounded-2xl border-l-4 border-luxury-gold">
-                <CalendarIcon size={18} className="text-luxury-gold shrink-0 mt-1" />
+          <div className="glass p-6 rounded-2xl space-y-4 border-luxury-gold/10 bg-luxury-gold/[0.01]">
+            <h4 className="text-xs font-bold uppercase tracking-wider opacity-50">Datas Críticas</h4>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 p-4 bg-luxury-gold/5 rounded-xl border-l-4 border-luxury-gold">
+                <CalendarIcon size={16} className="text-luxury-gold shrink-0 mt-1" />
                 <div>
-                  <p className="text-sm font-serif">Dia Mundial da Arquitetura</p>
-                  <p className="text-[10px] opacity-60 uppercase tracking-widest mt-1">Faltam 8 dias</p>
-                  <button className="text-[11px] font-black uppercase tracking-widest text-luxury-gold mt-4 flex items-center gap-2">Gerar Campanha <ChevronRight size={10} /></button>
+                  <p className="text-sm font-medium">Dia Mundial da Arquitetura</p>
+                  <p className="text-xs opacity-60 mt-1">Faltam 8 dias</p>
+                  <button className="text-xs font-bold text-luxury-gold mt-3 flex items-center gap-1 hover:gap-2 transition-all">Gerar Campanha <ChevronRight size={12} /></button>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-5 bg-white/5 rounded-2xl">
-                <BarChart3 size={18} className="opacity-50 shrink-0 mt-1" />
+              <div className="flex items-start gap-3 p-4 bg-white/5 rounded-xl">
+                <BarChart3 size={16} className="opacity-50 shrink-0 mt-1" />
                 <div>
-                  <p className="text-sm font-serif">Relatorio Trimestral Q3</p>
-                  <p className="text-[10px] opacity-60 uppercase tracking-widest mt-1">Faltam 12 dias</p>
+                  <p className="text-sm font-medium">Relatório Trimestral Q3</p>
+                  <p className="text-xs opacity-60 mt-1">Faltam 12 dias</p>
                 </div>
               </div>
             </div>
           </div>
         </aside>
-      </div>
-    </div>
-  );
-}
-
-function PostCard({ img, date, status }: any) {
-  return (
-    <div className="glass rounded-[2.5rem] overflow-hidden group cursor-pointer border-white/5 hover:border-luxury-gold/30 transition-all shadow-xl">
-      <div className="h-56 relative overflow-hidden">
-        <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-        <div className="absolute top-6 right-6">
-          <span className={`text-[11px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${status === 'Agendado' ? 'bg-emerald-500 text-white' : 'bg-luxury-gold text-black'}`}>{status}</span>
-        </div>
-      </div>
-      <div className="p-8 space-y-4">
-        <div className="flex justify-between items-center opacity-50">
-          <span className="text-[10px] font-mono tracking-widest uppercase">{date}</span>
-          <Instagram size={14} />
-        </div>
-        <p className="text-sm font-serif italic line-clamp-2">"A luz como elemento esculpidor da forma. O silencio que materializa a visao."</p>
       </div>
     </div>
   );

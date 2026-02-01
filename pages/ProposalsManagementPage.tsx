@@ -59,7 +59,7 @@ export default function ProposalsManagementPage() {
         onAction={() => {}}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Main Interface */}
         <main className="lg:col-span-9 space-y-12">
           <div className="flex justify-between items-center px-4">
@@ -92,7 +92,7 @@ export default function ProposalsManagementPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ delay: i * 0.1 }}
-                    className="glass p-8 rounded-[3rem] border-black/5 dark:border-white/5 group hover:border-luxury-gold/20 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-2xl relative overflow-hidden bg-luxury-white/50 dark:bg-black/20"
+                    className="glass p-8 rounded-2xl border-black/5 dark:border-white/5 group hover:border-luxury-gold/20 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-strong relative overflow-hidden bg-luxury-white/50 dark:bg-black/20"
                   >
                     <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button className="p-2 text-luxury-charcoal/20 dark:text-white/20 hover:text-luxury-gold"><MoreVertical size={20} /></button>
@@ -139,7 +139,7 @@ export default function ProposalsManagementPage() {
                   </Motion.div>
                 ))
               ) : (
-                <div className="col-span-full py-32 flex flex-col items-center justify-center text-center space-y-8 glass rounded-[4rem] border-dashed border-black/10 dark:border-white/10 bg-luxury-white/30 dark:bg-white/[0.02]">
+                <div className="col-span-full py-32 flex flex-col items-center justify-center text-center space-y-8 glass rounded-2xl border-dashed border-black/10 dark:border-white/10 bg-luxury-white/30 dark:bg-white/[0.02]">
                   <div className="p-10 bg-luxury-gold/5 rounded-full border border-luxury-gold/10">
                     <TrendingUp size={48} className="text-luxury-gold opacity-30" />
                   </div>
@@ -158,13 +158,13 @@ export default function ProposalsManagementPage() {
 
         {/* Sales AI Sidebar */}
         <aside className="lg:col-span-3 space-y-10">
-          <div className="glass p-10 rounded-[3rem] border-luxury-gold/20 bg-luxury-gold/[0.05] dark:bg-luxury-gold/[0.02] space-y-8 shadow-[0_10px_40px_rgba(212,175,55,0.05)] dark:shadow-2xl relative overflow-hidden">
+          <div className="glass p-10 rounded-2xl border-luxury-gold/20 bg-luxury-gold/[0.05] dark:bg-luxury-gold/[0.02] space-y-8 shadow-[0_10px_40px_rgba(212,175,55,0.05)] dark:shadow-strong relative overflow-hidden">
             <div className="flex items-center gap-3">
               <Sparkles size={20} className="text-luxury-gold" />
               <h4 className="text-[10px] font-black uppercase tracking-widest text-luxury-gold">{t('prop_insight_title')}</h4>
             </div>
             <div className="space-y-6">
-              <div className="p-6 bg-white/40 dark:bg-white/5 rounded-[2rem] border-l-4 border-luxury-gold space-y-4 shadow-sm dark:shadow-none">
+              <div className="p-6 bg-white/40 dark:bg-white/5 rounded-xl border-l-4 border-luxury-gold space-y-4 shadow-sm dark:shadow-none">
                 {proposals.length > 0 ? (
                   <>
                     <p className="text-xs font-light italic opacity-60 leading-relaxed text-luxury-charcoal dark:text-white">
@@ -183,7 +183,7 @@ export default function ProposalsManagementPage() {
             </div>
           </div>
 
-          <div className="glass p-10 rounded-[3.5rem] border-black/5 dark:border-white/5 bg-luxury-white/50 dark:bg-white/[0.02] space-y-10 shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-none">
+          <div className="glass p-10 rounded-2xl border-black/5 dark:border-white/5 bg-luxury-white/50 dark:bg-white/[0.02] space-y-10 shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-none">
             <h4 className="text-[10px] font-black uppercase tracking-widest opacity-40 text-luxury-charcoal dark:text-white text-center">{t('prop_summary_title')}</h4>
             <div className="space-y-12 text-center">
               <div>
@@ -203,7 +203,7 @@ export default function ProposalsManagementPage() {
             </div>
           </div>
 
-          <div className="p-10 bg-emerald-500/5 rounded-[3.5rem] border border-emerald-500/10 flex flex-col items-center text-center gap-6 group hover:bg-emerald-500/10 transition-colors">
+          <div className="p-10 bg-emerald-500/5 rounded-2xl border border-emerald-500/10 flex flex-col items-center text-center gap-6 group hover:bg-emerald-500/10 transition-colors">
             <div className="p-4 bg-emerald-500/10 rounded-2xl text-emerald-500">
               <FileCheck size={32} />
             </div>

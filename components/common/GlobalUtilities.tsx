@@ -1,4 +1,4 @@
-﻿
+
 import React from 'react';
 import { Sun, Moon, Globe } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
@@ -12,7 +12,7 @@ export default function GlobalUtilities() {
 
     return (
         <div className="fixed top-6 right-6 z-[200] hidden lg:flex items-center gap-2 print:hidden">
-            <div className="glass p-2 rounded-full border-white/5 flex items-center gap-1.5 bg-black/20 backdrop-blur-xl shadow-2xl">
+            <div className="glass p-2 rounded-full border-white/5 flex items-center gap-1.5 bg-black/20 backdrop-blur-xl shadow-strong">
                 <Tooltip content={t('sys_language')} position="bottom">
                   <button
                       onClick={toggleLanguage}

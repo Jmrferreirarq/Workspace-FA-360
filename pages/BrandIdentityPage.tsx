@@ -31,9 +31,9 @@ export default function BrandIdentityPage() {
             title={<>{t('brand_title').split(' ')[0]} <span className="text-luxury-gold">{t('brand_title').split(' ').slice(1).join(' ')}.</span></>}
          />
 
-         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-8 space-y-16">
-               <section className="glass p-8 rounded-[2rem] border-white/5 space-y-12 shadow-2xl">
+               <section className="glass p-8 rounded-xl border-white/5 space-y-12 shadow-strong">
                   <div className="flex justify-between items-center">
                      <h3 className="text-3xl font-serif italic">{t('brand_config_base')}</h3>
                      <button
@@ -64,7 +64,7 @@ export default function BrandIdentityPage() {
                   </div>
                </section>
 
-               <section className="glass p-8 rounded-[2rem] border-white/5 space-y-12 shadow-2xl">
+               <section className="glass p-8 rounded-xl border-white/5 space-y-12 shadow-strong">
                   <div className="flex justify-between items-center">
                      <h3 className="text-3xl font-serif italic">{t('brand_palette')}</h3>
                      <div className="flex gap-2">
@@ -81,7 +81,7 @@ export default function BrandIdentityPage() {
                   </div>
                </section>
 
-               <section className="glass p-8 rounded-[2rem] border-white/5 space-y-12">
+               <section className="glass p-8 rounded-xl border-white/5 space-y-12">
                   <h3 className="text-3xl font-serif italic">{t('brand_assets')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                      <AssetBox icon={<ImageIcon />} label="Logo Vector (.SVG)" />
@@ -93,7 +93,7 @@ export default function BrandIdentityPage() {
             </div>
 
             <aside className="lg:col-span-4 space-y-12">
-               <div className="glass p-10 rounded-[3rem] space-y-10 border-luxury-gold/20 bg-luxury-gold/[0.01]">
+               <div className="glass p-10 rounded-2xl space-y-10 border-luxury-gold/20 bg-luxury-gold/[0.01]">
                   <div className="flex items-center gap-3 text-luxury-gold">
                      <Sparkles size={20} />
                      <h4 className="text-[10px] font-black uppercase tracking-[0.2em]">{t('brand_voice_ia')}</h4>
@@ -114,7 +114,7 @@ export default function BrandIdentityPage() {
                   </div>
                </div>
 
-               <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10 flex flex-col items-center text-center gap-6">
+               <div className="p-10 bg-white/5 rounded-2xl border border-white/10 flex flex-col items-center text-center gap-6">
                   <Download size={32} className="opacity-50" />
                   <h4 className="text-xl font-serif italic">{t('brand_book_download')}</h4>
                   <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Export guidelines (PDF)</p>
@@ -129,7 +129,7 @@ export default function BrandIdentityPage() {
 function ColorBox({ color, name, label }: any) {
    return (
       <div className="space-y-4 group text-luxury-charcoal dark:text-white">
-         <div className="aspect-square rounded-[2rem] border border-black/10 dark:border-white/10 group-hover:scale-105 transition-all duration-500 shadow-xl overflow-hidden">
+         <div className="aspect-square rounded-xl border border-black/10 dark:border-white/10 group-hover:scale-105 transition-all duration-500 shadow-xl overflow-hidden">
             <div className="w-full h-full" style={{ backgroundColor: color }}></div>
          </div>
          <div>

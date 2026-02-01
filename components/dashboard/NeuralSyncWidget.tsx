@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Database, Wifi, AlertTriangle, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
@@ -17,7 +17,7 @@ export default function NeuralSyncWidget({ status }: NeuralSyncProps) {
   const isOnline = status.status === 'ONLINE';
 
   return (
-    <div className={`md:col-span-1 glass p-6 rounded-[2rem] border-black/5 dark:border-white/5 flex flex-col justify-between h-full ${isOnline ? 'bg-luxury-gold/[0.05] dark:bg-luxury-gold/[0.02]' : 'bg-rose-500/[0.05] dark:bg-red-500/[0.02]'} shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-none transition-all`}>
+    <div className={`md:col-span-1 glass p-6 rounded-xl border-black/5 dark:border-white/5 flex flex-col justify-between h-full ${isOnline ? 'bg-luxury-gold/[0.05] dark:bg-luxury-gold/[0.02]' : 'bg-rose-500/[0.05] dark:bg-red-500/[0.02]'} shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-none transition-all`}>
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
             <div className={`p-2 rounded-xl ${isOnline ? 'bg-luxury-gold/10' : 'bg-white/40 dark:bg-white/5'}`}>
